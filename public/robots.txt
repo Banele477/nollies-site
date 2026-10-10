@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://Banele477.github.io/nollies-site/sitemap.xml

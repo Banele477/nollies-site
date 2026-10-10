@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Orders | Nollie's admin</title>
+<style>
+body{font-family:system-ui,sans-serif;margin:0;background:#F7F3FA;color:#22112B}
+header{background:#3B1C4A;color:#fff;padding:1rem;display:flex;gap:1rem;align-items:center;justify-content:space-between}
+h1{font-size:1.2rem;margin:0}
+main{padding:1rem;max-width:900px;margin:auto}
+button{background:#F6A21E;border:0;border-radius:999px;padding:.5rem 1rem;font-weight:700;cursor:pointer}
+.order{background:#fff;border:1px solid #E2D8EA;border-radius:12px;padding:1rem;margin-bottom:.8rem}
+.order h2{font-size:1rem;margin:0 0 .4rem}
+.order ul{margin:.4rem 0;padding-left:1.2rem}
+.meta{color:#6B5A75;font-size:.9rem}
+a.wa{display:inline-block;margin-top:.4rem;color:#1b7f45;font-weight:700}
+#msg{color:#8E1B33;font-weight:600}
+</style>
+</head>
+<body>
+<header><h1>Orders</h1><button id="reload" type="button">Refresh</button></header>
+<main>
+  <p id="msg"></p>
+  <p class="meta" id="summary"></p>
+  <div id="list"></div>
+</main>
+<script>
+(function(){
+  var key=sessionStorage.getItem('nk')||'';
+  function load(){
+    if(!key){key=prompt('Admin key:')||'';sessionStorage.setItem('nk',key);}
+    fetch('api/orders',{headers:{'X-Admin-Key':key}}).then(function(r){
+      if(r.status===401){sessionStorage.removeItem('nk');key='';throw new Error('Wrong or missing admin key. Refresh to try again.');}
+      return r.json();
+    }).then(render).catch(function(e){document.getElementById('msg').textContent=e.message;});
+  }
+  function el(t,txt,cls){var e=document.createElement(t);if(txt!=null)e.textContent=txt;if(cls)e.className=cls;return e;}
+  function render(rows){
+    document.getElementById('msg').textContent='';
+    var list=document.getElementById('list');list.innerHTML='';
+    var sum=0;rows.forEach(function(r){if(r.type==='order')sum+=r.total||0;});
+    document.getElementById('summary').textContent=rows.length+' requests. Order value so far: R'+sum.toLocaleString('en-ZA');
+    if(!rows.length)list.appendChild(el('p','No orders yet.'));
+    rows.forEach(function(r){
+      var d=el('div',null,'order');
+      d.appendChild(el('h2',(r.type==='bulk'?'Bulk quote ':'Order ')+(r.id||'')+' - '+r.name));
+      d.appendChild(el('div',r.received+' | '+r.phone+(r.method?' | '+r.method:''),'meta'));
+      if(r.address)d.appendChild(el('div','Address: '+r.address));
+      if(r.items){var ul=el('ul');r.items.forEach(function(i){ul.appendChild(el('li',i.qty+' x '+i.name));});d.appendChild(ul);}
+      if(r.type==='bulk')d.appendChild(el('div',r.item+', qty '+r.qty+(r.date?', needed '+r.date:'')));
+      if(r.total!=null)d.appendChild(el('strong','Total: R'+r.total+(r.rush?' (rush)':'')));
+      if(r.notes)d.appendChild(el('div','Notes: '+r.notes,'meta'));
+      var a=el('a','Reply on WhatsApp','wa');
+      var n=String(r.phone).replace(/\D/g,'');if(n.charAt(0)==='0')n='27'+n.slice(1);
+      a.href='https://wa.me/'+n;a.target='_blank';a.rel='noopener';
+      d.appendChild(document.createElement('br'));d.appendChild(a);
+      list.appendChild(d);
+    });
+  }
+  document.getElementById('reload').addEventListener('click',load);
+  load();
+})();
+</script>
+</body>
+</html>

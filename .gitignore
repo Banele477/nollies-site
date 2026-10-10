@@ -1,0 +1,5 @@
+data/
+.siteurl
+.gverify
+*.bak
+__pycache__/
