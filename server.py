@@ -39,6 +39,8 @@ def clean(v, n=300):
 
 
 class Handler(SimpleHTTPRequestHandler):
+    extensions_map = {**SimpleHTTPRequestHandler.extensions_map, ".webmanifest": "application/manifest+json"}
+
     def __init__(self, *a, **kw):
         super().__init__(*a, directory=PUBLIC, **kw)
 
@@ -64,7 +66,7 @@ class Handler(SimpleHTTPRequestHandler):
         if d.get("type") not in ("order", "bulk") or not clean(d.get("name")) or not clean(d.get("phone")):
             return self.send_json(400, {"error": "missing fields"})
         row = {"received": time.strftime("%Y-%m-%d %H:%M:%S"), "status": "new"}
-        for k in ("type", "id", "name", "phone", "method", "address", "notes", "item", "date"):
+        for k in ("type", "id", "name", "phone", "method", "address", "notes", "item", "date", "day", "slot"):
             if k in d:
                 row[k] = clean(d[k])
         for k in ("subtotal", "delivery", "rushFee", "total", "qty"):

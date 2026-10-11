@@ -3,3 +3,4 @@ data/
 .gverify
 *.bak
 __pycache__/
+.gsc-key.json

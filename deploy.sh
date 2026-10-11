@@ -4,6 +4,8 @@
 #   ./deploy.sh                    publish your latest changes
 #   ./deploy.sh watch              publish automatically whenever files change
 #   ./deploy.sh verify CODE        add the Google Search Console verification code
+#   ./deploy.sh google EMAIL       fully automatic Google Search Console setup
+#   ./deploy.sh report             see your Google searches, clicks and views
 cd "$(dirname "$0")" || exit 1
 SITEFILE=.siteurl
 VERFILE=.gverify
@@ -25,6 +27,7 @@ push() {
   git commit -qm "${1:-Update site $(date '+%F %H:%M')}"
   if git push -q origin main; then
     echo "Published. Live in about a minute at: $(cat $SITEFILE 2>/dev/null)"
+    [ -f .gsc-key.json ] && { (sleep 90; python gsc.py sitemap >/dev/null 2>&1) & }
   else
     echo "Push failed. Check your internet, or run: gh auth login -s workflow"
     return 1
@@ -69,6 +72,8 @@ watch() {
 case "$1" in
   init)   shift; init "$@" ;;
   watch)  watch ;;
+  google) python gsc.py setup "$2" ;;
+  report) python gsc.py report ;;
   verify) [ -n "$2" ] || { echo "Usage: ./deploy.sh verify CODE"; exit 1; }
           echo "$2" > $VERFILE; push "Add Google verification" ;;
   *)      push "$1" ;;

@@ -3,22 +3,37 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Nollie's Small Business | Juice, perfume and combos delivered</title>
-<meta name="description" content="Order affordable juice, perfume, cereal, hampers and combo packs online. Send your order on WhatsApp and get reliable local delivery.">
+<title>Nollie's | Juice, Perfume and Combo Packs Delivered</title>
+<meta name="description" content="Affordable juice, perfume, cereal and gift hampers. Order on WhatsApp and get reliable local delivery. Bulk 5L juice for events and funerals.">
+<meta name="author" content="Nollie's Small Business">
+<meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="theme-color" content="#3B1C4A">
-<meta name="robots" content="index, follow">
+<meta name="geo.region" content="ZA">
 <link rel="canonical" href="https://Banele477.github.io/nollies-site/">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="img/icon-180.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Nollie's">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%A7%83%3C/text%3E%3C/svg%3E">
 <meta property="og:type" content="website">
+<meta property="og:locale" content="en_ZA">
 <meta property="og:site_name" content="Nollie's Small Business">
-<meta property="og:title" content="Nollie's Small Business | Juice, perfume and combos delivered">
-<meta property="og:description" content="Order affordable juice, perfume, cereal, hampers and combo packs. Send your order on WhatsApp and get reliable local delivery.">
+<meta property="og:title" content="Nollie's | Juice, Perfume and Combo Packs Delivered">
+<meta property="og:description" content="Affordable juice, perfume, cereal and gift hampers. Order on WhatsApp and get reliable local delivery.">
 <meta property="og:url" content="https://Banele477.github.io/nollies-site/">
-<meta name="twitter:card" content="summary">
+<meta property="og:image" content="https://Banele477.github.io/nollies-site/img/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Nollie's Small Business: juice, perfume and combo packs delivered">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Nollie's | Juice, Perfume and Combo Packs Delivered">
+<meta name="twitter:description" content="Affordable juice, perfume, cereal and gift hampers. Order on WhatsApp and get reliable local delivery.">
+<meta name="twitter:image" content="https://Banele477.github.io/nollies-site/img/og.png">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Store","name":"Nollie's Small Business",
 "description":"Affordable juice, perfume, cereal, hampers and combo packs with WhatsApp ordering and local delivery.",
-"url":"https://Banele477.github.io/nollies-site/","currenciesAccepted":"ZAR","paymentAccepted":"Cash, EFT","priceRange":"R",
+"url":"https://Banele477.github.io/nollies-site/","image":"https://Banele477.github.io/nollies-site/img/og.png","currenciesAccepted":"ZAR","paymentAccepted":"Cash, EFT","priceRange":"R",
 "areaServed":"South Africa","knowsAbout":["Juice","Perfume","Cereal","Gift hampers","Bulk juice for events"]}
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -81,6 +96,10 @@
 
   <section class="shop" id="shop">
     <div class="wrap">
+      <div class="welcome" id="welcome" hidden>
+        <p id="welcomeText"></p>
+        <button class="btn btn-primary" type="button" id="welcomeBtn">Order the same again</button>
+      </div>
       <div class="shop-head">
         <h2>Our products</h2>
         <label class="search">
@@ -189,10 +208,13 @@
       <p><a data-social="facebook" href="#" target="_blank" rel="noopener">Facebook</a> · <a data-social="instagram" href="#" target="_blank" rel="noopener">Instagram</a></p>
     </div>
   </div>
+  <p class="wrap" id="installRow" hidden><button type="button" class="btn-inline" id="installBtn">Install the Nollie's app on your phone</button></p>
   <p class="copy wrap">&copy; <span id="year"></span> Nollie's Small Business</p>
 </footer>
 
 <a class="wa-float" data-wa-link href="#" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">WhatsApp</a>
+
+<button class="cartbar" id="cartBar" type="button" hidden><span id="cartBarText"></span><span>View cart</span></button>
 
 <div class="overlay" id="overlay" hidden></div>
 <aside class="drawer" id="drawer" aria-label="Your cart" aria-hidden="true">
@@ -202,7 +224,10 @@
   </div>
   <div class="drawer-body">
     <ul class="cart-list" id="cartList"></ul>
-    <p class="empty" id="cartEmpty">Your cart is empty. Add something from the shop.</p>
+    <div id="cartEmpty">
+      <p class="empty">Your cart is empty. Add something from the shop.</p>
+      <button class="btn btn-primary" type="button" id="reorderBtn" hidden>Order the same as last time</button>
+    </div>
 
     <form id="checkoutForm" novalidate>
       <fieldset class="method">
@@ -214,7 +239,17 @@
       <label>WhatsApp number<input name="phone" required inputmode="tel" autocomplete="tel" placeholder="e.g. 082 123 4567"></label>
       <label id="addrRow">Delivery address<textarea name="address" rows="2" autocomplete="street-address"></textarea></label>
       <label class="check" id="rushRow"><input type="checkbox" name="rush"> Rush delivery (same day) <span data-cfg="rushFeeText"></span></label>
-      <label>Notes<textarea name="notes" rows="2" placeholder="Flavours, gift wrapping, best time to deliver"></textarea></label>
+      <div class="slot" id="slotRow">
+        <label>Preferred delivery day<input type="date" name="day"></label>
+        <label>Preferred time<select name="slot" id="slotSel"></select></label>
+      </div>
+      <label>Notes<textarea name="notes" rows="2" placeholder="Flavours, gift wrapping, anything we should know"></textarea></label>
+      <label class="check"><input type="checkbox" name="remember" checked> Remember my details on this phone</label>
+
+      <div class="ship" id="ship" hidden>
+        <p id="shipText"></p>
+        <div class="track"><span id="shipFill"></span></div>
+      </div>
 
       <dl class="totals">
         <div><dt>Subtotal</dt><dd id="tSub">R0</dd></div>

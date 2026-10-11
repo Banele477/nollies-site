@@ -48,6 +48,7 @@ a.wa{display:inline-block;margin-top:.4rem;color:#1b7f45;font-weight:700}
       d.appendChild(el('h2',(r.type==='bulk'?'Bulk quote ':'Order ')+(r.id||'')+' - '+r.name));
       d.appendChild(el('div',r.received+' | '+r.phone+(r.method?' | '+r.method:''),'meta'));
       if(r.address)d.appendChild(el('div','Address: '+r.address));
+      if(r.day||r.slot)d.appendChild(el('div','Deliver: '+(r.day||'any day')+', '+(r.slot||'any time')));
       if(r.items){var ul=el('ul');r.items.forEach(function(i){ul.appendChild(el('li',i.qty+' x '+i.name));});d.appendChild(ul);}
       if(r.type==='bulk')d.appendChild(el('div',r.item+', qty '+r.qty+(r.date?', needed '+r.date:'')));
       if(r.total!=null)d.appendChild(el('strong','Total: R'+r.total+(r.rush?' (rush)':'')));

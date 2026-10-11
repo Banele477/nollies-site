@@ -1,0 +1,16 @@
+{
+  "name": "Nollie's Small Business",
+  "short_name": "Nollie's",
+  "description": "Juice, perfume, cereal, hampers and combo packs. Order on WhatsApp.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#3B1C4A",
+  "theme_color": "#3B1C4A",
+  "lang": "en-ZA",
+  "icons": [
+    { "src": "img/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "img/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}
