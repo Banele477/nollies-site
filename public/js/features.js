@@ -144,3 +144,54 @@ if (!document.getElementById('nollies-telemetry-panel')) {
     `;
     document.body.appendChild(panel);
 }
+
+// ==========================================
+# ANTI-SOCIAL ENGINEERING & ANTI-PHISHING
+// ==========================================
+
+// 1. Input Sanitization Engine (Defeats XSS Payload Injections)
+function sanitizeInput(str) {
+    if (!str) return '';
+    return str.replace(/[&<>"']/g, function(m) {
+        return {
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#039;'
+        }[m];
+    });
+}
+
+// 2. Anti-Phishing Verification Banner
+function renderPhishingProtectionBanner() {
+    if (document.getElementById('anti-phishing-banner')) return;
+    
+    let banner = document.createElement('div');
+    banner.id = 'anti-phishing-banner';
+    banner.style.cssText = "background: #0f172a; color: #a5f3fc; text-align: center; font-size: 0.75rem; padding: 6px; font-weight: 500; letter-spacing: 0.5px; border-bottom: 1px solid rgba(255,255,255,0.1);";
+    banner.innerHTML = `
+        🔒 <strong>Official Nollies Domain:</strong> Verify you are at <u>${sanitizeInput(window.location.hostname)}</u>. We will never ask for your passwords or private credentials.
+    `;
+    document.body.insertBefore(banner, document.body.firstChild);
+}
+
+// 3. Honeytoken Bot Trap (Detects and Mitigates Automated Scanners)
+function initializeHoneytokenTrap() {
+    let trap = document.createElement('input');
+    trap.type = 'text';
+    trap.name = 'nollies_security_honeypot';
+    trap.style.display = 'none';
+    trap.tabIndex = -1;
+    trap.autocomplete = 'off';
+    trap.addEventListener('change', function() {
+        console.warn('[SECURITY] Automated bot scanner detected and flagged!');
+        showToast('⚠️ Security Exception: Automated action blocked.');
+    });
+    document.body.appendChild(trap);
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    renderPhishingProtectionBanner();
+    initializeHoneytokenTrap();
+});

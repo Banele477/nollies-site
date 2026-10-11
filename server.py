@@ -121,3 +121,20 @@ def record_visitor_telemetry(client_ip, user_agent):
             f.write(json.dumps(log_entry) + "\n")
     except Exception as e:
         print(f"Telemetry logging error: {e}")
+
+# ==========================================
+# ENTERPRISE SECURITY & ANTI-CRIME HEADERS
+# ==========================================
+SECURITY_HEADERS = {
+    "Content-Security-Policy": "default-src 'self' https: 'unsafe-inline' 'unsafe-eval'; img-src 'self' https: data:; frame-ancestors 'none';",
+    "X-Frame-Options": "DENY",
+    "X-Content-Type-Options": "nosniff",
+    "X-XSS-Protection": "1; mode=block",
+    "Referrer-Policy": "strict-origin-when-cross-origin",
+    "Strict-Transport-Security": "max-age=31536000; includeSubDomains"
+}
+
+def apply_security_headers(response_headers):
+    for key, value in SECURITY_HEADERS.items():
+        response_headers[key] = value
+    return response_headers
