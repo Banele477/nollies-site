@@ -1,19 +1,24 @@
 const CACHE_NAME = 'nollies-v1';
 const ASSETS_TO_CACHE = [
   '/',
+  '/public/unique_style.css',
   '/public/js/products.js',
-  '/public/js/config.js',
-  '/public/js/features.js'
+  '/public/js/features.js',
+  '/public/manifest.json'
 ];
 
-self.addEventListener('install', (e) => {
-  e.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => cache.addAll(ASSETS_TO_CACHE))
+self.addEventListener('install', (event) => {
+  event.waitUntil(
+    caches.open(CACHE_NAME).then((cache) => {
+      return cache.addAll(ASSETS_TO_CACHE);
+    })
   );
 });
 
-self.addEventListener('fetch', (e) => {
-  e.respondWith(
-    caches.match(e.request).then((res) => res || fetch(e.request))
+self.addEventListener('fetch', (event) => {
+  event.respondWith(
+    caches.match(event.request).then((response) => {
+      return response || fetch(event.request);
+    })
   );
 });

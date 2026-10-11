@@ -1,0 +1,22 @@
+{
+  "short_name": "Nollies",
+  "name": "Nollies Enterprise Ecosystem",
+  "icons": [
+    {
+      "src": "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=192&auto=format&fit=crop&q=80",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=512&auto=format&fit=crop&q=80",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#07090e",
+  "theme_color": "#6366f1",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "description": "High-performance digital products, secure automation, and real-time operations."
+}
