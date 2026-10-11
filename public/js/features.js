@@ -338,3 +338,24 @@ function buildExceptionalLayout() {
 }
 
 document.addEventListener("DOMContentLoaded", buildExceptionalLayout);
+
+// Automated Real-World Network Video Background Injector
+function initAnimatedVideoBackground() {
+    if (document.getElementById('nollies-bg-video-container')) return;
+
+    let container = document.createElement('div');
+    container.id = 'nollies-bg-video-container';
+    
+    // High-performance royalty-free ambient network video stream
+    container.innerHTML = `
+        <video id="nollies-bg-video" autoplay loop muted playsinline poster="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=1200&auto=format&fit=crop&q=80">
+            <source src="https://assets.mixkit.co/videos/preview/mixkit-digital-animation-of-screens-and-data-41535-large.mp4" type="video/mp4">
+            <source src="https://assets.mixkit.co/videos/preview/mixkit-network-of-lines-and-dots-in-blue-31515-large.mp4" type="video/mp4">
+        </video>
+        <div class="video-overlay-gradient"></div>
+    `;
+
+    document.body.prepend(container);
+}
+
+document.addEventListener("DOMContentLoaded", initAnimatedVideoBackground);
