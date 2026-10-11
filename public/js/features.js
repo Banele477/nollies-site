@@ -285,3 +285,56 @@ function processChatInput() {
         history.scrollTop = history.scrollHeight;
     }, 400);
 }
+
+// Dynamic Hero & Trust Banner Injector
+function buildExceptionalLayout() {
+    if (document.getElementById('nollies-hero')) return;
+
+    // Ambient glow element
+    let glow = document.createElement('div');
+    glow.className = 'ambient-glow';
+    document.body.prepend(glow);
+
+    // Hero Section
+    let hero = document.createElement('section');
+    hero.id = 'nollies-hero';
+    hero.className = 'hero-section';
+    hero.innerHTML = `
+        <div class="hero-badge">✨ Next-Generation Digital Platform</div>
+        <h1 class="hero-title">Experience the Future of <span>Nollies</span></h1>
+        <p class="hero-subtitle">High-performance digital products, seamless security, and real-time operations engineered for maximum impact.</p>
+        <div class="hero-cta-group">
+            <button class="btn-primary" onclick="document.getElementById('real-world-grid')?.scrollIntoView({behavior:'smooth'})">Explore Gallery</button>
+            <button class="btn-secondary" onclick="toggleConcierge()">Talk to AI Concierge</button>
+        </div>
+        
+        <div class="stats-banner">
+            <div class="stat-item">
+                <div class="stat-num">99.9%</div>
+                <div class="stat-lbl">Uptime Reliability</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-num">&lt; 100ms</div>
+                <div class="stat-lbl">Response Time</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-num">256-bit</div>
+                <div class="stat-lbl">Encrypted Safety</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-num">24/7</div>
+                <div class="stat-lbl">Automated Support</div>
+            </div>
+        </div>
+    `;
+
+    // Insert Hero right after Anti-Phishing banner or at top of body
+    let banner = document.getElementById('anti-phishing-banner');
+    if (banner && banner.nextSibling) {
+        document.body.insertBefore(hero, banner.nextSibling);
+    } else {
+        document.body.insertBefore(hero, document.body.firstChild);
+    }
+}
+
+document.addEventListener("DOMContentLoaded", buildExceptionalLayout);
