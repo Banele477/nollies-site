@@ -90,3 +90,45 @@ if ('serviceWorker' in navigator) {
         .then(() => console.log('PWA Service Worker Registered Successfully'))
         .catch(err => console.log('SW Registration Failed:', err));
 }
+
+// Inject stylesheet dynamically if not present
+if (!document.getElementById('unique-theme-style')) {
+    let link = document.createElement('link');
+    link.id = 'unique-theme-style';
+    link.rel = 'stylesheet';
+    link.href = '/public/unique_style.css';
+    document.head.appendChild(link);
+}
+
+// Inject Floating AI Concierge Widget UI
+if (!document.getElementById('nollies-concierge')) {
+    let conciergeDiv = document.createElement('div');
+    conciergeDiv.id = 'nollies-concierge';
+    conciergeDiv.innerHTML = `
+        <div id="concierge-box">
+            <div class="concierge-header">
+                <span>🤖 Nollies Assistant</span>
+                <span onclick="toggleConcierge()" style="cursor:pointer;">&times;</span>
+            </div>
+            <div class="concierge-body" id="conciergeText">
+                Hi there! Welcome to Nollies. Looking for something specific or need help checking out?
+            </div>
+        </div>
+        <button id="concierge-btn" onclick="toggleConcierge()">💬</button>
+    `;
+    document.body.appendChild(conciergeDiv);
+}
+
+function toggleConcierge() {
+    let box = document.getElementById('concierge-box');
+    box.style.display = box.style.display === 'flex' ? 'none' : 'flex';
+}
+
+// Enhanced Add to Cart with Micro-Feedback
+const originalAddToCart = window.addToCart;
+window.addToCart = function(id, name, price) {
+    if (typeof originalAddToCart === 'function') {
+        originalAddToCart(id, name, price);
+    }
+    showToast(`✨ Successfully secured: ${name}`);
+};
