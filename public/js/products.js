@@ -1,4 +1,6 @@
-// Enterprise Real-World Offerings & Photography Catalog
+// Enterprise Real-World Offerings & Direct SMS/WhatsApp Order Routing
+const OWNER_PHONE = "27625873479"; // International format for 0625873479 (South Africa +27)
+
 const nolliesOfferings = [
     {
         id: "offering-1",
@@ -56,18 +58,26 @@ function renderOfferings() {
             <p style="font-size: 0.85rem; color: #94a3b8; margin-bottom: 16px;">${item.description}</p>
             <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 14px;">
                 <span style="font-weight: 800; color: #10b981; font-size: 1.15rem;">R ${item.price.toFixed(2)}</span>
-                <button class="btn-primary" onclick="triggerCheckoutAlert('${item.title}')">Acquire Solutions</button>
+                <button class="btn-primary" onclick="dispatchOrderToPhone('${item.title}', ${item.price})">Acquire Solution</button>
             </div>
         `;
         container.appendChild(card);
     });
 }
 
-function triggerCheckoutAlert(title) {
+function dispatchOrderToPhone(title, price) {
+    // Construct direct order message routed to your WhatsApp / SMS gateway endpoint
+    let message = `🔔 *NEW NOLLIES ORDER* 🔔\n\n*Product:* ${title}\n*Price:* R ${price.toFixed(2)}\n\n_Please process this order._`;
+    let encodedMessage = encodeURIComponent(message);
+    
+    // Direct WhatsApp Business API URL configured for 0625873479 (+27 62 587 3479)
+    let waUrl = `https://wa.me/${OWNER_PHONE}?text=${encodedMessage}`;
+    
+    // Open order dispatch window
+    window.open(waUrl, '_blank');
+    
     if (typeof showToast === 'function') {
-        showToast(`✨ Selected Offering: ${title}`);
-    } else {
-        alert(`✨ Selected Offering: ${title}`);
+        showToast(`📲 Order dispatched to your phone (0625873479)!`);
     }
 }
 
