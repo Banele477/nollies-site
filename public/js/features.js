@@ -231,3 +231,58 @@ function switchTab(tabId, el) {
 }
 
 document.addEventListener("DOMContentLoaded", initTabNavigationSystem);
+
+// ==========================================
+// FULL-STACK BACKEND REST API CONNECTORS
+// ==========================================
+
+async function sendTelemetryToBackend(data) {
+    try {
+        await fetch('/api/telemetry', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        });
+        console.log('[+] Telemetry logged to Flask backend server.');
+    } catch (err) {
+        console.warn('[-] Flask API offline, operating in client mode.', err);
+    }
+}
+
+async function dispatchOrderBackend(productTitle, price) {
+    const payload = {
+        product: productTitle,
+        price: price,
+        phone: "0625873479",
+        timestamp: new Date().toISOString()
+    };
+
+    try {
+        const response = await fetch('/api/order', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
+        const res = await response.json();
+        
+        if (res.whatsapp_url) {
+            window.open(res.whatsapp_url, '_blank');
+        }
+    } catch (err) {
+        // Fallback directly to client WhatsApp routing
+        let waUrl = `https://wa.me/27625873479?text=Order%20for%20${encodeURIComponent(productTitle)}`;
+        window.open(waUrl, '_blank');
+    }
+
+    if (typeof showToast === 'function') {
+        showToast(`📲 Order for ${productTitle} dispatched to 0625873479`);
+    }
+}
+
+// Log initial session start
+document.addEventListener("DOMContentLoaded", () => {
+    sendTelemetryToBackend({
+        screen: `${window.innerWidth}x${window.innerHeight}`,
+        referrer: document.referrer || "Direct"
+    });
+});
