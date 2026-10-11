@@ -39,3 +39,54 @@ function filterProducts() {
         card.style.display = title.includes(filter) ? "" : "none";
     });
 }
+
+// ==========================================
+// 1. SHOPPING CART SYSTEM
+// ==========================================
+let cart = JSON.parse(localStorage.getItem('nollies_cart')) || [];
+
+function addToCart(productId, productName, productPrice) {
+    let existingItem = cart.find(item => item.id === productId);
+    if (existingItem) {
+        existingItem.quantity += 1;
+    } else {
+        cart.push({ id: productId, name: productName, price: productPrice, quantity: 1 });
+    }
+    localStorage.setItem('nollies_cart', JSON.stringify(cart));
+    updateCartUI();
+    showToast(`${productName} added to cart!`);
+}
+
+function updateCartUI() {
+    let cartCount = document.getElementById('cartCount');
+    if (cartCount) {
+        let totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+        cartCount.innerText = totalCount;
+    }
+}
+
+function clearCart() {
+    cart = [];
+    localStorage.removeItem('nollies_cart');
+    updateCartUI();
+    showToast("Cart cleared");
+}
+
+// ==========================================
+// 2. CUSTOMER RATING / REVIEW SYSTEM
+// ==========================================
+function submitRating(productId, ratingStars) {
+    let ratings = JSON.parse(localStorage.getItem('nollies_ratings')) || {};
+    ratings[productId] = ratingStars;
+    localStorage.setItem('nollies_ratings', JSON.stringify(ratings));
+    showToast(`Thank you for rating ${ratingStars} stars!`);
+}
+
+document.addEventListener("DOMContentLoaded", updateCartUI);
+
+// Register Service Worker for PWA Support
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/public/sw.js')
+        .then(() => console.log('PWA Service Worker Registered Successfully'))
+        .catch(err => console.log('SW Registration Failed:', err));
+}
