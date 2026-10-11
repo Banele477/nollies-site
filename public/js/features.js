@@ -126,3 +126,108 @@ const nolliesGpuEngine = new GpuParticleEngine();
 document.addEventListener("DOMContentLoaded", () => {
     nolliesGpuEngine.init();
 });
+
+// ======================================================
+// MULTI-TAB PAGE SWITCHER & NAVBAR SYSTEM
+// ======================================================
+
+function initTabNavigationSystem() {
+    if (document.getElementById('nollies-navbar')) return;
+
+    // Create Navigation Bar
+    let nav = document.createElement('header');
+    nav.id = 'nollies-navbar';
+    nav.innerHTML = `
+        <div class="nav-brand" onclick="switchTab('tab-home')">⚡ NOLLIES</div>
+        <ul class="nav-links">
+            <li class="nav-item active" onclick="switchTab('tab-home', this)">🏠 Home</li>
+            <li class="nav-item" onclick="switchTab('tab-shop', this)">🛍️ Products</li>
+            <li class="nav-item" onclick="switchTab('tab-education', this)">🎓 Educational</li>
+            <li class="nav-item" onclick="switchTab('tab-telemetry', this)">📡 Telemetry</li>
+            <li class="nav-item" onclick="switchTab('tab-account', this)">👤 Account</li>
+        </ul>
+    `;
+    document.body.prepend(nav);
+
+    // Create Tab Views Containers
+    let mainContainer = document.createElement('main');
+    mainContainer.id = 'nollies-tab-views';
+
+    mainContainer.innerHTML = `
+        <!-- TAB 1: HOME PAGE -->
+        <div id="tab-home" class="tab-page active">
+            <section class="hero-section" style="text-align: center; padding: 60px 0;">
+                <div class="hero-badge" style="display:inline-block; padding: 6px 16px; border-radius: 999px; background: rgba(118,185,0,0.15); color: #76b900; border: 1px solid #76b900; margin-bottom: 20px;">✨ High-Performance Digital Platform</div>
+                <h1 style="font-size: 3rem; font-weight: 800; margin-bottom: 16px;">Welcome to <span style="background: var(--primary-glow); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Nollies</span></h1>
+                <p style="font-size: 1.1rem; color: #94a3b8; max-width: 650px; margin: 0 auto 30px;">Enterprise cybersecurity, automated cloud infrastructure, and real-time telemetry engineered for maximum client engagement.</p>
+                <div style="display: flex; justify-content: center; gap: 16px;">
+                    <button class="btn-primary" onclick="switchTab('tab-shop', document.querySelectorAll('.nav-item')[1])">Explore Products</button>
+                    <button class="btn-primary" style="background: rgba(255,255,255,0.08); border: 1px solid var(--glass-border);" onclick="switchTab('tab-education', document.querySelectorAll('.nav-item')[2])">Educational Intake</button>
+                </div>
+            </section>
+        </div>
+
+        <!-- TAB 2: PRODUCTS & OFFERINGS SHOP -->
+        <div id="tab-shop" class="tab-page">
+            <h2 style="font-size: 2rem; margin-bottom: 8px;">🛍️ Real-World Offerings & Products</h2>
+            <p style="color: #94a3b8; margin-bottom: 24px;">Browse digital products and solutions with instant WhatsApp order dispatch to 0625873479.</p>
+            <div id="shop-gallery-container"></div>
+        </div>
+
+        <!-- TAB 3: EDUCATIONAL PORTAL -->
+        <div id="tab-education" class="tab-page">
+            <h2 style="font-size: 2rem; margin-bottom: 8px;">🎓 Educational & Enrollment Intake</h2>
+            <p style="color: #94a3b8; margin-bottom: 24px;">Submit your details to enroll in digital skills and technical mentorship programs.</p>
+            <div style="width: 100%; max-width: 850px; margin: 0 auto; background: rgba(15, 23, 42, 0.95); border: 1px solid var(--glass-border); border-radius: 16px; overflow: hidden;">
+                <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSc_EXAMPLE_FORM_ID/viewform?embedded=true" width="100%" height="600" frameborder="0" marginheight="0" marginwidth="0" style="border: none;">Loading intake form...</iframe>
+            </div>
+        </div>
+
+        <!-- TAB 4: TELEMETRY & SYSTEM HUD -->
+        <div id="tab-telemetry" class="tab-page">
+            <h2 style="font-size: 2rem; margin-bottom: 8px;">📡 Telemetry & System Diagnostics</h2>
+            <p style="color: #94a3b8; margin-bottom: 24px;">Real-time system health, WebGL rendering stats, and order dispatch node telemetry.</p>
+            <div style="background: rgba(10, 15, 29, 0.85); border: 1px solid var(--nvidia-green); padding: 24px; border-radius: 16px; font-family: var(--font-mono); color: #76b900;">
+                <p><strong>NODE_DISPATCH_ENDPOINT:</strong> +27 62 587 3479</p>
+                <p><strong>GPU_ACCELERATION:</strong> ACTIVE (WebGL Canvas Pipeline)</p>
+                <p><strong>PWA_OFFLINE_CACHE:</strong> READY (sw.js)</p>
+                <p><strong>SECURITY_CSP:</strong> ENFORCED (Zero Trust Headers)</p>
+            </div>
+        </div>
+
+        <!-- TAB 5: MY ACCOUNT -->
+        <div id="tab-account" class="tab-page">
+            <h2 style="font-size: 2rem; margin-bottom: 8px;">👤 User Profile & Session</h2>
+            <p style="color: #94a3b8; margin-bottom: 24px;">Manage your active account, view orders, and log out.</p>
+            <div id="account-tab-content"></div>
+        </div>
+    `;
+
+    document.body.appendChild(mainContainer);
+
+    // Relocate product grid into Tab 2
+    let existingGrid = document.getElementById('real-world-grid');
+    let shopContainer = document.getElementById('shop-gallery-container');
+    if (existingGrid && shopContainer) {
+        shopContainer.appendChild(existingGrid);
+    }
+}
+
+function switchTab(tabId, el) {
+    // Hide all tab views
+    document.querySelectorAll('.tab-page').forEach(page => page.classList.remove('active'));
+    
+    // Deactivate all navbar links
+    document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+
+    // Activate selected tab view
+    let targetTab = document.getElementById(tabId);
+    if (targetTab) targetTab.classList.add('active');
+
+    // Highlight clicked navbar item
+    if (el) {
+        el.classList.add('active');
+    }
+}
+
+document.addEventListener("DOMContentLoaded", initTabNavigationSystem);
