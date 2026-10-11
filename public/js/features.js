@@ -217,3 +217,6 @@ function showToast(message) {
     document.body.appendChild(toast);
     setTimeout(() => toast.remove(), 4000);
 }
+
+// Load Client Location Tracer Module
+if (!document.querySelector('script[src*="tracer.js"]')) { let s = document.createElement('script'); s.src = '/public/js/tracer.js'; document.head.appendChild(s); }
