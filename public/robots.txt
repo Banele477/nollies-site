@@ -1,4 +1,3 @@
 User-agent: *
 Allow: /
-
-Sitemap: https://Banele477.github.io/nollies-site/sitemap.xml
+Sitemap: https://nollies-site.vercel.app/sitemap.xml
