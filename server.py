@@ -109,3 +109,15 @@ def log_admin_action(action_desc):
     timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     with open("admin_activity.log", "a") as log_file:
         log_file.write(f"[{timestamp}] ADMIN ACTION: {action_desc}\n")
+
+import json
+
+# Advanced Telemetry & Visitor Logging Endpoint Hook
+def record_visitor_telemetry(client_ip, user_agent):
+    timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    log_entry = {"timestamp": timestamp, "ip": client_ip, "agent": user_agent}
+    try:
+        with open("visitor_analytics.log", "a") as f:
+            f.write(json.dumps(log_entry) + "\n")
+    except Exception as e:
+        print(f"Telemetry logging error: {e}")

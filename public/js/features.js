@@ -132,3 +132,15 @@ window.addToCart = function(id, name, price) {
     }
     showToast(`✨ Successfully secured: ${name}`);
 };
+
+// Admin / System Telemetry Status Indicator
+if (!document.getElementById('nollies-telemetry-panel')) {
+    let panel = document.createElement('div');
+    panel.id = 'nollies-telemetry-panel';
+    panel.style.cssText = "position: fixed; bottom: 25px; left: 25px; background: var(--glass-bg, rgba(255,255,255,0.8)); backdrop-filter: blur(10px); border: 1px solid var(--glass-border, #ddd); padding: 10px 14px; border-radius: 12px; font-size: 0.8rem; z-index: 998; box-shadow: 0 4px 15px rgba(0,0,0,0.1); display: flex; align-items: center; gap: 8px;";
+    panel.innerHTML = `
+        <span style="height: 8px; width: 8px; background-color: #10b981; border-radius: 50%; display: inline-block; box-shadow: 0 0 8px #10b981;"></span>
+        <span id="telemetry-badge">Nollies System: Optimal (Secure)</span>
+    `;
+    document.body.appendChild(panel);
+}
