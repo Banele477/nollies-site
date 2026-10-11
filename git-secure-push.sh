@@ -1,39 +1,38 @@
 #!/bin/bash
-
-# Exit immediately if a command exits with a non-zero status
 set -e
 
 REPO_DIR="$HOME/nollies"
+LOG_FILE="$REPO_DIR/.git_push_audit.log"
 cd "$REPO_DIR"
 
-echo "[*] Step 1: Checking for accidental hardcoded secrets or keys..."
+echo "[*] Step 1: Auditing session..."
+echo "$(date '+%Y-%m-%d %H:%M:%S') - Initiating secure push" >> "$LOG_FILE"
+
+echo "[*] Step 2: Scanning for hardcoded secrets..."
 if command -v git-secrets &> /dev/null; then
-    git secrets --scan || { echo "[!] ERROR: Potential secret detected! Aborting push."; exit 1; }
+    git secrets --scan || { echo "[!] ERROR: Potential secret detected!"; exit 1; }
 fi
 
-echo "[*] Step 2: Ensuring SSH agent is running and key is loaded..."
+echo "[*] Step 3: Ensuring SSH agent is active..."
 if [ -z "$SSH_AUTH_SOCK" ]; then
     eval "$(ssh-agent -s)"
 fi
 
-# Add key if not already loaded in the agent
 if ! ssh-add -l | grep -q "ed25519"; then
     ssh-add ~/.ssh/id_ed25519
 fi
 
-echo "[*] Step 3: Staging and committing changes with signature..."
+echo "[*] Step 4: Staging, signing, and committing..."
 git add .
 
-# Check if there is anything to commit
 if git diff-index --quiet HEAD --; then
-    echo "[*] No changes to commit. Proceeding to push..."
+    echo "[*] No pending changes to commit. Proceeding to push..."
 else
-    # Prompts for commit message if not provided as argument
-    MSG="${1:-Automated secure sync from Termux}"
+    MSG="${1:-Automated secure sync with enhanced auditing}"
     git commit -S -m "$MSG"
 fi
 
-echo "[*] Step 4: Securely pushing to GitHub via SSH..."
+echo "[*] Step 5: Pushing to GitHub..."
 git push origin main
 
-echo "[+] SUCCESS: Code securely pushed to GitHub with verified commit signature!"
+echo "[+] SUCCESS: Pushed securely with full audit trail!"

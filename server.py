@@ -103,3 +103,9 @@ if __name__ == "__main__":
         print("      Start with:  ADMIN_KEY=your-secret python server.py")
     print(f"Nollie's site running on http://localhost:{PORT}")
     ThreadingHTTPServer((HOST, PORT), Handler).serve_forever()
+
+import datetime
+def log_admin_action(action_desc):
+    timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    with open("admin_activity.log", "a") as log_file:
+        log_file.write(f"[{timestamp}] ADMIN ACTION: {action_desc}\n")
