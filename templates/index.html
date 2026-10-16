@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nollies Storefront</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header class="masthead">
+            <h1>Nollies Marketplace</h1>
+            <p class="tagline">Crafted equipment & secure ordering. | <a href="/admin" style="color: var(--accent);">Admin Dashboard</a></p>
+        </header>
+
+        <section class="catalog-grid">
+            {% for product in products %}
+            <div class="product-card">
+                <h3>{{ product.name }}</h3>
+                <p class="price">R {{ "%.2f"|format(product.price) }}</p>
+                <button class="btn-action" onclick="addToCart({{ product.id }}, '{{ product.name }}', {{ product.price }})">Add to Cart</button>
+            </div>
+            {% endfor %}
+        </section>
+
+        <section class="cart-summary card">
+            <h2>Your Order</h2>
+            <ul id="cart-items">
+                <li class="empty-notice">Your cart is empty.</li>
+            </ul>
+            <div class="checkout-box">
+                <input type="text" id="customer-name" placeholder="Enter your full name">
+                <button class="btn-primary" onclick="submitOrder()">Checkout Securely</button>
+            </div>
+            <div id="order-feedback"></div>
+        </section>
+    </div>
+
+    <script>
+        let cart = [];
+        function addToCart(id, name, price) {
+            const existing = cart.find(item => item.product_id === id);
+            if (existing) { existing.quantity += 1; } 
+            else { cart.push({ product_id: id, name, price, quantity: 1 }); }
+            updateCartUI();
+        }
+        function updateCartUI() {
+            const list = document.getElementById('cart-items');
+            if (cart.length === 0) {
+                list.innerHTML = `<li class="empty-notice">Your cart is empty.</li>`;
+                return;
+            }
+            list.innerHTML = cart.map(item => `
+                <li class="cart-row">
+                    <span>${item.name} (x${item.quantity})</span>
+                    <span>R ${(item.price * item.quantity).toFixed(2)}</span>
+                </li>
+            `).join('');
+        }
+        async function submitOrder() {
+            const customer_name = document.getElementById('customer-name').value.trim();
+            const feedback = document.getElementById('order-feedback');
+            if (!customer_name || cart.length === 0) {
+                feedback.innerHTML = `<span class="error">Please provide your name and add items to cart.</span>`;
+                return;
+            }
+            try {
+                const response = await fetch('/api/orders', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ customer_name, items: cart })
+                });
+                const result = await response.json();
+                if (result.success) {
+                    feedback.innerHTML = `<span class="success">Order #${result.order_id} placed successfully! Total: R ${result.total.toFixed(2)}</span>`;
+                    cart = [];
+                    updateCartUI();
+                    document.getElementById('customer-name').value = '';
+                } else {
+                    feedback.innerHTML = `<span class="error">${result.error}</span>`;
+                }
+            } catch (err) {
+                feedback.innerHTML = `<span class="error">Network error. Please try again.</span>`;
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nollies Admin Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header class="masthead">
+            <h1>Admin Dashboard</h1>
+            <p class="tagline"><a href="/" style="color: var(--accent);">← Back to Storefront</a></p>
+        </header>
+        <section class="card">
+            <h2>Recent Customer Orders</h2>
+            <table style="width:100%; border-collapse: collapse; margin-top: 1rem;">
+                <thead>
+                    <tr style="border-bottom: 1px solid rgba(255,255,255,0.1); text-align: left;">
+                        <th style="padding: 0.5rem;">ID</th>
+                        <th style="padding: 0.5rem;">Customer</th>
+                        <th style="padding: 0.5rem;">Total</th>
+                        <th style="padding: 0.5rem;">Status</th>
+                        <th style="padding: 0.5rem;">Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for order in orders %}
+                    <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                        <td style="padding: 0.75rem 0.5rem;">#{{ order.id }}</td>
+                        <td style="padding: 0.75rem 0.5rem;">{{ order.customer_name }}</td>
+                        <td style="padding: 0.75rem 0.5rem; color: var(--accent);">R {{ "%.2f"|format(order.total_amount) }}</td>
+                        <td style="padding: 0.75rem 0.5rem;"><span style="background: rgba(34,197,94,0.15); color: var(--success); padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.8rem;">{{ order.status }}</span></td>
+                        <td style="padding: 0.75rem 0.5rem; color: var(--text-muted); font-size: 0.85rem;">{{ order.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
+                    </tr>
+                    {% else %}
+                    <tr><td colspan="5" style="padding: 1rem; text-align: center; color: var(--text-muted);">No orders recorded yet.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+    </div>
+</body>
+</html>
