@@ -1,273 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Nollie's | Juice, Perfume and Combo Packs Delivered</title>
-<meta name="description" content="Affordable juice, perfume, cereal and gift hampers. Order on WhatsApp and get reliable local delivery. Bulk 5L juice for events and funerals.">
-<meta name="author" content="Nollie's Small Business">
-<meta name="robots" content="index, follow, max-image-preview:large">
-<meta name="theme-color" content="#3B1C4A">
-<meta name="geo.region" content="ZA">
-<link rel="canonical" href="https://Banele477.github.io/nollies-site/">
-<link rel="manifest" href="manifest.webmanifest">
-<link rel="apple-touch-icon" href="img/icon-180.png">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="Nollie's">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%A7%83%3C/text%3E%3C/svg%3E">
-<meta property="og:type" content="website">
-<meta property="og:locale" content="en_ZA">
-<meta property="og:site_name" content="Nollie's Small Business">
-<meta property="og:title" content="Nollie's | Juice, Perfume and Combo Packs Delivered">
-<meta property="og:description" content="Affordable juice, perfume, cereal and gift hampers. Order on WhatsApp and get reliable local delivery.">
-<meta property="og:url" content="https://Banele477.github.io/nollies-site/">
-<meta property="og:image" content="https://Banele477.github.io/nollies-site/img/og.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Nollie's Small Business: juice, perfume and combo packs delivered">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Nollie's | Juice, Perfume and Combo Packs Delivered">
-<meta name="twitter:description" content="Affordable juice, perfume, cereal and gift hampers. Order on WhatsApp and get reliable local delivery.">
-<meta name="twitter:image" content="https://Banele477.github.io/nollies-site/img/og.png">
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"Store","name":"Nollie's Small Business",
-"description":"Affordable juice, perfume, cereal, hampers and combo packs with WhatsApp ordering and local delivery.",
-"url":"https://Banele477.github.io/nollies-site/","image":"https://Banele477.github.io/nollies-site/img/og.png","currenciesAccepted":"ZAR","paymentAccepted":"Cash, EFT","priceRange":"R",
-"areaServed":"South Africa","knowsAbout":["Juice","Perfume","Cereal","Gift hampers","Bulk juice for events"]}
-</script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nollie's | Smart Digital Services</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
 
-<a class="skip" href="#shop">Skip to products</a>
+    <!-- Top Announcement Bar -->
+    <div class="announcement-bar">
+        <span>🇿🇦 Fast Service Across Mzansi | Instant WhatsApp & EFT Support</span>
+        <button class="lite-toggle" onclick="toggleDataSaver()">⚡ Data Saver Mode</button>
+    </div>
 
-<header class="site-header">
-  <div class="wrap bar">
-    <a class="brand" href="#top" aria-label="Nollie's Small Business home">Nollie's</a>
-    <nav class="nav" aria-label="Main">
-      <a href="#shop">Shop</a>
-      <a href="#how">How it works</a>
-      <a href="#bulk">Bulk orders</a>
-      <a href="#policy">Delivery &amp; payment</a>
-      <a href="#faq">FAQ</a>
-    </nav>
-    <button class="cart-btn" id="openCart" type="button" aria-label="Open cart">
-      Cart <span class="count" id="cartCount">0</span>
-    </button>
-  </div>
-</header>
-
-<main id="top">
-
-  <section class="hero">
-    <div class="wrap hero-grid">
-      <div class="hero-copy">
-        <h1>Juice, perfume and pantry basics, delivered to your door.</h1>
-        <p class="lead">Affordable products from a seller your community already trusts. Pick what you need, send the order on WhatsApp, and we deliver.</p>
-        <div class="hero-cta">
-          <a class="btn btn-primary" href="#shop">Shop now</a>
-          <a class="btn btn-ghost" href="#bulk">Order in bulk</a>
+    <!-- Header Navigation -->
+    <header class="navbar">
+        <div class="logo">Nollie's<span>.co.za</span></div>
+        <div class="nav-right">
+            <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
+            <div class="cart-btn" onclick="toggleCart()">
+                🛒 Cart (<span id="cart-count">0</span>)
+            </div>
         </div>
-        <p class="hero-note">Pay by EFT or cash. We do not sell on credit.</p>
-      </div>
-      <aside class="quick" aria-labelledby="quickTitle">
-        <h2 id="quickTitle">Popular right now</h2>
-        <ul id="quickList" class="quick-list"></ul>
-        <button class="btn btn-primary btn-block" type="button" id="quickCart">View my cart</button>
-      </aside>
-    </div>
-  </section>
+    </header>
 
-  <section class="how" id="how">
-    <div class="wrap">
-      <h2>How ordering works</h2>
-      <ol class="steps">
-        <li><strong>1. Choose</strong><span>Add items to your cart. Combos save you money.</span></li>
-        <li><strong>2. Send</strong><span>Tap the button and your order opens in WhatsApp, ready to send.</span></li>
-        <li><strong>3. Pay</strong><span>We confirm the total and our EFT details. Cash is fine for collection.</span></li>
-        <li><strong>4. Receive</strong><span>We pack with care and deliver or you collect.</span></li>
-      </ol>
-    </div>
-  </section>
+    <!-- Hero Section -->
+    <section class="hero">
+        <span class="hero-tag">Business & Tech Systems</span>
+        <h1>Tailored Digital Solutions for SA Enterprises</h1>
+        <p>Reliable, scalable, data-friendly business setup & management packages.</p>
+    </section>
 
-  <section class="shop" id="shop">
-    <div class="wrap">
-      <div class="welcome" id="welcome" hidden>
-        <p id="welcomeText"></p>
-        <button class="btn btn-primary" type="button" id="welcomeBtn">Order the same again</button>
-      </div>
-      <div class="shop-head">
-        <h2>Our products</h2>
-        <label class="search">
-          <span class="sr">Search products</span>
-          <input id="search" type="search" placeholder="Search juice, perfume, cereal" autocomplete="off">
-        </label>
-      </div>
-      <div class="chips" id="chips" role="group" aria-label="Filter by category"></div>
-      <div class="grid" id="grid" aria-live="polite"></div>
-      <p class="empty" id="empty" hidden>Nothing matches your search. Clear the search box or pick another category.</p>
-    </div>
-  </section>
+    <!-- Services Grid -->
+    <main class="container">
+        <div class="product-grid">
 
-  <section class="bulk" id="bulk">
-    <div class="wrap bulk-grid">
-      <div>
-        <h2>Bulk orders for churches, events and re-sellers</h2>
-        <p>Organising a funeral, church function, party or community event? Need stock to re-sell? Tell us what you need and when, and we will send you a quote.</p>
-        <ul class="ticks">
-          <li>5L juice for large gatherings</li>
-          <li>Better prices on larger quantities</li>
-          <li>Delivery scheduled for your event date</li>
-        </ul>
-      </div>
-      <form class="card-form" id="bulkForm" novalidate>
-        <h3>Request a bulk quote</h3>
-        <label>Your name<input name="name" required autocomplete="name"></label>
-        <label>WhatsApp number<input name="phone" required inputmode="tel" autocomplete="tel" placeholder="e.g. 082 123 4567"></label>
-        <label>What do you need?
-          <select name="item" required>
-            <option value="">Choose one</option>
-            <option>5L juice (events and funerals)</option>
-            <option>Juice for re-selling</option>
-            <option>Perfume for re-selling</option>
-            <option>Combo packs</option>
-            <option>Hampers</option>
-            <option>Something else</option>
-          </select>
-        </label>
-        <label>Quantity<input name="qty" type="number" min="1" required inputmode="numeric"></label>
-        <label>Date needed<input name="date" type="date"></label>
-        <label>Notes<textarea name="notes" rows="3" placeholder="Delivery address, flavours, anything else"></textarea></label>
-        <p class="form-error" id="bulkError" role="alert" hidden></p>
-        <button class="btn btn-primary btn-block" type="submit">Send quote request on WhatsApp</button>
-      </form>
-    </div>
-  </section>
+            <div class="card">
+                <div class="card-header">
+                    <span class="badge">Operations</span>
+                    <span class="delivery-tag">🚚 24-48h Delivery</span>
+                </div>
+                <h2>Smart Logistics Hub</h2>
+                <p class="description">End-to-end supply chain setup, stock inventory tracking, and process workflow optimization.</p>
+                <div class="price-row">
+                    <div class="price">R 890.00</div>
+                    <span class="vat-tag">Incl. VAT</span>
+                </div>
+                <div class="card-actions">
+                    <button class="btn btn-primary" onclick="addToCart('Smart Logistics Hub', 890)">Add to Cart</button>
+                    <a href="https://wa.me/?text=Hi%20Nollie's,%20I'm%20interested%20in%20the%20Smart%20Logistics%20Hub" class="btn btn-whatsapp" target="_blank">WhatsApp</a>
+                </div>
+            </div>
 
-  <section class="policy" id="policy">
-    <div class="wrap policy-grid">
-      <article>
-        <h2>Delivery</h2>
-        <p>We deliver in <strong data-cfg="deliveryArea"></strong>.</p>
-        <ul>
-          <li>Delivery fee: <strong data-cfg="deliveryFeeText"></strong></li>
-          <li>Free delivery on orders over <strong data-cfg="freeOverText"></strong></li>
-          <li>Rush delivery (same day): <strong data-cfg="rushFeeText"></strong> extra</li>
-          <li>Collection is always free</li>
-        </ul>
-      </article>
-      <article>
-        <h2>Payment</h2>
-        <p data-cfg="paymentPolicy"></p>
-        <ul>
-          <li>EFT before delivery</li>
-          <li>Cash on delivery or collection</li>
-          <li>No credit and no pay-later</li>
-        </ul>
-      </article>
-    </div>
-  </section>
+            <div class="card">
+                <div class="card-header">
+                    <span class="badge">Intelligence</span>
+                    <span class="delivery-tag">⚡ Instant Access</span>
+                </div>
+                <h2>Data & Systems Analytics</h2>
+                <p class="description">Custom business dashboards, automated financial/sales reporting, and operational insights.</p>
+                <div class="price-row">
+                    <div class="price">R 1,200.00</div>
+                    <span class="vat-tag">Incl. VAT</span>
+                </div>
+                <div class="card-actions">
+                    <button class="btn btn-primary" onclick="addToCart('Data & Systems Analytics', 1200)">Add to Cart</button>
+                    <a href="https://wa.me/?text=Hi%20Nollie's,%20I'm%20interested%20in%20Data%20%26%20Systems%20Analytics" class="btn btn-whatsapp" target="_blank">WhatsApp</a>
+                </div>
+            </div>
 
-  <section class="feedback" id="feedback" data-feedback hidden>
-    <div class="wrap feedback-inner">
-      <div>
-        <h2>Help us serve you better</h2>
-        <p>Tell us what you bought, what you want us to stock, and how delivery went. It takes two minutes.</p>
-      </div>
-      <a class="btn btn-primary" data-feedback-link href="#" target="_blank" rel="noopener">Fill in our short form</a>
-    </div>
-  </section>
+            <div class="card">
+                <div class="card-header">
+                    <span class="badge">Infrastructure</span>
+                    <span class="delivery-tag">🛠️ Advisory Package</span>
+                </div>
+                <h2>Urban Architecture & Tech</h2>
+                <p class="description">Digital transformation strategy for physical workspaces, virtual offices, and infrastructure.</p>
+                <div class="price-row">
+                    <div class="price">R 550.00</div>
+                    <span class="vat-tag">Incl. VAT</span>
+                </div>
+                <div class="card-actions">
+                    <button class="btn btn-primary" onclick="addToCart('Urban Architecture & Tech', 550)">Add to Cart</button>
+                    <a href="https://wa.me/?text=Hi%20Nollie's,%20I'm%20interested%20in%20Urban%20Architecture%20%26%20Tech" class="btn btn-whatsapp" target="_blank">WhatsApp</a>
+                </div>
+            </div>
 
-  <section class="faq" id="faq">
-    <div class="wrap">
-      <h2>Questions people ask</h2>
-      <details><summary>How do I place an order?</summary><p>Add items to your cart, fill in your details, and tap Send order on WhatsApp. We reply to confirm the total and delivery time.</p></details>
-      <details><summary>Can I buy on credit?</summary><p>No. Every order is paid by EFT or cash. This keeps our prices low for everyone.</p></details>
-      <details><summary>How fast is delivery?</summary><p>Standard orders are delivered on the next delivery day. Choose rush at checkout if you need it the same day.</p></details>
-      <details><summary>Do you do big orders for events?</summary><p>Yes. Use the bulk quote form above for 5L juice, re-seller stock, and combo packs.</p></details>
-      <details><summary>What if an item is out of stock?</summary><p>We will tell you on WhatsApp before you pay and offer a similar item or a refund.</p></details>
-    </div>
-  </section>
+        </div>
+    </main>
 
-</main>
-
-<footer class="site-footer" id="contact">
-  <div class="wrap foot-grid">
-    <div>
-      <strong class="foot-brand">Nollie's Small Business</strong>
-      <p>Affordable products. Convenient ordering. Reliable delivery.</p>
-    </div>
-    <div>
-      <h2>Talk to us</h2>
-      <p><a data-wa-link href="#" target="_blank" rel="noopener">Chat on WhatsApp</a></p>
-      <p data-feedback hidden><a data-feedback-link href="#" target="_blank" rel="noopener">Give feedback</a></p>
-      <p><a data-social="facebook" href="#" target="_blank" rel="noopener">Facebook</a> · <a data-social="instagram" href="#" target="_blank" rel="noopener">Instagram</a></p>
-    </div>
-  </div>
-  <p class="wrap" id="installRow" hidden><button type="button" class="btn-inline" id="installBtn">Install the Nollie's app on your phone</button></p>
-  <p class="copy wrap">&copy; <span id="year"></span> Nollie's Small Business</p>
-</footer>
-
-<a class="wa-float" data-wa-link href="#" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">WhatsApp</a>
-
-<button class="cartbar" id="cartBar" type="button" hidden><span id="cartBarText"></span><span>View cart</span></button>
-
-<div class="overlay" id="overlay" hidden></div>
-<aside class="drawer" id="drawer" aria-label="Your cart" aria-hidden="true">
-  <div class="drawer-head">
-    <h2>Your cart</h2>
-    <button type="button" class="icon-btn" id="closeCart" aria-label="Close cart">Close</button>
-  </div>
-  <div class="drawer-body">
-    <ul class="cart-list" id="cartList"></ul>
-    <div id="cartEmpty">
-      <p class="empty">Your cart is empty. Add something from the shop.</p>
-      <button class="btn btn-primary" type="button" id="reorderBtn" hidden>Order the same as last time</button>
+    <!-- Slide-over Cart & Checkout Modal -->
+    <div id="cart-modal" class="cart-modal">
+        <div class="cart-content">
+            <div class="cart-header">
+                <h3>Order Summary</h3>
+                <span class="close-btn" onclick="toggleCart()">&times;</span>
+            </div>
+            <div id="cart-items"></div>
+            <div class="cart-footer">
+                <div class="total-row">
+                    <span>Total Amount:</span>
+                    <span id="cart-total" class="total-price">R 0.00</span>
+                </div>
+                <div class="payment-methods">
+                    <span>Accepted Payments:</span>
+                    <div class="pay-tags">
+                        <span class="pay-badge">EFT / Capitec</span>
+                        <span class="pay-badge">Ozow</span>
+                        <span class="pay-badge">Cards</span>
+                    </div>
+                </div>
+                <button class="btn btn-whatsapp btn-block" onclick="checkoutWhatsApp()">Checkout via WhatsApp 💬</button>
+            </div>
+        </div>
     </div>
 
-    <form id="checkoutForm" novalidate>
-      <fieldset class="method">
-        <legend>How do you want it?</legend>
-        <label><input type="radio" name="method" value="delivery" checked> Delivery</label>
-        <label><input type="radio" name="method" value="collect"> I will collect</label>
-      </fieldset>
-      <label>Your name<input name="name" required autocomplete="name"></label>
-      <label>WhatsApp number<input name="phone" required inputmode="tel" autocomplete="tel" placeholder="e.g. 082 123 4567"></label>
-      <label id="addrRow">Delivery address<textarea name="address" rows="2" autocomplete="street-address"></textarea></label>
-      <label class="check" id="rushRow"><input type="checkbox" name="rush"> Rush delivery (same day) <span data-cfg="rushFeeText"></span></label>
-      <div class="slot" id="slotRow">
-        <label>Preferred delivery day<input type="date" name="day"></label>
-        <label>Preferred time<select name="slot" id="slotSel"></select></label>
-      </div>
-      <label>Notes<textarea name="notes" rows="2" placeholder="Flavours, gift wrapping, anything we should know"></textarea></label>
-      <label class="check"><input type="checkbox" name="remember" checked> Remember my details on this phone</label>
-
-      <div class="ship" id="ship" hidden>
-        <p id="shipText"></p>
-        <div class="track"><span id="shipFill"></span></div>
-      </div>
-
-      <dl class="totals">
-        <div><dt>Subtotal</dt><dd id="tSub">R0</dd></div>
-        <div><dt>Delivery</dt><dd id="tDel">R0</dd></div>
-        <div id="tRushRow" hidden><dt>Rush fee</dt><dd id="tRush">R0</dd></div>
-        <div class="grand"><dt>Total</dt><dd id="tTotal">R0</dd></div>
-      </dl>
-      <p class="form-error" id="checkoutError" role="alert" hidden></p>
-      <button class="btn btn-primary btn-block" type="submit" id="sendOrder">Send order on WhatsApp</button>
-      <button class="btn btn-link" type="button" id="clearCart">Empty cart</button>
-    </form>
-  </div>
-</aside>
-
-<div class="toast" id="toast" role="status" aria-live="polite"></div>
-
-<script src="js/config.js"></script>
-<script src="js/products.js"></script>
-<script src="js/app.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
