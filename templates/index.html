@@ -3,86 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nollies Storefront</title>
+    <title>Nollie's | Quality Juice & Bulk Supplies</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-    <div class="container">
-        <header class="masthead">
-            <h1>Nollies Marketplace</h1>
-            <p class="tagline">Crafted equipment & secure ordering. | <a href="/admin" style="color: var(--accent);">Admin Dashboard</a></p>
-        </header>
 
-        <section class="catalog-grid">
-            {% for product in products %}
-            <div class="product-card">
-                <h3>{{ product.name }}</h3>
-                <p class="price">R {{ "%.2f"|format(product.price) }}</p>
-                <button class="btn-action" onclick="addToCart({{ product.id }}, '{{ product.name }}', {{ product.price }})">Add to Cart</button>
-            </div>
-            {% endfor %}
-        </section>
+    <!-- Header Navigation -->
+    <header class="navbar">
+        <h1 class="brand">Nollie's</h1>
+        <button class="cart-btn" onclick="toggleCartModal()">Cart <span class="cart-badge" id="cart-count">0</span></button>
+    </header>
 
-        <section class="cart-summary card">
-            <h2>Your Order</h2>
-            <ul id="cart-items">
-                <li class="empty-notice">Your cart is empty.</li>
+    <main class="content-container">
+        
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <h2>Bulk orders for churches, events and re-sellers</h2>
+            <p class="hero-desc">Organising a funeral, church function, party or community event? Need stock to re-sell? Tell us what you need and when, and we will send you a quote.</p>
+            <ul class="feature-list">
+                <li>5L juice for large gatherings</li>
+                <li>Better prices on larger quantities</li>
+                <li>Delivery scheduled for your event date</li>
             </ul>
-            <div class="checkout-box">
-                <input type="text" id="customer-name" placeholder="Enter your full name">
-                <button class="btn-primary" onclick="submitOrder()">Checkout Securely</button>
-            </div>
-            <div id="order-feedback"></div>
         </section>
-    </div>
 
-    <script>
-        let cart = [];
-        function addToCart(id, name, price) {
-            const existing = cart.find(item => item.product_id === id);
-            if (existing) { existing.quantity += 1; } 
-            else { cart.push({ product_id: id, name, price, quantity: 1 }); }
-            updateCartUI();
-        }
-        function updateCartUI() {
-            const list = document.getElementById('cart-items');
-            if (cart.length === 0) {
-                list.innerHTML = `<li class="empty-notice">Your cart is empty.</li>`;
-                return;
-            }
-            list.innerHTML = cart.map(item => `
-                <li class="cart-row">
-                    <span>${item.name} (x${item.quantity})</span>
-                    <span>R ${(item.price * item.quantity).toFixed(2)}</span>
-                </li>
-            `).join('');
-        }
-        async function submitOrder() {
-            const customer_name = document.getElementById('customer-name').value.trim();
-            const feedback = document.getElementById('order-feedback');
-            if (!customer_name || cart.length === 0) {
-                feedback.innerHTML = `<span class="error">Please provide your name and add items to cart.</span>`;
-                return;
-            }
-            try {
-                const response = await fetch('/api/orders', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ customer_name, items: cart })
-                });
-                const result = await response.json();
-                if (result.success) {
-                    feedback.innerHTML = `<span class="success">Order #${result.order_id} placed successfully! Total: R ${result.total.toFixed(2)}</span>`;
-                    cart = [];
-                    updateCartUI();
-                    document.getElementById('customer-name').value = '';
-                } else {
-                    feedback.innerHTML = `<span class="error">${result.error}</span>`;
-                }
-            } catch (err) {
-                feedback.innerHTML = `<span class="error">Network error. Please try again.</span>`;
-            }
-        }
-    </script>
+        <!-- Bulk Quote Form Card (Human Centric & High Conversion) -->
+        <section class="card">
+            <h2>Request a bulk quote</h2>
+            <form id="quote-form" onsubmit="submitQuote(event)">
+                <div class="form-group">
+                    <label for="q-name">Your name</label>
+                    <input type="text" id="q-name" placeholder="Enter your full name" required>
+                </div>
+                <div class="form-group">
+                    <label for="q-whatsapp">WhatsApp number</label>
+                    <input type="tel" id="q-whatsapp" placeholder="e.g. 082 123 4567" required>
+                </div>
+                <div class="form-group">
+                    <label for="q-needs">What do you need?</label>
+                    <textarea id="q-needs" rows="3" placeholder="Tell us items, quantities, and event date..." required></textarea>
+                </div>
+                <button type="submit" class="btn-whatsapp-action">Send Request on WhatsApp</button>
+            </form>
+            <div id="form-feedback"></div>
+        </section>
+
+        <!-- Clear Delivery Terms Card -->
+        <section class="card">
+            <h2>Delivery</h2>
+            <p class="card-subtitle">We deliver in <strong>Your town or area</strong>.</p>
+            <ul class="info-list">
+                <li>Delivery fee: <strong>R30</strong></li>
+                <li>Free delivery on orders over <strong>R500</strong></li>
+                <li>Rush delivery (same day): <strong>R20</strong> extra</li>
+                <li>Collection is always free</li>
+            </ul>
+        </section>
+
+        <!-- Payment Terms Card -->
+        <section class="card">
+            <h2>Payment</h2>
+            <p class="card-subtitle">Every order is paid by EFT or cash. We do not sell on credit, so we can keep prices low for everyone.</p>
+            <ul class="info-list">
+                <li>EFT before delivery</li>
+                <li>Cash on delivery or collection</li>
+                <li>No credit and no pay-later</li>
+            </ul>
+        </section>
+
+    </main>
+
+    <!-- Floating Direct WhatsApp Button -->
+    <a id="floating-whatsapp-link" href="https://wa.me/" target="_blank" class="floating-whatsapp">
+        WhatsApp
+    </a>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
 </body>
 </html>
