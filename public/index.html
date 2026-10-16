@@ -9,110 +9,71 @@
 </head>
 <body>
 
-    <!-- Top Announcement Bar -->
     <div class="announcement-bar">
-        <span>🇿🇦 Fast Service Across Mzansi | Instant WhatsApp & EFT Support</span>
-        <button class="lite-toggle" onclick="toggleDataSaver()">⚡ Data Saver Mode</button>
+        🚀 Fast Service Delivery Across Mzansi | Instant WhatsApp Support
     </div>
 
-    <!-- Header Navigation -->
     <header class="navbar">
-        <div class="logo">Nollie's<span>.co.za</span></div>
-        <div class="nav-right">
-            <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
-            <div class="cart-btn" onclick="toggleCart()">
-                🛒 Cart (<span id="cart-count">0</span>)
-            </div>
+        <div class="logo">Nollie's<span>.</span></div>
+        <div class="cart-btn" onclick="toggleCart()">
+            🛒 Cart (<span id="cart-count">0</span>)
         </div>
     </header>
 
-    <!-- Hero Section -->
     <section class="hero">
-        <span class="hero-tag">Business & Tech Systems</span>
-        <h1>Tailored Digital Solutions for SA Enterprises</h1>
-        <p>Reliable, scalable, data-friendly business setup & management packages.</p>
+        <h1>Simplified Operations & Tech Services</h1>
+        <p>Reliable, scalable, and tailored business solution packages.</p>
     </section>
 
-    <!-- Services Grid -->
     <main class="container">
         <div class="product-grid">
 
             <div class="card">
-                <div class="card-header">
-                    <span class="badge">Operations</span>
-                    <span class="delivery-tag">🚚 24-48h Delivery</span>
-                </div>
+                <span class="badge">Operations</span>
                 <h2>Smart Logistics Hub</h2>
-                <p class="description">End-to-end supply chain setup, stock inventory tracking, and process workflow optimization.</p>
-                <div class="price-row">
-                    <div class="price">R 890.00</div>
-                    <span class="vat-tag">Incl. VAT</span>
-                </div>
+                <p class="description">End-to-end supply chain setup and inventory workflow optimization.</p>
+                <div class="price">R 890.00</div>
                 <div class="card-actions">
                     <button class="btn btn-primary" onclick="addToCart('Smart Logistics Hub', 890)">Add to Cart</button>
-                    <a href="https://wa.me/?text=Hi%20Nollie's,%20I'm%20interested%20in%20the%20Smart%20Logistics%20Hub" class="btn btn-whatsapp" target="_blank">WhatsApp</a>
+                    <a href="https://wa.me/?text=Hi%20Nollie's,%20I'm%20interested%20in%20the%20Smart%20Logistics%20Hub" class="btn btn-whatsapp" target="_blank">WhatsApp Us</a>
                 </div>
             </div>
 
             <div class="card">
-                <div class="card-header">
-                    <span class="badge">Intelligence</span>
-                    <span class="delivery-tag">⚡ Instant Access</span>
-                </div>
+                <span class="badge">Intelligence</span>
                 <h2>Data & Systems Analytics</h2>
-                <p class="description">Custom business dashboards, automated financial/sales reporting, and operational insights.</p>
-                <div class="price-row">
-                    <div class="price">R 1,200.00</div>
-                    <span class="vat-tag">Incl. VAT</span>
-                </div>
+                <p class="description">Custom business dashboards, data reporting, and operational intelligence tools.</p>
+                <div class="price">R 1,200.00</div>
                 <div class="card-actions">
                     <button class="btn btn-primary" onclick="addToCart('Data & Systems Analytics', 1200)">Add to Cart</button>
-                    <a href="https://wa.me/?text=Hi%20Nollie's,%20I'm%20interested%20in%20Data%20%26%20Systems%20Analytics" class="btn btn-whatsapp" target="_blank">WhatsApp</a>
+                    <a href="https://wa.me/?text=Hi%20Nollie's,%20I'm%20interested%20in%20Data%20%26%20Systems%20Analytics" class="btn btn-whatsapp" target="_blank">WhatsApp Us</a>
                 </div>
             </div>
 
             <div class="card">
-                <div class="card-header">
-                    <span class="badge">Infrastructure</span>
-                    <span class="delivery-tag">🛠️ Advisory Package</span>
-                </div>
+                <span class="badge">Infrastructure</span>
                 <h2>Urban Architecture & Tech</h2>
-                <p class="description">Digital transformation strategy for physical workspaces, virtual offices, and infrastructure.</p>
-                <div class="price-row">
-                    <div class="price">R 550.00</div>
-                    <span class="vat-tag">Incl. VAT</span>
-                </div>
+                <p class="description">Digital transformation strategy for physical workspaces and local infrastructure.</p>
+                <div class="price">R 550.00</div>
                 <div class="card-actions">
                     <button class="btn btn-primary" onclick="addToCart('Urban Architecture & Tech', 550)">Add to Cart</button>
-                    <a href="https://wa.me/?text=Hi%20Nollie's,%20I'm%20interested%20in%20Urban%20Architecture%20%26%20Tech" class="btn btn-whatsapp" target="_blank">WhatsApp</a>
+                    <a href="https://wa.me/?text=Hi%20Nollie's,%20I'm%20interested%20in%20Urban%20Architecture%20%26%20Tech" class="btn btn-whatsapp" target="_blank">WhatsApp Us</a>
                 </div>
             </div>
 
         </div>
     </main>
 
-    <!-- Slide-over Cart & Checkout Modal -->
     <div id="cart-modal" class="cart-modal">
         <div class="cart-content">
             <div class="cart-header">
-                <h3>Order Summary</h3>
+                <h3>Your Order Summary</h3>
                 <span class="close-btn" onclick="toggleCart()">&times;</span>
             </div>
             <div id="cart-items"></div>
             <div class="cart-footer">
-                <div class="total-row">
-                    <span>Total Amount:</span>
-                    <span id="cart-total" class="total-price">R 0.00</span>
-                </div>
-                <div class="payment-methods">
-                    <span>Accepted Payments:</span>
-                    <div class="pay-tags">
-                        <span class="pay-badge">EFT / Capitec</span>
-                        <span class="pay-badge">Ozow</span>
-                        <span class="pay-badge">Cards</span>
-                    </div>
-                </div>
-                <button class="btn btn-whatsapp btn-block" onclick="checkoutWhatsApp()">Checkout via WhatsApp 💬</button>
+                <div class="total-price">Total: <span id="cart-total">R 0.00</span></div>
+                <button class="btn btn-primary btn-block" onclick="checkoutWhatsApp()">Checkout via WhatsApp 💬</button>
             </div>
         </div>
     </div>
