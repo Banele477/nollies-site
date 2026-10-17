@@ -9,13 +9,26 @@ const PRODUCTS = [
     { id: 'e3', cat: 'essentials', title: 'Cleaning & Hygiene Household Bucket', price: 185, badge: 'Home Care', desc: 'Dishwashing Liquid, Bleach, Washing Powder (2kg), and Floor Cleaner.', img: 'https://images.unsplash.com/photo-1585421514284-efb74c2b69ba?w=500&q=80', fallback: 'https://images.unsplash.com/photo-1563453392212-326f5e854473?w=500&q=80' }
 ];
 
+const HAMPER_OPTIONS = [
+    { name: 'Jungle Oats 1kg', category: 'Cereal' },
+    { name: 'Future Life 500g', category: 'Cereal' },
+    { name: 'Bokomo Corn Flakes 1kg', category: 'Cereal' },
+    { name: 'Weet-Bix 450g', category: 'Cereal' },
+    { name: 'Nutrifics 450g', category: 'Cereal' },
+    { name: 'Happy Valley Rice Puffs', category: 'Cereal' },
+    { name: 'Kellogg\'s Noodles (5 Pack)', category: 'Snacks' },
+    { name: 'Juice Concentrate 300ml', category: 'Beverage' }
+];
+
 let cart = JSON.parse(localStorage.getItem('nollies_cart') || '[]');
 let orders = JSON.parse(localStorage.getItem('nollies_orders') || '[]');
 const deliveryFee = 30;
 let discountPercent = 0;
+let selectedHamperItems = [];
 
 document.addEventListener('DOMContentLoaded', () => {
     renderProducts(PRODUCTS);
+    renderBuilderOptions();
     updateCartUI();
     renderOrderHistory();
     initCharts();
@@ -32,11 +45,11 @@ function renderProducts(items) {
     const c = document.getElementById('product-list');
     if (!c) return;
     c.innerHTML = items.map(p => `
-        <div class="bg-glass rounded-3xl border silver-border shadow-xl overflow-hidden flex flex-col justify-between">
+        <div class="bg-glass rounded-3xl border silver-border shadow-xl overflow-hidden flex flex-col justify-between transition-all duration-300 hover:scale-[1.02]">
             <div onclick="openProductModal('${p.title}', ${p.price}, '${p.desc.replace(/'/g, "\\'")}', '${p.img}', '${p.fallback}')" class="cursor-pointer">
                 <div class="h-44 overflow-hidden relative bg-slate-950 flex items-center justify-center">
-                    <img src="${p.img}" alt="${p.title}" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" onerror="this.src='${p.fallback}'">
-                    <span class="absolute top-3 left-3 silver-gradient text-slate-950 text-[10px] font-extrabold px-3 py-1 rounded-full uppercase">${p.badge}</span>
+                    <img src="${p.img}" alt="${p.title}" class="w-full h-full object-cover hover:scale-110 transition-transform duration-500" onerror="this.src='${p.fallback}'">
+                    <span class="absolute top-3 left-3 silver-gradient text-slate-950 text-[10px] font-extrabold px-3 py-1 rounded-full uppercase shadow">${p.badge}</span>
                 </div>
                 <div class="p-4">
                     <h3 class="text-sm font-extrabold text-white mb-1">${p.title}</h3>
@@ -45,10 +58,42 @@ function renderProducts(items) {
             </div>
             <div class="p-4 pt-0 flex justify-between items-center">
                 <span class="text-base font-black silver-text">R ${p.price.toFixed(2)}</span>
-                <button onclick="addToCart('${p.title}', ${p.price})" class="silver-gradient text-slate-950 text-xs font-extrabold px-4 py-2.5 rounded-xl shadow">+ Add</button>
+                <button onclick="addToCart('${p.title}', ${p.price})" class="press-effect silver-gradient text-slate-950 text-xs font-extrabold px-4 py-2.5 rounded-xl shadow">+ Add</button>
             </div>
         </div>
     `).join('');
+}
+
+function renderBuilderOptions() {
+    const c = document.getElementById('builder-items');
+    if (!c) return;
+    c.innerHTML = HAMPER_OPTIONS.map((item, idx) => `
+        <label class="flex items-center justify-between bg-slate-900/90 p-3 rounded-2xl border silver-border cursor-pointer hover:border-slate-300 transition-all">
+            <span class="font-bold text-white">${item.name} <span class="text-[10px] text-slate-400 font-normal">(${item.category})</span></span>
+            <input type="checkbox" value="${item.name}" onchange="toggleHamperItem(this)" class="w-4 h-4 accent-slate-300 rounded cursor-pointer">
+        </label>
+    `).join('');
+}
+
+function toggleHamperItem(checkbox) {
+    if (checkbox.checked) {
+        if (selectedHamperItems.length >= 5) {
+            checkbox.checked = false;
+            return alert('You can only select up to 5 items for your custom hamper!');
+        }
+        selectedHamperItems.push(checkbox.value);
+    } else {
+        selectedHamperItems = selectedHamperItems.filter(i => i !== checkbox.value);
+    }
+    document.getElementById('builder-count').innerText = selectedHamperItems.length;
+}
+
+function addCustomHamper() {
+    if (selectedHamperItems.length < 5) {
+        return alert('Please select exactly 5 items for your custom hamper!');
+    }
+    addToCart(`Custom Hamper (${selectedHamperItems.join(', ')})`, 250);
+    switchTab('shop', document.querySelectorAll('.tab-btn')[1]);
 }
 
 function addToCart(title, price) {
@@ -168,7 +213,7 @@ function sendAiMessage() {
     if (!input || !box || !input.value.trim()) return;
     box.innerHTML += `<div class="text-right"><span class="inline-block silver-gradient text-slate-950 font-bold p-3 rounded-2xl">${input.value}</span></div>`;
     setTimeout(() => {
-        box.innerHTML += `<div><span class="inline-block bg-slate-900 text-slate-200 border silver-border p-3 rounded-2xl"><strong>Nollie AI:</strong> We deliver across eNanda for R30! Use promo code NOLLIE10 for 10% off.</span></div>`;
+        box.innerHTML += `<div><span class="inline-block bg-slate-900 text-slate-200 border silver-border p-3 rounded-2xl"><strong>Nollie AI:</strong> Try our new 'Build Hamper' feature! We deliver across eNanda for R30.</span></div>`;
         box.scrollTop = box.scrollHeight;
     }, 400);
     input.value = '';
@@ -180,7 +225,6 @@ function checkoutWhatsApp() {
     let discount = (sub * discountPercent) / 100;
     let grand = (sub - discount) + deliveryFee;
 
-    // Save order locally
     orders.push({
         date: new Date().toLocaleString(),
         total: grand,
@@ -188,7 +232,7 @@ function checkoutWhatsApp() {
     });
     localStorage.setItem('nollies_orders', JSON.stringify(orders));
 
-    let msg = "Hi Nollie's (eNanda Pro Hub), I would like to order:%0A%0A";
+    let msg = "Hi Nollie's (eNanda Ultimate Hub), I would like to order:%0A%0A";
     cart.forEach(i => msg += `• ${i.title} - R${i.price}%0A`);
     if (discountPercent > 0) msg += `%0ADiscount (${discountPercent}%): -R${discount.toFixed(2)}`;
     msg += `%0ADelivery Fee: R30%0A*Total: R${grand.toFixed(2)}*`;
