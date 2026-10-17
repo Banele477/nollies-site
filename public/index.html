@@ -1,30 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Nollie's | eNanda Modern Hub</title>
-    <link rel="manifest" href="/manifest.json">
+    <title>Nollie's | eNanda Premier Hub</title>
     <meta name="theme-color" content="#090d16">
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; -webkit-tap-highlight-color: transparent; }
         .silver-gradient { background: linear-gradient(135deg, #f8fafc, #cbd5e1, #64748b); }
-        .silver-border { border-color: rgba(226, 232, 240, 0.12); }
+        .silver-border { border-color: rgba(226, 232, 240, 0.15); }
         .silver-text {
             background: linear-gradient(90deg, #ffffff, #e2e8f0, #94a3b8);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
         .bg-glass {
-            background: rgba(13, 18, 30, 0.85);
+            background: rgba(13, 18, 30, 0.90);
             backdrop-filter: blur(24px);
             -webkit-backdrop-filter: blur(24px);
         }
         .bg-community {
-            background-image: radial-gradient(circle at 50% 0%, rgba(30, 41, 59, 0.65) 0%, rgba(9, 13, 22, 0.98) 100%), 
+            background-image: radial-gradient(circle at 50% 0%, rgba(30, 41, 59, 0.7) 0%, rgba(9, 13, 22, 0.98) 100%), 
                               url('https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?auto=format&fit=crop&w=1200&q=80');
             background-size: cover;
             background-position: center;
@@ -39,20 +37,20 @@
 
     <div class="h-1 silver-gradient w-full fixed top-0 z-50"></div>
 
-    <!-- Modern Navigation Header -->
-    <header class="sticky top-1 z-40 bg-glass border-b silver-border px-4 sm:px-6 py-4 flex justify-between items-center shadow-2xl">
+    <!-- Header -->
+    <header class="sticky top-1 z-40 bg-glass border-b silver-border px-4 sm:px-8 py-4 flex justify-between items-center shadow-2xl">
         <div class="flex items-center space-x-3">
-            <div class="w-10 h-10 rounded-2xl silver-gradient flex items-center justify-center shadow-xl text-slate-950 font-black text-lg">N</div>
+            <div class="w-11 h-11 rounded-2xl silver-gradient flex items-center justify-center shadow-xl text-slate-950 font-black text-xl">N</div>
             <div>
                 <h1 class="text-base font-extrabold tracking-tight text-white leading-none">Nollie's</h1>
-                <span class="text-[10px] font-semibold text-slate-400 tracking-wider uppercase">eNanda Hub</span>
+                <span class="text-[10px] font-semibold text-slate-400 tracking-widest uppercase">eNanda Hub</span>
             </div>
         </div>
         <div class="flex items-center space-x-3">
-            <button onclick="triggerInstall()" class="press-effect bg-slate-900/90 border silver-border text-slate-200 text-xs font-bold px-4 py-2.5 rounded-xl shadow flex items-center space-x-1.5 hover:bg-slate-800 transition-all">
-                <span>📲</span><span class="hidden sm:inline">Install App</span>
+            <button onclick="triggerInstall()" class="press-effect bg-slate-900/90 border silver-border text-slate-200 text-xs font-bold px-4 py-2.5 rounded-xl shadow hidden sm:flex items-center space-x-1.5 hover:bg-slate-800 transition-all">
+                <span>📲</span><span>Install App</span>
             </button>
-            <button onclick="toggleCart()" class="press-effect relative flex items-center space-x-2.5 silver-gradient text-slate-950 text-xs font-extrabold px-4.5 py-2.5 rounded-xl shadow-xl hover:opacity-95 transition-all">
+            <button onclick="toggleCart()" class="press-effect relative flex items-center space-x-2.5 silver-gradient text-slate-950 text-xs font-extrabold px-5 py-2.5 rounded-xl shadow-xl hover:opacity-95 transition-all">
                 <span>🛒 Cart</span>
                 <span id="cart-count" class="bg-slate-950 text-slate-100 text-[11px] rounded-full h-5 w-5 flex items-center justify-center font-black">0</span>
             </button>
@@ -60,164 +58,102 @@
     </header>
 
     <!-- Ticker -->
-    <div id="live-ticker" class="bg-slate-900/80 border-b silver-border text-slate-300 text-[11px] py-2 px-4 text-center font-medium overflow-hidden whitespace-nowrap">
-        <span>💎 eNanda Modern Hub | Use Promo Code <strong class="text-white">NOLLIE10</strong> for 10% Off!</span>
+    <div class="bg-slate-900/90 border-b silver-border text-slate-300 text-[11px] py-2 px-4 text-center font-medium overflow-hidden whitespace-nowrap shadow-inner">
+        <span>💎 eNanda Premier Hub | Use Promo Code <strong class="text-white">NOLLIE10</strong> for 10% Off! | Flat R30 Delivery Fee</span>
     </div>
 
-    <div class="max-w-4xl mx-auto px-4 mt-4">
-        <!-- Delivery Notice Banner -->
-        <div class="bg-glass border silver-border rounded-2xl p-3.5 flex justify-between items-center text-xs shadow-lg backdrop-blur-md mb-4">
-            <div class="flex items-center space-x-2.5">
-                <span class="text-base">📍</span>
-                <span class="font-bold text-slate-200">eNanda, Durban Community Hub</span>
+    <!-- Main Container -->
+    <main class="max-w-5xl mx-auto px-4 mt-6 space-y-8">
+        
+        <!-- Hero Section -->
+        <section class="relative overflow-hidden rounded-3xl border silver-border p-8 sm:p-12 shadow-2xl bg-glass space-y-6">
+            <div class="absolute -right-20 -bottom-20 w-60 h-60 silver-gradient rounded-full blur-3xl opacity-15 pointer-events-none"></div>
+            <div class="inline-flex items-center space-x-2 bg-slate-900/90 px-4 py-1.5 rounded-full border silver-border text-xs font-bold text-slate-300 shadow">
+                <span>✨ eNanda's Elite Essentials & Luxury Collection</span>
             </div>
-            <div class="flex items-center space-x-1.5 bg-slate-900/90 px-3.5 py-1.5 rounded-xl border silver-border">
-                <span class="text-emerald-400 font-extrabold">🚚 R30 Flat Delivery</span>
+            <h2 class="text-3xl sm:text-5xl font-black tracking-tight silver-text leading-tight max-w-2xl">Sawubona! Elevating Everyday Living in eNanda.</h2>
+            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed font-medium max-w-xl">
+                Experience premium 5-item Cereal Hampers, Family Bulk Groceries, Juices Africa fruit concentrates, and signature M-Scents perfumes delivered straight to your door with seamless WhatsApp checkout.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-3.5 pt-2">
+                <a href="#shop-section" class="press-effect silver-gradient text-slate-950 font-extrabold py-4 px-8 rounded-2xl text-xs shadow-xl text-center flex items-center justify-center space-x-2">
+                    <span>🛍️</span><span>Explore Full Catalog</span>
+                </a>
+                <a href="#builder-section" class="press-effect bg-slate-900/90 border silver-border text-slate-200 font-bold py-4 px-8 rounded-2xl text-xs shadow text-center flex items-center justify-center space-x-2">
+                    <span>✨</span><span>Build Custom Hamper</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- Categories & Search Section -->
+        <section id="shop-section" class="bg-glass border silver-border p-6 rounded-3xl shadow-xl space-y-5">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                <div>
+                    <h3 class="text-xl font-black silver-text">Curated Product Catalog</h3>
+                    <p class="text-xs text-slate-400">Select from our community's finest daily essentials and luxury gifts.</p>
+                </div>
+                <input type="text" id="search-input" placeholder="🔍 Search cereal, juice, perfume, oil..." onkeyup="filterProducts()" 
+                       class="w-full sm:w-80 px-4 py-3.5 rounded-2xl border silver-border bg-slate-900/90 text-white placeholder-slate-400 text-xs outline-none focus:ring-2 focus:ring-slate-300 transition-all">
+            </div>
+            <div class="flex space-x-2 overflow-x-auto pb-1 text-xs no-scrollbar">
+                <button onclick="filterCat('all', this)" class="cat-btn press-effect px-5 py-3 rounded-xl font-extrabold silver-gradient text-slate-950 shadow flex-shrink-0">All Items</button>
+                <button onclick="filterCat('cereal', this)" class="cat-btn press-effect px-5 py-3 rounded-xl font-bold bg-slate-900/90 text-slate-300 border silver-border flex-shrink-0">Cereal Hampers</button>
+                <button onclick="filterCat('juice', this)" class="cat-btn press-effect px-5 py-3 rounded-xl font-bold bg-slate-900/90 text-slate-300 border silver-border flex-shrink-0">Juices Africa</button>
+                <button onclick="filterCat('perfume', this)" class="cat-btn press-effect px-5 py-3 rounded-xl font-bold bg-slate-900/90 text-slate-300 border silver-border flex-shrink-0">M-Scents</button>
+                <button onclick="filterCat('essentials', this)" class="cat-btn press-effect px-5 py-3 rounded-xl font-bold bg-slate-900/90 text-slate-300 border silver-border flex-shrink-0">Pantry & Home</button>
+            </div>
+        </section>
+
+        <!-- Product Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="product-list"></div>
+
+        <!-- Custom Hamper Builder Section -->
+        <section id="builder-section" class="bg-glass border silver-border p-6 sm:p-10 rounded-3xl shadow-xl space-y-6">
+            <div class="max-w-xl space-y-2">
+                <h3 class="text-2xl font-black silver-text">✨ Build Your Custom Cereal Hamper</h3>
+                <p class="text-xs sm:text-sm text-slate-300">Mix and match any <strong class="text-white">5 preferred items</strong> to assemble your personalized bundle for a flat price of <strong class="text-white">R250.00</strong>!</p>
+            </div>
+            <div id="builder-items" class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 text-xs"></div>
+            <div class="border-t silver-border pt-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                <div>
+                    <div class="text-xs text-slate-400">Selected Items: <span id="builder-count" class="font-extrabold text-white text-sm">0</span> / 5</div>
+                    <div class="text-2xl font-black silver-text">R 250.00</div>
+                </div>
+                <button onclick="addCustomHamper()" class="press-effect silver-gradient text-slate-950 font-extrabold px-8 py-4 rounded-2xl text-xs shadow-xl w-full sm:w-auto">Add Custom Hamper to Cart 🛒</button>
+            </div>
+        </section>
+
+        <!-- Order History & FAQ Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div class="bg-glass border silver-border p-6 rounded-3xl shadow-xl space-y-4">
+                <h3 class="text-lg font-black silver-text">📦 Your Order History</h3>
+                <p class="text-xs text-slate-400">Securely logged in your browser storage.</p>
+                <div id="order-history-list" class="space-y-3 text-xs">
+                    <p class="text-slate-400 italic">No previous orders found.</p>
+                </div>
+            </div>
+            <div class="bg-glass border silver-border p-6 rounded-3xl shadow-xl space-y-4">
+                <h3 class="text-lg font-black silver-text">📋 Community FAQ & Info</h3>
+                <div class="space-y-3 text-xs text-slate-300">
+                    <div class="bg-slate-900/90 p-4 rounded-2xl border silver-border space-y-1">
+                        <h4 class="font-bold text-white">🚚 eNanda Delivery</h4>
+                        <p class="text-slate-400">Flat rate of R30 for secure delivery across all eNanda sectors and surrounding areas.</p>
+                    </div>
+                    <div class="bg-slate-900/90 p-4 rounded-2xl border silver-border space-y-1">
+                        <h4 class="font-bold text-white">💎 Promo Codes</h4>
+                        <p class="text-slate-400">Apply code <code class="bg-slate-800 px-1.5 py-0.5 rounded text-white">NOLLIE10</code> in your cart summary for an instant 10% discount.</p>
+                    </div>
+                </div>
             </div>
         </div>
-
-        <!-- Modern Tabs Navigation Bar -->
-        <nav class="flex bg-glass border silver-border rounded-2xl shadow-xl p-1.5 gap-1.5 overflow-x-auto no-scrollbar mb-6">
-            <button class="tab-btn py-2.5 px-4 rounded-xl text-xs font-extrabold silver-gradient text-slate-950 whitespace-nowrap text-center shadow-md flex-shrink-0 transition-all" onclick="switchTab('home', this)">🏠 Home</button>
-            <button class="tab-btn py-2.5 px-4 rounded-xl text-xs font-semibold text-slate-400 hover:text-white whitespace-nowrap text-center flex-shrink-0 transition-all" onclick="switchTab('shop', this)">🛍️ Shop Catalog</button>
-            <button class="tab-btn py-2.5 px-4 rounded-xl text-xs font-semibold text-slate-400 hover:text-white whitespace-nowrap text-center flex-shrink-0 transition-all" onclick="switchTab('builder', this)">✨ Build Hamper</button>
-            <button class="tab-btn py-2.5 px-4 rounded-xl text-xs font-semibold text-slate-400 hover:text-white whitespace-nowrap text-center flex-shrink-0 transition-all" onclick="switchTab('orders', this)">📦 My Orders</button>
-            <button class="tab-btn py-2.5 px-4 rounded-xl text-xs font-semibold text-slate-400 hover:text-white whitespace-nowrap text-center flex-shrink-0 transition-all" onclick="switchTab('info', this)">📋 FAQ</button>
-            <button class="tab-btn py-2.5 px-4 rounded-xl text-xs font-semibold text-slate-400 hover:text-white whitespace-nowrap text-center flex-shrink-0 transition-all" onclick="switchTab('ai', this)">🤖 AI Help</button>
-        </nav>
-
-        <main class="space-y-6">
-            <!-- HOME TAB -->
-            <section id="tab-home" class="tab-content block space-y-6">
-                <div class="relative overflow-hidden rounded-3xl border silver-border p-8 shadow-2xl bg-glass space-y-5">
-                    <div class="absolute -right-16 -bottom-16 w-48 h-48 silver-gradient rounded-full blur-3xl opacity-15 pointer-events-none"></div>
-                    <div class="inline-flex items-center space-x-2 bg-slate-900/90 px-3.5 py-1.5 rounded-full border silver-border text-xs font-bold text-slate-300">
-                        <span>✨ eNanda's Premier Retail Experience</span>
-                    </div>
-                    <h2 class="text-3xl sm:text-4xl font-black tracking-tight silver-text leading-tight">Sawubona! Welcome to Nollie's Modern Hub</h2>
-                    <p class="text-xs sm:text-sm text-slate-300 leading-relaxed font-medium max-w-2xl">
-                        Discover premium 5-item Cereal Hampers, high-yield Juices Africa fruit concentrates, M-Scents luxury fragrances, and everyday pantry essentials with absolute transparency and effortless WhatsApp checkout.
-                    </p>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-2">
-                        <button onclick="switchTab('shop', document.querySelectorAll('.tab-btn')[1])" class="press-effect silver-gradient text-slate-950 font-extrabold py-4 px-6 rounded-2xl text-xs shadow-xl text-center flex items-center justify-center space-x-2">
-                            <span>🛍️</span><span>Browse Full Catalog</span>
-                        </button>
-                        <button onclick="switchTab('builder', document.querySelectorAll('.tab-btn')[2])" class="press-effect bg-slate-900/90 border silver-border text-slate-200 font-bold py-4 px-6 rounded-2xl text-xs shadow text-center flex items-center justify-center space-x-2">
-                            <span>✨</span><span>Build Custom Hamper</span>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Features Grid -->
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                    <div class="bg-glass border silver-border p-5 rounded-3xl shadow-xl space-y-2">
-                        <span class="text-2xl">🚀</span>
-                        <h3 class="font-extrabold text-sm text-white">Instant WhatsApp Orders</h3>
-                        <p class="text-[11px] text-slate-300 leading-relaxed">Direct dispatch with pre-formatted itemized receipts and total calculations.</p>
-                    </div>
-                    <div class="bg-glass border silver-border p-5 rounded-3xl shadow-xl space-y-2">
-                        <span class="text-2xl">💎</span>
-                        <h3 class="font-extrabold text-sm text-white">Luxurious Silver UI</h3>
-                        <p class="text-[11px] text-slate-300 leading-relaxed">Crafted with glassmorphism, touch micro-interactions, and dark aesthetics.</p>
-                    </div>
-                    <div class="bg-glass border silver-border p-5 rounded-3xl shadow-xl space-y-2">
-                        <span class="text-2xl">📦</span>
-                        <h3 class="font-extrabold text-sm text-white">Local Order Tracking</h3>
-                        <p class="text-[11px] text-slate-300 leading-relaxed">Review all your local purchase history securely right on your device.</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- SHOP TAB -->
-            <section id="tab-shop" class="tab-content hidden space-y-5">
-                <div class="bg-glass border silver-border p-6 rounded-3xl shadow-xl space-y-4">
-                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
-                        <h2 class="text-xl font-black silver-text">Catalog & Essentials</h2>
-                        <input type="text" id="search-input" placeholder="🔍 Search cereal, juice, perfume, oil..." onkeyup="filterProducts()" 
-                               class="w-full sm:w-72 px-4 py-3 rounded-2xl border silver-border bg-slate-900/90 text-white placeholder-slate-400 text-xs outline-none focus:ring-2 focus:ring-slate-300 transition-all">
-                    </div>
-                    <div class="flex space-x-2 overflow-x-auto pb-1 text-xs no-scrollbar">
-                        <button onclick="filterCat('all', this)" class="cat-btn press-effect px-4 py-2.5 rounded-xl font-extrabold silver-gradient text-slate-950 shadow flex-shrink-0">All Items</button>
-                        <button onclick="filterCat('cereal', this)" class="cat-btn press-effect px-4 py-2.5 rounded-xl font-bold bg-slate-900/90 text-slate-300 border silver-border flex-shrink-0">Cereal Hampers</button>
-                        <button onclick="filterCat('juice', this)" class="cat-btn press-effect px-4 py-2.5 rounded-xl font-bold bg-slate-900/90 text-slate-300 border silver-border flex-shrink-0">Juices Africa</button>
-                        <button onclick="filterCat('perfume', this)" class="cat-btn press-effect px-4 py-2.5 rounded-xl font-bold bg-slate-900/90 text-slate-300 border silver-border flex-shrink-0">M-Scents</button>
-                        <button onclick="filterCat('essentials', this)" class="cat-btn press-effect px-4 py-2.5 rounded-xl font-bold bg-slate-900/90 text-slate-300 border silver-border flex-shrink-0">Pantry</button>
-                    </div>
-                </div>
-                <!-- Modern 3-Column Responsive Product Grid -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5" id="product-list"></div>
-            </section>
-
-            <!-- BUILD YOUR OWN HAMPER TAB -->
-            <section id="tab-builder" class="tab-content hidden space-y-5">
-                <div class="bg-glass border silver-border p-6 sm:p-8 rounded-3xl shadow-xl space-y-5">
-                    <div class="max-w-xl">
-                        <h2 class="text-xl font-black silver-text mb-1">✨ Custom Cereal Hamper Builder</h2>
-                        <p class="text-xs text-slate-300">Mix and match any <strong class="text-white">5 items</strong> to construct your personalized hamper bundle for a flat price of <strong class="text-white">R250</strong>!</p>
-                    </div>
-                    <div id="builder-items" class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs"></div>
-                    <div class="border-t silver-border pt-5 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-                        <div>
-                            <div class="text-xs text-slate-400">Selected Items: <span id="builder-count" class="font-extrabold text-white text-sm">0</span> / 5</div>
-                            <div class="text-xl font-black silver-text">R 250.00</div>
-                        </div>
-                        <button onclick="addCustomHamper()" class="press-effect silver-gradient text-slate-950 font-extrabold px-6 py-3.5 rounded-2xl text-xs shadow-xl w-full sm:w-auto">Add Custom Hamper to Cart 🛒</button>
-                    </div>
-                </div>
-            </section>
-
-            <!-- MY ORDERS TAB -->
-            <section id="tab-orders" class="tab-content hidden space-y-5">
-                <div class="bg-glass border silver-border p-6 rounded-3xl shadow-xl space-y-4">
-                    <h2 class="text-xl font-black silver-text">📦 Your Order History</h2>
-                    <p class="text-xs text-slate-300">All orders placed from your browser are securely logged locally.</p>
-                    <div id="order-history-list" class="space-y-3 text-xs">
-                        <p class="text-slate-400 italic">No previous orders found.</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- FAQ TAB -->
-            <section id="tab-info" class="tab-content hidden space-y-5">
-                <div class="bg-glass border silver-border p-6 rounded-3xl shadow-xl space-y-4">
-                    <h2 class="text-xl font-black silver-text">📋 Frequently Asked Questions</h2>
-                    <div class="space-y-3 text-xs text-slate-300">
-                        <div class="bg-slate-900/90 p-4 rounded-2xl border silver-border space-y-1">
-                            <h4 class="font-bold text-white">Q: What is the delivery fee across eNanda?</h4>
-                            <p>A: We charge a transparent flat rate of R30 for all deliveries within eNanda and surrounding sectors.</p>
-                        </div>
-                        <div class="bg-slate-900/90 p-4 rounded-2xl border silver-border space-y-1">
-                            <h4 class="font-bold text-white">Q: How do I redeem promo codes?</h4>
-                            <p>A: Enter codes like <code class="bg-slate-800 px-1.5 py-0.5 rounded text-white">NOLLIE10</code> directly inside your Cart summary before sending your order to WhatsApp.</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- AI HELP TAB -->
-            <section id="tab-ai" class="tab-content hidden space-y-5">
-                <div class="bg-glass border silver-border p-6 rounded-3xl shadow-xl space-y-4">
-                    <h2 class="text-xl font-black text-white">🤖 Nollie's AI Assistant</h2>
-                    <div id="chat-box" class="bg-slate-900/90 p-4 rounded-2xl h-64 overflow-y-auto border silver-border text-xs space-y-3">
-                        <div class="bg-slate-800 p-3.5 rounded-2xl text-slate-200 border silver-border">
-                            <strong>Nollie AI:</strong> Sawubona! Ask me about products, hampers, promo codes, or delivery schedules!
-                        </div>
-                    </div>
-                    <div class="flex space-x-2.5">
-                        <input type="text" id="chat-input" placeholder="Type your question..." class="flex-1 px-4 py-3.5 text-xs rounded-2xl border silver-border bg-slate-900 text-white outline-none focus:ring-2 focus:ring-slate-300">
-                        <button onclick="sendAiMessage()" class="press-effect silver-gradient text-slate-950 font-black px-6 py-3.5 rounded-2xl text-xs shadow-xl">Send</button>
-                    </div>
-                </div>
-            </section>
-        </main>
-    </div>
+    </main>
 
     <!-- Cart Modal Drawer -->
     <div id="cart-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-50 hidden flex-col justify-end">
         <div class="bg-glass rounded-t-3xl p-6 sm:p-8 border-t silver-border max-h-[85vh] flex flex-col shadow-2xl max-w-2xl mx-auto w-full">
             <div class="flex justify-between items-center border-b silver-border pb-4">
                 <h3 class="font-black text-base text-white flex items-center space-x-2"><span>🛒</span><span>Your Order Summary</span></h3>
-                <button onclick="toggleCart()" class="press-effect text-slate-400 text-xl font-bold bg-slate-800 w-9 h-9 rounded-full flex items-center justify-center hover:bg-slate-750">&times;</button>
+                <button onclick="toggleCart()" class="press-effect text-slate-400 text-xl font-bold bg-slate-800 w-9 h-9 rounded-full flex items-center justify-center hover:bg-slate-700">&times;</button>
             </div>
             <div id="cart-items" class="py-4 overflow-y-auto flex-1 space-y-3 text-xs"></div>
             <div class="py-3 border-t silver-border flex space-x-2.5">
@@ -257,7 +193,323 @@
         Item added to cart!
     </div>
 
-    <script src="/js/backend-bridge.js"></script>
-    <script src="/js/app.js"></script>
+    <script>
+        const PRODUCTS = [
+            { 
+                id: 'c1', cat: 'cereal', title: 'Cereal Hamper Package 1', price: 250, badge: '5 Items', 
+                desc: 'Jungle Oats 1kg, Future Life 500g, Noodles, Bokomo Corn Flakes 1kg, Weet-Bix 450g.', 
+                img: 'https://images.unsplash.com/photo-1517093788734-90fa7b733160?auto=format&fit=crop&w=600&q=80', 
+                fallback: 'https://images.unsplash.com/photo-1521483451571-9f5ce5f25d78?auto=format&fit=crop&w=600&q=80' 
+            },
+            { 
+                id: 'c2', cat: 'cereal', title: 'Cereal Hamper Package 2', price: 250, badge: '5 Items', 
+                desc: 'Bokomo Corn Flakes 1kg, Rice Puffs, Juice, Porridge, Noodles.', 
+                img: 'https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=600&q=80', 
+                fallback: 'https://images.unsplash.com/photo-1521483451571?auto=format&fit=crop&w=600&q=80' 
+            },
+            { 
+                id: 'c3', cat: 'cereal', title: 'Cereal Hamper Package 3', price: 250, badge: '5 Items', 
+                desc: 'Bokomo Weet-Bix 450g, Corn Flakes 1kg, Future Life 500g, Nutrifics 450g, Noodles.', 
+                img: 'https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=600&q=80', 
+                fallback: 'https://images.unsplash.com/photo-1517093788734-90fa7b733160?auto=format&fit=crop&w=600&q=80' 
+            },
+            { 
+                id: 'b1', cat: 'essentials', title: 'Family Bulk Grocery Hamper', price: 380, badge: 'Best Value', 
+                desc: '10kg Maize Meal, 5L Sunflower Oil, 2kg White Sugar, 2kg Rice, 410g Baked Beans (x4).', 
+                img: 'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=600&q=80', 
+                fallback: 'https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=600&q=80' 
+            },
+            { 
+                id: 'b2', cat: 'essentials', title: 'Weekend Braai & Pap Combo', price: 295, badge: 'Weekend Special', 
+                desc: '5kg Iwisa Maize Meal, Braai Spice, Chakalaka (x3), Tomato & Onion Mix, 2L Soft Drink.', 
+                img: 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=600&q=80', 
+                fallback: 'https://images.unsplash.com/photo-1549931319-a545dcf3bc73?auto=format&fit=crop&w=600&q=80' 
+            },
+            { 
+                id: 'j1', cat: 'juice', title: 'Juices Africa (4L Bottle)', price: 160, badge: 'Makes 20L', 
+                desc: 'Guava, Mixed Berry, Tropical Punch high yield fruit concentrate.', 
+                img: 'https://images.unsplash.com/photo-1613478223719-2ab802602423?auto=format&fit=crop&w=600&q=80', 
+                fallback: 'https://images.unsplash.com/photo-1546171753-97d7676eefa0?auto=format&fit=crop&w=600&q=80' 
+            },
+            { 
+                id: 'p1', cat: 'perfume', title: 'M-Scents Perfumes (40ml)', price: 120, badge: '40ml Luxury', 
+                desc: 'Silver Sense, Red Dezire, White OUD, Blue Dezire, StallioN.', 
+                img: 'https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&w=600&q=80', 
+                fallback: 'https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=600&q=80' 
+            },
+            { 
+                id: 'p2', cat: 'perfume', title: 'M-Scents Duo Gift Set (2x 40ml)', price: 192, badge: 'Save R48', 
+                desc: 'Choose any two signature 40ml luxury fragrances in a gift presentation box.', 
+                img: 'https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&w=600&q=80', 
+                fallback: 'https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&w=600&q=80' 
+            },
+            { 
+                id: 'e1', cat: 'essentials', title: 'Fresh Bakery Daily Pack', price: 35, badge: 'Fresh Daily', 
+                desc: 'Fresh loaf, rolls, and morning treats.', 
+                img: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=600&q=80', 
+                fallback: 'https://images.unsplash.com/photo-1549931319-a545dcf3bc73?auto=format&fit=crop&w=600&q=80' 
+            },
+            { 
+                id: 'e3', cat: 'essentials', title: 'Cleaning & Hygiene Household Bucket', price: 185, badge: 'Home Care', 
+                desc: 'Dishwashing Liquid, Bleach, Washing Powder (2kg), and Floor Cleaner.', 
+                img: 'https://images.unsplash.com/photo-1585421514284-efb74c2b69ba?auto=format&fit=crop&w=600&q=80', 
+                fallback: 'https://images.unsplash.com/photo-1563453392212-326f5e854473?auto=format&fit=crop&w=600&q=80' 
+            }
+        ];
+
+        const HAMPER_OPTIONS = [
+            { name: 'Jungle Oats 1kg', category: 'Cereal' },
+            { name: 'Future Life 500g', category: 'Cereal' },
+            { name: 'Bokomo Corn Flakes 1kg', category: 'Cereal' },
+            { name: 'Weet-Bix 450g', category: 'Cereal' },
+            { name: 'Nutrifics 450g', category: 'Cereal' },
+            { name: 'Happy Valley Rice Puffs', category: 'Cereal' },
+            { name: 'Kellogg\'s Noodles (5 Pack)', category: 'Snacks' },
+            { name: 'Juice Concentrate 300ml', category: 'Beverage' }
+        ];
+
+        let cart = JSON.parse(localStorage.getItem('nollies_cart') || '[]');
+        let orders = JSON.parse(localStorage.getItem('nollies_orders') || '[]');
+        const deliveryFee = 30;
+        let discountPercent = 0;
+        let selectedHamperItems = [];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderProducts(PRODUCTS);
+            renderBuilderOptions();
+            updateCartUI();
+            renderOrderHistory();
+        });
+
+        function showToast(msg) {
+            const t = document.getElementById('toast');
+            if (!t) return;
+            t.innerText = msg;
+            t.classList.remove('translate-y-24', 'opacity-0');
+            setTimeout(() => t.classList.add('translate-y-24', 'opacity-0'), 2500);
+        }
+
+        function renderProducts(items) {
+            const c = document.getElementById('product-list');
+            if (!c) return;
+            c.innerHTML = items.map(p => `
+                <div class="bg-glass rounded-3xl border silver-border shadow-xl overflow-hidden flex flex-col justify-between hover:border-slate-400 transition-all">
+                    <div onclick="openProductModal('${p.title.replace(/'/g, "\\'")}', ${p.price}, '${p.desc.replace(/'/g, "\\'")}', '${p.img}', '${p.fallback}')" class="cursor-pointer">
+                        <div class="h-48 overflow-hidden relative bg-slate-950 flex items-center justify-center">
+                            <img src="${p.img}" alt="${p.title}" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" onerror="this.onerror=null;this.src='${p.fallback}';">
+                            <span class="absolute top-3 left-3 silver-gradient text-slate-950 text-[10px] font-extrabold px-3 py-1 rounded-full uppercase shadow">${p.badge}</span>
+                        </div>
+                        <div class="p-4">
+                            <h3 class="text-sm font-extrabold text-white mb-1">${p.title}</h3>
+                            <p class="text-[11px] text-slate-300 line-clamp-2">${p.desc}</p>
+                        </div>
+                    </div>
+                    <div class="p-4 pt-0 flex justify-between items-center">
+                        <span class="text-base font-black silver-text">R ${p.price.toFixed(2)}</span>
+                        <button onclick="addToCart('${p.title.replace(/'/g, "\\'")}', ${p.price})" class="press-effect silver-gradient text-slate-950 text-xs font-extrabold px-4 py-2.5 rounded-xl shadow">+ Add</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderBuilderOptions() {
+            const c = document.getElementById('builder-items');
+            if (!c) return;
+            c.innerHTML = HAMPER_OPTIONS.map((item) => `
+                <label class="flex items-center justify-between bg-slate-900/90 p-3.5 rounded-2xl border silver-border cursor-pointer hover:border-slate-300 transition-all">
+                    <span class="font-bold text-white">${item.name} <span class="text-[10px] text-slate-400 font-normal">(${item.category})</span></span>
+                    <input type="checkbox" value="${item.name}" onchange="toggleHamperItem(this)" class="w-4 h-4 accent-slate-300 rounded cursor-pointer">
+                </label>
+            `).join('');
+        }
+
+        function toggleHamperItem(checkbox) {
+            if (checkbox.checked) {
+                if (selectedHamperItems.length >= 5) {
+                    checkbox.checked = false;
+                    alert('You can only select up to 5 items for your custom hamper!');
+                    return;
+                }
+                selectedHamperItems.push(checkbox.value);
+            } else {
+                selectedHamperItems = selectedHamperItems.filter(i => i !== checkbox.value);
+            }
+            const countEl = document.getElementById('builder-count');
+            if (countEl) countEl.innerText = selectedHamperItems.length;
+        }
+
+        function addCustomHamper() {
+            if (selectedHamperItems.length < 5) {
+                alert('Please select exactly 5 items for your custom hamper!');
+                return;
+            }
+            addToCart(`Custom Hamper (${selectedHamperItems.join(', ')})`, 250);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function addToCart(title, price) {
+            cart.push({ title, price });
+            localStorage.setItem('nollies_cart', JSON.stringify(cart));
+            updateCartUI();
+            showToast(`Added ${title} to cart!`);
+        }
+
+        function updateCartUI() {
+            const badge = document.getElementById('cart-count');
+            if (badge) badge.innerText = cart.length;
+            const c = document.getElementById('cart-items');
+            if (!c) return;
+            c.innerHTML = '';
+            let sub = 0;
+            cart.forEach((i, idx) => {
+                sub += i.price;
+                c.innerHTML += `
+                    <div class="flex justify-between items-center bg-slate-900/90 p-3 rounded-2xl border silver-border text-slate-200">
+                        <div><div class="font-extrabold text-white">${i.title}</div><div class="text-slate-400 text-[11px]">R ${i.price.toFixed(2)}</div></div>
+                        <button onclick="removeFromCart(${idx})" class="text-red-400 font-bold bg-slate-800 w-7 h-7 rounded-full flex items-center justify-center">✕</button>
+                    </div>
+                `;
+            });
+
+            let discount = (sub * discountPercent) / 100;
+            let grand = cart.length > 0 ? (sub - discount) + deliveryFee : 0;
+
+            const subEl = document.getElementById('cart-subtotal');
+            const discEl = document.getElementById('cart-discount');
+            const totEl = document.getElementById('cart-total');
+            if (subEl) subEl.innerText = `R ${sub.toFixed(2)}`;
+            if (discEl) discEl.innerText = `-R ${discount.toFixed(2)}`;
+            if (totEl) totEl.innerText = `R ${grand.toFixed(2)}`;
+        }
+
+        function removeFromCart(idx) {
+            cart.splice(idx, 1);
+            localStorage.setItem('nollies_cart', JSON.stringify(cart));
+            updateCartUI();
+            showToast('Removed item.');
+        }
+
+        function toggleCart() {
+            const modal = document.getElementById('cart-modal');
+            if (modal) {
+                modal.classList.toggle('hidden');
+                modal.classList.toggle('flex');
+            }
+        }
+
+        function applyPromo() {
+            const promoInput = document.getElementById('promo-input');
+            if (!promoInput) return;
+            const code = promoInput.value.trim().toUpperCase();
+            if (code === 'NOLLIE10') {
+                discountPercent = 10;
+                showToast('Promo code applied: 10% Off!');
+                updateCartUI();
+            } else {
+                alert('Invalid promo code!');
+            }
+        }
+
+        function openProductModal(title, price, desc, img, fallback) {
+            const mTitle = document.getElementById('modal-title');
+            const mPrice = document.getElementById('modal-price');
+            const mDesc = document.getElementById('modal-desc');
+            const mImg = document.getElementById('modal-img');
+            const mBtn = document.getElementById('modal-add-btn');
+
+            if (mTitle) mTitle.innerText = title;
+            if (mPrice) mPrice.innerText = `R ${price.toFixed(2)}`;
+            if (mDesc) mDesc.innerText = desc;
+            if (mImg) {
+                mImg.src = img;
+                mImg.onerror = function() { this.onerror=null; this.src=fallback; };
+            }
+            if (mBtn) {
+                mBtn.onclick = () => {
+                    addToCart(title, price);
+                    closeProductModal();
+                };
+            }
+            const modal = document.getElementById('product-modal');
+            if (modal) {
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+            }
+        }
+
+        function closeProductModal() {
+            const modal = document.getElementById('product-modal');
+            if (modal) {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            }
+        }
+
+        function filterProducts() {
+            const searchInput = document.getElementById('search-input');
+            if (!searchInput) return;
+            const q = searchInput.value.toLowerCase();
+            renderProducts(PRODUCTS.filter(p => p.title.toLowerCase().includes(q) || p.desc.toLowerCase().includes(q)));
+        }
+
+        function filterCat(cat, btn) {
+            document.querySelectorAll('.cat-btn').forEach(b => {
+                b.classList.remove('silver-gradient', 'text-slate-950', 'font-extrabold');
+                b.classList.add('bg-slate-900', 'text-slate-300');
+            });
+            if (btn) btn.classList.add('silver-gradient', 'text-slate-950', 'font-extrabold');
+            if (cat === 'all') renderProducts(PRODUCTS);
+            else renderProducts(PRODUCTS.filter(p => p.cat === cat));
+        }
+
+        function renderOrderHistory() {
+            const c = document.getElementById('order-history-list');
+            if (!c) return;
+            if (orders.length === 0) {
+                c.innerHTML = `<p class="text-slate-400 italic">No previous orders found.</p>`;
+                return;
+            }
+            c.innerHTML = orders.map((o, idx) => `
+                <div class="bg-slate-900/90 p-3.5 rounded-2xl border silver-border space-y-1">
+                    <div class="flex justify-between font-bold text-white"><span>Order #${idx + 1}</span><span class="silver-text">R ${o.total.toFixed(2)}</span></div>
+                    <div class="text-slate-400 text-[10px]">${o.date}</div>
+                    <div class="text-slate-300 text-[11px]">${o.items.length} item(s) ordered</div>
+                </div>
+            `).join('');
+        }
+
+        function checkoutWhatsApp() {
+            if (cart.length === 0) {
+                alert('Your cart is empty!');
+                return;
+            }
+            let sub = cart.reduce((s, i) => s + i.price, 0);
+            let discount = (sub * discountPercent) / 100;
+            let grand = (sub - discount) + deliveryFee;
+
+            orders.push({
+                date: new Date().toLocaleString(),
+                total: grand,
+                items: [...cart]
+            });
+            localStorage.setItem('nollies_orders', JSON.stringify(orders));
+
+            let msg = "Hi Nollie's (eNanda Premier Hub), I would like to order:%0A%0A";
+            cart.forEach(i => msg += `• ${i.title} - R${i.price}%0A`);
+            if (discountPercent > 0) msg += `%0ADiscount (${discountPercent}%): -R${discount.toFixed(2)}`;
+            msg += `%0ADelivery Fee: R30%0A*Total: R${grand.toFixed(2)}*`;
+
+            cart = [];
+            localStorage.removeItem('nollies_cart');
+            updateCartUI();
+            toggleCart();
+
+            window.open(`https://wa.me/?text=${msg}`, '_blank');
+        }
+
+        function triggerInstall() {
+            alert('Tap your browser settings menu (⋮ or Share) and select "Install App" or "Add to Home Screen".');
+        }
+    </script>
 </body>
 </html>
