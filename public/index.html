@@ -500,5 +500,5 @@
             alert('Tap your browser settings menu (⋮ or Share) and select "Install App" or "Add to Home Screen".');
         }
     </script>
-</body>
+<script>if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js'));}</script></body>
 </html>
