@@ -219,7 +219,7 @@ function sendAiMessage() {
     input.value = '';
 }
 
-function checkoutWhatsApp() {
+async function checkoutWhatsApp() {
     if (cart.length === 0) return alert('Your cart is empty!');
     let sub = cart.reduce((s, i) => s + i.price, 0);
     let discount = (sub * discountPercent) / 100;
@@ -231,6 +231,13 @@ function checkoutWhatsApp() {
         items: [...cart]
     });
     localStorage.setItem('nollies_orders', JSON.stringify(orders));
+
+    // Async backend synchronization
+    await API.submitOrder({
+        total: grand,
+        items: cart,
+        date: new Date().toISOString()
+    });
 
     let msg = "Hi Nollie's (eNanda Ultimate Hub), I would like to order:%0A%0A";
     cart.forEach(i => msg += `• ${i.title} - R${i.price}%0A`);
