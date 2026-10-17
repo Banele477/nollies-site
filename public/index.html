@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Nollie's | eNanda Static Hub</title>
+    <title>Nollie's | eNanda Pro Hub</title>
     <link rel="manifest" href="/manifest.json">
     <meta name="theme-color" content="#090d16">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -19,7 +19,7 @@
             -webkit-text-fill-color: transparent;
         }
         .bg-glass {
-            background: rgba(9, 13, 22, 0.85);
+            background: rgba(9, 13, 22, 0.88);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
         }
@@ -31,6 +31,8 @@
             background-attachment: fixed;
         }
         .press-effect:active { transform: scale(0.96); }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen pb-32 bg-community">
@@ -43,7 +45,7 @@
             <div class="w-9 h-9 rounded-xl silver-gradient flex items-center justify-center shadow-lg text-slate-950 font-black text-base">N</div>
             <div>
                 <h1 class="text-base font-extrabold tracking-tight text-white leading-none">Nollie's</h1>
-                <span class="text-[10px] font-semibold text-slate-400 tracking-wider uppercase">eNanda Static Hub</span>
+                <span class="text-[10px] font-semibold text-slate-400 tracking-wider uppercase">eNanda Pro Hub</span>
             </div>
         </div>
         <div class="flex items-center space-x-2">
@@ -59,7 +61,7 @@
 
     <!-- Ticker -->
     <div id="live-ticker" class="bg-slate-900/90 border-b silver-border text-slate-300 text-[11px] py-2 px-4 text-center font-medium overflow-hidden whitespace-nowrap">
-        <span>💎 eNanda Static Hub Operational | Flat R30 Delivery</span>
+        <span>💎 eNanda Pro Hub Operational | Use Promo Code <strong class="text-white">NOLLIE10</strong> for 10% Off!</span>
     </div>
 
     <!-- Delivery Banner -->
@@ -70,16 +72,17 @@
                 <span class="font-semibold text-slate-200">eNanda, Durban</span>
             </div>
             <div class="flex items-center space-x-1.5 bg-slate-800 px-3 py-1 rounded-xl border silver-border">
-                <span class="text-emerald-400 font-bold">🚚 R30 Delivery</span>
+                <span class="text-emerald-400 font-bold">🚚 R30 Delivery Fee</span>
             </div>
         </div>
     </div>
 
     <!-- Navigation Tabs -->
-    <nav class="flex bg-glass border silver-border max-w-2xl mx-auto my-3 rounded-2xl shadow-xl p-1.5 gap-1.5 overflow-x-auto mx-4">
+    <nav class="flex bg-glass border silver-border max-w-2xl mx-auto my-3 rounded-2xl shadow-xl p-1.5 gap-1.5 overflow-x-auto mx-4 no-scrollbar">
         <button class="tab-btn py-2.5 px-4 rounded-xl text-xs font-extrabold silver-gradient text-slate-950 whitespace-nowrap text-center shadow-md flex-shrink-0 transition-all" onclick="switchTab('home', this)">🏠 Home</button>
         <button class="tab-btn py-2.5 px-4 rounded-xl text-xs font-semibold text-slate-400 hover:text-white whitespace-nowrap text-center flex-shrink-0 transition-all" onclick="switchTab('shop', this)">🛍️ Shop</button>
         <button class="tab-btn py-2.5 px-4 rounded-xl text-xs font-semibold text-slate-400 hover:text-white whitespace-nowrap text-center flex-shrink-0 transition-all" onclick="switchTab('specials', this)">🔥 Combos</button>
+        <button class="tab-btn py-2.5 px-4 rounded-xl text-xs font-semibold text-slate-400 hover:text-white whitespace-nowrap text-center flex-shrink-0 transition-all" onclick="switchTab('orders', this)">📦 My Orders</button>
         <button class="tab-btn py-2.5 px-4 rounded-xl text-xs font-semibold text-slate-400 hover:text-white whitespace-nowrap text-center flex-shrink-0 transition-all" onclick="switchTab('info', this)">📋 About & FAQ</button>
         <button class="tab-btn py-2.5 px-4 rounded-xl text-xs font-semibold text-slate-400 hover:text-white whitespace-nowrap text-center flex-shrink-0 transition-all" onclick="switchTab('analytics', this)">📊 Telemetry</button>
         <button class="tab-btn py-2.5 px-4 rounded-xl text-xs font-semibold text-slate-400 hover:text-white whitespace-nowrap text-center flex-shrink-0 transition-all" onclick="switchTab('ai', this)">🤖 AI Help</button>
@@ -89,13 +92,13 @@
         <!-- HOME TAB -->
         <section id="tab-home" class="tab-content block space-y-4">
             <div class="relative overflow-hidden rounded-3xl border silver-border p-6 shadow-2xl bg-glass space-y-4">
-                <h1 class="text-2xl sm:text-3xl font-black tracking-tight silver-text leading-tight">Sawubona! Welcome to Nollie's Hub</h1>
+                <h1 class="text-2xl sm:text-3xl font-black tracking-tight silver-text leading-tight">Sawubona! Welcome to Nollie's Pro Hub</h1>
                 <p class="text-xs sm:text-sm text-slate-300 leading-relaxed font-medium">
                     Your premier eNanda destination for 5-item Cereal Hampers, Juices Africa fruit concentrates, M-Scents luxury fragrances, and everyday pantry essentials.
                 </p>
                 <div class="grid grid-cols-2 gap-3 pt-2">
                     <button onclick="switchTab('shop', document.querySelectorAll('.tab-btn')[1])" class="press-effect silver-gradient text-slate-950 font-extrabold py-3.5 px-4 rounded-2xl text-xs shadow-xl text-center">🛍️ Browse Catalog</button>
-                    <button onclick="switchTab('info', document.querySelectorAll('.tab-btn')[3])" class="press-effect bg-slate-900 border silver-border text-slate-200 font-bold py-3.5 px-4 rounded-2xl text-xs shadow text-center">📋 FAQ & Help</button>
+                    <button onclick="switchTab('orders', document.querySelectorAll('.tab-btn')[3])" class="press-effect bg-slate-900 border silver-border text-slate-200 font-bold py-3.5 px-4 rounded-2xl text-xs shadow text-center">📦 Track Orders</button>
                 </div>
             </div>
         </section>
@@ -106,6 +109,13 @@
                 <h1 class="text-lg font-black silver-text">Explore Quality Essentials</h1>
                 <input type="text" id="search-input" placeholder="🔍 Search cereal, juice, perfume, bread..." onkeyup="filterProducts()" 
                        class="w-full px-4 py-3.5 rounded-2xl border silver-border bg-slate-900/90 text-white placeholder-slate-400 text-xs outline-none">
+                <div class="flex space-x-2 overflow-x-auto pb-1 text-xs no-scrollbar">
+                    <button onclick="filterCat('all', this)" class="cat-btn press-effect px-4 py-2 rounded-xl font-extrabold silver-gradient text-slate-950 shadow flex-shrink-0">All Items</button>
+                    <button onclick="filterCat('cereal', this)" class="cat-btn press-effect px-4 py-2 rounded-xl font-bold bg-slate-900 text-slate-300 border silver-border flex-shrink-0">Cereal Hampers</button>
+                    <button onclick="filterCat('juice', this)" class="cat-btn press-effect px-4 py-2 rounded-xl font-bold bg-slate-900 text-slate-300 border silver-border flex-shrink-0">Juices Africa</button>
+                    <button onclick="filterCat('perfume', this)" class="cat-btn press-effect px-4 py-2 rounded-xl font-bold bg-slate-900 text-slate-300 border silver-border flex-shrink-0">M-Scents</button>
+                    <button onclick="filterCat('essentials', this)" class="cat-btn press-effect px-4 py-2 rounded-xl font-bold bg-slate-900 text-slate-300 border silver-border flex-shrink-0">Pantry</button>
+                </div>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4" id="product-list"></div>
         </section>
@@ -121,6 +131,24 @@
                     </div>
                     <button onclick="addToCart('2x M-Scents Perfumes Deal', 192)" class="press-effect silver-gradient text-slate-950 font-black text-xs px-4 py-2 rounded-xl">R 192</button>
                 </div>
+                <div class="p-4 bg-slate-900/90 rounded-2xl border silver-border flex justify-between items-center shadow">
+                    <div>
+                        <h4 class="font-extrabold text-xs text-slate-100">2x Juices Africa (4L) Deal</h4>
+                        <p class="text-[11px] text-slate-400">Save R96 (Yields 40L Juice)</p>
+                    </div>
+                    <button onclick="addToCart('2x Juices Africa Deal', 224)" class="press-effect silver-gradient text-slate-950 font-black text-xs px-4 py-2 rounded-xl">R 224</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- MY ORDERS TAB -->
+        <section id="tab-orders" class="tab-content hidden space-y-4">
+            <div class="bg-glass p-5 rounded-3xl border silver-border shadow-xl space-y-3">
+                <h2 class="text-base font-black silver-text">📦 Your Order History</h2>
+                <p class="text-xs text-slate-300">Orders placed from this browser are saved locally for your convenience.</p>
+                <div id="order-history-list" class="space-y-2.5 text-xs">
+                    <p class="text-slate-400 italic">No previous orders found.</p>
+                </div>
             </div>
         </section>
 
@@ -128,7 +156,11 @@
         <section id="tab-info" class="tab-content hidden space-y-4">
             <div class="bg-glass p-5 rounded-3xl border silver-border shadow-xl space-y-3">
                 <h2 class="text-base font-black silver-text">📋 About Nollie's & FAQ</h2>
-                <p class="text-xs text-slate-300">Nollie's Small Business is proudly based in eNanda, Durban. Flat R30 delivery fee across all eNanda locations.</p>
+                <p class="text-xs text-slate-300 leading-relaxed">Nollie's Small Business is proudly based in eNanda, Durban. Flat R30 delivery fee across all eNanda locations.</p>
+                <div class="space-y-2 pt-2 text-xs text-slate-300">
+                    <p><strong>Q: How do I apply promo codes?</strong><br>A: Enter codes like <code class="bg-slate-900 px-1.5 py-0.5 rounded text-white">NOLLIE10</code> directly in your Cart summary before checking out on WhatsApp.</p>
+                    <p><strong>Q: What are delivery times?</strong><br>A: Orders are dispatched promptly within eNanda.</p>
+                </div>
             </div>
         </section>
 
@@ -136,7 +168,7 @@
         <section id="tab-analytics" class="tab-content hidden space-y-4">
             <div class="bg-glass p-5 rounded-3xl border silver-border shadow-xl space-y-3">
                 <h2 class="text-base font-black text-white">📊 Local Telemetry Summary</h2>
-                <p class="text-[11px] text-slate-400">Overview of local catalog demand and catalog breakdown.</p>
+                <p class="text-[11px] text-slate-400">Overview of local catalog demand and category breakdown.</p>
                 <div class="relative h-52"><canvas id="salesChart"></canvas></div>
             </div>
         </section>
@@ -146,7 +178,7 @@
             <div class="bg-glass p-5 rounded-3xl border silver-border shadow-xl">
                 <h2 class="text-base font-black mb-1 text-white">🤖 Nollie's AI Assistant</h2>
                 <div id="chat-box" class="bg-slate-900/90 p-3.5 rounded-2xl h-52 overflow-y-auto border silver-border text-xs space-y-2 mb-3">
-                    <div class="bg-slate-800 p-3 rounded-xl text-slate-200"><strong>Nollie AI:</strong> Sawubona! Ask me about products or eNanda delivery!</div>
+                    <div class="bg-slate-800 p-3 rounded-xl text-slate-200"><strong>Nollie AI:</strong> Sawubona! Ask me about products, promo codes, or eNanda delivery!</div>
                 </div>
                 <div class="flex space-x-2">
                     <input type="text" id="chat-input" placeholder="Type your question..." class="flex-1 px-4 py-3 text-xs rounded-2xl border silver-border bg-slate-900 text-white outline-none">
@@ -156,7 +188,7 @@
         </section>
     </main>
 
-    <!-- Cart Modal -->
+    <!-- Cart Modal with Promo Code Support -->
     <div id="cart-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-50 hidden flex-col justify-end">
         <div class="bg-glass rounded-t-3xl p-6 border-t silver-border max-h-[85vh] flex flex-col shadow-2xl">
             <div class="flex justify-between items-center border-b silver-border pb-3.5">
@@ -164,10 +196,19 @@
                 <button onclick="toggleCart()" class="text-slate-400 text-xl font-bold bg-slate-800 w-8 h-8 rounded-full flex items-center justify-center">&times;</button>
             </div>
             <div id="cart-items" class="py-4 overflow-y-auto flex-1 space-y-2.5 text-xs"></div>
-            <div class="border-t silver-border pt-4 space-y-3.5">
-                <div class="flex justify-between text-xs font-semibold text-slate-300"><span>Delivery Fee:</span><span>R 30.00</span></div>
-                <div class="flex justify-between text-base font-black text-white"><span>Total:</span><span id="cart-total" class="silver-text">R 30.00</span></div>
-                <button onclick="checkoutWhatsApp()" class="w-full bg-emerald-600 text-white font-extrabold py-4 rounded-2xl text-sm shadow-xl">Send Order on WhatsApp 💬</button>
+            
+            <!-- Promo Code Input -->
+            <div class="py-2 border-t silver-border flex space-x-2">
+                <input type="text" id="promo-input" placeholder="Promo code (e.g. NOLLIE10)" class="flex-1 px-3 py-2 text-xs rounded-xl bg-slate-900 border silver-border text-white uppercase outline-none">
+                <button onclick="applyPromo()" class="silver-gradient text-slate-950 text-xs font-bold px-4 py-2 rounded-xl">Apply</button>
+            </div>
+
+            <div class="border-t silver-border pt-4 space-y-2 text-xs">
+                <div class="flex justify-between text-slate-300"><span>Subtotal:</span><span id="cart-subtotal">R 0.00</span></div>
+                <div class="flex justify-between text-slate-300"><span>Discount:</span><span id="cart-discount" class="text-emerald-400">-R 0.00</span></div>
+                <div class="flex justify-between text-slate-300"><span>Delivery Fee:</span><span>R 30.00</span></div>
+                <div class="flex justify-between text-base font-black text-white pt-1 border-t silver-border"><span>Total:</span><span id="cart-total" class="silver-text">R 30.00</span></div>
+                <button onclick="checkoutWhatsApp()" class="w-full bg-emerald-600 text-white font-extrabold py-4 rounded-2xl text-sm shadow-xl mt-2">Send Order on WhatsApp 💬</button>
             </div>
         </div>
     </div>
