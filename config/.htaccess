@@ -1,4 +1,3 @@
-# Strict Security Headers
 Header set X-XSS-Protection "1; mode=block"
 Header set X-Frame-Options "SAMEORIGIN"
 Header set X-Content-Type-Options "nosniff"

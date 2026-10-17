@@ -5,14 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Nollie's | eNanda Premier Hub & Marketplace</title>
     <meta name="theme-color" content="#090d16">
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- React & ReactDOM 18 -->
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-    <!-- Babel Standalone for JSX Transformation -->
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; -webkit-tap-highlight-color: transparent; }
@@ -95,9 +91,7 @@
                 fetch('/api/orders')
                     .then(res => res.json())
                     .then(data => {
-                        if (data && data.orders) {
-                            setOrders(data.orders);
-                        }
+                        if (data && data.orders) setOrders(data.orders);
                     })
                     .catch(err => {
                         setOrders(JSON.parse(localStorage.getItem('nollies_orders') || '[]'));
@@ -163,10 +157,7 @@
                     return;
                 }
                 
-                const orderPayload = {
-                    items: [...cart],
-                    total: grandTotal
-                };
+                const orderPayload = { items: [...cart], total: grandTotal };
 
                 fetch('/api/orders', {
                     method: 'POST',
@@ -175,9 +166,7 @@
                 })
                 .then(res => res.json())
                 .then(data => {
-                    if (data && data.order) {
-                        setOrders([data.order, ...orders]);
-                    }
+                    if (data && data.order) setOrders([data.order, ...orders]);
                 })
                 .catch(err => {
                     const localFallback = { id: orders.length + 1, items: [...cart], total: grandTotal };
@@ -204,7 +193,6 @@
                 <div className="min-h-screen">
                     <div className="h-1 silver-gradient w-full fixed top-0 z-50"></div>
 
-                    {/* Navigation Header */}
                     <header className="sticky top-1 z-40 bg-glass border-b silver-border px-4 sm:px-12 py-4 flex justify-between items-center shadow-2xl">
                         <div className="flex items-center space-x-3 cursor-pointer" onClick={() => setActiveTab('catalog')}>
                             <div className="w-11 h-11 rounded-2xl silver-gradient flex items-center justify-center shadow-xl text-slate-950 font-black text-xl">N</div>
@@ -223,7 +211,7 @@
                         </nav>
 
                         <div className="flex items-center space-x-3">
-                            <button onClick={() => alert('Tap your browser settings menu (⋮ or Share) and select "Install App" or "Add to Home Screen".')} className="press-effect bg-slate-900/90 border silver-border text-slate-200 text-xs font-bold px-4 py-2.5 rounded-xl shadow hidden sm:flex items-center space-x-1.5 hover:bg-slate-800 transition-all">
+                            <button onClick={() => alert('Tap browser settings (⋮) and select "Install App" or "Add to Home Screen".')} className="press-effect bg-slate-900/90 border silver-border text-slate-200 text-xs font-bold px-4 py-2.5 rounded-xl shadow hidden sm:flex items-center space-x-1.5 hover:bg-slate-800 transition-all">
                                 <span>📲</span><span>Install App</span>
                             </button>
                             <button onClick={() => setIsCartOpen(true)} className="press-effect relative flex items-center space-x-2.5 silver-gradient text-slate-950 text-xs font-extrabold px-5 py-2.5 rounded-xl shadow-xl hover:opacity-95 transition-all">
@@ -233,7 +221,6 @@
                         </div>
                     </header>
 
-                    {/* Mobile Navigation Bar */}
                     <div className="md:hidden flex overflow-x-auto bg-slate-900/90 border-b silver-border px-4 py-2 space-x-2 text-xs font-bold no-scrollbar sticky top-[73px] z-30">
                         <button onClick={() => setActiveTab('catalog')} className={`px-4 py-2 rounded-xl whitespace-nowrap transition-all ${activeTab === 'catalog' ? 'silver-gradient text-slate-950 font-black' : 'text-slate-300 bg-slate-950'}`}>🛍️ Catalog</button>
                         <button onClick={() => setActiveTab('builder')} className={`px-4 py-2 rounded-xl whitespace-nowrap transition-all ${activeTab === 'builder' ? 'silver-gradient text-slate-950 font-black' : 'text-slate-300 bg-slate-950'}`}>✨ Hamper Builder</button>
@@ -242,14 +229,12 @@
                         <button onClick={() => setActiveTab('about')} className={`px-4 py-2 rounded-xl whitespace-nowrap transition-all ${activeTab === 'about' ? 'silver-gradient text-slate-950 font-black' : 'text-slate-300 bg-slate-950'}`}>ℹ️ eNanda Info</button>
                     </div>
 
-                    {/* Ticker */}
                     <div className="bg-slate-900/90 border-b silver-border text-slate-300 text-[11px] py-2 px-4 text-center font-medium overflow-hidden whitespace-nowrap shadow-inner">
                         <span>💎 eNanda Premier Hub | Use Promo Code <strong className="text-white">NOLLIE10</strong> for 10% Off! | Flat R30 Delivery Fee</span>
                     </div>
 
                     <main className="max-w-6xl mx-auto px-4 mt-8 space-y-10 animate-fade-in">
                         
-                        {/* HERO SECTION */}
                         <section className="relative overflow-hidden rounded-3xl border silver-border p-8 sm:p-14 shadow-2xl bg-glass flex flex-col lg:flex-row items-center justify-between gap-10">
                             <div className="absolute -right-20 -top-20 w-80 h-80 silver-gradient rounded-full blur-3xl opacity-15 pointer-events-none"></div>
                             <div className="space-y-6 max-w-2xl">
@@ -284,7 +269,6 @@
                             </div>
                         </section>
 
-                        {/* TAB 1: CATALOG */}
                         {activeTab === 'catalog' && (
                             <div id="shop-section" className="space-y-6 animate-fade-in">
                                 <div className="bg-glass border silver-border p-6 rounded-3xl shadow-xl flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
@@ -332,7 +316,6 @@
                             </div>
                         )}
 
-                        {/* TAB 2: HAMPER BUILDER */}
                         {activeTab === 'builder' && (
                             <section className="bg-glass border silver-border p-6 sm:p-12 rounded-3xl shadow-xl space-y-6 animate-fade-in">
                                 <div className="max-w-xl space-y-2">
@@ -357,7 +340,6 @@
                             </section>
                         )}
 
-                        {/* TAB 3: BULK SPECIALS */}
                         {activeTab === 'specials' && (
                             <section className="bg-glass border silver-border p-6 sm:p-12 rounded-3xl shadow-xl space-y-6 animate-fade-in">
                                 <div className="max-w-xl space-y-2">
@@ -387,7 +369,6 @@
                             </section>
                         )}
 
-                        {/* TAB 4: ORDERS */}
                         {activeTab === 'orders' && (
                             <section className="bg-glass border silver-border p-6 sm:p-12 rounded-3xl shadow-xl space-y-4 animate-fade-in">
                                 <h3 className="text-xl font-black silver-text">📦 Your Order History (Flask API Synced)</h3>
@@ -407,7 +388,6 @@
                             </section>
                         )}
 
-                        {/* TAB 5: ABOUT / eNanda INFO */}
                         {activeTab === 'about' && (
                             <section className="bg-glass border silver-border p-6 sm:p-12 rounded-3xl shadow-xl space-y-6 animate-fade-in">
                                 <h3 className="text-2xl font-black silver-text">ℹ️ About Nollie's & eNanda Hub</h3>
@@ -425,7 +405,6 @@
                         )}
                     </main>
 
-                    {/* Cart Modal Drawer */}
                     {isCartOpen && (
                         <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-50 flex flex-col justify-end animate-fade-in">
                             <div className="bg-glass rounded-t-3xl p-6 sm:p-8 border-t silver-border max-h-[85vh] flex flex-col shadow-2xl max-w-2xl mx-auto w-full">
@@ -462,7 +441,6 @@
                         </div>
                     )}
 
-                    {/* Product Detail Modal */}
                     {activeModalProduct && (
                         <div className="fixed inset-0 bg-slate-950/85 backdrop-blur-md z-50 flex items-center justify-center p-4 animate-fade-in">
                             <div className="bg-glass rounded-3xl p-6 sm:p-8 border silver-border max-w-md w-full space-y-5 shadow-2xl">
@@ -480,7 +458,6 @@
                         </div>
                     )}
 
-                    {/* Toast Notification */}
                     {toastMessage && (
                         <div className="fixed bottom-6 right-6 bg-slate-900 border silver-border silver-gradient text-slate-950 text-xs font-black px-6 py-4 rounded-2xl shadow-2xl z-50 animate-fade-in">
                             {toastMessage}
