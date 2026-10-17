@@ -1,0 +1,8 @@
+[
+  {"id":"juice-1l","category":"juice","icon":"🧃","name":"Fresh Juice 1L","desc":"Chilled everyday juice.","price":25},
+  {"id":"juice-5l","category":"juice","icon":"🥤","name":"Bulk Juice 5L","desc":"For churches, funerals and events.","price":90},
+  {"id":"perf-50","category":"perfume","icon":"🌸","name":"Perfume 50ml","desc":"Long-lasting fragrance.","price":120},
+  {"id":"combo-gift","category":"combo","icon":"🎁","name":"Juice + Perfume Combo","desc":"Perfect gift pack.","price":140},
+  {"id":"hamper-1","category":"combo","icon":"🧺","name":"Gift Hamper","desc":"Juice, perfume and treats.","price":250},
+  {"id":"cereal-1","category":"cereal","icon":"🥣","name":"Cereal Pack","desc":"Breakfast cereal, family size.","price":55}
+]

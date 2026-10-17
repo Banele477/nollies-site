@@ -1,68 +1,117 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex">
-<title>Orders | Nollie's admin</title>
-<style>
-body{font-family:system-ui,sans-serif;margin:0;background:#F7F3FA;color:#22112B}
-header{background:#3B1C4A;color:#fff;padding:1rem;display:flex;gap:1rem;align-items:center;justify-content:space-between}
-h1{font-size:1.2rem;margin:0}
-main{padding:1rem;max-width:900px;margin:auto}
-button{background:#F6A21E;border:0;border-radius:999px;padding:.5rem 1rem;font-weight:700;cursor:pointer}
-.order{background:#fff;border:1px solid #E2D8EA;border-radius:12px;padding:1rem;margin-bottom:.8rem}
-.order h2{font-size:1rem;margin:0 0 .4rem}
-.order ul{margin:.4rem 0;padding-left:1.2rem}
-.meta{color:#6B5A75;font-size:.9rem}
-a.wa{display:inline-block;margin-top:.4rem;color:#1b7f45;font-weight:700}
-#msg{color:#8E1B33;font-weight:600}
-</style>
-</head>
-<body>
-<header><h1>Orders</h1><button id="reload" type="button">Refresh</button></header>
-<main>
-  <p id="msg"></p>
-  <p class="meta" id="summary"></p>
-  <div id="list"></div>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><title>Nollie's Admin</title>
+<link rel="stylesheet" href="css/style.css">
+</head><body><main>
+<div class="glass pad" id="login">
+  <h2>Nollie's admin</h2>
+  <label>Admin key<input id="key" type="password" autocomplete="current-password"></label>
+  <button class="btn" id="go">Sign in</button>
+  <p id="err" class="muted" role="alert"></p>
+</div>
+
+<div id="app" hidden>
+  <div class="glass pad">
+    <h2>Orders</h2>
+    <label>Show
+      <select id="filter">
+        <option value="">All</option><option value="new">Received</option><option value="confirmed">Confirmed</option>
+        <option value="out_for_delivery">Out for delivery</option><option value="delivered">Delivered</option><option value="cancelled">Cancelled</option>
+      </select>
+    </label>
+    <button class="btn" id="refresh">Refresh</button>
+    <button class="btn" id="csv">Export CSV</button>
+    <button class="link" id="out">Sign out</button>
+  </div>
+  <div id="orders"></div>
+  <div class="glass pad"><h2>Products</h2><div id="prods"></div></div>
+</div>
 </main>
 <script>
-(function(){
-  var key=sessionStorage.getItem('nk')||'';
-  function load(){
-    if(!key){key=prompt('Admin key:')||'';sessionStorage.setItem('nk',key);}
-    fetch('api/orders',{headers:{'X-Admin-Key':key}}).then(function(r){
-      if(r.status===401){sessionStorage.removeItem('nk');key='';throw new Error('Wrong or missing admin key. Refresh to try again.');}
-      return r.json();
-    }).then(render).catch(function(e){document.getElementById('msg').textContent=e.message;});
+const $ = s => document.querySelector(s);
+const ST = ['new','confirmed','out_for_delivery','delivered','cancelled'];
+const LB = {new:'Received',confirmed:'Confirmed',out_for_delivery:'Out for delivery',delivered:'Delivered',cancelled:'Cancelled'};
+const money = n => 'R' + Number(n).toFixed(2);
+let KEY = sessionStorage.getItem('nl_key') || '';
+const el = (t, txt, cls) => { const e = document.createElement(t); if (txt !== undefined) e.textContent = txt; if (cls) e.className = cls; return e; };
+
+async function api(path, opt = {}) {
+  const r = await fetch('/api' + path, { ...opt, headers: { 'Content-Type': 'application/json', 'X-Admin-Key': KEY } });
+  if (r.status === 401 || r.status === 503) {
+    const j = await r.json().catch(() => ({}));
+    signout(j.error || 'Not allowed.'); throw new Error('auth');
   }
-  function el(t,txt,cls){var e=document.createElement(t);if(txt!=null)e.textContent=txt;if(cls)e.className=cls;return e;}
-  function render(rows){
-    document.getElementById('msg').textContent='';
-    var list=document.getElementById('list');list.innerHTML='';
-    var sum=0;rows.forEach(function(r){if(r.type==='order')sum+=r.total||0;});
-    document.getElementById('summary').textContent=rows.length+' requests. Order value so far: R'+sum.toLocaleString('en-ZA');
-    if(!rows.length)list.appendChild(el('p','No orders yet.'));
-    rows.forEach(function(r){
-      var d=el('div',null,'order');
-      d.appendChild(el('h2',(r.type==='bulk'?'Bulk quote ':'Order ')+(r.id||'')+' - '+r.name));
-      d.appendChild(el('div',r.received+' | '+r.phone+(r.method?' | '+r.method:''),'meta'));
-      if(r.address)d.appendChild(el('div','Address: '+r.address));
-      if(r.day||r.slot)d.appendChild(el('div','Deliver: '+(r.day||'any day')+', '+(r.slot||'any time')));
-      if(r.items){var ul=el('ul');r.items.forEach(function(i){ul.appendChild(el('li',i.qty+' x '+i.name));});d.appendChild(ul);}
-      if(r.type==='bulk')d.appendChild(el('div',r.item+', qty '+r.qty+(r.date?', needed '+r.date:'')));
-      if(r.total!=null)d.appendChild(el('strong','Total: R'+r.total+(r.rush?' (rush)':'')));
-      if(r.notes)d.appendChild(el('div','Notes: '+r.notes,'meta'));
-      var a=el('a','Reply on WhatsApp','wa');
-      var n=String(r.phone).replace(/\D/g,'');if(n.charAt(0)==='0')n='27'+n.slice(1);
-      a.href='https://wa.me/'+n;a.target='_blank';a.rel='noopener';
-      d.appendChild(document.createElement('br'));d.appendChild(a);
-      list.appendChild(d);
+  return r;
+}
+function signout(msg) {
+  KEY = ''; sessionStorage.removeItem('nl_key');
+  $('#app').hidden = true; $('#login').hidden = false; $('#err').textContent = msg || '';
+}
+
+async function loadOrders() {
+  const f = $('#filter').value;
+  const list = await (await api('/admin/orders' + (f ? '?status=' + f : ''))).json();
+  const box = $('#orders'); box.replaceChildren();
+  if (!list.length) { box.appendChild(el('p', 'No orders yet.', 'glass pad')); return; }
+  list.forEach(o => {
+    const c = el('article', undefined, 'glass pad');
+    c.appendChild(el('h3', o.ref + '  |  ' + money(o.total)));
+    c.appendChild(el('p', o.created_at + ' UTC', 'muted'));
+    c.appendChild(el('p', o.name + ', ' + o.area));
+    const p = el('p'); const a = el('a', o.phone); a.href = 'tel:' + o.phone; a.style.color = '#ffd166'; p.appendChild(a); c.appendChild(p);
+    if (o.note) c.appendChild(el('p', 'Note: ' + o.note));
+    const ul = el('ul'); o.items.forEach(i => ul.appendChild(el('li', i.qty + ' x ' + i.name))); c.appendChild(ul);
+    const sel = el('select');
+    ST.forEach(s => { const op = el('option', LB[s]); op.value = s; if (s === o.status) op.selected = true; sel.appendChild(op); });
+    sel.addEventListener('change', async () => {
+      const r = await api('/admin/orders/' + encodeURIComponent(o.ref), { method: 'PATCH', body: JSON.stringify({ status: sel.value }) });
+      if (!r.ok) alert('Could not update status');
     });
-  }
-  document.getElementById('reload').addEventListener('click',load);
-  load();
-})();
+    const del = el('button', 'Delete order', 'link');
+    del.addEventListener('click', async () => {
+      if (!confirm('Permanently delete order ' + o.ref + '? This cannot be undone.')) return;
+      const r = await api('/admin/orders/' + encodeURIComponent(o.ref), { method: 'DELETE' });
+      if (r.ok) loadOrders().catch(() => {}); else alert('Could not delete this order.');
+    });
+    c.append(sel, del); box.appendChild(c);
+  });
+}
+
+async function loadProducts() {
+  const list = await (await api('/admin/products')).json();
+  const box = $('#prods'); box.replaceChildren();
+  list.forEach(p => {
+    const row = el('div', undefined, 'line');
+    row.appendChild(el('span', p.icon + ' ' + p.name));
+    const price = el('input'); price.type = 'number'; price.step = '0.01'; price.min = '0'; price.value = p.price; price.style.width = '90px';
+    price.setAttribute('aria-label', 'Price for ' + p.name);
+    const act = el('input'); act.type = 'checkbox'; act.checked = p.active; act.style.width = 'auto';
+    act.setAttribute('aria-label', 'Active: ' + p.name);
+    const save = el('button', 'Save', 'btn'); save.style.padding = '6px 12px';
+    save.addEventListener('click', async () => {
+      const r = await api('/admin/products/' + encodeURIComponent(p.id), { method: 'PUT', body: JSON.stringify({ price: price.value, active: act.checked }) });
+      save.textContent = r.ok ? 'Saved' : 'Error'; setTimeout(() => save.textContent = 'Save', 1500);
+    });
+    row.append(price, act, save); box.appendChild(row);
+  });
+}
+
+async function refresh() { await loadOrders(); await loadProducts(); }
+
+$('#go').addEventListener('click', async () => {
+  KEY = $('#key').value; sessionStorage.setItem('nl_key', KEY);
+  $('#key').value = ''; $('#err').textContent = '';
+  $('#login').hidden = true; $('#app').hidden = false;
+  try { await refresh(); } catch (e) {}
+});
+$('#refresh').addEventListener('click', () => refresh().catch(() => {}));
+$('#filter').addEventListener('change', () => loadOrders().catch(() => {}));
+$('#out').addEventListener('click', () => signout(''));
+$('#csv').addEventListener('click', async () => {
+  const r = await api('/admin/orders.csv'); const blob = await r.blob();
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'nollies_orders.csv'; a.click();
+});
+if (KEY) { $('#login').hidden = true; $('#app').hidden = false; refresh().catch(() => {}); }
 </script>
-</body>
-</html>
+</body></html>

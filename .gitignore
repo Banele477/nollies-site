@@ -2,3 +2,7 @@ __pycache__/
 *.pyc
 data/orders.json
 .DS_Store
+data/
+*.db
+backup_*/
+build.log
