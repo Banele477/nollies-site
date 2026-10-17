@@ -5,10 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Nollie's | eNanda Premier Hub & Marketplace</title>
     <meta name="theme-color" content="#090d16">
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- React & ReactDOM 18 -->
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <!-- Babel Standalone for JSX Transformation -->
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; -webkit-tap-highlight-color: transparent; }
@@ -204,10 +208,15 @@
                 return matchesCat && matchesSearch;
             });
 
+            // Admin metrics calculations
+            const totalRevenue = orders.reduce((sum, o) => sum + (o.total || 0), 0);
+            const avgOrderVal = orders.length > 0 ? totalRevenue / orders.length : 0;
+
             return (
                 <div className="min-h-screen">
                     <div className="h-1 silver-gradient w-full fixed top-0 z-50"></div>
 
+                    {/* Navigation Header */}
                     <header className="sticky top-1 z-40 bg-glass border-b silver-border px-4 sm:px-12 py-4 flex justify-between items-center shadow-2xl">
                         <div className="flex items-center space-x-3 cursor-pointer" onClick={() => setActiveTab('catalog')}>
                             <div className="w-11 h-11 rounded-2xl silver-gradient flex items-center justify-center shadow-xl text-slate-950 font-black text-xl">N</div>
@@ -217,18 +226,17 @@
                             </div>
                         </div>
                         
+                        {/* Desktop Navigation Tabs */}
                         <nav className="hidden md:flex items-center space-x-2 bg-slate-900/90 p-1.5 rounded-2xl border silver-border text-xs font-bold text-slate-300">
-                            <button onClick={() => setActiveTab('catalog')} className={`px-5 py-2 rounded-xl transition-all ${activeTab === 'catalog' ? 'silver-gradient text-slate-950 font-black shadow' : 'hover:text-white'}`}>🛍️ Catalog</button>
-                            <button onClick={() => setActiveTab('builder')} className={`px-5 py-2 rounded-xl transition-all ${activeTab === 'builder' ? 'silver-gradient text-slate-950 font-black shadow' : 'hover:text-white'}`}>✨ Hamper Builder</button>
-                            <button onClick={() => setActiveTab('specials')} className={`px-5 py-2 rounded-xl transition-all ${activeTab === 'specials' ? 'silver-gradient text-slate-950 font-black shadow' : 'hover:text-white'}`}>🔥 Bulk Specials</button>
-                            <button onClick={() => { fetchOrders(); setActiveTab('orders'); }} className={`px-5 py-2 rounded-xl transition-all ${activeTab === 'orders' ? 'silver-gradient text-slate-950 font-black shadow' : 'hover:text-white'}`}>📦 My Orders ({orders.length})</button>
-                            <button onClick={() => setActiveTab('about')} className={`px-5 py-2 rounded-xl transition-all ${activeTab === 'about' ? 'silver-gradient text-slate-950 font-black shadow' : 'hover:text-white'}`}>ℹ️ eNanda Info</button>
+                            <button onClick={() => setActiveTab('catalog')} className={`px-4 py-2 rounded-xl transition-all ${activeTab === 'catalog' ? 'silver-gradient text-slate-950 font-black shadow' : 'hover:text-white'}`}>🛍️ Catalog</button>
+                            <button onClick={() => setActiveTab('builder')} className={`px-4 py-2 rounded-xl transition-all ${activeTab === 'builder' ? 'silver-gradient text-slate-950 font-black shadow' : 'hover:text-white'}`}>✨ Hamper Builder</button>
+                            <button onClick={() => setActiveTab('specials')} className={`px-4 py-2 rounded-xl transition-all ${activeTab === 'specials' ? 'silver-gradient text-slate-950 font-black shadow' : 'hover:text-white'}`}>🔥 Bulk Specials</button>
+                            <button onClick={() => { fetchOrders(); setActiveTab('orders'); }} className={`px-4 py-2 rounded-xl transition-all ${activeTab === 'orders' ? 'silver-gradient text-slate-950 font-black shadow' : 'hover:text-white'}`}>📦 My Orders</button>
+                            <button onClick={() => { fetchOrders(); setActiveTab('admin'); }} className={`px-4 py-2 rounded-xl transition-all ${activeTab === 'admin' ? 'silver-gradient text-slate-950 font-black shadow' : 'hover:text-white'}`}>🔐 Owner Admin</button>
+                            <button onClick={() => setActiveTab('about')} className={`px-4 py-2 rounded-xl transition-all ${activeTab === 'about' ? 'silver-gradient text-slate-950 font-black shadow' : 'hover:text-white'}`}>ℹ️ Info</button>
                         </nav>
 
                         <div className="flex items-center space-x-3">
-                            <button onClick={() => alert('Tap browser settings (⋮) and select "Install App" or "Add to Home Screen".')} className="press-effect bg-slate-900/90 border silver-border text-slate-200 text-xs font-bold px-4 py-2.5 rounded-xl shadow hidden sm:flex items-center space-x-1.5 hover:bg-slate-800 transition-all">
-                                <span>📲</span><span>Install App</span>
-                            </button>
                             <button onClick={() => setIsCartOpen(true)} className="press-effect relative flex items-center space-x-2.5 silver-gradient text-slate-950 text-xs font-extrabold px-5 py-2.5 rounded-xl shadow-xl hover:opacity-95 transition-all">
                                 <span>🛒 Cart</span>
                                 <span className="bg-slate-950 text-slate-100 text-[11px] rounded-full h-5 w-5 flex items-center justify-center font-black">{cart.length}</span>
@@ -236,54 +244,61 @@
                         </div>
                     </header>
 
+                    {/* Mobile Navigation Bar */}
                     <div className="md:hidden flex overflow-x-auto bg-slate-900/90 border-b silver-border px-4 py-2 space-x-2 text-xs font-bold no-scrollbar sticky top-[73px] z-30">
                         <button onClick={() => setActiveTab('catalog')} className={`px-4 py-2 rounded-xl whitespace-nowrap transition-all ${activeTab === 'catalog' ? 'silver-gradient text-slate-950 font-black' : 'text-slate-300 bg-slate-950'}`}>🛍️ Catalog</button>
                         <button onClick={() => setActiveTab('builder')} className={`px-4 py-2 rounded-xl whitespace-nowrap transition-all ${activeTab === 'builder' ? 'silver-gradient text-slate-950 font-black' : 'text-slate-300 bg-slate-950'}`}>✨ Hamper Builder</button>
                         <button onClick={() => setActiveTab('specials')} className={`px-4 py-2 rounded-xl whitespace-nowrap transition-all ${activeTab === 'specials' ? 'silver-gradient text-slate-950 font-black' : 'text-slate-300 bg-slate-950'}`}>🔥 Bulk Specials</button>
-                        <button onClick={() => { fetchOrders(); setActiveTab('orders'); }} className={`px-4 py-2 rounded-xl whitespace-nowrap transition-all ${activeTab === 'orders' ? 'silver-gradient text-slate-950 font-black' : 'text-slate-300 bg-slate-950'}`}>📦 My Orders ({orders.length})</button>
-                        <button onClick={() => setActiveTab('about')} className={`px-4 py-2 rounded-xl whitespace-nowrap transition-all ${activeTab === 'about' ? 'silver-gradient text-slate-950 font-black' : 'text-slate-300 bg-slate-950'}`}>ℹ️ eNanda Info</button>
+                        <button onClick={() => { fetchOrders(); setActiveTab('orders'); }} className={`px-4 py-2 rounded-xl whitespace-nowrap transition-all ${activeTab === 'orders' ? 'silver-gradient text-slate-950 font-black' : 'text-slate-300 bg-slate-950'}`}>📦 Orders</button>
+                        <button onClick={() => { fetchOrders(); setActiveTab('admin'); }} className={`px-4 py-2 rounded-xl whitespace-nowrap transition-all ${activeTab === 'admin' ? 'silver-gradient text-slate-950 font-black' : 'text-slate-300 bg-slate-950'}`}>🔐 Owner Admin</button>
+                        <button onClick={() => setActiveTab('about')} className={`px-4 py-2 rounded-xl whitespace-nowrap transition-all ${activeTab === 'about' ? 'silver-gradient text-slate-950 font-black' : 'text-slate-300 bg-slate-950'}`}>ℹ️ Info</button>
                     </div>
 
+                    {/* Ticker */}
                     <div className="bg-slate-900/90 border-b silver-border text-slate-300 text-[11px] py-2 px-4 text-center font-medium overflow-hidden whitespace-nowrap shadow-inner">
                         <span>💎 eNanda Premier Hub | Use Promo Code <strong className="text-white">NOLLIE10</strong> for 10% Off! | Flat R30 Delivery Fee</span>
                     </div>
 
                     <main className="max-w-6xl mx-auto px-4 mt-8 space-y-10 animate-fade-in">
                         
-                        <section className="relative overflow-hidden rounded-3xl border silver-border p-8 sm:p-14 shadow-2xl bg-glass flex flex-col lg:flex-row items-center justify-between gap-10">
-                            <div className="absolute -right-20 -top-20 w-80 h-80 silver-gradient rounded-full blur-3xl opacity-15 pointer-events-none"></div>
-                            <div className="space-y-6 max-w-2xl">
-                                <div className="inline-flex items-center space-x-2 bg-slate-900/90 px-4 py-1.5 rounded-full border silver-border text-xs font-bold text-slate-300 shadow">
-                                   <span>✨ eNanda's Elite Essentials & Luxury Collection</span>
-                                </div>
-                                <h2 className="text-3xl sm:text-5xl font-black tracking-tight silver-text leading-tight">Sawubona! Elevating Everyday Living in eNanda.</h2>
-                                <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-medium">
-                                    Experience premium 5-item Cereal Hampers, Family Bulk Groceries, Juices Africa fruit concentrates, and signature M-Scents perfumes delivered straight to your door with seamless WhatsApp checkout.
-                                </p>
-                                <div className="flex flex-wrap gap-3 pt-2">
-                                    <button onClick={() => setActiveTab('catalog')} className="press-effect silver-gradient text-slate-950 font-extrabold py-3.5 px-7 rounded-2xl text-xs shadow-xl">Browse Catalog</button>
-                                    <button onClick={() => setActiveTab('builder')} className="press-effect bg-slate-900/90 border silver-border text-slate-200 font-bold py-3.5 px-7 rounded-2xl text-xs shadow">Build Custom Hamper</button>
-                                </div>
-                            </div>
-                            <div className="w-full lg:w-80 bg-slate-900/90 p-6 rounded-3xl border silver-border shadow-2xl space-y-4">
-                                <div className="text-sm font-black silver-text uppercase tracking-wider">⚡ Hub Quick Stats</div>
-                                <div className="space-y-3 text-xs">
-                                    <div className="flex justify-between bg-slate-950 p-3 rounded-xl border silver-border">
-                                        <span className="text-slate-400">Delivery Area</span>
-                                        <span className="font-extrabold text-white">eNanda & Surrounds</span>
+                        {/* HERO SECTION */}
+                        {activeTab !== 'admin' && (
+                            <section className="relative overflow-hidden rounded-3xl border silver-border p-8 sm:p-14 shadow-2xl bg-glass flex flex-col lg:flex-row items-center justify-between gap-10">
+                                <div className="absolute -right-20 -top-20 w-80 h-80 silver-gradient rounded-full blur-3xl opacity-15 pointer-events-none"></div>
+                                <div className="space-y-6 max-w-2xl">
+                                    <div className="inline-flex items-center space-x-2 bg-slate-900/90 px-4 py-1.5 rounded-full border silver-border text-xs font-bold text-slate-300 shadow">
+                                       <span>✨ eNanda's Elite Essentials & Luxury Collection</span>
                                     </div>
-                                    <div className="flex justify-between bg-slate-950 p-3 rounded-xl border silver-border">
-                                        <span className="text-slate-400">Flat Delivery Fee</span>
-                                        <span className="font-extrabold text-emerald-400">R30.00</span>
-                                    </div>
-                                    <div className="flex justify-between bg-slate-950 p-3 rounded-xl border silver-border">
-                                        <span className="text-slate-400">Checkout Gateway</span>
-                                        <span className="font-extrabold silver-text">WhatsApp 💬</span>
+                                    <h2 className="text-3xl sm:text-5xl font-black tracking-tight silver-text leading-tight">Sawubona! Elevating Everyday Living in eNanda.</h2>
+                                    <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-medium">
+                                        Experience premium 5-item Cereal Hampers, Family Bulk Groceries, Juices Africa fruit concentrates, and signature M-Scents perfumes delivered straight to your door with seamless WhatsApp checkout.
+                                    </p>
+                                    <div className="flex flex-wrap gap-3 pt-2">
+                                        <button onClick={() => setActiveTab('catalog')} className="press-effect silver-gradient text-slate-950 font-extrabold py-3.5 px-7 rounded-2xl text-xs shadow-xl">Browse Catalog</button>
+                                        <button onClick={() => setActiveTab('builder')} className="press-effect bg-slate-900/90 border silver-border text-slate-200 font-bold py-3.5 px-7 rounded-2xl text-xs shadow">Build Custom Hamper</button>
                                     </div>
                                 </div>
-                            </div>
-                        </section>
+                                <div className="w-full lg:w-80 bg-slate-900/90 p-6 rounded-3xl border silver-border shadow-2xl space-y-4">
+                                    <div className="text-sm font-black silver-text uppercase tracking-wider">⚡ Hub Quick Stats</div>
+                                    <div className="space-y-3 text-xs">
+                                        <div className="flex justify-between bg-slate-950 p-3 rounded-xl border silver-border">
+                                            <span className="text-slate-400">Delivery Area</span>
+                                            <span className="font-extrabold text-white">eNanda & Surrounds</span>
+                                        </div>
+                                        <div className="flex justify-between bg-slate-950 p-3 rounded-xl border silver-border">
+                                            <span className="text-slate-400">Flat Delivery Fee</span>
+                                            <span className="font-extrabold text-emerald-400">R30.00</span>
+                                        </div>
+                                        <div className="flex justify-between bg-slate-950 p-3 rounded-xl border silver-border">
+                                            <span className="text-slate-400">Checkout Gateway</span>
+                                            <span className="font-extrabold silver-text">WhatsApp 💬</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        )}
 
+                        {/* TAB 1: CATALOG */}
                         {activeTab === 'catalog' && (
                             <div id="shop-section" className="space-y-6 animate-fade-in">
                                 <div className="bg-glass border silver-border p-6 rounded-3xl shadow-xl flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
@@ -331,6 +346,7 @@
                             </div>
                         )}
 
+                        {/* TAB 2: HAMPER BUILDER */}
                         {activeTab === 'builder' && (
                             <section className="bg-glass border silver-border p-6 sm:p-12 rounded-3xl shadow-xl space-y-6 animate-fade-in">
                                 <div className="max-w-xl space-y-2">
@@ -355,6 +371,7 @@
                             </section>
                         )}
 
+                        {/* TAB 3: BULK SPECIALS */}
                         {activeTab === 'specials' && (
                             <section className="bg-glass border silver-border p-6 sm:p-12 rounded-3xl shadow-xl space-y-6 animate-fade-in">
                                 <div className="max-w-xl space-y-2">
@@ -384,6 +401,7 @@
                             </section>
                         )}
 
+                        {/* TAB 4: CUSTOMER ORDERS */}
                         {activeTab === 'orders' && (
                             <section className="bg-glass border silver-border p-6 sm:p-12 rounded-3xl shadow-xl space-y-6 animate-fade-in">
                                 <div className="flex justify-between items-center border-b silver-border pb-4">
@@ -397,7 +415,6 @@
                                     {orders.length === 0 ? (
                                         <div className="bg-slate-900/90 p-8 rounded-2xl border silver-border text-center space-y-2">
                                             <p className="text-slate-400">No orders found in your history yet.</p>
-                                            <p className="text-[11px] text-slate-500">Orders placed via WhatsApp checkout automatically appear here.</p>
                                         </div>
                                     ) : (
                                         orders.map((o, idx) => (
@@ -422,6 +439,75 @@
                             </section>
                         )}
 
+                        {/* TAB 5: OWNER ADMIN SYSTEM */}
+                        {activeTab === 'admin' && (
+                            <section className="space-y-6 animate-fade-in">
+                                <div className="bg-glass border silver-border p-6 rounded-3xl shadow-2xl flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                                    <div>
+                                        <div className="inline-flex items-center space-x-2 bg-slate-900 px-3 py-1 rounded-full border silver-border text-[10px] font-bold text-slate-300 mb-2">
+                                            <span>🔒 Secure Owner Dashboard</span>
+                                        </div>
+                                        <h3 className="text-2xl font-black silver-text">Nollie's Owner Control Console</h3>
+                                        <p className="text-xs text-slate-400">Live order tracking, revenue analytics, and direct customer dispatch.</p>
+                                    </div>
+                                    <button onClick={fetchOrders} className="press-effect silver-gradient text-slate-950 font-extrabold text-xs px-5 py-3 rounded-xl shadow">🔄 Sync Orders</button>
+                                </div>
+
+                                {/* Revenue & Stats Metrics */}
+                                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                    <div className="bg-slate-900/90 p-6 rounded-3xl border silver-border space-y-1">
+                                        <span className="text-slate-400 text-xs font-semibold">Total Revenue Generated</span>
+                                        <div className="text-2xl font-black text-emerald-400">R {totalRevenue.toFixed(2)}</div>
+                                    </div>
+                                    <div className="bg-slate-900/90 p-6 rounded-3xl border silver-border space-y-1">
+                                        <span className="text-slate-400 text-xs font-semibold">Total Customer Orders</span>
+                                        <div className="text-2xl font-black text-white">{orders.length}</div>
+                                    </div>
+                                    <div className="bg-slate-900/90 p-6 rounded-3xl border silver-border space-y-1">
+                                        <span className="text-slate-400 text-xs font-semibold">Average Order Value</span>
+                                        <div className="text-2xl font-black silver-text">R {avgOrderVal.toFixed(2)}</div>
+                                    </div>
+                                </div>
+
+                                {/* Live Admin Orders Feed */}
+                                <div className="bg-glass border silver-border p-6 sm:p-8 rounded-3xl shadow-xl space-y-4">
+                                    <h4 className="text-base font-extrabold text-white">Incoming Customer Order Feed</h4>
+                                    <div className="space-y-4 text-xs">
+                                        {orders.length === 0 ? (
+                                            <p className="text-slate-400 italic">No customer orders recorded yet in database.</p>
+                                        ) : (
+                                            orders.map((o, idx) => (
+                                                <div key={idx} className="bg-slate-900/90 p-5 rounded-2xl border silver-border space-y-3 shadow-xl">
+                                                    <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-2 border-b silver-border pb-3">
+                                                        <div>
+                                                            <span className="font-black text-white text-sm">Order #{o.id || (orders.length - idx)}</span>
+                                                            <span className="text-slate-400 text-[11px] block sm:inline sm:ml-2">{o.date || 'Just now'}</span>
+                                                        </div>
+                                                        <div className="flex items-center space-x-3">
+                                                            <span className="bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-black text-xs px-3 py-1 rounded-xl">R {(o.total || 0).toFixed(2)}</span>
+                                                            <button onClick={() => window.open('https://wa.me/27625873479', '_blank')} className="press-effect bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs px-3.5 py-2 rounded-xl shadow">💬 WhatsApp Customer</button>
+                                                        </div>
+                                                    </div>
+                                                    <div className="space-y-1.5">
+                                                        <span className="text-slate-400 font-bold uppercase tracking-wider text-[10px]">Order Line Items:</span>
+                                                        <div className="bg-slate-950 p-3 rounded-xl border silver-border space-y-1">
+                                                            {(o.items || []).map((item, iIdx) => (
+                                                                <div key={iIdx} className="flex justify-between text-slate-200">
+                                                                    <span>• {item.title}</span>
+                                                                    <span className="font-bold">R {(item.price || 0).toFixed(2)}</span>
+                                                                </div>
+                                                            ))}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            ))
+                                        )}
+                                    </div>
+                                </div>
+                            </section>
+                        )}
+
+                        {/* TAB 6: ABOUT / eNanda INFO */}
                         {activeTab === 'about' && (
                             <section className="bg-glass border silver-border p-6 sm:p-12 rounded-3xl shadow-xl space-y-6 animate-fade-in">
                                 <h3 className="text-2xl font-black silver-text">ℹ️ About Nollie's & eNanda Hub</h3>
@@ -439,6 +525,7 @@
                         )}
                     </main>
 
+                    {/* Cart Modal Drawer */}
                     {isCartOpen && (
                         <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-50 flex flex-col justify-end animate-fade-in">
                             <div className="bg-glass rounded-t-3xl p-6 sm:p-8 border-t silver-border max-h-[85vh] flex flex-col shadow-2xl max-w-2xl mx-auto w-full">
@@ -475,6 +562,7 @@
                         </div>
                     )}
 
+                    {/* Product Detail Modal */}
                     {activeModalProduct && (
                         <div className="fixed inset-0 bg-slate-950/85 backdrop-blur-md z-50 flex items-center justify-center p-4 animate-fade-in">
                             <div className="bg-glass rounded-3xl p-6 sm:p-8 border silver-border max-w-md w-full space-y-5 shadow-2xl">
@@ -492,6 +580,7 @@
                         </div>
                     )}
 
+                    {/* Toast Notification */}
                     {toastMessage && (
                         <div className="fixed bottom-6 right-6 bg-slate-900 border silver-border silver-gradient text-slate-950 text-xs font-black px-6 py-4 rounded-2xl shadow-2xl z-50 animate-fade-in">
                             {toastMessage}
