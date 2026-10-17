@@ -7,8 +7,7 @@ app = Flask(__name__, static_folder='public')
 
 ADMIN_KEY = os.environ.get('ADMIN_KEY', 'mysecret')
 
-@app.before_first_request
-def setup():
+with app.app_context():
     init_db()
 
 @app.route('/')
