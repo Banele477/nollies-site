@@ -357,7 +357,7 @@ window.sendAiMessage = function() {
     box.innerHTML += `<div class="text-right"><span class="inline-block silver-gradient text-slate-950 font-bold p-3 rounded-2xl">${text}</span></div>`;
     input.value = '';
     setTimeout(() => {
-        box.innerHTML += `<div><span class="inline-block bg-slate-900 text-slate-200 border silver-border p-3 rounded-2xl"><strong>Nollie AI:</strong> We deliver across eNanda for R30! Check out our new high-res catalog images!</span></div>`;
+        box.innerHTML += `<div><span class="inline-block bg-slate-900 text-slate-200 border silver-border p-3 rounded-2xl"><strong>Nollie AI:</strong> We deliver across eNanda for R30! All product images and hampers are ready for order.</span></div>`;
         box.scrollTop = box.scrollHeight;
     }, 400);
 }
