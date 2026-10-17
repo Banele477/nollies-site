@@ -1,6 +1,5 @@
 import os
 import time
-import sys
 from flask import Flask, jsonify, request, send_from_directory
 from app.database import load_orders, save_orders
 
@@ -75,5 +74,5 @@ def create_order():
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8080))
-    print(f"🚀 Nollie's Enterprise Server running on http://localhost:{port}")
+    print(f"👑 Nollie's Enterprise Server running on http://localhost:{port}")
     app.run(host="0.0.0.0", port=port, debug=False)
