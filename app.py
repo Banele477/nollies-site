@@ -26,8 +26,8 @@ def handle_orders():
         data = request.json
         if not data or 'items' not in data or 'total' not in data:
             return jsonify({'error': 'Invalid payload'}), 400
-        save_order(data['items'], data['total'])
-        return jsonify({'status': 'success', 'message': 'Order securely recorded'}), 201
+        saved = save_order(data['items'], data['total'])
+        return jsonify({'status': 'success', 'order': saved}), 201
     else:
         orders = load_orders()
         return jsonify({'orders': orders, 'count': len(orders)})

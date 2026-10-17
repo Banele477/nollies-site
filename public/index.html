@@ -24,13 +24,13 @@
             -webkit-text-fill-color: transparent;
         }
         .bg-glass {
-            background: rgba(13, 18, 30, 0.92);
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
+            background: rgba(13, 18, 30, 0.94);
+            backdrop-filter: blur(28px);
+            -webkit-backdrop-filter: blur(28px);
         }
         .bg-community {
             background-color: #090d16;
-            background-image: radial-gradient(circle at 50% 0%, rgba(30, 41, 59, 0.7) 0%, rgba(9, 13, 22, 0.98) 100%);
+            background-image: radial-gradient(circle at 50% 0%, rgba(30, 41, 59, 0.75) 0%, rgba(9, 13, 22, 0.98) 100%);
         }
         .press-effect:active { transform: scale(0.97); }
         .no-scrollbar::-webkit-scrollbar { display: none; }
@@ -72,7 +72,7 @@
         function App() {
             const [activeTab, setActiveTab] = useState('catalog');
             const [cart, setCart] = useState(JSON.parse(localStorage.getItem('nollies_cart') || '[]'));
-            const [orders, setOrders] = useState(JSON.parse(localStorage.getItem('nollies_orders') || '[]'));
+            const [orders, setOrders] = useState([]);
             const [selectedCategory, setSelectedCategory] = useState('all');
             const [searchQuery, setSearchQuery] = useState('');
             const [isCartOpen, setIsCartOpen] = useState(false);
@@ -86,9 +86,20 @@
                 localStorage.setItem('nollies_cart', JSON.stringify(cart));
             }, [cart]);
 
+            // Fetch orders from Flask backend API
             useEffect(() => {
-                localStorage.setItem('nollies_orders', JSON.stringify(orders));
-            }, [orders]);
+                fetch('/api/orders')
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data && data.orders) {
+                            setOrders(data.orders);
+                        }
+                    })
+                    .catch(err => {
+                        console.log('Using local fallback orders due to network error:', err);
+                        setOrders(JSON.parse(localStorage.getItem('nollies_orders') || '[]'));
+                    });
+            }, []);
 
             const showToast = (msg) => {
                 setToastMessage(msg);
@@ -148,12 +159,29 @@
                     alert('Your cart is empty!');
                     return;
                 }
-                const newOrder = {
-                    date: new Date().toLocaleString(),
-                    total: grandTotal,
-                    items: [...cart]
+                
+                const orderPayload = {
+                    items: [...cart],
+                    total: grandTotal
                 };
-                setOrders([newOrder, ...orders]);
+
+                // Sync with Flask Backend API
+                fetch('/api/orders', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(orderPayload)
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (data && data.order) {
+                        setOrders([data.order, ...orders]);
+                    }
+                })
+                .catch(err => {
+                    console.log('Backend sync failed, updating local state:', err);
+                    const localFallback = { id: orders.length + 1, items: [...cart], total: grandTotal };
+                    setOrders([localFallback, ...orders]);
+                });
 
                 let msg = "Hi Nollie's (eNanda Premier Hub), I would like to order:%0A%0A";
                 cart.forEach(i => msg += `• ${i.title} - R${i.price}%0A`);
@@ -362,16 +390,15 @@
                         {/* TAB 4: ORDERS */}
                         {activeTab === 'orders' && (
                             <section className="bg-glass border silver-border p-6 sm:p-12 rounded-3xl shadow-xl space-y-4">
-                                <h3 className="text-xl font-black silver-text">📦 Your Order History</h3>
-                                <p className="text-xs text-slate-400">Securely logged in your browser storage.</p>
+                                <h3 className="text-xl font-black silver-text">📦 Your Order History (Flask API Synced)</h3>
+                                <p className="text-xs text-slate-400">Synchronized directly with the secure Flask backend ledger.</p>
                                 <div className="space-y-3 text-xs">
                                     {orders.length === 0 ? (
                                         <p className="text-slate-400 italic">No previous orders found.</p>
                                     ) : (
                                         orders.map((o, idx) => (
                                             <div key={idx} className="bg-slate-900/90 p-4 rounded-2xl border silver-border space-y-1.5">
-                                                <div className="flex justify-between font-bold text-white"><span>Order #{orders.length - idx}</span><span className="silver-text">R {o.total.toFixed(2)}</span></div>
-                                                <div className="text-slate-400 text-[10px]">{o.date}</div>
+                                                <div className="flex justify-between font-bold text-white"><span>Order #{o.id || (orders.length - idx)}</span><span className="silver-text">R {o.total.toFixed(2)}</span></div>
                                                 <div className="text-slate-300 text-[11px]">{o.items.length} item(s) ordered</div>
                                             </div>
                                         ))
