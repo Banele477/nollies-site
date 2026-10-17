@@ -75,7 +75,7 @@
         ];
 
         function App() {
-            const [activeTab, setActiveTab] = useState('catalog');
+            const [activeTab, setActiveTab] = useState('home');
             const [cart, setCart] = useState(JSON.parse(localStorage.getItem('nollies_cart') || '[]'));
             const [orders, setOrders] = useState([]);
             const [selectedCategory, setSelectedCategory] = useState('all');
@@ -218,7 +218,7 @@
 
                     {/* Navigation Header */}
                     <header className="sticky top-1 z-40 bg-glass border-b silver-border px-4 sm:px-12 py-4 flex justify-between items-center shadow-2xl">
-                        <div className="flex items-center space-x-3 cursor-pointer" onClick={() => setActiveTab('catalog')}>
+                        <div className="flex items-center space-x-3 cursor-pointer" onClick={() => setActiveTab('home')}>
                             <div className="w-11 h-11 rounded-2xl silver-gradient flex items-center justify-center shadow-xl text-slate-950 font-black text-xl">N</div>
                             <div>
                                 <h1 className="text-base font-extrabold tracking-tight text-white leading-none">Nollie's</h1>
@@ -228,6 +228,7 @@
                         
                         {/* Desktop Navigation Tabs */}
                         <nav className="hidden md:flex items-center space-x-2 bg-slate-900/90 p-1.5 rounded-2xl border silver-border text-xs font-bold text-slate-300">
+                            <button onClick={() => setActiveTab('home')} className={`px-4 py-2 rounded-xl transition-all ${activeTab === 'home' ? 'silver-gradient text-slate-950 font-black shadow' : 'hover:text-white'}`}>🏠 Home</button>
                             <button onClick={() => setActiveTab('catalog')} className={`px-4 py-2 rounded-xl transition-all ${activeTab === 'catalog' ? 'silver-gradient text-slate-950 font-black shadow' : 'hover:text-white'}`}>🛍️ Catalog</button>
                             <button onClick={() => setActiveTab('builder')} className={`px-4 py-2 rounded-xl transition-all ${activeTab === 'builder' ? 'silver-gradient text-slate-950 font-black shadow' : 'hover:text-white'}`}>✨ Hamper Builder</button>
                             <button onClick={() => setActiveTab('specials')} className={`px-4 py-2 rounded-xl transition-all ${activeTab === 'specials' ? 'silver-gradient text-slate-950 font-black shadow' : 'hover:text-white'}`}>🔥 Bulk Specials</button>
@@ -246,6 +247,7 @@
 
                     {/* Mobile Navigation Bar */}
                     <div className="md:hidden flex overflow-x-auto bg-slate-900/90 border-b silver-border px-4 py-2 space-x-2 text-xs font-bold no-scrollbar sticky top-[73px] z-30">
+                        <button onClick={() => setActiveTab('home')} className={`px-4 py-2 rounded-xl whitespace-nowrap transition-all ${activeTab === 'home' ? 'silver-gradient text-slate-950 font-black' : 'text-slate-300 bg-slate-950'}`}>🏠 Home</button>
                         <button onClick={() => setActiveTab('catalog')} className={`px-4 py-2 rounded-xl whitespace-nowrap transition-all ${activeTab === 'catalog' ? 'silver-gradient text-slate-950 font-black' : 'text-slate-300 bg-slate-950'}`}>🛍️ Catalog</button>
                         <button onClick={() => setActiveTab('builder')} className={`px-4 py-2 rounded-xl whitespace-nowrap transition-all ${activeTab === 'builder' ? 'silver-gradient text-slate-950 font-black' : 'text-slate-300 bg-slate-950'}`}>✨ Hamper Builder</button>
                         <button onClick={() => setActiveTab('specials')} className={`px-4 py-2 rounded-xl whitespace-nowrap transition-all ${activeTab === 'specials' ? 'silver-gradient text-slate-950 font-black' : 'text-slate-300 bg-slate-950'}`}>🔥 Bulk Specials</button>
@@ -261,37 +263,67 @@
 
                     <main className="max-w-6xl mx-auto px-4 mt-8 space-y-10 animate-fade-in">
                         
-                        {/* HERO SECTION */}
-                        {activeTab !== 'admin' && (
-                            <section className="relative overflow-hidden rounded-3xl border silver-border p-8 sm:p-14 shadow-2xl bg-glass flex flex-col lg:flex-row items-center justify-between gap-10">
-                                <div className="absolute -right-20 -top-20 w-80 h-80 silver-gradient rounded-full blur-3xl opacity-15 pointer-events-none"></div>
-                                <div className="space-y-6 max-w-2xl">
-                                    <div className="inline-flex items-center space-x-2 bg-slate-900/90 px-4 py-1.5 rounded-full border silver-border text-xs font-bold text-slate-300 shadow">
-                                       <span>✨ eNanda's Elite Essentials & Luxury Collection</span>
+                        {/* TAB 0: HOME PAGE */}
+                        {activeTab === 'home' && (
+                            <section className="space-y-10 animate-fade-in">
+                                {/* Hero Banner */}
+                                <div className="relative overflow-hidden rounded-3xl border silver-border p-8 sm:p-14 shadow-2xl bg-glass flex flex-col lg:flex-row items-center justify-between gap-10">
+                                    <div className="absolute -right-20 -top-20 w-80 h-80 silver-gradient rounded-full blur-3xl opacity-15 pointer-events-none"></div>
+                                    <div className="space-y-6 max-w-2xl">
+                                        <div className="inline-flex items-center space-x-2 bg-slate-900/90 px-4 py-1.5 rounded-full border silver-border text-xs font-bold text-slate-300 shadow">
+                                           <span>✨ eNanda's Elite Essentials & Luxury Collection</span>
+                                        </div>
+                                        <h2 className="text-3xl sm:text-5xl font-black tracking-tight silver-text leading-tight">Sawubona! Welcome to Nollie's eNanda Hub.</h2>
+                                        <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-medium">
+                                            Your primary local e-commerce platform for daily household grocery hampers, fruit juice concentrates, luxury perfumes, and community bulk deals delivered for a flat R30 fee.
+                                        </p>
+                                        <div className="flex flex-wrap gap-3 pt-2">
+                                            <button onClick={() => setActiveTab('catalog')} className="press-effect silver-gradient text-slate-950 font-extrabold py-3.5 px-7 rounded-2xl text-xs shadow-xl">Shop Full Catalog 🛍️</button>
+                                            <button onClick={() => setActiveTab('builder')} className="press-effect bg-slate-900/90 border silver-border text-slate-200 font-bold py-3.5 px-7 rounded-2xl text-xs shadow">Custom 5-Item Hamper ✨</button>
+                                        </div>
                                     </div>
-                                    <h2 className="text-3xl sm:text-5xl font-black tracking-tight silver-text leading-tight">Sawubona! Elevating Everyday Living in eNanda.</h2>
-                                    <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-medium">
-                                        Experience premium 5-item Cereal Hampers, Family Bulk Groceries, Juices Africa fruit concentrates, and signature M-Scents perfumes delivered straight to your door with seamless WhatsApp checkout.
-                                    </p>
-                                    <div className="flex flex-wrap gap-3 pt-2">
-                                        <button onClick={() => setActiveTab('catalog')} className="press-effect silver-gradient text-slate-950 font-extrabold py-3.5 px-7 rounded-2xl text-xs shadow-xl">Browse Catalog</button>
-                                        <button onClick={() => setActiveTab('builder')} className="press-effect bg-slate-900/90 border silver-border text-slate-200 font-bold py-3.5 px-7 rounded-2xl text-xs shadow">Build Custom Hamper</button>
+                                    <div className="w-full lg:w-80 bg-slate-900/90 p-6 rounded-3xl border silver-border shadow-2xl space-y-4">
+                                        <div className="text-sm font-black silver-text uppercase tracking-wider">⚡ Hub Quick Stats</div>
+                                        <div className="space-y-3 text-xs">
+                                            <div className="flex justify-between bg-slate-950 p-3 rounded-xl border silver-border">
+                                                <span className="text-slate-400">Delivery Area</span>
+                                                <span className="font-extrabold text-white">eNanda & Surrounds</span>
+                                            </div>
+                                            <div className="flex justify-between bg-slate-950 p-3 rounded-xl border silver-border">
+                                                <span className="text-slate-400">Flat Delivery Fee</span>
+                                                <span className="font-extrabold text-emerald-400">R30.00</span>
+                                            </div>
+                                            <div className="flex justify-between bg-slate-950 p-3 rounded-xl border silver-border">
+                                                <span className="text-slate-400">Checkout Gateway</span>
+                                                <span className="font-extrabold silver-text">WhatsApp 💬</span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <div className="w-full lg:w-80 bg-slate-900/90 p-6 rounded-3xl border silver-border shadow-2xl space-y-4">
-                                    <div className="text-sm font-black silver-text uppercase tracking-wider">⚡ Hub Quick Stats</div>
-                                    <div className="space-y-3 text-xs">
-                                        <div className="flex justify-between bg-slate-950 p-3 rounded-xl border silver-border">
-                                            <span className="text-slate-400">Delivery Area</span>
-                                            <span className="font-extrabold text-white">eNanda & Surrounds</span>
+
+                                {/* Feature Category Grid */}
+                                <div className="space-y-4">
+                                    <h3 className="text-xl font-black silver-text">Featured Collections</h3>
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                                        <div onClick={() => setActiveTab('catalog')} className="bg-glass p-6 rounded-3xl border silver-border shadow-xl cursor-pointer hover:border-slate-400 transition-all space-y-3">
+                                            <div className="text-3xl">🌾</div>
+                                            <h4 className="font-extrabold text-white text-sm">Cereal Hampers</h4>
+                                            <p className="text-slate-400 text-xs">5-item breakfast bundles including Jungle Oats, Corn Flakes, & Weet-Bix.</p>
                                         </div>
-                                        <div className="flex justify-between bg-slate-950 p-3 rounded-xl border silver-border">
-                                            <span className="text-slate-400">Flat Delivery Fee</span>
-                                            <span className="font-extrabold text-emerald-400">R30.00</span>
+                                        <div onClick={() => setActiveTab('specials')} className="bg-glass p-6 rounded-3xl border silver-border shadow-xl cursor-pointer hover:border-slate-400 transition-all space-y-3">
+                                            <div className="text-3xl">📦</div>
+                                            <h4 className="font-extrabold text-white text-sm">Family Bulk Groceries</h4>
+                                            <p className="text-slate-400 text-xs">Wholesale staple combos: 10kg Maize Meal, 5L Oil, 2kg Sugar & Beans.</p>
                                         </div>
-                                        <div className="flex justify-between bg-slate-950 p-3 rounded-xl border silver-border">
-                                            <span className="text-slate-400">Checkout Gateway</span>
-                                            <span className="font-extrabold silver-text">WhatsApp 💬</span>
+                                        <div onClick={() => setActiveTab('catalog')} className="bg-glass p-6 rounded-3xl border silver-border shadow-xl cursor-pointer hover:border-slate-400 transition-all space-y-3">
+                                            <div className="text-3xl">🧃</div>
+                                            <h4 className="font-extrabold text-white text-sm">Juices Africa</h4>
+                                            <p className="text-slate-400 text-xs">4L fruit juice concentrates yielding up to 20L of refreshing juice.</p>
+                                        </div>
+                                        <div onClick={() => setActiveTab('catalog')} className="bg-glass p-6 rounded-3xl border silver-border shadow-xl cursor-pointer hover:border-slate-400 transition-all space-y-3">
+                                            <div className="text-3xl">💎</div>
+                                            <h4 className="font-extrabold text-white text-sm">M-Scents Perfumes</h4>
+                                            <p className="text-slate-400 text-xs">Signature 40ml luxury fragrances including Silver Sense & White OUD.</p>
                                         </div>
                                     </div>
                                 </div>
