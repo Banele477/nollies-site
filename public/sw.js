@@ -1,38 +1,42 @@
-const CACHE_NAME = 'nollies-v2.0';
-const STATIC_ASSETS = [
+const CACHE_NAME = 'nollies-v3.0';
+const ASSETS = [
     '/',
     '/index.html',
     '/manifest.json'
 ];
 
-self.addEventListener('install', (e) => {
-    e.waitUntil(
-        caches.open(CACHE_NAME).then((cache) => cache.addAll(STATIC_ASSETS))
+self.addEventListener('install', (event) => {
+    event.waitUntil(
+        caches.open(CACHE_NAME).then((cache) => {
+            return cache.addAll(ASSETS);
+        })
     );
     self.skipWaiting();
 });
 
-self.addEventListener('activate', (e) => {
-    e.waitUntil(
+self.addEventListener('activate', (event) => {
+    event.waitUntil(
         caches.keys().then((keys) => {
             return Promise.all(
-                keys.filter((k) => k !== CACHE_NAME).map((k) => caches.delete(k))
+                keys.filter((key) => key !== CACHE_NAME).map((key) => caches.delete(key))
             );
         })
     );
     self.clients.claim();
 });
 
-self.addEventListener('fetch', (e) => {
-    if (e.request.method !== 'GET') return;
-    e.respondWith(
-        caches.match(e.request).then((cached) => {
-            return cached || fetch(e.request).then((response) => {
-                if (response.status === 200 && e.request.url.startsWith('http')) {
-                    const copy = response.clone();
-                    caches.open(CACHE_NAME).then((cache) => cache.put(e.request, copy));
+self.addEventListener('fetch', (event) => {
+    if (event.request.method !== 'GET') return;
+    event.respondWith(
+        caches.match(event.request).then((cachedResponse) => {
+            return cachedResponse || fetch(event.request).then((networkResponse) => {
+                if (networkResponse && networkResponse.status === 200 && networkResponse.type === 'basic') {
+                    const responseClone = networkResponse.clone();
+                    caches.open(CACHE_NAME).then((cache) => {
+                        cache.put(event.request, responseClone);
+                    });
                 }
-                return response;
+                return networkResponse;
             });
         }).catch(() => caches.match('/index.html'))
     );
