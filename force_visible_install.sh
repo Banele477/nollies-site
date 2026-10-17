@@ -1,0 +1,208 @@
+#!/data/data/com.termux/files/usr/bin/bash
+set -e
+
+cd ~/nollies
+echo "🚀 Forcing PWA install button to stay permanently visible..."
+
+cat > public/index.html << 'HTML_EOF'
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Nollie's | eNanda Community Hub</title>
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#f97316">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .orange-gradient { background: linear-gradient(135deg, #f97316, #ea580c, #c2410c); }
+        .orange-text {
+            background: linear-gradient(90deg, #f97316, #fb923c, #fdba74);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .bg-community {
+            background-image: linear-gradient(rgba(15, 23, 42, 0.90), rgba(15, 23, 42, 0.95)), 
+                              url('https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen pb-24 bg-community">
+
+    <!-- Top Orange Accent Bar -->
+    <div class="h-1.5 orange-gradient w-full fixed top-0 z-50"></div>
+
+    <!-- Header Navigation -->
+    <header class="sticky top-1.5 z-40 bg-slate-900/90 backdrop-blur-md border-b border-slate-800 px-4 py-3 flex justify-between items-center shadow-lg">
+        <div class="flex items-center space-x-2">
+            <span class="text-2xl font-black tracking-tight text-white">Nollie's<span class="text-orange-500">.</span></span>
+            <span class="orange-gradient text-white text-[10px] font-black px-2.5 py-0.5 rounded-full shadow-sm">eNanda Hub</span>
+        </div>
+        <div class="flex items-center space-x-2">
+            <!-- GUARANTEED VISIBLE INSTALL APP BUTTON -->
+            <button onclick="triggerInstall()" class="orange-gradient text-white font-black text-xs px-4 py-2 rounded-full shadow-xl animate-pulse flex items-center space-x-1 border border-orange-400/40">
+                <span>📲 Install App</span>
+            </button>
+            <button onclick="toggleCart()" class="relative flex items-center orange-gradient text-white text-xs font-black px-4 py-2 rounded-full shadow-lg">
+                <span>🛒 Cart</span>
+                <span id="cart-count" class="ml-2 bg-white text-slate-900 text-[10px] rounded-full h-5 w-5 flex items-center justify-center font-black">0</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Location & Delivery Banner -->
+    <div class="bg-orange-500 text-slate-950 text-xs font-black text-center py-2 px-4 flex justify-between items-center max-w-2xl mx-auto shadow-md">
+        <span>📍 Based in eNanda, Durban</span>
+        <span>🚚 Fixed R30 Delivery Fee</span>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <nav class="flex bg-slate-800/90 backdrop-blur-md border border-slate-700 max-w-2xl mx-auto my-3 rounded-2xl shadow-xl p-1.5 gap-1 overflow-x-auto">
+        <button class="tab-btn flex-1 py-3 px-3 rounded-xl text-xs font-black orange-gradient text-white whitespace-nowrap text-center shadow-md" onclick="switchTab('shop', this)">🛍️ Shop</button>
+        <button class="tab-btn flex-1 py-3 px-3 rounded-xl text-xs font-bold text-slate-300 hover:text-white whitespace-nowrap text-center" onclick="switchTab('specials', this)">🔥 Combos</button>
+        <button class="tab-btn flex-1 py-3 px-3 rounded-xl text-xs font-bold text-slate-300 hover:text-white whitespace-nowrap text-center" onclick="switchTab('analytics', this)">📊 Telemetry</button>
+        <button class="tab-btn flex-1 py-3 px-3 rounded-xl text-xs font-bold text-slate-300 hover:text-white whitespace-nowrap text-center" onclick="switchTab('ai', this)">🤖 AI Help</button>
+    </nav>
+
+    <!-- Main Container -->
+    <main class="max-w-2xl mx-auto px-4">
+
+        <!-- SHOP TAB -->
+        <section id="tab-shop" class="tab-content block space-y-4">
+            <div class="relative overflow-hidden rounded-2xl border border-slate-700 p-5 shadow-2xl bg-slate-800/80 backdrop-blur-sm">
+                <h1 class="text-xl font-black mb-1 orange-text">Quality Products & Good Services</h1>
+                <p class="text-xs text-slate-300">Browse real stock below with instant WhatsApp ordering and offline app installation.</p>
+            </div>
+
+            <input type="text" id="search-input" placeholder="🔍 Search cereal, juice, perfume, bread, maize meal..." onkeyup="filterProducts()" 
+                   class="w-full px-4 py-3.5 rounded-2xl border border-slate-700 bg-slate-800/90 text-white placeholder-slate-400 text-xs focus:ring-2 focus:ring-orange-500 outline-none shadow-md">
+
+            <!-- Filter Pills -->
+            <div class="flex space-x-2 overflow-x-auto pb-1 text-xs">
+                <button onclick="filterCat('all', this)" class="cat-btn px-4 py-2 rounded-xl font-black orange-gradient text-white shadow-md">All Items</button>
+                <button onclick="filterCat('cereal', this)" class="cat-btn px-4 py-2 rounded-xl font-bold bg-slate-800 text-slate-300 border border-slate-700">Cereal Hampers</button>
+                <button onclick="filterCat('juice', this)" class="cat-btn px-4 py-2 rounded-xl font-bold bg-slate-800 text-slate-300 border border-slate-700">Juices Africa</button>
+                <button onclick="filterCat('perfume', this)" class="cat-btn px-4 py-2 rounded-xl font-bold bg-slate-800 text-slate-300 border border-slate-700">M-Scents</button>
+                <button onclick="filterCat('essentials', this)" class="cat-btn px-4 py-2 rounded-xl font-bold bg-slate-800 text-slate-300 border border-slate-700">Pantry</button>
+            </div>
+
+            <!-- Product Cards Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4" id="product-list"></div>
+        </section>
+
+        <!-- SPECIALS TAB -->
+        <section id="tab-specials" class="tab-content hidden space-y-3">
+            <div class="bg-slate-800/90 backdrop-blur-md p-5 rounded-2xl border border-slate-700 shadow-xl space-y-3">
+                <h2 class="text-lg font-black orange-text">🔥 Exclusive Bundle Savings</h2>
+                <div class="p-3.5 bg-slate-900/80 rounded-xl border border-orange-500/30 flex justify-between items-center">
+                    <div>
+                        <h4 class="font-black text-xs text-orange-300">2x M-Scents Perfumes Deal</h4>
+                        <p class="text-[11px] text-slate-400">Save R48 on any two 40ml luxury fragrances</p>
+                    </div>
+                    <button onclick="addToCart('2x M-Scents Perfumes Deal', 192)" class="orange-gradient text-white font-black text-xs px-4 py-2 rounded-xl">R 192</button>
+                </div>
+                <div class="p-3.5 bg-slate-900/80 rounded-xl border border-orange-500/30 flex justify-between items-center">
+                    <div>
+                        <h4 class="font-black text-xs text-orange-300">2x Juices Africa (4L) Deal</h4>
+                        <p class="text-[11px] text-slate-400">Save R96 (Yields 40L Juice)</p>
+                    </div>
+                    <button onclick="addToCart('2x Juices Africa Deal', 224)" class="orange-gradient text-white font-black text-xs px-4 py-2 rounded-xl">R 224</button>
+                </div>
+                <div class="p-3.5 bg-slate-900/80 rounded-xl border border-orange-500/30 flex justify-between items-center">
+                    <div>
+                        <h4 class="font-black text-xs text-orange-300">3-Item Cereal Mini Combo</h4>
+                        <p class="text-[11px] text-slate-400">Custom pantry basic selection</p>
+                    </div>
+                    <button onclick="addToCart('3-Item Mini Hamper', 170)" class="orange-gradient text-white font-black text-xs px-4 py-2 rounded-xl">R 170</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ANALYTICS TAB -->
+        <section id="tab-analytics" class="tab-content hidden space-y-4">
+            <div class="bg-slate-800/90 backdrop-blur-md p-5 rounded-2xl border border-slate-700 shadow-xl space-y-3">
+                <h2 class="text-base font-black text-white">📊 Flask API Live Telemetry</h2>
+                <div class="relative h-52">
+                    <canvas id="salesChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- AI ASSISTANT TAB -->
+        <section id="tab-ai" class="tab-content hidden space-y-3">
+            <div class="bg-slate-800/90 backdrop-blur-md p-5 rounded-2xl border border-slate-700 shadow-xl">
+                <h2 class="text-base font-black mb-1 text-white">🤖 Nollie's AI Assistant</h2>
+                <div id="chat-box" class="bg-slate-900/90 p-3 rounded-xl h-52 overflow-y-auto border border-slate-700 text-xs space-y-2 mb-3">
+                    <div class="bg-slate-800 p-2.5 rounded-lg text-slate-200 border border-slate-700">
+                        <strong>Nollie AI:</strong> Sawubona! Ask me about products, offline app installation, or eNanda delivery!
+                    </div>
+                </div>
+                <div class="flex space-x-2">
+                    <input type="text" id="chat-input" placeholder="Type your question..." class="flex-1 px-3.5 py-2.5 text-xs rounded-xl border border-slate-700 bg-slate-900 text-white outline-none">
+                    <button onclick="sendAiMessage()" class="orange-gradient text-white font-black px-4 py-2.5 rounded-xl text-xs">Send</button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Cart Drawer -->
+    <div id="cart-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-50 hidden flex-col justify-end">
+        <div class="bg-slate-900 rounded-t-3xl p-5 border-t border-slate-700 max-h-[85vh] flex flex-col shadow-2xl">
+            <div class="flex justify-between items-center border-b border-slate-800 pb-3">
+                <h3 class="font-black text-sm text-white">Your Order Summary</h3>
+                <button onclick="toggleCart()" class="text-slate-400 text-xl font-bold">&times;</button>
+            </div>
+            <div id="cart-items" class="py-3 overflow-y-auto flex-1 space-y-2 text-xs"></div>
+            <div class="border-t border-slate-800 pt-3 space-y-3">
+                <div class="flex justify-between text-xs font-bold text-slate-300">
+                    <span>Delivery Fee (eNanda):</span>
+                    <span>R 30.00</span>
+                </div>
+                <div class="flex justify-between text-base font-black text-white">
+                    <span>Total Amount:</span>
+                    <span id="cart-total" class="orange-text">R 30.00</span>
+                </div>
+                <button onclick="checkoutWhatsApp()" class="w-full bg-emerald-600 text-white font-black py-3.5 rounded-2xl flex items-center justify-center space-x-2 text-sm shadow-xl">
+                    <span>Send Order on WhatsApp 💬</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PWA Install Modal -->
+    <div id="install-modal" class="fixed inset-0 bg-slate-950/85 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-slate-900 rounded-3xl p-6 border border-slate-700 max-w-sm w-full space-y-4 shadow-2xl">
+            <div class="flex justify-between items-center border-b border-slate-800 pb-3">
+                <h3 class="font-black text-sm text-orange-400">📲 Install Nollie's App</h3>
+                <button onclick="closeInstallModal()" class="text-slate-400 text-xl font-bold">&times;</button>
+            </div>
+            <p class="text-xs text-slate-300 leading-relaxed">
+                Install Nollie's on your phone home screen to use it completely offline with lightning speed!
+            </p>
+            <div class="bg-slate-950 p-3.5 rounded-xl border border-slate-800 text-xs space-y-2 text-slate-200">
+                <p><strong>Android (Chrome):</strong> Tap your browser menu <strong>(⋮)</strong> at the top right, then tap <strong>"Install app"</strong> or <strong>"Add to Home screen"</strong>.</p>
+                <p><strong>iPhone (Safari):</strong> Tap the Share button at the bottom, then tap <strong>"Add to Home Screen"</strong>.</p>
+            </div>
+            <button id="browser-install-btn" onclick="executeNativeInstall()" class="w-full orange-gradient text-white font-black py-3 rounded-xl text-xs shadow-lg hidden">
+                Install Automatically Now 🚀
+            </button>
+            <button onclick="closeInstallModal()" class="w-full bg-slate-800 text-slate-300 font-bold py-2.5 rounded-xl text-xs">
+                Got it, thanks!
+            </button>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
+HTML_EOF
+
+echo "✅ Install button forced visible!"

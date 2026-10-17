@@ -1,21 +1,9 @@
-#!/usr/bin/env python3
-"""Tiny server for Nollie's website. No heavy dependencies.
+from app import create_app
+import os
 
-Run: ADMIN_KEY=your-secret python server.py
-Open: http://localhost:8080 (shop)
-      http://localhost:8080/admin.html
-"""
+app = create_app()
 
-import os, json, threading, time
-from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
-
-BASE = os.path.dirname(os.path.abspath(__file__))
-PUBLIC = os.path.join(BASE, "public")
-DATA = os.path.join(BASE, "data", "orders.json")
-HOST = os.environ.get("HOST", "0.0.0.0")
-PORT = int(os.environ.get("PORT", "8080"))
-ADMIN_KEY = os.environ.get("ADMIN_KEY", "")
-LOCK = threading.Lock()
-MAX_BODY = 20_000
-
-print(f"Nollie's server starting on port {PORT}...")
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 8080))
+    print(f"🚀 Nollie's Enterprise Server running on http://0.0.0.0:{port}")
+    app.run(host="0.0.0.0", port=port, debug=False)

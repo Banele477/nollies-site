@@ -1,44 +1,79 @@
-from flask import Flask, render_template, request, jsonify
-from flask_sqlalchemy import SQLAlchemy
 import os
+import time
+import sys
+from flask import Flask, jsonify, request, send_from_directory
+from app.database import load_orders, save_orders
 
-app = Flask(__name__, static_folder='static', template_folder='templates')
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///nollies.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-db = SQLAlchemy(app)
+BASE = os.path.dirname(os.path.abspath(__file__))
+PUBLIC = os.path.join(BASE, "public")
+ADMIN_KEY = os.environ.get("ADMIN_KEY", "mysecret")
 
-class BulkQuote(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    customer_name = db.Column(db.String(100), nullable=False)
-    whatsapp_number = db.Column(db.String(30), nullable=False)
-    requirements = db.Column(db.Text, nullable=False)
-    created_at = db.Column(db.DateTime, server_default=db.func.current_timestamp())
+try:
+    import images as imgtools
+except Exception:
+    imgtools = None
 
-with app.app_context():
-    db.create_all()
+app = Flask(__name__, static_folder=PUBLIC, static_url_path="")
 
-@app.route('/')
+@app.get("/")
 def index():
-    return render_template('index.html')
+    return send_from_directory(PUBLIC, "index.html")
 
-@app.route('/api/bulk-quote', methods=['POST'])
-def handle_bulk_quote():
-    data = request.get_json()
-    if not data or not data.get('customer_name') or not data.get('whatsapp_number') or not data.get('requirements'):
-        return jsonify({'success': False, 'error': 'Please complete all required fields.'}), 400
-    
-    quote = BulkQuote(
-        customer_name=data.get('customer_name').strip(),
-        whatsapp_number=data.get('whatsapp_number').strip(),
-        requirements=data.get('requirements').strip()
-    )
-    db.session.add(quote)
-    db.session.commit()
-    
-    return jsonify({
-        'success': True, 
-        'message': 'Quote request saved successfully!'
-    }), 201
+@app.get("/admin")
+def admin_panel():
+    return send_from_directory(PUBLIC, "admin.html")
 
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8080, debug=True)
+@app.get("/img/manifest.json")
+def img_manifest():
+    if imgtools is None:
+        return send_from_directory(os.path.join(PUBLIC, "img"), "manifest.json")
+    r = jsonify(imgtools.build_manifest(PUBLIC))
+    r.headers["Cache-Control"] = "no-store"
+    return r
+
+@app.get("/api/public-activity")
+def public_activity():
+    orders = load_orders()
+    recent = []
+    for o in orders[-5:]:
+        name_masked = o.get("name", "Customer").split()[0] + " (eNanda)"
+        recent.append({
+            "name": name_masked,
+            "received": o.get("received", "Recently"),
+            "items_count": len(o.get("items", [])),
+            "total": o.get("total", 0)
+        })
+    return jsonify({"recent_orders": list(reversed(recent)), "total_fulfilled": len(orders)})
+
+@app.get("/api/orders")
+def get_orders():
+    if request.headers.get("X-Admin-Key", "") != ADMIN_KEY:
+        return jsonify({"error": "Unauthorized"}), 401
+    orders = load_orders()
+    return jsonify({"total_orders": len(orders), "orders": list(reversed(orders))})
+
+@app.post("/api/order")
+def create_order():
+    try:
+        data = request.get_json(force=True)
+    except Exception:
+        return jsonify({"error": "Invalid JSON Payload"}), 400
+
+    new_order = {
+        "id": int(time.time() * 1000),
+        "received": time.strftime("%Y-%m-%d %H:%M:%S"),
+        "status": "Processing in eNanda",
+        "name": str(data.get("name", "eNanda Customer"))[:100],
+        "phone": str(data.get("phone", "WhatsApp"))[:50],
+        "total": float(data.get("total", 0)),
+        "items": data.get("items", [])
+    }
+    orders = load_orders()
+    orders.append(new_order)
+    save_orders(orders)
+    return jsonify({"success": True, "order_id": new_order["id"]})
+
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 8080))
+    print(f"🚀 Nollie's Enterprise Server running on http://localhost:{port}")
+    app.run(host="0.0.0.0", port=port, debug=False)

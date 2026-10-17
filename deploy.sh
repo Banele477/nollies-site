@@ -1,5 +1,13 @@
 #!/data/data/com.termux/files/usr/bin/bash
 # deploy.sh - publish Nollie's site to GitHub Pages from Termux
+#   ./deploy.sh init [repo-name]   one-time setup (login, create repo, turn on Pages)
+#   ./deploy.sh                    publish your latest changes
+#   ./deploy.sh watch              publish automatically whenever files change
+#   ./deploy.sh verify CODE        add the Google Search Console verification code
+#   ./deploy.sh google EMAIL       fully automatic Google Search Console setup
+#   ./deploy.sh report             see your Google searches, clicks and views
+#   ./deploy.sh img ID FILE        set a product photo, e.g. ./deploy.sh img juice-5l ~/storage/downloads/j.jpg
+#   ./deploy.sh img ID FILE        set a product photo, e.g. ./deploy.sh img juice-5l ~/storage/downloads/j.jpg
 cd "$(dirname "$0")" || exit 1
 SITEFILE=.siteurl
 VERFILE=.gverify
@@ -7,7 +15,7 @@ VERFILE=.gverify
 fix_seo() {
   if [ -f "$SITEFILE" ] && grep -rq "__SITE_URL__" public; then
     SITE=$(cat "$SITEFILE")
-    sed -i "s#__SITE_URL__#$SITE#g" public/index.html public/sitemap.xml public/robots.txt 2>/dev/null || true
+    sed -i "s#__SITE_URL__#$SITE#g" public/index.html public/sitemap.xml public/robots.txt
   fi
   if [ -f "$VERFILE" ] && ! grep -q google-site-verification public/index.html; then
     sed -i "s#<meta charset=\"utf-8\">#&\n<meta name=\"google-site-verification\" content=\"$(cat $VERFILE)\">#" public/index.html
@@ -15,6 +23,7 @@ fix_seo() {
 }
 
 push() {
+  python3 images.py >/dev/null 2>&1 || true   # shrink big photos, refresh image list
   fix_seo
   git add -A
   if git diff --cached --quiet; then echo "Nothing new to publish."; return 0; fi
@@ -23,7 +32,7 @@ push() {
     echo "Published. Live in about a minute at: $(cat $SITEFILE 2>/dev/null)"
     [ -f .gsc-key.json ] && { (sleep 90; python gsc.py sitemap >/dev/null 2>&1) & }
   else
-    echo "Push failed. Check your internet connection or login credentials."
+    echo "Push failed. Check your internet, or run: gh auth login -s workflow"
     return 1
   fi
 }
@@ -50,6 +59,7 @@ init() {
     echo ""
     echo "Done. Your site will be live in 1-2 minutes at:"
     cat $SITEFILE
+    echo "Next: add it to Google Search Console (see the steps in chat)."
   }
 }
 
@@ -65,6 +75,14 @@ watch() {
 case "$1" in
   init)   shift; init "$@" ;;
   watch)  watch ;;
+  img)    [ -f "$3" ] || { echo "Usage: ./deploy.sh img PRODUCT-ID /path/to/photo.jpg"; exit 1; }
+          ext=$(echo "${3##*.}" | tr 'A-Z' 'a-z'); mkdir -p public/img/products
+          rm -f public/img/products/"$2".jpg public/img/products/"$2".jpeg public/img/products/"$2".png public/img/products/"$2".webp
+          cp "$3" "public/img/products/$2.$ext" && push "Update photo $2" ;;
+  img)    [ -f "$3" ] || { echo "Usage: ./deploy.sh img PRODUCT-ID /path/to/photo.jpg"; exit 1; }
+          ext=$(echo "${3##*.}" | tr 'A-Z' 'a-z'); mkdir -p public/img/products
+          rm -f public/img/products/"$2".jpg public/img/products/"$2".jpeg public/img/products/"$2".png public/img/products/"$2".webp
+          cp "$3" "public/img/products/$2.$ext" && push "Update photo $2" ;;
   google) python gsc.py setup "$2" ;;
   report) python gsc.py report ;;
   verify) [ -n "$2" ] || { echo "Usage: ./deploy.sh verify CODE"; exit 1; }

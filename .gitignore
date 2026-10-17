@@ -1,9 +1,4 @@
-data/
-.siteurl
-.gverify
-*.bak
-*.tmp
 __pycache__/
-.gsc-key.json
-vEnv/
-venv/
+*.pyc
+data/orders.json
+.DS_Store
