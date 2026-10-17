@@ -35,6 +35,11 @@
         .press-effect:active { transform: scale(0.97); }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in { animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
     </style>
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen pb-32 bg-community">
@@ -86,7 +91,6 @@
                 localStorage.setItem('nollies_cart', JSON.stringify(cart));
             }, [cart]);
 
-            // Fetch orders from Flask backend API
             useEffect(() => {
                 fetch('/api/orders')
                     .then(res => res.json())
@@ -96,7 +100,6 @@
                         }
                     })
                     .catch(err => {
-                        console.log('Using local fallback orders due to network error:', err);
                         setOrders(JSON.parse(localStorage.getItem('nollies_orders') || '[]'));
                     });
             }, []);
@@ -165,7 +168,6 @@
                     total: grandTotal
                 };
 
-                // Sync with Flask Backend API
                 fetch('/api/orders', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -178,7 +180,6 @@
                     }
                 })
                 .catch(err => {
-                    console.log('Backend sync failed, updating local state:', err);
                     const localFallback = { id: orders.length + 1, items: [...cart], total: grandTotal };
                     setOrders([localFallback, ...orders]);
                 });
@@ -205,7 +206,7 @@
 
                     {/* Navigation Header */}
                     <header className="sticky top-1 z-40 bg-glass border-b silver-border px-4 sm:px-12 py-4 flex justify-between items-center shadow-2xl">
-                        <div className="flex items-center space-x-3">
+                        <div className="flex items-center space-x-3 cursor-pointer" onClick={() => setActiveTab('catalog')}>
                             <div className="w-11 h-11 rounded-2xl silver-gradient flex items-center justify-center shadow-xl text-slate-950 font-black text-xl">N</div>
                             <div>
                                 <h1 className="text-base font-extrabold tracking-tight text-white leading-none">Nollie's</h1>
@@ -213,7 +214,6 @@
                             </div>
                         </div>
                         
-                        {/* Relevant Navigation Tabs */}
                         <nav className="hidden md:flex items-center space-x-2 bg-slate-900/90 p-1.5 rounded-2xl border silver-border text-xs font-bold text-slate-300">
                             <button onClick={() => setActiveTab('catalog')} className={`px-5 py-2 rounded-xl transition-all ${activeTab === 'catalog' ? 'silver-gradient text-slate-950 font-black shadow' : 'hover:text-white'}`}>🛍️ Catalog</button>
                             <button onClick={() => setActiveTab('builder')} className={`px-5 py-2 rounded-xl transition-all ${activeTab === 'builder' ? 'silver-gradient text-slate-950 font-black shadow' : 'hover:text-white'}`}>✨ Hamper Builder</button>
@@ -235,11 +235,11 @@
 
                     {/* Mobile Navigation Bar */}
                     <div className="md:hidden flex overflow-x-auto bg-slate-900/90 border-b silver-border px-4 py-2 space-x-2 text-xs font-bold no-scrollbar sticky top-[73px] z-30">
-                        <button onClick={() => setActiveTab('catalog')} className={`px-4 py-2 rounded-xl whitespace-nowrap ${activeTab === 'catalog' ? 'silver-gradient text-slate-950 font-black' : 'text-slate-300 bg-slate-950'}`}>🛍️ Catalog</button>
-                        <button onClick={() => setActiveTab('builder')} className={`px-4 py-2 rounded-xl whitespace-nowrap ${activeTab === 'builder' ? 'silver-gradient text-slate-950 font-black' : 'text-slate-300 bg-slate-950'}`}>✨ Hamper Builder</button>
-                        <button onClick={() => setActiveTab('specials')} className={`px-4 py-2 rounded-xl whitespace-nowrap ${activeTab === 'specials' ? 'silver-gradient text-slate-950 font-black' : 'text-slate-300 bg-slate-950'}`}>🔥 Bulk Specials</button>
-                        <button onClick={() => setActiveTab('orders')} className={`px-4 py-2 rounded-xl whitespace-nowrap ${activeTab === 'orders' ? 'silver-gradient text-slate-950 font-black' : 'text-slate-300 bg-slate-950'}`}>📦 My Orders</button>
-                        <button onClick={() => setActiveTab('about')} className={`px-4 py-2 rounded-xl whitespace-nowrap ${activeTab === 'about' ? 'silver-gradient text-slate-950 font-black' : 'text-slate-300 bg-slate-950'}`}>ℹ️ eNanda Info</button>
+                        <button onClick={() => setActiveTab('catalog')} className={`px-4 py-2 rounded-xl whitespace-nowrap transition-all ${activeTab === 'catalog' ? 'silver-gradient text-slate-950 font-black' : 'text-slate-300 bg-slate-950'}`}>🛍️ Catalog</button>
+                        <button onClick={() => setActiveTab('builder')} className={`px-4 py-2 rounded-xl whitespace-nowrap transition-all ${activeTab === 'builder' ? 'silver-gradient text-slate-950 font-black' : 'text-slate-300 bg-slate-950'}`}>✨ Hamper Builder</button>
+                        <button onClick={() => setActiveTab('specials')} className={`px-4 py-2 rounded-xl whitespace-nowrap transition-all ${activeTab === 'specials' ? 'silver-gradient text-slate-950 font-black' : 'text-slate-300 bg-slate-950'}`}>🔥 Bulk Specials</button>
+                        <button onClick={() => setActiveTab('orders')} className={`px-4 py-2 rounded-xl whitespace-nowrap transition-all ${activeTab === 'orders' ? 'silver-gradient text-slate-950 font-black' : 'text-slate-300 bg-slate-950'}`}>📦 My Orders</button>
+                        <button onClick={() => setActiveTab('about')} className={`px-4 py-2 rounded-xl whitespace-nowrap transition-all ${activeTab === 'about' ? 'silver-gradient text-slate-950 font-black' : 'text-slate-300 bg-slate-950'}`}>ℹ️ eNanda Info</button>
                     </div>
 
                     {/* Ticker */}
@@ -247,7 +247,7 @@
                         <span>💎 eNanda Premier Hub | Use Promo Code <strong className="text-white">NOLLIE10</strong> for 10% Off! | Flat R30 Delivery Fee</span>
                     </div>
 
-                    <main className="max-w-6xl mx-auto px-4 mt-8 space-y-10">
+                    <main className="max-w-6xl mx-auto px-4 mt-8 space-y-10 animate-fade-in">
                         
                         {/* HERO SECTION */}
                         <section className="relative overflow-hidden rounded-3xl border silver-border p-8 sm:p-14 shadow-2xl bg-glass flex flex-col lg:flex-row items-center justify-between gap-10">
@@ -286,7 +286,7 @@
 
                         {/* TAB 1: CATALOG */}
                         {activeTab === 'catalog' && (
-                            <div id="shop-section" className="space-y-6">
+                            <div id="shop-section" className="space-y-6 animate-fade-in">
                                 <div className="bg-glass border silver-border p-6 rounded-3xl shadow-xl flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                                     <div>
                                         <h3 className="text-xl font-black silver-text">Curated Product Catalog</h3>
@@ -334,7 +334,7 @@
 
                         {/* TAB 2: HAMPER BUILDER */}
                         {activeTab === 'builder' && (
-                            <section className="bg-glass border silver-border p-6 sm:p-12 rounded-3xl shadow-xl space-y-6">
+                            <section className="bg-glass border silver-border p-6 sm:p-12 rounded-3xl shadow-xl space-y-6 animate-fade-in">
                                 <div className="max-w-xl space-y-2">
                                     <h3 className="text-2xl font-black silver-text">✨ Build Your Custom Cereal Hamper</h3>
                                     <p className="text-xs sm:text-sm text-slate-300">Mix and match any <strong className="text-white">5 preferred items</strong> to assemble your personalized bundle for a flat price of <strong className="text-white">R250.00</strong>!</p>
@@ -359,7 +359,7 @@
 
                         {/* TAB 3: BULK SPECIALS */}
                         {activeTab === 'specials' && (
-                            <section className="bg-glass border silver-border p-6 sm:p-12 rounded-3xl shadow-xl space-y-6">
+                            <section className="bg-glass border silver-border p-6 sm:p-12 rounded-3xl shadow-xl space-y-6 animate-fade-in">
                                 <div className="max-w-xl space-y-2">
                                     <h3 className="text-2xl font-black silver-text">🔥 eNanda Bulk Specials & Savings</h3>
                                     <p className="text-xs sm:text-sm text-slate-300">Take advantage of our community wholesale packages designed to stretch your monthly grocery budget further.</p>
@@ -389,7 +389,7 @@
 
                         {/* TAB 4: ORDERS */}
                         {activeTab === 'orders' && (
-                            <section className="bg-glass border silver-border p-6 sm:p-12 rounded-3xl shadow-xl space-y-4">
+                            <section className="bg-glass border silver-border p-6 sm:p-12 rounded-3xl shadow-xl space-y-4 animate-fade-in">
                                 <h3 className="text-xl font-black silver-text">📦 Your Order History (Flask API Synced)</h3>
                                 <p className="text-xs text-slate-400">Synchronized directly with the secure Flask backend ledger.</p>
                                 <div className="space-y-3 text-xs">
@@ -409,7 +409,7 @@
 
                         {/* TAB 5: ABOUT / eNanda INFO */}
                         {activeTab === 'about' && (
-                            <section className="bg-glass border silver-border p-6 sm:p-12 rounded-3xl shadow-xl space-y-6">
+                            <section className="bg-glass border silver-border p-6 sm:p-12 rounded-3xl shadow-xl space-y-6 animate-fade-in">
                                 <h3 className="text-2xl font-black silver-text">ℹ️ About Nollie's & eNanda Hub</h3>
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs text-slate-300">
                                     <div className="bg-slate-900/90 p-6 rounded-3xl border silver-border space-y-2">
@@ -427,7 +427,7 @@
 
                     {/* Cart Modal Drawer */}
                     {isCartOpen && (
-                        <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-50 flex flex-col justify-end">
+                        <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-50 flex flex-col justify-end animate-fade-in">
                             <div className="bg-glass rounded-t-3xl p-6 sm:p-8 border-t silver-border max-h-[85vh] flex flex-col shadow-2xl max-w-2xl mx-auto w-full">
                                 <div className="flex justify-between items-center border-b silver-border pb-4">
                                     <h3 className="font-black text-base text-white flex items-center space-x-2"><span>🛒</span><span>Your Order Summary</span></h3>
@@ -464,7 +464,7 @@
 
                     {/* Product Detail Modal */}
                     {activeModalProduct && (
-                        <div className="fixed inset-0 bg-slate-950/85 backdrop-blur-md z-50 flex items-center justify-center p-4">
+                        <div className="fixed inset-0 bg-slate-950/85 backdrop-blur-md z-50 flex items-center justify-center p-4 animate-fade-in">
                             <div className="bg-glass rounded-3xl p-6 sm:p-8 border silver-border max-w-md w-full space-y-5 shadow-2xl">
                                 <div className="flex justify-between items-center border-b silver-border pb-4">
                                     <h3 className="font-black text-base text-white">{activeModalProduct.title}</h3>
@@ -482,7 +482,7 @@
 
                     {/* Toast Notification */}
                     {toastMessage && (
-                        <div className="fixed bottom-6 right-6 bg-slate-900 border silver-border silver-gradient text-slate-950 text-xs font-black px-6 py-4 rounded-2xl shadow-2xl z-50 transition-all">
+                        <div className="fixed bottom-6 right-6 bg-slate-900 border silver-border silver-gradient text-slate-950 text-xs font-black px-6 py-4 rounded-2xl shadow-2xl z-50 animate-fade-in">
                             {toastMessage}
                         </div>
                     )}
