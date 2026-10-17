@@ -4,7 +4,6 @@ from flask import Flask, jsonify, request, send_from_directory
 from app.database import init_db, load_orders, save_order
 
 app = Flask(__name__, static_folder='public')
-
 ADMIN_KEY = os.environ.get('ADMIN_KEY', 'mysecret')
 
 with app.app_context():
@@ -13,6 +12,10 @@ with app.app_context():
 @app.route('/')
 def index():
     return send_from_directory('public', 'index.html')
+
+@app.route('/admin.html')
+def admin():
+    return send_from_directory('public', 'admin.html')
 
 @app.route('/<path:path>')
 def static_proxy(path):
@@ -32,26 +35,7 @@ def handle_orders():
         orders = load_orders()
         return jsonify({'orders': orders, 'count': len(orders)})
 
-@app.route('/api/phd/analytics', methods=['GET'])
-def phd_analytics():
-    key = request.headers.get('Authorization') or request.args.get('key')
-    if key != ADMIN_KEY:
-        return jsonify({'error': 'Unauthorized Ph.D. Access'}), 403
-    
-    orders = load_orders()
-    total_revenue = sum(o.get('total', 0) for o in orders)
-    
-    return jsonify({
-        'status': 'active',
-        'model': 'Econometric Retail Optimization v2.4',
-        'total_orders': len(orders),
-        'total_revenue': total_revenue,
-        'inventory_turnover_ratio': 4.8,
-        'economic_utility_index': 94.2,
-        'supply_chain_efficiency': 'Optimal',
-        'region': 'eNanda, Durban, KZN'
-    })
-
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
+    print(f"🚀 Nollie's Server starting on http://localhost:{port} (Admin: http://localhost:{port}/admin.html)")
     app.run(host='0.0.0.0', port=port, debug=True)

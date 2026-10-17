@@ -1,7 +1,7 @@
 import os
 import time
 from flask import Blueprint, jsonify, request, send_from_directory
-from app.database import load_orders, save_orders
+from app.database import load_orders, save_order
 
 bp = Blueprint("main", __name__)
 ADMIN_KEY = os.environ.get("ADMIN_KEY", "mysecret")
@@ -48,5 +48,5 @@ def create_order():
     }
     orders = load_orders()
     orders.append(new_order)
-    save_orders(orders)
+    save_order(orders)
     return jsonify({"success": True, "order_id": new_order["id"]})

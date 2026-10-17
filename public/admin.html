@@ -1,117 +1,57 @@
 <!DOCTYPE html>
-<html lang="en"><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex,nofollow"><title>Nollie's Admin</title>
-<link rel="stylesheet" href="css/style.css">
-</head><body><main>
-<div class="glass pad" id="login">
-  <h2>Nollie's admin</h2>
-  <label>Admin key<input id="key" type="password" autocomplete="current-password"></label>
-  <button class="btn" id="go">Sign in</button>
-  <p id="err" class="muted" role="alert"></p>
-</div>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nollie's | Admin Order Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>body { font-family: 'Plus Jakarta Sans', sans-serif; }</style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen p-6">
+    <div class="max-w-4xl mx-auto space-y-6">
+        <header class="flex justify-between items-center bg-slate-900 p-6 rounded-2xl border border-slate-800">
+            <div>
+                <h1 class="text-xl font-black text-white">Nollie's Admin Dashboard</h1>
+                <p class="text-xs text-slate-400">Manage incoming eNanda customer orders</p>
+            </div>
+            <a href="/" class="bg-slate-800 hover:bg-slate-700 text-xs font-bold px-4 py-2 rounded-xl">← Back to Shop</a>
+        </header>
 
-<div id="app" hidden>
-  <div class="glass pad">
-    <h2>Orders</h2>
-    <label>Show
-      <select id="filter">
-        <option value="">All</option><option value="new">Received</option><option value="confirmed">Confirmed</option>
-        <option value="out_for_delivery">Out for delivery</option><option value="delivered">Delivered</option><option value="cancelled">Cancelled</option>
-      </select>
-    </label>
-    <button class="btn" id="refresh">Refresh</button>
-    <button class="btn" id="csv">Export CSV</button>
-    <button class="link" id="out">Sign out</button>
-  </div>
-  <div id="orders"></div>
-  <div class="glass pad"><h2>Products</h2><div id="prods"></div></div>
-</div>
-</main>
-<script>
-const $ = s => document.querySelector(s);
-const ST = ['new','confirmed','out_for_delivery','delivered','cancelled'];
-const LB = {new:'Received',confirmed:'Confirmed',out_for_delivery:'Out for delivery',delivered:'Delivered',cancelled:'Cancelled'};
-const money = n => 'R' + Number(n).toFixed(2);
-let KEY = sessionStorage.getItem('nl_key') || '';
-const el = (t, txt, cls) => { const e = document.createElement(t); if (txt !== undefined) e.textContent = txt; if (cls) e.className = cls; return e; };
+        <div id="orders-container" class="space-y-4">
+            <div class="bg-slate-900 p-6 rounded-2xl border border-slate-800 text-center text-slate-400 text-xs">Loading orders...</div>
+        </div>
+    </div>
 
-async function api(path, opt = {}) {
-  const r = await fetch('/api' + path, { ...opt, headers: { 'Content-Type': 'application/json', 'X-Admin-Key': KEY } });
-  if (r.status === 401 || r.status === 503) {
-    const j = await r.json().catch(() => ({}));
-    signout(j.error || 'Not allowed.'); throw new Error('auth');
-  }
-  return r;
-}
-function signout(msg) {
-  KEY = ''; sessionStorage.removeItem('nl_key');
-  $('#app').hidden = true; $('#login').hidden = false; $('#err').textContent = msg || '';
-}
+    <script>
+        async function fetchOrders() {
+            try {
+                const res = await fetch('/api/orders');
+                const data = await res.json();
+                const container = document.getElementById('orders-container');
+                
+                if (!data.orders || data.orders.length === 0) {
+                    container.innerHTML = '<div class="bg-slate-900 p-6 rounded-2xl border border-slate-800 text-center text-slate-400 text-xs">No orders recorded yet.</div>';
+                    return;
+                }
 
-async function loadOrders() {
-  const f = $('#filter').value;
-  const list = await (await api('/admin/orders' + (f ? '?status=' + f : ''))).json();
-  const box = $('#orders'); box.replaceChildren();
-  if (!list.length) { box.appendChild(el('p', 'No orders yet.', 'glass pad')); return; }
-  list.forEach(o => {
-    const c = el('article', undefined, 'glass pad');
-    c.appendChild(el('h3', o.ref + '  |  ' + money(o.total)));
-    c.appendChild(el('p', o.created_at + ' UTC', 'muted'));
-    c.appendChild(el('p', o.name + ', ' + o.area));
-    const p = el('p'); const a = el('a', o.phone); a.href = 'tel:' + o.phone; a.style.color = '#ffd166'; p.appendChild(a); c.appendChild(p);
-    if (o.note) c.appendChild(el('p', 'Note: ' + o.note));
-    const ul = el('ul'); o.items.forEach(i => ul.appendChild(el('li', i.qty + ' x ' + i.name))); c.appendChild(ul);
-    const sel = el('select');
-    ST.forEach(s => { const op = el('option', LB[s]); op.value = s; if (s === o.status) op.selected = true; sel.appendChild(op); });
-    sel.addEventListener('change', async () => {
-      const r = await api('/admin/orders/' + encodeURIComponent(o.ref), { method: 'PATCH', body: JSON.stringify({ status: sel.value }) });
-      if (!r.ok) alert('Could not update status');
-    });
-    const del = el('button', 'Delete order', 'link');
-    del.addEventListener('click', async () => {
-      if (!confirm('Permanently delete order ' + o.ref + '? This cannot be undone.')) return;
-      const r = await api('/admin/orders/' + encodeURIComponent(o.ref), { method: 'DELETE' });
-      if (r.ok) loadOrders().catch(() => {}); else alert('Could not delete this order.');
-    });
-    c.append(sel, del); box.appendChild(c);
-  });
-}
-
-async function loadProducts() {
-  const list = await (await api('/admin/products')).json();
-  const box = $('#prods'); box.replaceChildren();
-  list.forEach(p => {
-    const row = el('div', undefined, 'line');
-    row.appendChild(el('span', p.icon + ' ' + p.name));
-    const price = el('input'); price.type = 'number'; price.step = '0.01'; price.min = '0'; price.value = p.price; price.style.width = '90px';
-    price.setAttribute('aria-label', 'Price for ' + p.name);
-    const act = el('input'); act.type = 'checkbox'; act.checked = p.active; act.style.width = 'auto';
-    act.setAttribute('aria-label', 'Active: ' + p.name);
-    const save = el('button', 'Save', 'btn'); save.style.padding = '6px 12px';
-    save.addEventListener('click', async () => {
-      const r = await api('/admin/products/' + encodeURIComponent(p.id), { method: 'PUT', body: JSON.stringify({ price: price.value, active: act.checked }) });
-      save.textContent = r.ok ? 'Saved' : 'Error'; setTimeout(() => save.textContent = 'Save', 1500);
-    });
-    row.append(price, act, save); box.appendChild(row);
-  });
-}
-
-async function refresh() { await loadOrders(); await loadProducts(); }
-
-$('#go').addEventListener('click', async () => {
-  KEY = $('#key').value; sessionStorage.setItem('nl_key', KEY);
-  $('#key').value = ''; $('#err').textContent = '';
-  $('#login').hidden = true; $('#app').hidden = false;
-  try { await refresh(); } catch (e) {}
-});
-$('#refresh').addEventListener('click', () => refresh().catch(() => {}));
-$('#filter').addEventListener('change', () => loadOrders().catch(() => {}));
-$('#out').addEventListener('click', () => signout(''));
-$('#csv').addEventListener('click', async () => {
-  const r = await api('/admin/orders.csv'); const blob = await r.blob();
-  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'nollies_orders.csv'; a.click();
-});
-if (KEY) { $('#login').hidden = true; $('#app').hidden = false; refresh().catch(() => {}); }
-</script>
-</body></html>
+                container.innerHTML = data.orders.map(o => `
+                    <div class="bg-slate-900 p-6 rounded-2xl border border-slate-800 space-y-3">
+                        <div class="flex justify-between items-center">
+                            <span class="font-extrabold text-white text-sm">Order #${o.id}</span>
+                            <span class="text-emerald-400 font-black text-sm">R ${o.total.toFixed(2)}</span>
+                        </div>
+                        <div class="text-[11px] text-slate-400">${o.date}</div>
+                        <div class="border-t border-slate-800 pt-3 space-y-1 text-xs">
+                            ${o.items.map(i => `<div class="flex justify-between text-slate-300"><span>• ${i.title}</span><span>R${i.price}</span></div>`).join('')}
+                        </div>
+                    </div>
+                `).join('');
+            } catch (err) {
+                console.error(err);
+            }
+        }
+        fetchOrders();
+    </script>
+</body>
+</html>
