@@ -1,14 +1,104 @@
 const PRODUCTS = [
-    { id: 'c1', cat: 'cereal', title: 'Cereal Hamper Package 1', price: 250, badge: '5 Items', desc: 'Jungle Oats 1kg, Future Life 500g, Noodles, Bokomo Corn Flakes 1kg, Weet-Bix 450g.', img: 'https://images.unsplash.com/photo-1517093788734-90fa7b733160?w=500&q=80', fallback: 'https://images.unsplash.com/photo-1521483451571-9f5ce5f25d78?w=500&q=80' },
-    { id: 'c2', cat: 'cereal', title: 'Cereal Hamper Package 2', price: 250, badge: '5 Items', desc: 'Bokomo Corn Flakes 1kg, Rice Puffs, Juice, Porridge, Noodles.', img: 'https://images.unsplash.com/photo-1586201375761-83865001e31c?w=500&q=80', fallback: 'https://images.unsplash.com/photo-1521483451571?w=500&q=80' },
-    { id: 'c3', cat: 'cereal', title: 'Cereal Hamper Package 3', price: 250, badge: '5 Items', desc: 'Bokomo Weet-Bix 450g, Corn Flakes 1kg, Future Life 500g, Nutrifics 450g, Noodles.', img: 'https://images.unsplash.com/photo-1517093788734-90fa7b733160?w=500&q=80', fallback: 'https://images.unsplash.com/photo-1488477181946-6428a0291777?w=500&q=80' },
-    { id: 'b1', cat: 'essentials', title: 'Family Bulk Grocery Hamper', price: 380, badge: 'Best Value', desc: '10kg Maize Meal, 5L Sunflower Oil, 2kg White Sugar, 2kg Rice, 410g Baked Beans (x4).', img: 'https://images.unsplash.com/photo-1542838132-92c53300491e?w=500&q=80', fallback: 'https://images.unsplash.com/photo-1586201375761-83865001e31c?w=500&q=80' },
-    { id: 'b2', cat: 'essentials', title: 'Weekend Braai & Pap Combo', price: 295, badge: 'Weekend Special', desc: '5kg Iwisa Maize Meal, Braai Spice, Chakalaka (x3), Tomato & Onion Mix, 2L Soft Drink.', img: 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=500&q=80', fallback: 'https://images.unsplash.com/photo-1549931319-a545dcf3bc73?w=500&q=80' },
-    { id: 'j1', cat: 'juice', title: 'Juices Africa (4L Bottle)', price: 160, badge: 'Makes 20L', desc: 'Guava, Mixed Berry, Tropical Punch high yield fruit concentrate.', img: 'https://images.unsplash.com/photo-1613478223719-2ab802602423?w=500&q=80', fallback: 'https://images.unsplash.com/photo-1546171753-97d7676eefa0?w=500&q=80' },
-    { id: 'p1', cat: 'perfume', title: 'M-Scents Perfumes (40ml)', price: 120, badge: '40ml Luxury', desc: 'Silver Sense, Red Dezire, White OUD, Blue Dezire, StallioN.', img: 'https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=500&q=80', fallback: 'https://images.unsplash.com/photo-1594035910387-fea47794261f?w=500&q=80' },
-    { id: 'p2', cat: 'perfume', title: 'M-Scents Duo Gift Set (2x 40ml)', price: 192, badge: 'Save R48', desc: 'Choose any two signature 40ml luxury fragrances in a gift presentation box.', img: 'https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=500&q=80', fallback: 'https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=500&q=80' },
-    { id: 'e1', cat: 'essentials', title: 'Fresh Bakery Daily Pack', price: 35, badge: 'Fresh Daily', desc: 'Fresh loaf, rolls, and morning treats.', img: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?w=500&q=80', fallback: 'https://images.unsplash.com/photo-1549931319-a545dcf3bc73?w=500&q=80' },
-    { id: 'e3', cat: 'essentials', title: 'Cleaning & Hygiene Household Bucket', price: 185, badge: 'Home Care', desc: 'Dishwashing Liquid, Bleach, Washing Powder (2kg), and Floor Cleaner.', img: 'https://images.unsplash.com/photo-1585421514284-efb74c2b69ba?w=500&q=80', fallback: 'https://images.unsplash.com/photo-1563453392212-326f5e854473?w=500&q=80' }
+    { 
+        id: 'c1', 
+        cat: 'cereal', 
+        title: 'Cereal Hamper Package 1', 
+        price: 250, 
+        badge: '5 Items', 
+        desc: 'Jungle Oats 1kg, Future Life 500g, Noodles, Bokomo Corn Flakes 1kg, Weet-Bix 450g.', 
+        img: 'https://images.unsplash.com/photo-1517093788734-90fa7b733160?auto=format&fit=crop&w=600&q=80', 
+        fallback: 'https://images.unsplash.com/photo-1521483451571-9f5ce5f25d78?auto=format&fit=crop&w=600&q=80' 
+    },
+    { 
+        id: 'c2', 
+        cat: 'cereal', 
+        title: 'Cereal Hamper Package 2', 
+        price: 250, 
+        badge: '5 Items', 
+        desc: 'Bokomo Corn Flakes 1kg, Rice Puffs, Juice, Porridge, Noodles.', 
+        img: 'https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=600&q=80', 
+        fallback: 'https://images.unsplash.com/photo-1521483451571?auto=format&fit=crop&w=600&q=80' 
+    },
+    { 
+        id: 'c3', 
+        cat: 'cereal', 
+        title: 'Cereal Hamper Package 3', 
+        price: 250, 
+        badge: '5 Items', 
+        desc: 'Bokomo Weet-Bix 450g, Corn Flakes 1kg, Future Life 500g, Nutrifics 450g, Noodles.', 
+        img: 'https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=600&q=80', 
+        fallback: 'https://images.unsplash.com/photo-1517093788734-90fa7b733160?auto=format&fit=crop&w=600&q=80' 
+    },
+    { 
+        id: 'b1', 
+        cat: 'essentials', 
+        title: 'Family Bulk Grocery Hamper', 
+        price: 380, 
+        badge: 'Best Value', 
+        desc: '10kg Maize Meal, 5L Sunflower Oil, 2kg White Sugar, 2kg Rice, 410g Baked Beans (x4).', 
+        img: 'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=600&q=80', 
+        fallback: 'https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=600&q=80' 
+    },
+    { 
+        id: 'b2', 
+        cat: 'essentials', 
+        title: 'Weekend Braai & Pap Combo', 
+        price: 295, 
+        badge: 'Weekend Special', 
+        desc: '5kg Iwisa Maize Meal, Braai Spice, Chakalaka (x3), Tomato & Onion Mix, 2L Soft Drink.', 
+        img: 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=600&q=80', 
+        fallback: 'https://images.unsplash.com/photo-1549931319-a545dcf3bc73?auto=format&fit=crop&w=600&q=80' 
+    },
+    { 
+        id: 'j1', 
+        cat: 'juice', 
+        title: 'Juices Africa (4L Bottle)', 
+        price: 160, 
+        badge: 'Makes 20L', 
+        desc: 'Guava, Mixed Berry, Tropical Punch high yield fruit concentrate.', 
+        img: 'https://images.unsplash.com/photo-1613478223719-2ab802602423?auto=format&fit=crop&w=600&q=80', 
+        fallback: 'https://images.unsplash.com/photo-1546171753-97d7676eefa0?auto=format&fit=crop&w=600&q=80' 
+    },
+    { 
+        id: 'p1', 
+        cat: 'perfume', 
+        title: 'M-Scents Perfumes (40ml)', 
+        price: 120, 
+        badge: '40ml Luxury', 
+        desc: 'Silver Sense, Red Dezire, White OUD, Blue Dezire, StallioN.', 
+        img: 'https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&w=600&q=80', 
+        fallback: 'https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=600&q=80' 
+    },
+    { 
+        id: 'p2', 
+        cat: 'perfume', 
+        title: 'M-Scents Duo Gift Set (2x 40ml)', 
+        price: 192, 
+        badge: 'Save R48', 
+        desc: 'Choose any two signature 40ml luxury fragrances in a gift presentation box.', 
+        img: 'https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&w=600&q=80', 
+        fallback: 'https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&w=600&q=80' 
+    },
+    { 
+        id: 'e1', 
+        cat: 'essentials', 
+        title: 'Fresh Bakery Daily Pack', 
+        price: 35, 
+        badge: 'Fresh Daily', 
+        desc: 'Fresh loaf, rolls, and morning treats.', 
+        img: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=600&q=80', 
+        fallback: 'https://images.unsplash.com/photo-1549931319-a545dcf3bc73?auto=format&fit=crop&w=600&q=80' 
+    },
+    { 
+        id: 'e3', 
+        cat: 'essentials', 
+        title: 'Cleaning & Hygiene Household Bucket', 
+        price: 185, 
+        badge: 'Home Care', 
+        desc: 'Dishwashing Liquid, Bleach, Washing Powder (2kg), and Floor Cleaner.', 
+        img: 'https://images.unsplash.com/photo-1585421514284-efb74c2b69ba?auto=format&fit=crop&w=600&q=80', 
+        fallback: 'https://images.unsplash.com/photo-1563453392212-326f5e854473?auto=format&fit=crop&w=600&q=80' 
+    }
 ];
 
 const HAMPER_OPTIONS = [
@@ -50,8 +140,8 @@ window.renderProducts = function(items) {
     c.innerHTML = items.map(p => `
         <div class="bg-glass rounded-3xl border silver-border shadow-xl overflow-hidden flex flex-col justify-between hover:border-slate-400 transition-all">
             <div onclick="openProductModal('${p.title.replace(/'/g, "\\'")}', ${p.price}, '${p.desc.replace(/'/g, "\\'")}', '${p.img}', '${p.fallback}')" class="cursor-pointer">
-                <div class="h-44 overflow-hidden relative bg-slate-950 flex items-center justify-center">
-                    <img src="${p.img}" alt="${p.title}" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" onerror="this.src='${p.fallback}'">
+                <div class="h-48 overflow-hidden relative bg-slate-950 flex items-center justify-center">
+                    <img src="${p.img}" alt="${p.title}" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" onerror="this.onerror=null;this.src='${p.fallback}';">
                     <span class="absolute top-3 left-3 silver-gradient text-slate-950 text-[10px] font-extrabold px-3 py-1 rounded-full uppercase shadow">${p.badge}</span>
                 </div>
                 <div class="p-4">
@@ -177,7 +267,7 @@ window.openProductModal = function(title, price, desc, img, fallback) {
     if (mDesc) mDesc.innerText = desc;
     if (mImg) {
         mImg.src = img;
-        mImg.onerror = () => { mImg.src = fallback; };
+        mImg.onerror = function() { this.onerror=null; this.src=fallback; };
     }
     if (mBtn) {
         mBtn.onclick = () => {
@@ -267,7 +357,7 @@ window.sendAiMessage = function() {
     box.innerHTML += `<div class="text-right"><span class="inline-block silver-gradient text-slate-950 font-bold p-3 rounded-2xl">${text}</span></div>`;
     input.value = '';
     setTimeout(() => {
-        box.innerHTML += `<div><span class="inline-block bg-slate-900 text-slate-200 border silver-border p-3 rounded-2xl"><strong>Nollie AI:</strong> We deliver across eNanda for R30! Try our Family Bulk Hamper or Weekend Braai Combo!</span></div>`;
+        box.innerHTML += `<div><span class="inline-block bg-slate-900 text-slate-200 border silver-border p-3 rounded-2xl"><strong>Nollie AI:</strong> We deliver across eNanda for R30! Check out our new high-res catalog images!</span></div>`;
         box.scrollTop = box.scrollHeight;
     }, 400);
 }
