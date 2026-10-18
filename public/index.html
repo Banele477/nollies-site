@@ -86,12 +86,20 @@
             display: inline-block;
             animation: marqueeScroll 25s linear infinite;
         }
-        .marquee-track:hover {
+        .marquee-track-reverse {
+            display: inline-block;
+            animation: marqueeScrollReverse 22s linear infinite;
+        }
+        .marquee-track:hover, .marquee-track-reverse:hover {
             animation-play-state: paused;
         }
         @keyframes marqueeScroll {
             0% { transform: translateX(0%); }
             100% { transform: translateX(-50%); }
+        }
+        @keyframes marqueeScrollReverse {
+            0% { transform: translateX(-50%); }
+            100% { transform: translateX(0%); }
         }
 
         .no-scrollbar::-webkit-scrollbar { display: none; }
@@ -107,6 +115,12 @@
         const NOLLIE_AVATAR = "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80";
         const DURBAN_BANNER = "https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=1200&q=80";
         const FALLBACK_SVG = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='400' viewBox='0 0 600 400'><rect width='100%' height='100%' fill='%230f172a'/><text x='50%' y='50%' fill='%23ffffff' font-family='sans-serif' font-size='22' font-weight='bold' text-anchor='middle' dominant-baseline='middle'>Nollie%27s Dynamic Hub</text></svg>";
+
+        const PROMO_FLYERS = [
+            { id: 'fl1', title: 'Cereal Hamper Combos Poster', badge: 'Wholesale Deal', price: 'From R250', desc: 'Customizable 5-item breakfast bundle including Jungle Oats, Weet-Bix, Corn Flakes & Future Life.', img: 'https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=800&q=80', tag: 'CEREAL HAMPER' },
+            { id: 'fl2', title: 'Family Grocery Mega Saver Flyer', badge: 'Top Seller', price: 'R380.00', desc: '10kg Maize Meal, 5L Oil, 2kg Sugar, 2kg Rice & Baked Beans bundle delivered across Durban.', img: 'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=800&q=80', tag: 'BULK ESSENTIALS' },
+            { id: 'fl3', title: 'M-Scents Fragrance Showcase', badge: 'Luxury Aroma', price: 'R120 / Duo R192', desc: 'Silver Sense, Red Dezire, White OUD, StallioN 40ml premium long-lasting perfumes.', img: 'https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&w=800&q=80', tag: 'LUXURY PERFUMES' }
+        ];
 
         const PRODUCTS = [
             { id: 'c1', cat: 'cereal', title: 'Cereal Hamper Package 1', price: 250, badge: '5 Items', desc: 'Jungle Oats 1kg, Future Life 500g, Noodles, Bokomo Corn Flakes 1kg, Weet-Bix 450g.', img: 'https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=600&q=80' },
@@ -153,6 +167,14 @@
             "💎 M-SCENTS: Luxury 40ml Fragrances Available Now in Durban!"
         ];
 
+        const REVERSE_TICKER_ITEMS = [
+            "⚡ LIMITED PROMO: Use Code NOLLIE10 for 10% OFF!",
+            "📦 BULK DISPATCH: Direct to eNanda, Durban CBD & KZN Areas!",
+            "🛍️ CUSTOM BUILDER: Pick Any 5 Items for R250!",
+            "📲 WHATSAPP DISPATCH: Click Share Cart to Order Directly!",
+            "🌟 VERIFIED REVIEWS: 5.0/5.0 Rated by Durban Clients!"
+        ];
+
         function App() {
             const [activeTab, setActiveTab] = useState('home');
             const [cart, setCart] = useState(JSON.parse(localStorage.getItem('nollies_cart') || '[]'));
@@ -167,6 +189,9 @@
             const [matchBudget, setMatchBudget] = useState('300');
             const [matchCategory, setMatchCategory] = useState('cereal');
             const [matchedResult, setMatchedResult] = useState(null);
+
+            // Active Poster Modal State
+            const [activePoster, setActivePoster] = useState(null);
 
             // Community Board State
             const [communityPosts, setCommunityPosts] = useState(JSON.parse(localStorage.getItem('nollies_community') || JSON.stringify([
@@ -600,13 +625,24 @@
                 <div className="min-h-screen relative">
                     <div className="h-1.5 bg-gradient-to-r from-white via-red-400 via-amber-300 via-emerald-400 via-sky-400 to-purple-400 w-full fixed top-0 z-50 shadow-[0_0_25px_rgba(255,255,255,0.9)]"></div>
 
-                    <div className="bg-slate-950/95 border-b border-white/15 text-slate-200 text-xs py-2 shadow-inner overflow-hidden max-w-7xl mx-auto rounded-b-2xl mb-2">
+                    {/* DUAL STREAM MARQUEE (FORWARD & REVERSE) */}
+                    <div className="bg-slate-950/95 border-b border-white/15 text-slate-200 text-xs py-1.5 shadow-inner overflow-hidden max-w-7xl mx-auto rounded-b-2xl mb-1 space-y-1">
                         <div className="marquee-container">
                             <div className="marquee-track flex space-x-12 font-mono font-bold">
                                 {LIVE_TICKER_ITEMS.concat(LIVE_TICKER_ITEMS).map((ticker, i) => (
                                     <span key={i} className="flex items-center gap-2">
                                         <span className="w-2 h-2 rounded-full bg-white animate-ping"></span>
                                         <span className="white-rainbow-animated-text">{ticker}</span>
+                                    </span>
+                                ))}
+                            </div>
+                        </div>
+                        <div className="marquee-container bg-slate-900/60 py-0.5 border-t border-white/10">
+                            <div className="marquee-track-reverse flex space-x-12 font-mono text-[10px]">
+                                {REVERSE_TICKER_ITEMS.concat(REVERSE_TICKER_ITEMS).map((ticker, i) => (
+                                    <span key={i} className="flex items-center gap-2 text-slate-300">
+                                        <span>✨</span>
+                                        <span>{ticker}</span>
                                     </span>
                                 ))}
                             </div>
@@ -631,6 +667,7 @@
                             {[
                                 { id: 'home', label: '🏠 Home' },
                                 { id: 'catalog', label: '🛍️ Catalog' },
+                                { id: 'posters', label: '🖼️ Flyers & Posters' },
                                 { id: 'builder', label: '✨ Hamper Builder' },
                                 { id: 'ai-matcher', label: '🧠 AI Matcher' },
                                 { id: 'community', label: '💬 Community' },
@@ -664,6 +701,7 @@
                         {[
                             { id: 'home', label: '🏠 Home' },
                             { id: 'catalog', label: '🛍️ Catalog' },
+                            { id: 'posters', label: '🖼️ Posters' },
                             { id: 'builder', label: '✨ Hamper' },
                             { id: 'ai-matcher', label: '🧠 AI Matcher' },
                             { id: 'community', label: '💬 Community' },
@@ -703,8 +741,8 @@
                                             </p>
                                             <div className="flex flex-wrap gap-3 pt-2">
                                                 <button onClick={() => setActiveTab('catalog')} className="press-effect white-rainbow-btn font-extrabold py-3.5 px-7 rounded-2xl text-xs shadow-lg hover:scale-105 transition-all">Browse Marketplace 🛍️</button>
-                                                <button onClick={() => setActiveTab('ai-matcher')} className="press-effect bg-slate-900/90 border border-white/40 text-white font-bold py-3.5 px-7 rounded-2xl text-xs shadow hover:border-white transition-all flex items-center space-x-2">
-                                                    <span>🧠 AI Smart Matcher</span>
+                                                <button onClick={() => setActiveTab('posters')} className="press-effect bg-slate-900/90 border border-white/40 text-white font-bold py-3.5 px-7 rounded-2xl text-xs shadow hover:border-white transition-all flex items-center space-x-2">
+                                                    <span>🖼️ View Promotional Flyers</span>
                                                 </button>
                                             </div>
                                         </div>
@@ -723,6 +761,28 @@
                                                 <div className="flex justify-between"><span>Dispatch:</span><strong className="text-amber-300">WhatsApp / Call</strong></div>
                                             </div>
                                         </div>
+                                    </div>
+                                </div>
+
+                                {/* STRATEGIC PROMOTIONAL POSTERS BANNER PREVIEW */}
+                                <div className="space-y-4">
+                                    <div className="flex justify-between items-center px-1">
+                                        <h3 className="text-xl font-black text-white font-display flex items-center gap-2"><span>🖼️</span><span>Official Promotional Posters & Flyers</span></h3>
+                                        <button onClick={()=>setActiveTab('posters')} className="text-xs text-slate-300 hover:text-white font-bold font-mono">View All Posters →</button>
+                                    </div>
+                                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                                        {PROMO_FLYERS.map((f) => (
+                                            <div key={f.id} onClick={()=>setActivePoster(f)} className="rainbow-glass rounded-3xl border border-white/20 p-4 space-y-3 cursor-pointer rainbow-card-hover group">
+                                                <div className="h-44 rounded-2xl overflow-hidden relative bg-slate-950 border border-white/10">
+                                                    <img src={f.img} alt={f.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"/>
+                                                    <span className="absolute top-2.5 left-2.5 bg-slate-950/90 border border-white/40 text-white font-mono text-[9px] font-black px-2.5 py-1 rounded-full uppercase">{f.badge}</span>
+                                                </div>
+                                                <div>
+                                                    <h4 className="font-extrabold text-white text-xs font-display">{f.title}</h4>
+                                                    <p className="text-[11px] text-slate-400 mt-1 line-clamp-2">{f.desc}</p>
+                                                </div>
+                                            </div>
+                                        ))}
                                     </div>
                                 </div>
 
@@ -759,6 +819,37 @@
                                             {trackResult}
                                         </div>
                                     )}
+                                </div>
+                            </section>
+                        )}
+
+                        {/* NEW DEDICATED POSTERS & FLYERS GALLERY TAB */}
+                        {activeTab === 'posters' && (
+                            <section className="space-y-8 animate-fade-in">
+                                <div className="rainbow-glass border border-white/25 p-6 sm:p-12 rounded-3xl shadow-xl space-y-6">
+                                    <div className="border-b border-white/20 pb-4">
+                                        <h3 className="text-2xl font-black white-rainbow-animated-text font-display">🖼️ Strategic Marketing Flyers & Showcase Posters</h3>
+                                        <p className="text-xs text-slate-400 mt-1">High-resolution promotional material designed for community distribution and social sharing across Durban & eNanda.</p>
+                                    </div>
+
+                                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                                        {PROMO_FLYERS.map((flyer) => (
+                                            <div key={flyer.id} className="rainbow-glass rounded-3xl border border-white/25 p-5 space-y-4 shadow-2xl flex flex-col justify-between rainbow-card-hover">
+                                                <div className="space-y-3">
+                                                    <div className="h-64 rounded-2xl overflow-hidden relative bg-slate-950 border border-white/20">
+                                                        <img src={flyer.img} alt={flyer.title} className="w-full h-full object-cover"/>
+                                                        <span className="absolute top-3 left-3 bg-slate-950/90 border border-white/40 text-white font-mono text-[10px] font-black px-3 py-1 rounded-full uppercase shadow">{flyer.badge}</span>
+                                                    </div>
+                                                    <h4 className="text-base font-black text-white font-display">{flyer.title}</h4>
+                                                    <p className="text-xs text-slate-300 leading-relaxed font-medium">{flyer.desc}</p>
+                                                </div>
+                                                <div className="pt-3 border-t border-white/15 flex justify-between items-center">
+                                                    <span className="text-sm font-black text-white font-mono">{flyer.price}</span>
+                                                    <button onClick={()=>setActivePoster(flyer)} className="press-effect white-rainbow-btn text-slate-950 text-xs font-black px-4 py-2.5 rounded-xl shadow">Inspect Flyer 🔍</button>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
                                 </div>
                             </section>
                         )}
@@ -1096,7 +1187,6 @@
                             </section>
                         )}
 
-                        {/* NEW TAB: SA LEGAL & REGULATORY COMPLIANCE CENTER */}
                         {activeTab === 'legal' && (
                             <section className="rainbow-glass border border-white/25 p-6 sm:p-12 rounded-3xl shadow-xl space-y-8 animate-fade-in text-xs">
                                 <div className="border-b border-white/20 pb-4">
@@ -1237,6 +1327,27 @@
                             </section>
                         )}
                     </main>
+
+                    {/* DYNAMIC POSTER INSPECTOR MODAL */}
+                    {activePoster && (
+                        <div className="fixed inset-0 bg-slate-950/90 backdrop-blur-md z-50 flex items-center justify-center p-4 animate-fade-in">
+                            <div className="rainbow-glass rounded-3xl p-6 sm:p-8 border border-white/40 max-w-lg w-full space-y-5 shadow-2xl relative">
+                                <button onClick={() => setActivePoster(null)} className="absolute top-4 right-4 text-slate-400 text-xl font-bold bg-slate-900 w-9 h-9 rounded-full flex items-center justify-center hover:bg-slate-800">&times;</button>
+                                <div className="space-y-2">
+                                    <span className="bg-white/20 text-white border border-white/30 text-[10px] font-mono px-3 py-1 rounded-full uppercase font-bold">{activePoster.tag}</span>
+                                    <h3 className="text-xl font-black text-white font-display">{activePoster.title}</h3>
+                                </div>
+                                <div className="h-72 rounded-2xl overflow-hidden border border-white/20 bg-slate-900 shadow-inner">
+                                    <img src={activePoster.img} alt={activePoster.title} className="w-full h-full object-cover"/>
+                                </div>
+                                <p className="text-xs text-slate-300 leading-relaxed font-medium">{activePoster.desc}</p>
+                                <div className="flex justify-between items-center pt-3 border-t border-white/20">
+                                    <span className="text-lg font-black text-white font-mono">{activePoster.price}</span>
+                                    <button onClick={() => { addToCart(activePoster.title, 250); setActivePoster(null); }} className="press-effect white-rainbow-btn text-slate-950 font-extrabold px-6 py-3 rounded-2xl text-xs shadow-xl">+ Order Package 🛒</button>
+                                </div>
+                            </div>
+                        </div>
+                    )}
 
                     {/* SA POPIA COOKIE CONSENT BANNER */}
                     {!popiaAccepted && (
