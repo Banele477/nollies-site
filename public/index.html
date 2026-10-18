@@ -2,10 +2,10 @@
 <html lang="en" class="scroll-smooth dark">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Nqobile's | Exhilarating 2026 Raindrop 3D Durban Hub</title>
     <meta name="theme-color" content="#030712">
-    <link rel="manifest" href="manifest.json">
+    <link rel="manifest" href="/manifest.json">
     <script src="https://cdn.tailwindcss.com"></script>
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
@@ -18,7 +18,6 @@
             background-color: #030712;
             color: #f8fafc;
             overflow-x: hidden;
-            content-visibility: auto;
         }
         h1, h2, h3, h4, .font-display { font-family: 'Space Grotesk', sans-serif; }
         
@@ -35,9 +34,9 @@
         }
 
         .rainbow-glass {
-            background: rgba(15, 23, 42, 0.85);
-            backdrop-filter: blur(30px) saturate(200%);
-            -webkit-backdrop-filter: blur(30px) saturate(200%);
+            background: rgba(15, 23, 42, 0.88);
+            backdrop-filter: blur(35px) saturate(200%);
+            -webkit-backdrop-filter: blur(35px) saturate(200%);
             border: 1px solid rgba(255, 255, 255, 0.3);
             box-shadow: 0 35px 80px -15px rgba(0, 0, 0, 0.9), inset 0 1px 0 rgba(255, 255, 255, 0.4);
         }
@@ -46,7 +45,7 @@
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .rainbow-card-hover:hover {
-            transform: translateY(-8px) scale(1.02);
+            transform: translateY(-6px) scale(1.02);
             border-color: rgba(255, 255, 255, 0.75);
             box-shadow: 0 40px 90px -15px rgba(255, 255, 255, 0.4);
         }
@@ -120,18 +119,9 @@
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
-<link rel="stylesheet" href="enhance3.css?v=1792345833">
-<link rel="stylesheet" href="enhance.css">
-<meta name="description" content="Cereal hampers, Juices Africa concentrates and M-Scents perfumes with fast Durban delivery.">
-<meta property="og:title" content="Nqobile's Durban Hub">
-<meta property="og:description" content="Cereal hampers, juices and perfumes. Order on WhatsApp.">
-<meta property="og:image" content="images/1000040076.jpg">
-<link rel="stylesheet" href="enhance2.css">
-<link rel="stylesheet" href="enhance4.css?v=1792345833">
-<link rel="stylesheet" href="enhance5.css?v=1792345833">
 </head>
 <body class="min-h-screen pb-32 white-rainbow-bg overflow-x-hidden selection:bg-white selection:text-slate-950">
-    <div id="root"><div style="display:flex;height:100vh;align-items:center;justify-content:center;color:#fff;font:600 18px sans-serif;text-align:center">✨ Loading Nqobile's Hub...</div></div>
+    <div id="root"></div>
 
     <script type="text/babel">
         const { useState, useEffect, useRef } = React;
@@ -141,48 +131,48 @@
         const FALLBACK_SVG = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='500' height='350' viewBox='0 0 500 350'><rect width='100%' height='100%' fill='%230f172a'/><text x='50%' y='50%' fill='%23ffffff' font-family='sans-serif' font-size='18' font-weight='bold' text-anchor='middle' dominant-baseline='middle'>Nqobile Hub Stock</text></svg>";
 
         const PROMO_FLYERS = [
-            { id: 'fl1', title: 'Cereal Hamper Complete Showcase', badge: 'Wholesale Deal', price: 'R250.00', desc: 'Real stock breakfast bundle including Jungle Oats, Weet-Bix, Corn Flakes, Future Life, Nutrific & Tropika juice[span_0](start_span)[span_0](end_span)[span_1](start_span)[span_1](end_span).', img: 'images/1000040076_2.jpg', tag: 'CEREAL HAMPER' },
-            { id: 'fl2', title: 'Bulk Packed Wholesale Hamper Box', badge: 'Top Seller', price: 'R380.00', desc: 'Securely packaged family grocery boxes ready for immediate Durban doorstep dispatch[span_2](start_span)[span_2](end_span).', img: 'images/1000040067_2.jpg', tag: 'BULK ESSENTIALS' },
-            { id: 'fl3', title: 'M-Scents Luxury Fragrance Showcase', badge: '40ml EDP', price: 'R120 / Duo R192', desc: 'Selver Sense, Dezire Red, White OUD, Wild Intense, Sky Oud, Blue Dezire & StallioN[span_3](start_span)[span_3](end_span).', img: 'images/1000040057_2.jpg', tag: 'LUXURY PERFUMES' }
+            { id: 'fl1', title: 'Cereal Hamper Complete Showcase', badge: 'Wholesale Deal', price: 'R250.00', desc: 'Real stock breakfast bundle including Jungle Oats, Weet-Bix, Corn Flakes, Future Life, Nutrific & Tropika juice.', img: '/images/1000040076_2.jpg', tag: 'CEREAL HAMPER' },
+            { id: 'fl2', title: 'Bulk Packed Wholesale Hamper Box', badge: 'Top Seller', price: 'R380.00', desc: 'Securely packaged family grocery boxes ready for immediate Durban doorstep dispatch.', img: '/images/1000040067_2.jpg', tag: 'BULK ESSENTIALS' },
+            { id: 'fl3', title: 'M-Scents Luxury Fragrance Showcase', badge: '40ml EDP', price: 'R120 / Duo R192', desc: 'Selver Sense, Dezire Red, White OUD, Wild Intense, Sky Oud, Blue Dezire & StallioN.', img: '/images/1000040057_2.jpg', tag: 'LUXURY PERFUMES' }
         ];
 
         const PRODUCTS = [
-            { id: 'c1', cat: 'cereal', title: 'Cereal Hamper Package 1 (Floor Display)', price: 250, badge: '5 Items', desc: 'Includes Jungle Oats 1kg, Future Life 500g, Bokomo Corn Flakes 1kg, Weet-Bix 450g & Tropika Juice[span_4](start_span)[span_4](end_span).', img: 'images/1000040071_2.jpg', arDimensions: '35cm x 25cm x 20cm (Box)' },
-            { id: 'c2', cat: 'cereal', title: 'Cereal Hamper Package 2 (Studio Layout)', price: 250, badge: '5 Items', desc: 'Nutrific Super Mornings, Jungle Oats, Weet-Bix, Corn Flakes & Tropika Dairy Fruit Mix[span_5](start_span)[span_5](end_span).', img: 'images/1000040076_2.jpg', arDimensions: '35cm x 25cm x 20cm (Box)' },
-            { id: 'b1', cat: 'essentials', title: 'Family Bulk Grocery Hamper Box', price: 380, badge: 'Best Value', desc: 'Packed box containing Jungle Oats, Weet-Bix, Corn Flakes, Future Life, Nutrific & Tropika[span_6](start_span)[span_6](end_span).', img: 'images/1000040067_2.jpg', arDimensions: '50cm x 40cm x 30cm (Heavy Bundle)' },
-            { id: 'j1', cat: 'juice', title: 'Juices Africa & Tropika Refreshment Pack', price: 160, badge: 'High Yield', desc: 'High yield fruit juice concentrate & Tropika dairy fruit mix bottles[span_7](start_span)[span_7](end_span)[span_8](start_span)[span_8](end_span).', img: 'images/1000040064_2.jpg', arDimensions: '30cm x 15cm x 15cm (Jug)' },
-            { id: 'p1', cat: 'perfume', title: 'M-Scents Luxury Perfume (40ml)', price: 120, badge: '40ml EDP', desc: 'Selver Sense, Dezire Red, White OUD, Wild Intense, Sky Oud, Blue Dezire & StallioN[span_9](start_span)[span_9](end_span).', img: 'images/1000040057_2.jpg', arDimensions: '12cm x 6cm x 4cm (Glass Bottle)' },
-            { id: 'p2', cat: 'perfume', title: 'M-Scents Duo Gift Set (2x 40ml)', price: 192, badge: 'Save R48', desc: 'Choose any two signature 40ml luxury fragrances in gift presentation packaging[span_10](start_span)[span_10](end_span)[span_11](start_span)[span_11](end_span).', img: 'images/1000040059_2.jpg', arDimensions: '18cm x 14cm x 6cm (Gift Box)' }
+            { id: 'c1', cat: 'cereal', title: 'Cereal Hamper Package 1 (Floor Display)', price: 250, badge: '5 Items', desc: 'Includes Jungle Oats 1kg, Future Life 500g, Bokomo Corn Flakes 1kg, Weet-Bix 450g & Tropika Juice.', img: '/images/1000040071_2.jpg', arDimensions: '35cm x 25cm x 20cm (Box)' },
+            { id: 'c2', cat: 'cereal', title: 'Cereal Hamper Package 2 (Studio Layout)', price: 250, badge: '5 Items', desc: 'Nutrific Super Mornings, Jungle Oats, Weet-Bix, Corn Flakes & Tropika Dairy Fruit Mix.', img: '/images/1000040076_2.jpg', arDimensions: '35cm x 25cm x 20cm (Box)' },
+            { id: 'b1', cat: 'essentials', title: 'Family Bulk Grocery Hamper Box', price: 380, badge: 'Best Value', desc: 'Packed box containing Jungle Oats, Weet-Bix, Corn Flakes, Future Life, Nutrific & Tropika.', img: '/images/1000040067_2.jpg', arDimensions: '50cm x 40cm x 30cm (Heavy Bundle)' },
+            { id: 'j1', cat: 'juice', title: 'Juices Africa & Tropika Refreshment Pack', price: 160, badge: 'High Yield', desc: 'High yield fruit juice concentrate & Tropika dairy fruit mix bottles.', img: '/images/1000040064_2.jpg', arDimensions: '30cm x 15cm x 15cm (Jug)' },
+            { id: 'p1', cat: 'perfume', title: 'M-Scents Luxury Perfume (40ml)', price: 120, badge: '40ml EDP', desc: 'Selver Sense, Dezire Red, White OUD, Wild Intense, Sky Oud, Blue Dezire & StallioN.', img: '/images/1000040057_2.jpg', arDimensions: '12cm x 6cm x 4cm (Glass Bottle)' },
+            { id: 'p2', cat: 'perfume', title: 'M-Scents Duo Gift Set (2x 40ml)', price: 192, badge: 'Save R48', desc: 'Choose any two signature 40ml luxury fragrances in gift presentation packaging.', img: '/images/1000040059_2.jpg', arDimensions: '18cm x 14cm x 6cm (Gift Box)' }
         ];
 
         const HAMPER_OPTIONS = [
-            { name: 'Jungle Oats 1kg', category: 'Cereal', img: 'images/1000040076_2.jpg' },
-            { name: 'Future Life 500g', category: 'Cereal', img: 'images/1000040076_2.jpg' },
-            { name: 'Bokomo Corn Flakes 1kg', category: 'Cereal', img: 'images/1000040076_2.jpg' },
-            { name: 'Weet-Bix 450g', category: 'Cereal', img: 'images/1000040076_2.jpg' },
-            { name: 'Nutrifics 450g', category: 'Cereal', img: 'images/1000040076_2.jpg' },
-            { name: 'Tropika Dairy Fruit Mix (1L)', category: 'Beverage', img: 'images/1000040064_2.jpg' },
-            { name: 'Juices Africa 4L Concentrate', category: 'Beverage', img: 'images/1000040071_2.jpg' },
-            { name: 'M-Scents Selver Sense 40ml', category: 'Perfume', img: 'images/1000040057_2.jpg' }
+            { name: 'Jungle Oats 1kg', category: 'Cereal', img: '/images/1000040076_2.jpg' },
+            { name: 'Future Life 500g', category: 'Cereal', img: '/images/1000040076_2.jpg' },
+            { name: 'Bokomo Corn Flakes 1kg', category: 'Cereal', img: '/images/1000040076_2.jpg' },
+            { name: 'Weet-Bix 450g', category: 'Cereal', img: '/images/1000040076_2.jpg' },
+            { name: 'Nutrifics 450g', category: 'Cereal', img: '/images/1000040076_2.jpg' },
+            { name: 'Tropika Dairy Fruit Mix (1L)', category: 'Beverage', img: '/images/1000040064_2.jpg' },
+            { name: 'Juices Africa 4L Concentrate', category: 'Beverage', img: '/images/1000040071_2.jpg' },
+            { name: 'M-Scents Selver Sense 40ml', category: 'Perfume', img: '/images/1000040057_2.jpg' }
         ];
 
         const BOOKABLE_SERVICES = [
-            { id: 's1', title: 'Doorstep Hamper Consultation & Delivery', price: 50, duration: '30 min', desc: 'In-person assistance selecting household groceries & bulk hampers in Durban[span_12](start_span)[span_12](end_span).', img: 'images/1000040067_2.jpg' },
-            { id: 's2', title: 'M-Scents Fragrance Sampling Session', price: 0, duration: '20 min', desc: 'Sample signature M-Scents perfumes at our local Durban hub point[span_13](start_span)[span_13](end_span).', img: 'images/1000040057_2.jpg' }
+            { id: 's1', title: 'Doorstep Hamper Consultation & Delivery', price: 50, duration: '30 min', desc: 'In-person assistance selecting household groceries & bulk hampers in Durban.', img: '/images/1000040067_2.jpg' },
+            { id: 's2', title: 'M-Scents Fragrance Sampling Session', price: 0, duration: '20 min', desc: 'Sample signature M-Scents perfumes at our local Durban hub point.', img: '/images/1000040057_2.jpg' }
         ];
 
         const INITIAL_REVIEWS = [
             { id: 1, name: 'Snerh Dlamini', rating: 5, comment: 'The Cereal Hamper combo saved our breakfast routine! Fast delivery in Durban.', date: '2 October 2026', avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=75' },
-            { id: 2, name: 'Sthelo Mkhize', rating: 5, comment: 'M-Scents Selver Sense and White OUD smell incredible and last all day[span_14](start_span)[span_14](end_span). Super professional!', date: '10 October 2026', avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&q=75' }
+            { id: 2, name: 'Sthelo Mkhize', rating: 5, comment: 'M-Scents Selver Sense and White OUD smell incredible and last all day. Super professional!', date: '10 October 2026', avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&q=75' }
         ];
 
         const LIVE_TICKER_ITEMS = [
-            "🏆 NQOBILE'S DURBAN HUB: Official Business Account (nqobilegila518@gmail.com) Active[span_15](start_span)[span_15](end_span)!",
-            "🔥 HOT DEAL: Cereal Hamper Combos (R250) & Family Boxes (R380)[span_16](start_span)[span_16](end_span)[span_17](start_span)[span_17](end_span)!",
+            "🏆 NQOBILE'S DURBAN HUB: Official Business Account (nqobilegila518@gmail.com) Active!",
+            "🔥 HOT DEAL: Cereal Hamper Combos (R250) & Family Boxes (R380)!",
             "🤖 24/7 AI ASSISTANT ONLINE: Tap bottom-right to ask Nqobile AI anything!",
             "🚀 FAST DISPATCH: Flat R30 Delivery Across Durban & eNanda!",
-            "💧 JUICES AFRICA: 4L High-Yield Concentrates & Tropika Stock Ready[span_18](start_span)[span_18](end_span)[span_19](start_span)[span_19](end_span)!",
-            "💎 M-SCENTS: Luxury 40ml Fragrances Available Now in Durban[span_20](start_span)[span_20](end_span)!"
+            "💧 JUICES AFRICA: 4L High-Yield Concentrates & Tropika Stock Ready!",
+            "💎 M-SCENTS: Luxury 40ml Fragrances Available Now in Durban!"
         ];
 
         function App() {
@@ -229,7 +219,7 @@
 
             const [isAiOpen, setIsAiOpen] = useState(false);
             const [aiMessages, setAiMessages] = useState([
-                { sender: 'ai', text: 'Sawubona! I am Nqobile AI Assistant for nqobilegila518@gmail.com[span_21](start_span)[span_21](end_span). How can I assist you with your order today?' }
+                { sender: 'ai', text: 'Sawubona! I am Nqobile AI Assistant for nqobilegila518@gmail.com. How can I assist you with your order today?' }
             ]);
             const [aiInput, setAiInput] = useState('');
             const chatEndRef = useRef(null);
@@ -248,7 +238,7 @@
             const downloadDirectApk = () => {
                 showToast('✨ Downloading Android APK...');
                 const a = document.createElement('a');
-                a.href = 'downloads/nollies.apk';
+                a.href = '/downloads/nollies.apk';
                 a.download = 'NqobilesHub.apk';
                 document.body.appendChild(a);
                 a.click();
@@ -342,7 +332,7 @@
                     alert('Your cart is empty!');
                     return;
                 }
-                let text = `Sawubona Nqobile's Hub (nqobilegila518@gmail.com)[span_22](start_span)[span_22](end_span)! Order:%0A`;
+                let text = `Sawubona Nqobile's Hub (nqobilegila518@gmail.com)! Order:%0A`;
                 cart.forEach(i => text += `• ${i.title} - R${i.price}%0A`);
                 window.open(`https://wa.me/27637019808?text=${text}`, '_blank');
             };
@@ -419,7 +409,7 @@
                                 <h1 className="text-lg font-black tracking-wider text-white font-display uppercase flex items-center gap-1.5">
                                     Nqobile's <span className="text-[9px] bg-red-500/20 text-red-300 px-1.5 py-0.5 rounded border border-red-400/40 font-mono">DURBAN HUB</span>
                                 </h1>
-                                <span className="text-[10px] font-bold text-slate-300 tracking-widest uppercase flex items-center gap-1"><span>📧</span><span>nqobilegila518@gmail.com[span_23](start_span)[span_23](end_span)</span></span>
+                                <span className="text-[10px] font-bold text-slate-300 tracking-widest uppercase flex items-center gap-1"><span>📧</span><span>nqobilegila518@gmail.com</span></span>
                             </div>
                         </div>
                         
@@ -469,13 +459,13 @@
                                 <div className="relative overflow-hidden rounded-3xl border border-white/30 shadow-2xl rainbow-glass p-8 sm:p-14 flex flex-col lg:flex-row items-center justify-between gap-10">
                                     <div className="space-y-6 max-w-xl">
                                         <div className="inline-flex items-center space-x-2 bg-slate-950/90 px-4 py-1.5 rounded-full border border-red-400/40 text-xs font-mono text-red-300 shadow-sm">
-                                           <span>💧 Verified Business Account • nqobilegila518@gmail.com[span_24](start_span)[span_24](end_span)</span>
+                                           <span>💧 Verified Business Account • nqobilegila518@gmail.com</span>
                                         </div>
                                         <h2 className="text-3xl sm:text-5xl font-black tracking-tight white-rainbow-animated-text leading-tight font-display">
                                             Sawubona! Welcome to Nqobile's Verified Durban Business Hub
                                         </h2>
                                         <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-medium">
-                                            Explore real stock of cereal breakfast hampers, bulk packed wholesale boxes, and M-Scents luxury perfumes with instant WhatsApp dispatch[span_25](start_span)[span_25](end_span)[span_26](start_span)[span_26](end_span)[span_27](start_span)[span_27](end_span)[span_28](start_span)[span_28](end_span)[span_29](start_span)[span_29](end_span).
+                                            Explore real stock of cereal breakfast hampers, bulk packed wholesale boxes, and M-Scents luxury perfumes with instant WhatsApp dispatch.
                                         </p>
                                         <div className="flex flex-wrap gap-3 pt-2">
                                             <button onClick={() => setActiveTab('catalog')} className="white-rainbow-btn font-extrabold py-3.5 px-7 rounded-2xl text-xs shadow-lg">Explore Real Stock Catalog 🛍️</button>
@@ -492,8 +482,8 @@
                                             <p className="text-[11px] text-sky-400 font-mono font-bold">Business Owner</p>
                                         </div>
                                         <div className="space-y-2 text-[11px] bg-slate-900/90 p-3 rounded-2xl border border-white/15 text-slate-300 font-mono">
-                                            <div className="flex justify-between"><span>Email:</span><strong className="text-white text-[10px]">nqobilegila518@gmail.com[span_30](start_span)[span_30](end_span)</strong></div>
-                                            <div className="flex justify-between"><span>Phone/WhatsApp:</span><strong className="text-white">+27 63 701 9808[span_31](start_span)[span_31](end_span)</strong></div>
+                                            <div className="flex justify-between"><span>Email:</span><strong className="text-white text-[10px]">nqobilegila518@gmail.com</strong></div>
+                                            <div className="flex justify-between"><span>Phone/WhatsApp:</span><strong className="text-white">+27 63 701 9808</strong></div>
                                             <div className="flex justify-between"><span>Dispatch:</span><strong className="text-emerald-400">Flat R30 Rate 🚀</strong></div>
                                         </div>
                                     </div>
@@ -551,7 +541,7 @@
                                 <div className="rainbow-glass border border-white/20 p-6 rounded-3xl shadow-xl flex flex-col sm:flex-row justify-between items-center gap-4">
                                     <div>
                                         <h3 className="text-2xl font-black white-rainbow-animated-text font-display">Real Stock Marketplace</h3>
-                                        <p className="text-xs text-slate-400">Browse Nqobile's verified inventory: cereal hampers, bulk boxes, juices, and M-Scents[span_32](start_span)[span_32](end_span)[span_33](start_span)[span_33](end_span)[span_34](start_span)[span_34](end_span)[span_35](start_span)[span_35](end_span).</p>
+                                        <p className="text-xs text-slate-400">Browse Nqobile's verified inventory: cereal hampers, bulk boxes, juices, and M-Scents.</p>
                                     </div>
                                     <input type="text" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder="🔍 Search stock..." 
                                            className="w-full sm:w-80 px-4 py-3 rounded-2xl border border-white/35 bg-slate-950/90 text-white text-xs outline-none"/>
@@ -685,7 +675,7 @@
                         {activeTab === 'legal' && (
                             <section className="rainbow-glass border border-white/25 p-6 sm:p-12 rounded-3xl shadow-xl space-y-8 text-xs">
                                 <h3 className="text-2xl font-black white-rainbow-animated-text font-display">🇿🇦 SA Regulatory & POPIA Center</h3>
-                                <p className="text-slate-300 leading-relaxed">Nqobile's Hub (nqobilegila518@gmail.com) processes personal data securely under POPIA regulations for Durban dispatches[span_36](start_span)[span_36](end_span).</p>
+                                <p className="text-slate-300 leading-relaxed">Nqobile's Hub (nqobilegila518@gmail.com) processes personal data securely under POPIA regulations for Durban dispatches.</p>
                             </section>
                         )}
 
@@ -707,7 +697,7 @@
                                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 font-mono">
                                     <div className="bg-slate-950 p-6 rounded-3xl border border-white/20"><span>Revenue</span><div className="text-xl font-black text-white mt-1">R {orders.reduce((sum, o) => sum + o.total, 0).toFixed(2)}</div></div>
                                     <div className="bg-slate-950 p-6 rounded-3xl border border-white/20"><span>Orders</span><div className="text-xl font-black text-white mt-1">{orders.length}</div></div>
-                                    <div className="bg-slate-950 p-6 rounded-3xl border border-white/20"><span>Email</span><div className="text-xs text-sky-400 mt-1">nqobilegila518@gmail.com[span_37](start_span)[span_37](end_span)</div></div>
+                                    <div className="bg-slate-950 p-6 rounded-3xl border border-white/20"><span>Email</span><div className="text-xs text-sky-400 mt-1">nqobilegila518@gmail.com</div></div>
                                 </div>
                             </section>
                         )}
@@ -742,7 +732,7 @@
                     {!popiaAccepted && (
                         <div className="fixed bottom-0 inset-x-0 z-50 bg-slate-950/95 border-t border-white/30 p-4 shadow-2xl">
                             <div className="max-w-6xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4 text-xs">
-                                <p className="text-slate-300">Nqobile's Hub (nqobilegila518@gmail.com) processes personal data securely under POPIA[span_38](start_span)[span_38](end_span).</p>
+                                <p className="text-slate-300">Nqobile's Hub (nqobilegila518@gmail.com) processes personal data securely under POPIA.</p>
                                 <button onClick={acceptPopia} className="white-rainbow-btn text-slate-950 text-xs font-black px-6 py-3 rounded-xl shadow-lg">Accept & Continue 🔒</button>
                             </div>
                         </div>
@@ -830,15 +820,5 @@
 
         ReactDOM.render(<App />, document.getElementById('root'));
     </script>
-<script src="enhance3.js?v=1792345833" defer></script>
-<script src="enhance.js" defer></script>
-<script src="enhance2.js" defer></script>
-<script src="img-handler.js" defer></script>
-<script src="photos.js?v=1792345721"></script>
-<script src="catalog.js?v=1792345721" defer></script>
-<script src="enhance4.js?v=1792345833" defer></script>
-<script src="config5.js?v=1792345833"></script>
-<script src="config6.js?v=1792345833"></script>
-<script src="enhance5.js?v=1792345833" defer></script>
 </body>
 </html>
