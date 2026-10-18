@@ -145,7 +145,7 @@
         ];
 
         const LIVE_TICKER_ITEMS = [
-            "🏆 UNDISPUTED #1 HUB: AI Smart Matcher & Live Durban Weather Active!",
+            "🏆 SA COMPLIANT & UNDISPUTED #1 HUB: POPIA Protected & Consumer CPA Standard Active!",
             "🔥 HOT DEAL: Family Bulk Grocery Hamper (R380) - Best Seller in eNanda!",
             "🤖 24/7 AI ASSISTANT ONLINE: Tap bottom-right to ask Nollie AI anything!",
             "🚀 FAST DISPATCH: Flat R30 Delivery Across Durban & eNanda!",
@@ -160,6 +160,9 @@
             const [bookings, setBookings] = useState([]);
             const [reviews, setReviews] = useState(JSON.parse(localStorage.getItem('nollies_reviews') || JSON.stringify(INITIAL_REVIEWS)));
             
+            // SA POPIA Cookie Consent State
+            const [popiaAccepted, setPopiaAccepted] = useState(localStorage.getItem('nollies_popia_accepted') === 'true');
+
             // AI Smart Matcher State
             const [matchBudget, setMatchBudget] = useState('300');
             const [matchCategory, setMatchCategory] = useState('cereal');
@@ -229,6 +232,12 @@
                 const m = Math.floor((seconds % 3600) / 60);
                 const s = seconds % 60;
                 return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+            };
+
+            const acceptPopia = () => {
+                localStorage.setItem('nollies_popia_accepted', 'true');
+                setPopiaAccepted(true);
+                showToast('🔒 POPIA Data Consent Recorded.');
             };
 
             const runAiMatcher = () => {
@@ -446,6 +455,8 @@
                         reply = "Our M-Scents luxury 40ml perfumes are R120 each or grab our Duo Gift Set for R192!";
                     } else if (lower.includes('flash') || lower.includes('deal') || lower.includes('discount')) {
                         reply = "Check out our Flash Deals section on the Home tab for limited-time price drops!";
+                    } else if (lower.includes('popia') || lower.includes('privacy') || lower.includes('legal') || lower.includes('terms')) {
+                        reply = "Nollie's Hub is 100% compliant with South Africa's Protection of Personal Information Act (POPIA) and Consumer Protection Act (CPA). Check our SA Legal tab for details!";
                     } else if (lower.includes('contact') || lower.includes('phone') || lower.includes('whatsapp') || lower.includes('owner')) {
                         reply = "You can reach Nollie's Durban Hub team directly via WhatsApp or phone at +27 62 587 3479.";
                     }
@@ -625,6 +636,7 @@
                                 { id: 'community', label: '💬 Community' },
                                 { id: 'reviews', label: '⭐ Reviews' },
                                 { id: 'booking', label: '📅 Booking' },
+                                { id: 'legal', label: '🇿🇦 SA Legal' },
                                 { id: 'orders', label: '📦 Orders' },
                                 { id: 'admin', label: '🔐 Owner' }
                             ].map(tab => (
@@ -657,6 +669,7 @@
                             { id: 'community', label: '💬 Community' },
                             { id: 'reviews', label: '⭐ Reviews' },
                             { id: 'booking', label: '📅 Booking' },
+                            { id: 'legal', label: '🇿🇦 SA Legal' },
                             { id: 'orders', label: '📦 Orders' },
                             { id: 'admin', label: '🔐 Admin' }
                         ].map(tab => (
@@ -1083,6 +1096,43 @@
                             </section>
                         )}
 
+                        {/* NEW TAB: SA LEGAL & REGULATORY COMPLIANCE CENTER */}
+                        {activeTab === 'legal' && (
+                            <section className="rainbow-glass border border-white/25 p-6 sm:p-12 rounded-3xl shadow-xl space-y-8 animate-fade-in text-xs">
+                                <div className="border-b border-white/20 pb-4">
+                                    <div className="inline-flex items-center space-x-2 bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-[10px] font-mono font-bold px-3 py-1 rounded-full uppercase mb-2">
+                                        <span>🇿🇦 Republic of South Africa Standard Compliance</span>
+                                    </div>
+                                    <h3 className="text-2xl font-black white-rainbow-animated-text font-display">SA Regulatory & Consumer Legal Center</h3>
+                                    <p className="text-slate-300 mt-1">Full compliance under the Protection of Personal Information Act (POPIA) and Consumer Protection Act (CPA No. 68 of 2008).</p>
+                                </div>
+
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div className="bg-slate-950/90 p-6 rounded-3xl border border-white/20 space-y-3">
+                                        <h4 className="text-sm font-extrabold text-white font-display flex items-center gap-2"><span>🔒</span><span>POPIA Privacy Policy (Act 4 of 2013)</span></h4>
+                                        <p className="text-slate-300 leading-relaxed">
+                                            Nollie's Hub collects customer names, phone numbers, and addresses solely for dispatching grocery hampers and fragrance packages across eNanda and Durban. We maintain strict end-to-end data safety, zero third-party data selling, and offer full rights for customers to request data correction or removal at any time.
+                                        </p>
+                                        <div className="text-slate-400 font-mono text-[11px] bg-slate-900 p-3 rounded-xl border border-slate-800">
+                                            <strong>Information Officer Contact:</strong><br/>
+                                            Nollie Gumbi (Director) • Email/Phone: +27 62 587 3479
+                                        </div>
+                                    </div>
+
+                                    <div className="bg-slate-950/90 p-6 rounded-3xl border border-white/20 space-y-3">
+                                        <h4 className="text-sm font-extrabold text-white font-display flex items-center gap-2"><span>📜</span><span>Consumer Protection Act & Returns (CPA)</span></h4>
+                                        <p className="text-slate-300 leading-relaxed">
+                                            Under Section 56 of the South African Consumer Protection Act, all merchandise dispatched from Nollie's Durban Hub carries a full quality guarantee. Damaged or non-conforming items reported upon delivery qualify for instant replacement or immediate refund.
+                                        </p>
+                                        <div className="text-slate-400 font-mono text-[11px] bg-slate-900 p-3 rounded-xl border border-slate-800">
+                                            <strong>Flat Durban Delivery Rate:</strong> R30.00 Fixed Fee<br/>
+                                            <strong>Payment Gateways:</strong> Cash on Delivery, Capitec Pay / EFT, Online Card
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        )}
+
                         {activeTab === 'orders' && (
                             <section className="rainbow-glass border border-white/25 p-6 sm:p-12 rounded-3xl shadow-xl space-y-6 animate-fade-in">
                                 <div className="flex justify-between items-center border-b border-white/20 pb-4">
@@ -1188,6 +1238,19 @@
                         )}
                     </main>
 
+                    {/* SA POPIA COOKIE CONSENT BANNER */}
+                    {!popiaAccepted && (
+                        <div className="fixed bottom-0 inset-x-0 z-50 bg-slate-950/95 border-t border-white/30 p-4 sm:p-5 shadow-2xl backdrop-blur-lg animate-fade-in">
+                            <div className="max-w-6xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4 text-xs">
+                                <div className="space-y-1 text-center sm:text-left">
+                                    <span className="font-extrabold text-white font-display flex items-center gap-1.5 justify-center sm:justify-start"><span>🇿🇦</span><span>POPIA Data Privacy Notice</span></span>
+                                    <p className="text-slate-300">Nollie's Hub processes personal details solely for dispatching Durban hampers in compliance with the Protection of Personal Information Act (POPIA).</p>
+                                </div>
+                                <button onClick={acceptPopia} className="press-effect white-rainbow-btn text-slate-950 text-xs font-black px-6 py-3 rounded-xl shadow-lg whitespace-nowrap">Accept & Continue 🔒</button>
+                            </div>
+                        </div>
+                    )}
+
                     {/* 24/7 AI ASSISTANT CHAT WIDGET */}
                     <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end">
                         {isAiOpen && (
@@ -1218,7 +1281,7 @@
                                 </div>
 
                                 <form onSubmit={handleAiSend} className="p-3 bg-slate-950/95 border-t border-white/25 flex gap-2">
-                                    <input type="text" value={aiInput} onChange={(e) => setAiInput(e.target.value)} placeholder="Ask about AI matcher, flash deals..." 
+                                    <input type="text" value={aiInput} onChange={(e) => setAiInput(e.target.value)} placeholder="Ask about AI matcher, POPIA..." 
                                            className="flex-1 px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white text-xs outline-none focus:border-white"/>
                                     <button type="submit" className="press-effect white-rainbow-btn px-4 py-2.5 rounded-xl text-xs font-black shadow">Send</button>
                                 </form>
