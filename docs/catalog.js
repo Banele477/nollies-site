@@ -3,6 +3,8 @@
   window.__nqCat = 1;
 
   var OWNER = "banele477", REPO = "nollies-site", BRANCH = "main", WA = "27625873479";
+  
+  // Connect backend photo schema / data pipeline
   var photosData = window.NQ_PHOTOS || [];
 
   var cssStyles = `
@@ -146,25 +148,32 @@
           </div>
         `;
 
-        // Direct robust WhatsApp trigger handler
+        // Robust WhatsApp event binding connecting UI to dispatch backend
         card.querySelector(".order-wa-btn").addEventListener("click", function() {
           var waText = "Sawubona Nollie's Hub, I would like to order: " + item.t + " (Price: R250.00). Please confirm eNqanda delivery!";
           var waUrl = "https://wa.me/" + WA + "?text=" + encodeURIComponent(waText);
           window.open(waUrl, "_blank");
         });
 
-        // Safe Fallback SVG Art Generation
+        // Dynamic Visual Generator / Fallback renderer
         var imgTag = card.querySelector("img");
         if (item.n && item.n.length > 0) {
           imgTag.src = item.n;
         } else {
+          var bg = "#0f172a", accent = "#38bdf8", icon = "📦";
+          var t = (item.t || "").toLowerCase();
+          if(t.includes("perfume") || t.includes("sense")) { bg = "#4c0519"; accent = "#f43f5e"; icon = "✨"; }
+          else if(t.includes("juice") || t.includes("concentrate")) { bg = "#064e3b"; accent = "#34d399"; icon = "🧃"; }
+          else if(t.includes("hamper") || t.includes("breakfast")) { bg = "#1e3a8a"; accent = "#60a5fa"; icon = "🧺"; }
+
           imgTag.src = "data:image/svg+xml;utf8," + encodeURIComponent(
             "<svg xmlns='http://www.w3.org/2000/svg' width='600' height='600' viewBox='0 0 600 600'>" +
-            "<rect width='100%' height='100%' fill='#0f172a'/>" +
-            "<circle cx='300' cy='240' r='90' fill='#38bdf8' opacity='0.15'/>" +
-            "<text x='300' y='265' font-size='70' text-anchor='middle'>📦</text>" +
+            "<defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0%' stop-color='" + bg + "'/><stop offset='100%' stop-color='#020617'/></linearGradient></defs>" +
+            "<rect width='100%' height='100%' fill='url(#g)'/>" +
+            "<circle cx='300' cy='240' r='90' fill='" + accent + "' opacity='0.15'/>" +
+            "<text x='300' y='265' font-size='70' text-anchor='middle'>" + icon + "</text>" +
             "<text x='300' y='380' fill='#ffffff' font-family='sans-serif' font-size='20' font-weight='800' text-anchor='middle'>NOLLIE'S HUB</text>" +
-            "<text x='300' y='415' fill='#38bdf8' font-family='sans-serif' font-size='15' font-weight='600' text-anchor='middle'>" + item.t.substring(0, 25) + "</text>" +
+            "<text x='300' y='415' fill='" + accent + "' font-family='sans-serif' font-size='15' font-weight='600' text-anchor='middle'>" + item.t.substring(0, 25) + "</text>" +
             "</svg>"
           );
         }
@@ -176,7 +185,7 @@
     renderGrid(homeGrid, displayItems.slice(0, 4));
     renderGrid(catalogGrid, displayItems);
 
-    // Tab Switching Logic
+    // Tab Navigation Logic
     var navButtons = appContainer.querySelectorAll(".nqc-nav-btn");
     var sections = appContainer.querySelectorAll(".nqc-section");
 

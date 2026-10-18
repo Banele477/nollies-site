@@ -1,10 +1,9 @@
-window.NQ_PHOTOS=[
-{"n":"juices-africa-flavours.jpg","c":"juice","t":"Juices Africa 4L concentrates: Guava, Mixed Berry, Cocktail & Tropical Punch"},
-{"n":"hamper-tropika-cereals.jpg","c":"hamper","t":"Breakfast hamper: Nutrific, Corn Flakes, Futurelife, Weet-Bix & Tropika"},
-{"n":"hamper-floor-landscape.jpg","c":"hamper","t":"Full hamper: Juices Africa jugs, Jungle Oats, Futurelife, Nutrific, Weet-Bix & Tropika"},
-{"n":"hamper-floor-portrait.jpg","c":"hamper","t":"Family hamper: juice jugs, Jungle Oats, Futurelife, Nutrific, Weet-Bix & Tropika"},
-{"n":"rice-puffs-cereals.jpg","c":"cereal","t":"Happy Valley Rice Puffs, Corn Flakes, Nutrific, Weet-Bix & Kellogg's Beef Noodles"},
-{"n":"noodles-cereal-stack.jpg","c":"cereal","t":"Kellogg's Beef Noodles, Corn Flakes, Futurelife, Weet-Bix & Jungle Oats"},
-{"n":"bulk-box-full.jpg","c":"bulk","t":"Packed bulk box: juice jugs, cereals, Futurelife & Tropika, ready for delivery"},
-{"n":"bulk-box-cereals.jpg","c":"bulk","t":"Packed cereal box: Weet-Bix, Jungle Oats, Nutrific, Futurelife & Corn Flakes"},
+window.NQ_PHOTOS = [
+  { t: "Selver Sense & Dezire Perfume Collection", c: "perfume", n: "" },
+  { t: "Juices Africa 4L Concentrates (Guava, Mixed Berry, Cocktail, Tropical Punch)", c: "juice", n: "" },
+  { t: "Cereal & Breakfast Combo Assortment", c: "cereal", n: "" },
+  { t: "Kellogg's Instant Noodles & Cereal Pack", c: "cereal", n: "" },
+  { t: "Nutrific, Bokomo Weet-Bix & Future Life Bundle", c: "cereal", n: "" },
+  { t: "Family Bulk Grocery Hamper", c: "hamper", n: "" },
+  { t: "Weekend Braai & Pap Combo", c: "hamper", n: "" }
 ];
