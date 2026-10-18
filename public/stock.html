@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Nqobile's Hub - Our Stock</title>
+<meta name="description" content="Breakfast hampers, cereals, juices, perfumes and bulk boxes. Order on WhatsApp.">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>.noscroll::-webkit-scrollbar{display:none}.noscroll{scrollbar-width:none}</style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen">
+<header class="sticky top-0 z-30 bg-slate-950/90 backdrop-blur border-b border-white/10">
+  <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between gap-3">
+    <a href="./" class="font-extrabold">&larr; Nqobile's Hub</a>
+    <a id="waTop" target="_blank" rel="noopener" class="rounded-full bg-emerald-500 text-slate-950 font-extrabold text-sm px-4 py-2">WhatsApp</a>
+  </div>
+  <div class="max-w-6xl mx-auto px-4 pb-3">
+    <input id="q" type="search" placeholder="Search stock..." class="w-full rounded-full bg-slate-800 border border-slate-600 px-4 py-2.5 text-sm outline-none focus:border-emerald-400">
+    <div id="chips" class="noscroll flex gap-2 overflow-x-auto pt-3"></div>
+  </div>
+</header>
+
+<main class="max-w-6xl mx-auto px-4 py-5 pb-28">
+  <h1 class="text-2xl font-extrabold">🛍️ Our Real Stock</h1>
+  <p id="count" class="text-sm text-slate-400 mt-1 mb-4"></p>
+  <div id="grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3"></div>
+  <p id="empty" class="hidden text-center text-slate-400 py-16">Nothing matches. Ask us on WhatsApp, we may have it.</p>
+</main>
+
+<div id="lb" style="display:none" class="fixed inset-0 z-50 bg-black/95 flex-col items-center justify-center p-4 gap-3">
+  <img id="lbImg" alt="" class="max-w-full max-h-[72vh] rounded-xl">
+  <p id="lbCap" class="text-center text-sm max-w-md"></p>
+  <a id="lbWa" target="_blank" rel="noopener" class="rounded-full bg-emerald-500 text-slate-950 font-extrabold px-6 py-3">💬 Ask about this on WhatsApp</a>
+</div>
+
+<script>
+const WA = "27625873479";
+const LABELS = {all:"All", hampers:"🧺 Hampers", cereals:"🥣 Cereals", juices:"🧃 Juices", bulk:"📦 Bulk boxes", perfumes:"🌸 Perfumes", stock:"🛍️ Other"};
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const wa = t => "https://wa.me/" + WA + "?text=" + encodeURIComponent("Hi Nqobile's Hub, I'm interested in: " + t);
+const label = k => LABELS[k] || (k.charAt(0).toUpperCase() + k.slice(1));
+let items = [], cat = "all", term = "";
+
+$("waTop").href = wa("your stock");
+
+function drawChips() {
+  const keys = ["all"].concat([...new Set(items.map(p => p.category))]);
+  $("chips").innerHTML = keys.map(k =>
+    `<button data-k="${esc(k)}" class="flex-none rounded-full border px-4 py-2 text-sm font-bold ${k===cat ? "bg-white text-slate-950 border-white" : "bg-slate-800 text-white border-slate-600"}">${esc(label(k))}</button>`
+  ).join("");
+}
+
+function draw() {
+  const t = term.trim().toLowerCase();
+  const list = items.filter(p => (cat === "all" || p.category === cat) && (!t || p.caption.toLowerCase().includes(t)));
+  $("count").textContent = list.length + " item" + (list.length === 1 ? "" : "s") + " · tap a photo to enlarge";
+  $("empty").classList.toggle("hidden", list.length > 0);
+  $("grid").innerHTML = list.map(p => `
+    <article class="bg-slate-900 border border-white/10 rounded-2xl overflow-hidden flex flex-col">
+      <img src="thumbs/${p.file}" data-f="${p.file}" alt="${esc(p.caption)}" loading="lazy"
+           onerror="this.onerror=null;this.src='images/${p.file}'"
+           class="aspect-square w-full object-cover cursor-zoom-in bg-slate-800">
+      <p class="p-3 text-xs leading-snug text-slate-200 flex-1">${esc(p.caption)}</p>
+      <a href="${wa(p.caption)}" target="_blank" rel="noopener"
+         class="m-3 mt-0 rounded-full bg-emerald-500 text-slate-950 text-center font-extrabold text-sm py-2.5">💬 Ask about this</a>
+    </article>`).join("");
+}
+
+$("chips").addEventListener("click", e => {
+  const b = e.target.closest("button"); if (!b) return;
+  cat = b.dataset.k; drawChips(); draw();
+});
+$("q").addEventListener("input", e => { term = e.target.value; draw(); });
+$("grid").addEventListener("click", e => {
+  const im = e.target.closest("img"); if (!im) return;
+  const p = items.find(x => x.file === im.dataset.f); if (!p) return;
+  $("lbImg").src = "images/" + p.file;
+  $("lbCap").textContent = p.caption;
+  $("lbWa").href = wa(p.caption);
+  $("lb").style.display = "flex";
+});
+$("lb").addEventListener("click", e => { if (e.target.tagName !== "A") $("lb").style.display = "none"; });
+document.addEventListener("keydown", e => { if (e.key === "Escape") $("lb").style.display = "none"; });
+
+fetch("data/products.json", {cache: "no-cache"})
+  .then(r => r.json())
+  .then(d => { items = d; drawChips(); draw(); })
+  .catch(() => { $("count").textContent = "Could not load stock. Please refresh."; });
+</script>
+</body>
+</html>
