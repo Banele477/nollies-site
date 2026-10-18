@@ -13,7 +13,7 @@ function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){retur
 function R(n){return"R"+Number(n).toFixed(2)}
 function ld(k,d){try{var v=JSON.parse(localStorage.getItem(k));return v==null?d:v}catch(e){return d}}
 function sv(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
-function wa(t){return"https://wa.me/"+WA+"?text="+(window.nqEnc||encodeURIComponent)(t)}
+function wa(t){return"https://wa.me/"+WA+"?text="+encodeURIComponent(t)}
 var cart=ld("nq5_cart",{q:{}}),me=ld("nq5_me",{mode:"delivery",pay:"cod"}),orders=ld("nq5_orders",[]);
 if(!cart.q)cart.q={};
 var sh,ov;
@@ -21,11 +21,10 @@ function toast(m){var t=$("#nq5-t");t.textContent=m;t.style.display="block";setT
 function methods(){
  var M=[{k:"cod",l:"💵 Cash on delivery / collection",d:"Pay when you receive your order"}];
  if(C.bankAcc)M.push({k:"eft",l:"🏦 EFT / bank transfer",d:"Pay now, then send proof on WhatsApp"});
- if(C.shapId)M.push({k:"shap",l:"⚡ PayShap (instant, any SA bank)",d:"Capitec, FNB, Absa, Standard Bank, Nedbank, TymeBank and more"});
- if(C.pfId&&C.pfKey)M.push({k:"card",l:"💳 Card, instant EFT or Capitec Pay",d:"Pay on PayFast's secure page"});
+ if(C.pfId&&C.pfKey)M.push({k:"card",l:"💳 Card / instant EFT (PayFast)",d:"Secure online payment"});
  if(C.linkUrl)M.push({k:"link",l:C.linkLabel||"🔗 Pay online",d:"Opens a secure payment page"});
  return M}
-function payLabel(k){return{cod:"Cash on delivery / collection",eft:"EFT / bank transfer",shap:"PayShap (instant bank payment)",card:"Card, instant EFT or Capitec Pay (PayFast)",link:"Online payment link"}[k]||k}
+function payLabel(k){return{cod:"Cash on delivery / collection",eft:"EFT / bank transfer",card:"Card / instant EFT (PayFast)",link:"Online payment link"}[k]||k}
 function lines(){return ITEMS.filter(function(i){return cart.q[i.id]>0}).map(function(i){return{id:i.id,n:i.n,p:i.p,q:cart.q[i.id]}})}
 function sub(){return lines().reduce(function(s,l){return s+l.p*l.q},0)}
 function fee(){return(me.mode==="delivery"&&sub()>0)?FEE:0}
@@ -48,7 +47,7 @@ function sDetail(){
  "<input id='nq5-p' type='tel' inputmode='tel' placeholder='Phone / WhatsApp number' autocomplete='tel' value=\""+esc(me.phone||"")+"\">"+
  "<div class='nq5-tog'><button data-mode='delivery'>🚚 Delivery (R"+FEE+")</button><button data-mode='collect'>🏪 Collect (free)</button></div>"+
  "<textarea id='nq5-a' rows='2' placeholder='Delivery address (street, suburb, Durban)'>"+esc(me.addr||"")+"</textarea>"+
- "<textarea id='nq5-nt' rows='2' placeholder='Notes (optional)'>"+esc(me.notes||"")+"</textarea><div class='nq5-h'>Payment</div><div class='nq5-sub' style='margin:-2px 0 10px'>Pay from any South African bank, including Capitec, FNB, Absa, Standard Bank, Nedbank and TymeBank.</div>";
+ "<textarea id='nq5-nt' rows='2' placeholder='Notes (optional)'>"+esc(me.notes||"")+"</textarea><div class='nq5-h'>Payment</div>";
  M.forEach(function(m){h+="<label class='nq5-opt' data-k='"+m.k+"'><input type='radio' name='nq5pay' value='"+m.k+"'><span><b>"+m.l+"</b><small>"+m.d+"</small></span></label>"});
  h+="<div class='nq5-sum' id='nq5-sum'></div><div class='nq5-err' id='nq5-e'></div><button class='nq5-go' id='nq5-place'></button>";
  frame(h);upd()}
@@ -106,15 +105,10 @@ function bankRows(o){
  var r=[["Bank",C.bankName],["Account holder",C.bankHolder],["Account number",C.bankAcc,1],["Account type",C.bankType],["Reference",o.no,1],["Amount",R(o.total)]],h="";
  r.forEach(function(x){if(!x[1])return;h+="<div class='nq5-br'><span>"+x[0]+"<br><b>"+esc(x[1])+"</b></span>"+(x[2]?"<button data-copy='"+esc(x[1])+"'>Copy</button>":"")+"</div>"});
  return h}
-function shapRows(o){
- var r=[["ShapID (cellphone number)",C.shapId,1],["Account name",C.shapName],["Reference",o.no,1],["Amount",R(o.total)]],h="";
- r.forEach(function(x){if(!x[1])return;h+="<div class='nq5-br'><span>"+x[0]+"<br><b>"+esc(x[1])+"</b></span>"+(x[2]?"<button data-copy='"+esc(x[1])+"'>Copy</button>":"")+"</div>"});
- return h}
 function sDone(o){
  var h="<div class='nq5-ok'>✅</div><h2 style='text-align:center'>Order placed!</h2><div class='nq5-no'>"+o.no+"</div><div class='nq5-sub' style='text-align:center'>Total "+R(o.total)+" · "+esc(payLabel(o.pay))+"</div>";
  if(o.pay==="cod")h+="<div class='nq5-box'>We'll confirm on WhatsApp. Pay "+(o.mode==="delivery"?"in cash when your order arrives.":"when you collect.")+"</div>";
  if(o.pay==="eft")h+="<div class='nq5-box'><b>Pay by EFT</b>"+bankRows(o)+"<div class='nq5-sub' style='margin:8px 0 0'>Use <b>"+o.no+"</b> as the payment reference.</div></div><a class='nq5-go' target='_blank' rel='noopener' href='"+wa("Hi Nqobile's Hub! I've paid order "+o.no+" ("+R(o.total)+") by EFT. Proof of payment attached.")+"'>📎 I've paid: send proof</a>";
- if(o.pay==="shap")h+="<div class='nq5-box'><b>Pay with PayShap</b>"+shapRows(o)+"<div class='nq5-sub' style='margin:8px 0 0'>In your banking app choose PayShap, pay the ShapID above and use <b>"+o.no+"</b> as the reference. PayShap payments cannot be reversed, so double-check the details first.</div></div><a class='nq5-go' target='_blank' rel='noopener' href='"+wa("Hi Nqobile's Hub! I've paid order "+o.no+" ("+R(o.total)+") by PayShap.")+"'>📎 I've paid: send proof</a>";
  if(o.pay==="link"&&C.linkUrl)h+="<a class='nq5-go' target='_blank' rel='noopener' href='"+esc(C.linkUrl)+"'>"+esc(C.linkLabel||"🔗 Pay online")+" ("+R(o.total)+")</a><div class='nq5-sub' style='margin-top:8px'>Enter "+R(o.total)+" and use "+o.no+" as the reference.</div>";
  h+="<a class='nq5-go nq5-wa' target='_blank' rel='noopener' href='"+wa(msg(o))+"'>💬 Send order on WhatsApp</a><button class='nq5-sec' data-g='hist'>📋 My orders</button><button class='nq5-sec' data-g='close'>Keep shopping</button>";
  frame(h)}
