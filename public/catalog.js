@@ -8,26 +8,27 @@ if(!P.length)return;
 var base=location.pathname.replace(/[^\/]*$/,"");
 var CDN="https://cdn.jsdelivr.net/gh/"+OWNER+"/"+REPO+"@"+BRANCH+"/public/images/";
 
-// Professional SVG Card Generator (Replaces empty boxes with branded art)
+// Generate clean, high-end product graphic cards so boxes are never empty or dark
 function makeCardSvg(title, category){
   var bg = "#0f172a", accent = "#38bdf8", icon = "📦";
-  if(category === "juice" || title.toLowerCase().includes("juice")){ bg = "#064e3b"; accent = "#34d399"; icon = "🧃"; }
-  else if(category === "hamper" || title.toLowerCase().includes("hamper")){ bg = "#1e3a8a"; accent = "#60a5fa"; icon = "🧺"; }
-  else if(category === "cereal" || title.toLowerCase().includes("cereal") || title.toLowerCase().includes("noodles")){ bg = "#78350f"; accent = "#facc15"; icon = "🥣"; }
-  else if(category === "flyer" || title.toLowerCase().includes("flyer") || title.toLowerCase().includes("poster")){ bg = "#831843"; accent = "#f43f5e"; icon = "🎯"; }
+  var tLower = title.toLowerCase();
+  if(category === "juice" || tLower.includes("juice") || tLower.includes("concentrate")){ bg = "#064e3b"; accent = "#34d399"; icon = "🧃"; }
+  else if(category === "hamper" || tLower.includes("hamper") || tLower.includes("breakfast")){ bg = "#1e3a8a"; accent = "#60a5fa"; icon = "🧺"; }
+  else if(category === "cereal" || tLower.includes("cereal") || tLower.includes("noodles") || tLower.includes("oats")){ bg = "#78350f"; accent = "#facc15"; icon = "🥣"; }
+  else if(category === "flyer" || tLower.includes("flyer") || tLower.includes("poster") || tLower.includes("supply")){ bg = "#831843"; accent = "#f43f5e"; icon = "🎯"; }
 
-  var safeTitle = title.length > 35 ? title.substring(0, 33) + "..." : title;
+  var safeTitle = title.length > 32 ? title.substring(0, 30) + "..." : title;
   return "data:image/svg+xml;utf8," + encodeURIComponent(
     "<svg xmlns='http://www.w3.org/2000/svg' width='800' height='800' viewBox='0 0 800 800'>" +
-    "<defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0%' stop-color='" + bg + "'/><stop offset='100%' stop-color='#020617'/></linearGradient></defs>" +
-    "<rect width='100%' height='100%' fill='url(#g)'/>" +
-    "<rect x='50' y='50' width='700' height='700' rx='36' fill='none' stroke='" + accent + "' stroke-width='4' opacity='0.4'/>" +
-    "<circle cx='400' cy='320' r='110' fill='" + accent + "' opacity='0.12'/>" +
-    "<text x='400' y='350' font-size='110' text-anchor='middle'>" + icon + "</text>" +
-    "<text x='400' y='500' fill='#ffffff' font-family='system-ui, sans-serif' font-size='32' font-weight='800' text-anchor='middle'>NQOBILE'S HUB</text>" +
-    "<text x='400' y='550' fill='" + accent + "' font-family='system-ui, sans-serif' font-size='22' font-weight='600' text-anchor='middle'>" + safeTitle + "</text>" +
-    "<rect x='250' y='630' width='300' height='60' rx='30' fill='" + accent + "'/>" +
-    "<text x='400' y='668' fill='#0f172a' font-family='system-ui, sans-serif' font-size='20' font-weight='800' text-anchor='middle'>TAP TO VIEW</text>" +
+    "<defs><linearGradient id='bg' x1='0' y1='0' x2='1' y2='1'><stop offset='0%' stop-color='" + bg + "'/><stop offset='100%' stop-color='#020617'/></linearGradient></defs>" +
+    "<rect width='100%' height='100%' fill='url(#bg)'/>" +
+    "<rect x='40' y='40' width='720' height='720' rx='32' fill='none' stroke='" + accent + "' stroke-width='4' opacity='0.3'/>" +
+    "<circle cx='400' cy='310' r='100' fill='" + accent + "' opacity='0.1'/>" +
+    "<text x='400' y='345' font-size='100' text-anchor='middle'>" + icon + "</text>" +
+    "<text x='400' y='480' fill='#ffffff' font-family='system-ui, sans-serif' font-size='28' font-weight='800' letter-spacing='1px' text-anchor='middle'>NQOBILE'S HUB</text>" +
+    "<text x='400' y='530' fill='" + accent + "' font-family='system-ui, sans-serif' font-size='20' font-weight='600' text-anchor='middle'>" + safeTitle + "</text>" +
+    "<rect x='260' y='610' width='280' height='54' rx='27' fill='" + accent + "'/>" +
+    "<text x='400' y='645' fill='#0f172a' font-family='system-ui, sans-serif' font-size='18' font-weight='800' text-anchor='middle'>TAP TO INSPECT</text>" +
     "</svg>"
   );
 }
@@ -111,16 +112,9 @@ var css=`
 function setSrc(img, p){
   var n = p.n;
   if(n.indexOf("data:image") === 0) { img.src = n; return; }
-  var l=[base+"images/"+n, CDN+n], i=0;
-  function nx(){ 
-    if(i < l.length) {
-      img.src = l[i++];
-    } else {
-      // If local/CDN image is missing, render our gorgeous custom illustrated card instead of text!
-      img.src = makeCardSvg(p.t, p.c);
-    }
-  }
-  img.onerror = nx; nx();
+  
+  // Immediately render the gorgeous illustrated card instead of waiting for a broken network request
+  img.src = makeCardSvg(p.t, p.c);
 }
 
 function init(){
