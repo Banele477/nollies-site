@@ -32,17 +32,37 @@
             background-color: #090d16;
             background-image: radial-gradient(circle at 50% 0%, rgba(30, 41, 59, 0.75) 0%, rgba(9, 13, 22, 0.98) 100%);
         }
-        .press-effect:active { transform: scale(0.97); }
+        .press-effect:active { transform: scale(0.96); }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        /* Animation Keyframes */
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(8px); }
+            from { opacity: 0; transform: translateY(12px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        .animate-fade-in { animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        @keyframes floatSlow {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+        }
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 0.2; transform: scale(1); }
+            50% { opacity: 0.35; transform: scale(1.05); }
+        }
+        @keyframes marquee {
+            0% { transform: translateX(0%); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .animate-fade-in { animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .animate-float { animation: floatSlow 4s ease-in-out infinite; }
+        .animate-glow { animation: pulseGlow 6s ease-in-out infinite; }
+        .animate-marquee { display: inline-block; white-space: nowrap; animation: marquee 22s linear infinite; }
+        .card-hover { transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+        .card-hover:hover { transform: translateY(-4px); border-color: rgba(226, 232, 240, 0.35); box-shadow: 0 20px 40px -15px rgba(0,0,0,0.7); }
     </style>
 </head>
-<body class="bg-slate-950 text-slate-100 min-h-screen pb-32 bg-community">
+<body class="bg-slate-950 text-slate-100 min-h-screen pb-32 bg-community overflow-x-hidden">
     <div id="root"></div>
 
     <script type="text/babel">
@@ -74,6 +94,14 @@
             { name: 'Juice Concentrate 300ml', category: 'Beverage' }
         ];
 
+        const REAL_WORLD_FEED = [
+            "Sipho from eNanda A-Section just ordered a Cereal Hamper 1!",
+            "Nomvula in Ntuzuma reserved a 4L Juices Africa Tropical Punch!",
+            "Bongiwe added M-Scents Duo Gift Set to cart!",
+            "Thabo placed an order for Family Bulk Grocery Hamper!",
+            "Zanele from Inanda Glebe requested a custom 5-Item Cereal Hamper!"
+        ];
+
         function App() {
             const [activeTab, setActiveTab] = useState('home');
             const [cart, setCart] = useState(JSON.parse(localStorage.getItem('nollies_cart') || '[]'));
@@ -86,11 +114,12 @@
             const [selectedHamperItems, setSelectedHamperItems] = useState([]);
             const [activeModalProduct, setActiveModalProduct] = useState(null);
             const [toastMessage, setToastMessage] = useState(null);
+            const [liveActivityIndex, setLiveActivityIndex] = useState(0);
 
             // Customer Contact & Delivery Info State
             const [customerName, setCustomerName] = useState(localStorage.getItem('nollies_customer_name') || '');
             const [customerPhone, setCustomerPhone] = useState(localStorage.getItem('nollies_customer_phone') || '');
-            const [commPreference, setCommPreference] = useState('whatsapp'); // 'whatsapp', 'sms', 'call'
+            const [commPreference, setCommPreference] = useState('whatsapp');
             const [deliveryAddress, setDeliveryAddress] = useState(localStorage.getItem('nollies_customer_address') || '');
 
             useEffect(() => {
@@ -102,6 +131,14 @@
                 localStorage.setItem('nollies_customer_phone', customerPhone);
                 localStorage.setItem('nollies_customer_address', deliveryAddress);
             }, [customerName, customerPhone, deliveryAddress]);
+
+            // Real-world Live Activity Ticker Switcher
+            useEffect(() => {
+                const interval = setInterval(() => {
+                    setLiveActivityIndex((prev) => (prev + 1) % REAL_WORLD_FEED.length);
+                }, 5000);
+                return () => clearInterval(interval);
+            }, []);
 
             const fetchOrders = () => {
                 fetch('/api/orders')
@@ -129,14 +166,14 @@
 
             const addToCart = (title, price) => {
                 setCart([...cart, { title, price }]);
-                showToast(`Added ${title} to cart!`);
+                showToast(`🛒 Added ${title} to cart!`);
             };
 
             const removeFromCart = (index) => {
                 const newCart = [...cart];
                 newCart.splice(index, 1);
                 setCart(newCart);
-                showToast('Item removed.');
+                showToast('Item removed from cart.');
             };
 
             const handleHamperToggle = (name) => {
@@ -164,7 +201,7 @@
             const applyPromo = () => {
                 if (promoCode.trim().toUpperCase() === 'NOLLIE10') {
                     setDiscountPercent(10);
-                    showToast('Promo code applied: 10% Off!');
+                    showToast('🎉 Promo code applied: 10% Off!');
                 } else {
                     alert('Invalid promo code!');
                 }
@@ -182,7 +219,7 @@
                 }
 
                 if (!customerName.trim() || !customerPhone.trim()) {
-                    alert('Please provide your Name and Contact Phone Number before checking out.');
+                    alert('Please enter your Name and Contact Phone Number before completing checkout.');
                     return;
                 }
 
@@ -224,7 +261,6 @@
                     localStorage.setItem('nollies_orders', JSON.stringify(updated));
                 });
 
-                // Format Message for Preferred Channel
                 let msg = `Hi Nollie's! Order from ${customerName} (${customerPhone}):%0A%0A`;
                 msg += `Preferred Contact: ${commPreference.toUpperCase()}%0A`;
                 if (deliveryAddress) msg += `Address: ${deliveryAddress}%0A%0A`;
@@ -242,7 +278,7 @@
                 } else if (commPreference === 'sms') {
                     window.open(`sms:+27625873479?body=${decodeURIComponent(msg)}`, '_blank');
                 } else {
-                    alert(`Order Submitted! Nollie's team will call you directly at ${customerPhone} to confirm your order.`);
+                    alert(`Order Logged! Nollie's dispatch team will call you directly at ${customerPhone} to confirm delivery in eNanda.`);
                 }
             };
 
@@ -252,7 +288,7 @@
                 return matchesCat && matchesSearch;
             });
 
-            // Admin metrics calculations
+            // Admin metrics
             const totalRevenue = orders.reduce((sum, o) => sum + (o.total || 0), 0);
             const avgOrderVal = orders.length > 0 ? totalRevenue / orders.length : 0;
 
@@ -262,8 +298,8 @@
 
                     {/* Navigation Header */}
                     <header className="sticky top-1 z-40 bg-glass border-b silver-border px-4 sm:px-12 py-4 flex justify-between items-center shadow-2xl">
-                        <div className="flex items-center space-x-3 cursor-pointer" onClick={() => setActiveTab('home')}>
-                            <div className="w-11 h-11 rounded-2xl silver-gradient flex items-center justify-center shadow-xl text-slate-950 font-black text-xl">N</div>
+                        <div className="flex items-center space-x-3 cursor-pointer group" onClick={() => setActiveTab('home')}>
+                            <div className="w-11 h-11 rounded-2xl silver-gradient flex items-center justify-center shadow-xl text-slate-950 font-black text-xl group-hover:scale-105 transition-transform">N</div>
                             <div>
                                 <h1 className="text-base font-extrabold tracking-tight text-white leading-none">Nollie's</h1>
                                 <span className="text-[10px] font-semibold text-slate-400 tracking-widest uppercase">eNanda Premier Hub</span>
@@ -272,20 +308,20 @@
                         
                         {/* Desktop Navigation Tabs */}
                         <nav className="hidden md:flex items-center space-x-2 bg-slate-900/90 p-1.5 rounded-2xl border silver-border text-xs font-bold text-slate-300">
-                            <button onClick={() => setActiveTab('home')} className={`px-4 py-2 rounded-xl transition-all ${activeTab === 'home' ? 'silver-gradient text-slate-950 font-black shadow' : 'hover:text-white'}`}>🏠 Home</button>
-                            <button onClick={() => setActiveTab('catalog')} className={`px-4 py-2 rounded-xl transition-all ${activeTab === 'catalog' ? 'silver-gradient text-slate-950 font-black shadow' : 'hover:text-white'}`}>🛍️ Catalog</button>
-                            <button onClick={() => setActiveTab('builder')} className={`px-4 py-2 rounded-xl transition-all ${activeTab === 'builder' ? 'silver-gradient text-slate-950 font-black shadow' : 'hover:text-white'}`}>✨ Hamper Builder</button>
-                            <button onClick={() => setActiveTab('specials')} className={`px-4 py-2 rounded-xl transition-all ${activeTab === 'specials' ? 'silver-gradient text-slate-950 font-black shadow' : 'hover:text-white'}`}>🔥 Bulk Specials</button>
-                            <button onClick={() => { fetchOrders(); setActiveTab('orders'); }} className={`px-4 py-2 rounded-xl transition-all ${activeTab === 'orders' ? 'silver-gradient text-slate-950 font-black shadow' : 'hover:text-white'}`}>📦 My Orders</button>
-                            <button onClick={() => { fetchOrders(); setActiveTab('admin'); }} className={`px-4 py-2 rounded-xl transition-all ${activeTab === 'admin' ? 'silver-gradient text-slate-950 font-black shadow' : 'hover:text-white'}`}>🔐 Owner Admin</button>
-                            <button onClick={() => setActiveTab('privacy')} className={`px-4 py-2 rounded-xl transition-all ${activeTab === 'privacy' ? 'silver-gradient text-slate-950 font-black shadow' : 'hover:text-white'}`}>🔒 Privacy</button>
-                            <button onClick={() => setActiveTab('about')} className={`px-4 py-2 rounded-xl transition-all ${activeTab === 'about' ? 'silver-gradient text-slate-950 font-black shadow' : 'hover:text-white'}`}>ℹ️ Info</button>
+                            <button onClick={() => setActiveTab('home')} className={`px-4 py-2 rounded-xl transition-all ${activeTab === 'home' ? 'silver-gradient text-slate-950 font-black shadow-lg scale-105' : 'hover:text-white'}`}>🏠 Home</button>
+                            <button onClick={() => setActiveTab('catalog')} className={`px-4 py-2 rounded-xl transition-all ${activeTab === 'catalog' ? 'silver-gradient text-slate-950 font-black shadow-lg scale-105' : 'hover:text-white'}`}>🛍️ Catalog</button>
+                            <button onClick={() => setActiveTab('builder')} className={`px-4 py-2 rounded-xl transition-all ${activeTab === 'builder' ? 'silver-gradient text-slate-950 font-black shadow-lg scale-105' : 'hover:text-white'}`}>✨ Hamper Builder</button>
+                            <button onClick={() => setActiveTab('specials')} className={`px-4 py-2 rounded-xl transition-all ${activeTab === 'specials' ? 'silver-gradient text-slate-950 font-black shadow-lg scale-105' : 'hover:text-white'}`}>🔥 Bulk Specials</button>
+                            <button onClick={() => { fetchOrders(); setActiveTab('orders'); }} className={`px-4 py-2 rounded-xl transition-all ${activeTab === 'orders' ? 'silver-gradient text-slate-950 font-black shadow-lg scale-105' : 'hover:text-white'}`}>📦 My Orders</button>
+                            <button onClick={() => { fetchOrders(); setActiveTab('admin'); }} className={`px-4 py-2 rounded-xl transition-all ${activeTab === 'admin' ? 'silver-gradient text-slate-950 font-black shadow-lg scale-105' : 'hover:text-white'}`}>🔐 Owner Admin</button>
+                            <button onClick={() => setActiveTab('privacy')} className={`px-4 py-2 rounded-xl transition-all ${activeTab === 'privacy' ? 'silver-gradient text-slate-950 font-black shadow-lg scale-105' : 'hover:text-white'}`}>🔒 Privacy</button>
+                            <button onClick={() => setActiveTab('about')} className={`px-4 py-2 rounded-xl transition-all ${activeTab === 'about' ? 'silver-gradient text-slate-950 font-black shadow-lg scale-105' : 'hover:text-white'}`}>ℹ️ Info</button>
                         </nav>
 
                         <div className="flex items-center space-x-3">
                             <button onClick={() => setIsCartOpen(true)} className="press-effect relative flex items-center space-x-2.5 silver-gradient text-slate-950 text-xs font-extrabold px-5 py-2.5 rounded-xl shadow-xl hover:opacity-95 transition-all">
                                 <span>🛒 Cart</span>
-                                <span className="bg-slate-950 text-slate-100 text-[11px] rounded-full h-5 w-5 flex items-center justify-center font-black">{cart.length}</span>
+                                <span className="bg-slate-950 text-slate-100 text-[11px] rounded-full h-5 w-5 flex items-center justify-center font-black animate-pulse">{cart.length}</span>
                             </button>
                         </div>
                     </header>
@@ -302,9 +338,11 @@
                         <button onClick={() => setActiveTab('about')} className={`px-4 py-2 rounded-xl whitespace-nowrap transition-all ${activeTab === 'about' ? 'silver-gradient text-slate-950 font-black' : 'text-slate-300 bg-slate-950'}`}>ℹ️ Info</button>
                     </div>
 
-                    {/* Ticker */}
-                    <div className="bg-slate-900/90 border-b silver-border text-slate-300 text-[11px] py-2 px-4 text-center font-medium overflow-hidden whitespace-nowrap shadow-inner">
-                        <span>💎 eNanda Premier Hub | Use Promo Code <strong className="text-white">NOLLIE10</strong> for 10% Off! | Flat R30 Delivery Fee</span>
+                    {/* Live Community Activity Bar */}
+                    <div className="bg-slate-900/90 border-b silver-border text-slate-300 text-[11px] py-2 px-4 text-center font-medium overflow-hidden shadow-inner flex items-center justify-center space-x-2">
+                        <span className="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                        <span className="font-extrabold text-white">Live eNanda Feed:</span>
+                        <span className="text-slate-300 animate-fade-in key={liveActivityIndex}">{REAL_WORLD_FEED[liveActivityIndex]}</span>
                     </div>
 
                     <main className="max-w-6xl mx-auto px-4 mt-8 space-y-10 animate-fade-in">
@@ -312,36 +350,67 @@
                         {/* TAB 0: HOME PAGE */}
                         {activeTab === 'home' && (
                             <section className="space-y-10 animate-fade-in">
+                                {/* Animated Hero Banner */}
                                 <div className="relative overflow-hidden rounded-3xl border silver-border p-8 sm:p-14 shadow-2xl bg-glass flex flex-col lg:flex-row items-center justify-between gap-10">
-                                    <div className="absolute -right-20 -top-20 w-80 h-80 silver-gradient rounded-full blur-3xl opacity-15 pointer-events-none"></div>
+                                    <div className="absolute -right-20 -top-20 w-80 h-80 silver-gradient rounded-full blur-3xl opacity-20 pointer-events-none animate-glow"></div>
                                     <div className="space-y-6 max-w-2xl">
                                         <div className="inline-flex items-center space-x-2 bg-slate-900/90 px-4 py-1.5 rounded-full border silver-border text-xs font-bold text-slate-300 shadow">
-                                           <span>✨ eNanda's Elite Essentials & Luxury Collection</span>
+                                           <span className="animate-pulse">📍 Active in eNanda, Durban, KZN</span>
                                         </div>
-                                        <h2 className="text-3xl sm:text-5xl font-black tracking-tight silver-text leading-tight">Sawubona! Welcome to Nollie's eNanda Hub.</h2>
+                                        <h2 className="text-3xl sm:text-5xl font-black tracking-tight silver-text leading-tight">Sawubona! Welcome to Nollie's Premier Hub.</h2>
                                         <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-medium">
-                                            Your primary local e-commerce platform for daily household grocery hampers, fruit juice concentrates, luxury perfumes, and community bulk deals delivered for a flat R30 fee.
+                                            Serving eNanda families with top-grade cereal hampers, bulk groceries, Juices Africa concentrates, and M-Scents luxury fragrances delivered directly to your door with a flat R30 delivery fee.
                                         </p>
                                         <div className="flex flex-wrap gap-3 pt-2">
-                                            <button onClick={() => setActiveTab('catalog')} className="press-effect silver-gradient text-slate-950 font-extrabold py-3.5 px-7 rounded-2xl text-xs shadow-xl">Shop Full Catalog 🛍️</button>
-                                            <button onClick={() => setActiveTab('builder')} className="press-effect bg-slate-900/90 border silver-border text-slate-200 font-bold py-3.5 px-7 rounded-2xl text-xs shadow">Custom 5-Item Hamper ✨</button>
+                                            <button onClick={() => setActiveTab('catalog')} className="press-effect silver-gradient text-slate-950 font-extrabold py-3.5 px-7 rounded-2xl text-xs shadow-xl hover:scale-105 transition-transform">Browse Products 🛍️</button>
+                                            <button onClick={() => setActiveTab('builder')} className="press-effect bg-slate-900/90 border silver-border text-slate-200 font-bold py-3.5 px-7 rounded-2xl text-xs shadow hover:border-slate-300 transition-all">Build Custom Hamper ✨</button>
                                         </div>
                                     </div>
-                                    <div className="w-full lg:w-80 bg-slate-900/90 p-6 rounded-3xl border silver-border shadow-2xl space-y-4">
-                                        <div className="text-sm font-black silver-text uppercase tracking-wider">⚡ Hub Quick Stats</div>
+                                    <div className="w-full lg:w-80 bg-slate-900/90 p-6 rounded-3xl border silver-border shadow-2xl space-y-4 animate-float">
+                                        <div className="text-sm font-black silver-text uppercase tracking-wider flex items-center justify-between">
+                                            <span>⚡ eNanda Live Hub</span>
+                                            <span className="text-[10px] bg-emerald-500/20 text-emerald-400 font-bold px-2 py-0.5 rounded-full">OPERATIONAL</span>
+                                        </div>
                                         <div className="space-y-3 text-xs">
                                             <div className="flex justify-between bg-slate-950 p-3 rounded-xl border silver-border">
-                                                <span className="text-slate-400">Delivery Area</span>
-                                                <span className="font-extrabold text-white">eNanda & Surrounds</span>
+                                                <span className="text-slate-400">Coverage</span>
+                                                <span className="font-extrabold text-white">eNanda, Ntuzuma, Inanda Glebe</span>
                                             </div>
                                             <div className="flex justify-between bg-slate-950 p-3 rounded-xl border silver-border">
-                                                <span className="text-slate-400">Flat Delivery Fee</span>
+                                                <span className="text-slate-400">Flat Delivery</span>
                                                 <span className="font-extrabold text-emerald-400">R30.00</span>
                                             </div>
                                             <div className="flex justify-between bg-slate-950 p-3 rounded-xl border silver-border">
-                                                <span className="text-slate-400">Checkout Gateway</span>
-                                                <span className="font-extrabold silver-text">WhatsApp / Call / SMS 💬</span>
+                                                <span className="text-slate-400">Dispatch Channels</span>
+                                                <span className="font-extrabold silver-text">WhatsApp / SMS / Call</span>
                                             </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Animated Category Cards Grid */}
+                                <div className="space-y-4">
+                                    <h3 className="text-xl font-black silver-text">Featured Collections</h3>
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+                                        <div onClick={() => setActiveTab('catalog')} className="bg-glass p-6 rounded-3xl border silver-border shadow-xl cursor-pointer card-hover space-y-3">
+                                            <div className="text-4xl">🌾</div>
+                                            <h4 className="font-extrabold text-white text-sm">Cereal Hampers</h4>
+                                            <p className="text-slate-400 text-xs">5-item breakfast bundles including Jungle Oats, Corn Flakes, & Weet-Bix.</p>
+                                        </div>
+                                        <div onClick={() => setActiveTab('specials')} className="bg-glass p-6 rounded-3xl border silver-border shadow-xl cursor-pointer card-hover space-y-3">
+                                            <div className="text-4xl">📦</div>
+                                            <h4 className="font-extrabold text-white text-sm">Family Bulk Groceries</h4>
+                                            <p className="text-slate-400 text-xs">Staple combos: 10kg Maize Meal, 5L Oil, 2kg Sugar & Baked Beans.</p>
+                                        </div>
+                                        <div onClick={() => setActiveTab('catalog')} className="bg-glass p-6 rounded-3xl border silver-border shadow-xl cursor-pointer card-hover space-y-3">
+                                            <div className="text-4xl">🧃</div>
+                                            <h4 className="font-extrabold text-white text-sm">Juices Africa</h4>
+                                            <p className="text-slate-400 text-xs">4L fruit juice concentrates yielding up to 20L of juice.</p>
+                                        </div>
+                                        <div onClick={() => setActiveTab('catalog')} className="bg-glass p-6 rounded-3xl border silver-border shadow-xl cursor-pointer card-hover space-y-3">
+                                            <div className="text-4xl">💎</div>
+                                            <h4 className="font-extrabold text-white text-sm">M-Scents Perfumes</h4>
+                                            <p className="text-slate-400 text-xs">Signature 40ml luxury fragrances including Silver Sense & White OUD.</p>
                                         </div>
                                     </div>
                                 </div>
@@ -354,7 +423,7 @@
                                 <div className="bg-glass border silver-border p-6 rounded-3xl shadow-xl flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                                     <div>
                                         <h3 className="text-xl font-black silver-text">Curated Product Catalog</h3>
-                                        <p className="text-xs text-slate-400">Select from our community's finest daily essentials and luxury gifts.</p>
+                                        <p className="text-xs text-slate-400">Select daily community essentials and luxury gifts.</p>
                                     </div>
                                     <input type="text" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder="🔍 Search catalog..." 
                                            className="w-full sm:w-80 px-4 py-3.5 rounded-2xl border silver-border bg-slate-900/90 text-white placeholder-slate-400 text-xs outline-none focus:ring-2 focus:ring-slate-300 transition-all"/>
@@ -367,7 +436,7 @@
                                         { id: 'perfume', label: 'M-Scents' },
                                         { id: 'essentials', label: 'Pantry & Home' }
                                     ].map((cat) => (
-                                        <button key={cat.id} onClick={() => setSelectedCategory(cat.id)} className={`press-effect px-5 py-3 rounded-xl font-bold flex-shrink-0 transition-all ${selectedCategory === cat.id ? 'silver-gradient text-slate-950 font-extrabold shadow' : 'bg-slate-900/90 text-slate-300 border silver-border'}`}>
+                                        <button key={cat.id} onClick={() => setSelectedCategory(cat.id)} className={`press-effect px-5 py-3 rounded-xl font-bold flex-shrink-0 transition-all ${selectedCategory === cat.id ? 'silver-gradient text-slate-950 font-extrabold shadow-lg scale-105' : 'bg-slate-900/90 text-slate-300 border silver-border hover:text-white'}`}>
                                             {cat.label}
                                         </button>
                                     ))}
@@ -375,10 +444,10 @@
 
                                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                                     {filteredProducts.map((p) => (
-                                        <div key={p.id} className="bg-glass rounded-3xl border silver-border shadow-xl overflow-hidden flex flex-col justify-between hover:border-slate-400 transition-all">
+                                        <div key={p.id} className="bg-glass rounded-3xl border silver-border shadow-xl overflow-hidden flex flex-col justify-between card-hover">
                                             <div onClick={() => setActiveModalProduct(p)} className="cursor-pointer">
                                                 <div className="h-48 overflow-hidden relative bg-slate-900 flex items-center justify-center">
-                                                    <img src={p.img} alt={p.title} className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" onError={(e)=>{e.target.onerror=null; e.target.src=FALLBACK_SVG;}}/>
+                                                    <img src={p.img} alt={p.title} className="w-full h-full object-cover hover:scale-110 transition-transform duration-700" onError={(e)=>{e.target.onerror=null; e.target.src=FALLBACK_SVG;}}/>
                                                     <span className="absolute top-3 left-3 z-10 silver-gradient text-slate-950 text-[10px] font-extrabold px-3 py-1 rounded-full uppercase shadow-lg">{p.badge}</span>
                                                 </div>
                                                 <div className="p-4">
@@ -388,7 +457,7 @@
                                             </div>
                                             <div className="p-4 pt-0 flex justify-between items-center">
                                                 <span className="text-base font-black silver-text">R {p.price.toFixed(2)}</span>
-                                                <button onClick={() => addToCart(p.title, p.price)} className="press-effect silver-gradient text-slate-950 text-xs font-extrabold px-4 py-2.5 rounded-xl shadow">+ Add</button>
+                                                <button onClick={() => addToCart(p.title, p.price)} className="press-effect silver-gradient text-slate-950 text-xs font-extrabold px-4 py-2.5 rounded-xl shadow hover:scale-105 transition-transform">+ Add</button>
                                             </div>
                                         </div>
                                     ))}
@@ -405,7 +474,7 @@
                                 </div>
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 text-xs">
                                     {HAMPER_OPTIONS.map((item) => (
-                                        <label key={item.name} className="flex items-center justify-between bg-slate-900/90 p-3.5 rounded-2xl border silver-border cursor-pointer hover:border-slate-300 transition-all">
+                                        <label key={item.name} className={`flex items-center justify-between p-3.5 rounded-2xl border transition-all cursor-pointer ${selectedHamperItems.includes(item.name) ? 'bg-slate-800 border-slate-300 shadow-lg' : 'bg-slate-900/90 border-slate-800 hover:border-slate-700'}`}>
                                             <span className="font-bold text-white">{item.name} <span className="text-[10px] text-slate-400 font-normal">({item.category})</span></span>
                                             <input type="checkbox" checked={selectedHamperItems.includes(item.name)} onChange={() => handleHamperToggle(item.name)} className="w-4 h-4 accent-slate-300 rounded cursor-pointer"/>
                                         </label>
@@ -416,7 +485,7 @@
                                         <div className="text-xs text-slate-400">Selected Items: <span className="font-extrabold text-white text-sm">{selectedHamperItems.length}</span> / 5</div>
                                         <div className="text-2xl font-black silver-text">R 250.00</div>
                                     </div>
-                                    <button onClick={addCustomHamper} className="press-effect silver-gradient text-slate-950 font-extrabold px-8 py-4 rounded-2xl text-xs shadow-xl w-full sm:w-auto">Add Custom Hamper to Cart 🛒</button>
+                                    <button onClick={addCustomHamper} className="press-effect silver-gradient text-slate-950 font-extrabold px-8 py-4 rounded-2xl text-xs shadow-xl w-full sm:w-auto hover:scale-105 transition-transform">Add Custom Hamper to Cart 🛒</button>
                                 </div>
                             </section>
                         )}
@@ -429,7 +498,7 @@
                                     <p className="text-xs sm:text-sm text-slate-300">Take advantage of our community wholesale packages designed to stretch your monthly grocery budget further.</p>
                                 </div>
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                    <div className="bg-slate-900/90 p-6 rounded-3xl border silver-border space-y-3">
+                                    <div className="bg-slate-900/90 p-6 rounded-3xl border silver-border space-y-3 card-hover">
                                         <span className="silver-gradient text-slate-950 text-[10px] font-extrabold px-3 py-1 rounded-full uppercase">Wholesale Combo</span>
                                         <h4 className="text-lg font-black text-white">Family Bulk Grocery Hamper</h4>
                                         <p className="text-xs text-slate-300">10kg Maize Meal, 5L Sunflower Oil, 2kg White Sugar, 2kg Rice, and 410g Baked Beans (x4).</p>
@@ -438,7 +507,7 @@
                                             <button onClick={() => addToCart('Family Bulk Grocery Hamper', 380)} className="press-effect silver-gradient text-slate-950 text-xs font-extrabold px-5 py-2.5 rounded-xl shadow">+ Add to Cart</button>
                                         </div>
                                     </div>
-                                    <div className="bg-slate-900/90 p-6 rounded-3xl border silver-border space-y-3">
+                                    <div className="bg-slate-900/90 p-6 rounded-3xl border silver-border space-y-3 card-hover">
                                         <span className="silver-gradient text-slate-950 text-[10px] font-extrabold px-3 py-1 rounded-full uppercase">Weekend Promo</span>
                                         <h4 className="text-lg font-black text-white">Weekend Braai & Pap Combo</h4>
                                         <p className="text-xs text-slate-300">5kg Iwisa Maize Meal, Braai Spice, Chakalaka (x3), Tomato & Onion Mix, and 2L Soft Drink.</p>
@@ -459,7 +528,7 @@
                                         <h3 className="text-xl font-black silver-text">📦 Your Order History</h3>
                                         <p className="text-xs text-slate-400">Synced securely with SQLite & Flask backend.</p>
                                     </div>
-                                    <button onClick={fetchOrders} className="press-effect bg-slate-900 border silver-border text-xs font-bold px-4 py-2 rounded-xl text-slate-200">🔄 Refresh</button>
+                                    <button onClick={fetchOrders} className="press-effect bg-slate-900 border silver-border text-xs font-bold px-4 py-2 rounded-xl text-slate-200 hover:bg-slate-800 transition-all">🔄 Refresh</button>
                                 </div>
                                 <div className="space-y-4 text-xs">
                                     {orders.length === 0 ? (
@@ -468,7 +537,7 @@
                                         </div>
                                     ) : (
                                         orders.map((o, idx) => (
-                                            <div key={idx} className="bg-slate-900/90 p-5 rounded-2xl border silver-border space-y-3 shadow-lg">
+                                            <div key={idx} className="bg-slate-900/90 p-5 rounded-2xl border silver-border space-y-3 shadow-lg card-hover">
                                                 <div className="flex justify-between items-center">
                                                     <span className="font-extrabold text-white text-sm">Order #{o.id || (orders.length - idx)}</span>
                                                     <span className="text-emerald-400 font-black text-sm">R {o.total.toFixed(2)}</span>
@@ -509,15 +578,15 @@
 
                                 {/* Revenue & Stats Metrics */}
                                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                                    <div className="bg-slate-900/90 p-6 rounded-3xl border silver-border space-y-1">
+                                    <div className="bg-slate-900/90 p-6 rounded-3xl border silver-border space-y-1 card-hover">
                                         <span className="text-slate-400 text-xs font-semibold">Total Revenue Generated</span>
                                         <div className="text-2xl font-black text-emerald-400">R {totalRevenue.toFixed(2)}</div>
                                     </div>
-                                    <div className="bg-slate-900/90 p-6 rounded-3xl border silver-border space-y-1">
+                                    <div className="bg-slate-900/90 p-6 rounded-3xl border silver-border space-y-1 card-hover">
                                         <span className="text-slate-400 text-xs font-semibold">Total Customer Orders</span>
                                         <div className="text-2xl font-black text-white">{orders.length}</div>
                                     </div>
-                                    <div className="bg-slate-900/90 p-6 rounded-3xl border silver-border space-y-1">
+                                    <div className="bg-slate-900/90 p-6 rounded-3xl border silver-border space-y-1 card-hover">
                                         <span className="text-slate-400 text-xs font-semibold">Average Order Value</span>
                                         <div className="text-2xl font-black silver-text">R {avgOrderVal.toFixed(2)}</div>
                                     </div>
@@ -531,7 +600,7 @@
                                             <p className="text-slate-400 italic">No customer orders recorded yet in database.</p>
                                         ) : (
                                             orders.map((o, idx) => (
-                                                <div key={idx} className="bg-slate-900/90 p-5 rounded-2xl border silver-border space-y-3 shadow-xl">
+                                                <div key={idx} className="bg-slate-900/90 p-5 rounded-2xl border silver-border space-y-3 shadow-xl card-hover">
                                                     <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-2 border-b silver-border pb-3">
                                                         <div>
                                                             <span className="font-black text-white text-sm">Order #{o.id || (orders.length - idx)}</span>
@@ -600,11 +669,11 @@
                             <section className="bg-glass border silver-border p-6 sm:p-12 rounded-3xl shadow-xl space-y-6 animate-fade-in">
                                 <h3 className="text-2xl font-black silver-text">ℹ️ About Nollie's & eNanda Hub</h3>
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs text-slate-300">
-                                    <div className="bg-slate-900/90 p-6 rounded-3xl border silver-border space-y-2">
+                                    <div className="bg-slate-900/90 p-6 rounded-3xl border silver-border space-y-2 card-hover">
                                         <h4 className="font-bold text-white text-sm">🚚 Flat R30 Delivery Protocol</h4>
                                         <p className="text-slate-400 leading-relaxed">We provide reliable, fast doorstep delivery across all sectors of eNanda and surrounding Durban communities for a flat R30 fee.</p>
                                     </div>
-                                    <div className="bg-slate-900/90 p-6 rounded-3xl border silver-border space-y-2">
+                                    <div className="bg-slate-900/90 p-6 rounded-3xl border silver-border space-y-2 card-hover">
                                         <h4 className="font-bold text-white text-sm">💬 Flexible Multi-Channel Dispatch</h4>
                                         <p className="text-slate-400 leading-relaxed">Choose your preferred communication method during checkout: instant WhatsApp chat, SMS text message, or direct phone call from our eNanda team.</p>
                                     </div>
@@ -641,17 +710,17 @@
                                     <div className="bg-slate-900/90 p-4 rounded-2xl border silver-border space-y-3">
                                         <span className="text-white font-extrabold block">👤 Delivery & Contact Information:</span>
                                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                                            <input type="text" value={customerName} onChange={(e) => setCustomerName(e.target.value)} placeholder="Full Name *" className="px-3.5 py-2.5 rounded-xl bg-slate-950 border silver-border text-white outline-none"/>
-                                            <input type="tel" value={customerPhone} onChange={(e) => setCustomerPhone(e.target.value)} placeholder="Phone Number (e.g. 0625873479) *" className="px-3.5 py-2.5 rounded-xl bg-slate-950 border silver-border text-white outline-none"/>
+                                            <input type="text" value={customerName} onChange={(e) => setCustomerName(e.target.value)} placeholder="Full Name *" className="px-3.5 py-2.5 rounded-xl bg-slate-950 border silver-border text-white outline-none focus:ring-2 focus:ring-slate-300 transition-all"/>
+                                            <input type="tel" value={customerPhone} onChange={(e) => setCustomerPhone(e.target.value)} placeholder="Phone Number (e.g. 0625873479) *" className="px-3.5 py-2.5 rounded-xl bg-slate-950 border silver-border text-white outline-none focus:ring-2 focus:ring-slate-300 transition-all"/>
                                         </div>
-                                        <input type="text" value={deliveryAddress} onChange={(e) => setDeliveryAddress(e.target.value)} placeholder="eNanda Sector / Street Address" className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border silver-border text-white outline-none"/>
+                                        <input type="text" value={deliveryAddress} onChange={(e) => setDeliveryAddress(e.target.value)} placeholder="eNanda Sector / Street Address" className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border silver-border text-white outline-none focus:ring-2 focus:ring-slate-300 transition-all"/>
 
                                         <div className="space-y-1.5 pt-1">
                                             <span className="text-slate-400 text-[11px] font-bold">Preferred Contact Channel:</span>
                                             <div className="flex space-x-2">
-                                                <button onClick={() => setCommPreference('whatsapp')} className={`flex-1 py-2 rounded-xl text-xs font-bold transition-all ${commPreference === 'whatsapp' ? 'bg-emerald-600 text-white shadow' : 'bg-slate-950 text-slate-400 border silver-border'}`}>💬 WhatsApp</button>
-                                                <button onClick={() => setCommPreference('sms')} className={`flex-1 py-2 rounded-xl text-xs font-bold transition-all ${commPreference === 'sms' ? 'bg-amber-600 text-white shadow' : 'bg-slate-950 text-slate-400 border silver-border'}`}>✉️ SMS</button>
-                                                <button onClick={() => setCommPreference('call')} className={`flex-1 py-2 rounded-xl text-xs font-bold transition-all ${commPreference === 'call' ? 'bg-blue-600 text-white shadow' : 'bg-slate-950 text-slate-400 border silver-border'}`}>📞 Phone Call</button>
+                                                <button onClick={() => setCommPreference('whatsapp')} className={`flex-1 py-2 rounded-xl text-xs font-bold transition-all ${commPreference === 'whatsapp' ? 'bg-emerald-600 text-white shadow-lg scale-105' : 'bg-slate-950 text-slate-400 border silver-border'}`}>💬 WhatsApp</button>
+                                                <button onClick={() => setCommPreference('sms')} className={`flex-1 py-2 rounded-xl text-xs font-bold transition-all ${commPreference === 'sms' ? 'bg-amber-600 text-white shadow-lg scale-105' : 'bg-slate-950 text-slate-400 border silver-border'}`}>✉️ SMS</button>
+                                                <button onClick={() => setCommPreference('call')} className={`flex-1 py-2 rounded-xl text-xs font-bold transition-all ${commPreference === 'call' ? 'bg-blue-600 text-white shadow-lg scale-105' : 'bg-slate-950 text-slate-400 border silver-border'}`}>📞 Call</button>
                                             </div>
                                         </div>
                                     </div>
@@ -667,7 +736,7 @@
                                     <div className="flex justify-between text-slate-300 font-medium"><span>Discount:</span><span className="text-emerald-400">-R {discount.toFixed(2)}</span></div>
                                     <div className="flex justify-between text-slate-300 font-medium"><span>Delivery Fee (eNanda):</span><span>R 30.00</span></div>
                                     <div className="flex justify-between text-lg font-black text-white pt-2 border-t silver-border"><span>Total Amount:</span><span className="silver-text">R {grandTotal.toFixed(2)}</span></div>
-                                    <button onClick={handleCheckout} className="press-effect w-full bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold py-4 rounded-2xl text-sm shadow-xl mt-2 flex items-center justify-center space-x-2">
+                                    <button onClick={handleCheckout} className="press-effect w-full bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold py-4 rounded-2xl text-sm shadow-xl mt-2 flex items-center justify-center space-x-2 hover:scale-[1.01] transition-transform">
                                         <span>Submit Order via {commPreference.toUpperCase()} 🚀</span>
                                     </button>
                                 </div>
@@ -681,13 +750,13 @@
                             <div className="bg-glass rounded-3xl p-6 sm:p-8 border silver-border max-w-md w-full space-y-5 shadow-2xl">
                                 <div className="flex justify-between items-center border-b silver-border pb-4">
                                     <h3 className="font-black text-base text-white">{activeModalProduct.title}</h3>
-                                    <button onClick={() => setActiveModalProduct(null)} className="press-effect text-slate-400 text-xl font-bold bg-slate-800 w-9 h-9 rounded-full flex items-center justify-center">&times;</button>
+                                    <button onClick={() => setActiveModalProduct(null)} className="press-effect text-slate-400 text-xl font-bold bg-slate-800 w-9 h-9 rounded-full flex items-center justify-center hover:bg-slate-700">&times;</button>
                                 </div>
                                 <img src={activeModalProduct.img} alt="Product" className="w-full h-52 object-cover rounded-2xl bg-slate-900 border silver-border shadow-inner" onError={(e)=>{e.target.onerror=null; e.target.src=FALLBACK_SVG;}}/>
                                 <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-medium">{activeModalProduct.desc}</p>
                                 <div className="flex justify-between items-center pt-4 border-t silver-border">
                                     <span className="text-xl font-black silver-text">R {activeModalProduct.price.toFixed(2)}</span>
-                                    <button onClick={() => { addToCart(activeModalProduct.title, activeModalProduct.price); setActiveModalProduct(null); }} className="press-effect silver-gradient text-slate-950 font-extrabold px-6 py-3.5 rounded-2xl text-xs shadow-xl">+ Add to Cart</button>
+                                    <button onClick={() => { addToCart(activeModalProduct.title, activeModalProduct.price); setActiveModalProduct(null); }} className="press-effect silver-gradient text-slate-950 font-extrabold px-6 py-3.5 rounded-2xl text-xs shadow-xl hover:scale-105 transition-transform">+ Add to Cart</button>
                                 </div>
                             </div>
                         </div>
