@@ -74,10 +74,14 @@
         const FALLBACK_SVG = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='400' viewBox='0 0 600 400'><rect width='100%' height='100%' fill='%230f172a'/><text x='50%' y='50%' fill='%23ffffff' font-family='sans-serif' font-size='22' font-weight='bold' text-anchor='middle' dominant-baseline='middle'>Nollie%27s Living Organisation</text></svg>";
 
         const PRODUCTS = [
-            { id: 'c1', cat: 'cereal', title: 'Cereal Hamper Package 1', price: 250, badge: '5 Items', desc: 'Jungle Oats 1kg, Future Life 500g, Noodles, Bokomo Corn Flakes 1kg, Weet-Bix 450g.', img: 'https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=600&q=80' },
-            { id: 'b1', cat: 'essentials', title: 'Family Bulk Grocery Hamper', price: 380, badge: 'Best Value', desc: '10kg Maize Meal, 5L Sunflower Oil, 2kg White Sugar, 2kg Rice, Baked Beans (x4).', img: 'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=600&q=80' },
-            { id: 'j1', cat: 'juice', title: 'Juices Africa (4L Bottle)', price: 160, badge: 'Makes 20L', desc: 'Guava, Mixed Berry, Tropical Punch high yield fruit concentrate.', img: 'https://images.unsplash.com/photo-1613478223719-2ab802602423?auto=format&fit=crop&w=600&q=80' },
-            { id: 'p1', cat: 'perfume', title: 'M-Scents Perfumes (40ml)', price: 120, badge: 'Luxury', desc: 'Silver Sense, Red Dezire, White OUD, Blue Dezire, StallioN.', img: 'https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&w=600&q=80' }
+            { id: 'c1', cat: 'cereal', title: 'Cereal Hamper Package 1', price: 250, badge: '5 Items', desc: 'Jungle Oats 1kg, Future Life 500g, Noodles, Bokomo Corn Flakes 1kg, Weet-Bix 450g.', img: 'https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=600&q=80', dimensions: '35cm x 25cm x 20cm' },
+            { id: 'c2', cat: 'cereal', title: 'Cereal Hamper Package 2', price: 250, badge: '5 Items', desc: 'Bokomo Corn Flakes 1kg, Rice Puffs, Juice, Porridge, Noodles.', img: 'https://images.unsplash.com/photo-1517093788734-90fa7b733160?auto=format&fit=crop&w=600&q=80', dimensions: '35cm x 25cm x 20cm' },
+            { id: 'c3', cat: 'cereal', title: 'Cereal Hamper Package 3', price: 250, badge: '5 Items', desc: 'Bokomo Weet-Bix 450g, Corn Flakes 1kg, Future Life 500g, Nutrifics 450g, Noodles.', img: 'https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=600&q=80', dimensions: '35cm x 25cm x 20cm' },
+            { id: 'b1', cat: 'essentials', title: 'Family Bulk Grocery Hamper', price: 380, badge: 'Best Value', desc: '10kg Maize Meal, 5L Sunflower Oil, 2kg White Sugar, 2kg Rice, Baked Beans (x4).', img: 'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=600&q=80', dimensions: '50cm x 40cm x 30cm' },
+            { id: 'b2', cat: 'essentials', title: 'Weekend Braai & Pap Combo', price: 295, badge: 'Combo', desc: '5kg Iwisa Maize Meal, Braai Spice, Chakalaka (x3), Tomato & Onion Mix, 2L Soft Drink.', img: 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=600&q=80', dimensions: '40cm x 30cm x 25cm' },
+            { id: 'j1', cat: 'juice', title: 'Juices Africa (4L Bottle)', price: 160, badge: 'Makes 20L', desc: 'Guava, Mixed Berry, Tropical Punch high yield fruit concentrate.', img: 'https://images.unsplash.com/photo-1613478223719-2ab802602423?auto=format&fit=crop&w=600&q=80', dimensions: '30cm x 15cm x 15cm' },
+            { id: 'p1', cat: 'perfume', title: 'M-Scents Perfumes (40ml)', price: 120, badge: 'Luxury', desc: 'Silver Sense, Red Dezire, White OUD, Blue Dezire, StallioN.', img: 'https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&w=600&q=80', dimensions: '12cm x 6cm x 4cm' },
+            { id: 'p2', cat: 'perfume', title: 'M-Scents Duo Gift Set (2x 40ml)', price: 192, badge: 'Gift Set', desc: 'Choose any two signature 40ml luxury fragrances in a gift presentation box.', img: 'https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&w=600&q=80', dimensions: '18cm x 14cm x 6cm' }
         ];
 
         const HAMPER_OPTIONS = [
@@ -102,9 +106,16 @@
             const [loyaltyCoins, setLoyaltyCoins] = useState(Number(localStorage.getItem('nollies_loyalty') || '150'));
             const [popiaAccepted, setPopiaAccepted] = useState(localStorage.getItem('nollies_popia_accepted') === 'true');
 
+            // Marketplace filter & Search
+            const [selectedCategory, setSelectedCategory] = useState('all');
+            const [searchQuery, setSearchQuery] = useState('');
+
             // WebXR 3D Simulator State
             const [isVrActive, setIsVrActive] = useState(false);
             const canvasContainerRef = useRef(null);
+
+            // Product Modal Inspector
+            const [activeModalProduct, setActiveModalProduct] = useState(null);
 
             // Hamper Builder State
             const [selectedHamperItems, setSelectedHamperItems] = useState([]);
@@ -237,6 +248,12 @@
                 setActiveTab('catalog');
             };
 
+            const filteredProducts = PRODUCTS.filter(p => {
+                const matchesCat = selectedCategory === 'all' || p.cat === selectedCategory;
+                const matchesSearch = p.title.toLowerCase().includes(searchQuery.toLowerCase()) || p.desc.toLowerCase().includes(searchQuery.toLowerCase());
+                return matchesCat && matchesSearch;
+            });
+
             const subtotal = cart.reduce((sum, item) => sum + item.price, 0);
             const discount = (subtotal * discountPercent) / 100;
             const deliveryFee = 30;
@@ -280,7 +297,7 @@
                 setAiInput('');
 
                 setTimeout(() => {
-                    let reply = "I can guide you through our WebXR 3D Showroom, Cereal Hampers, M-Scents perfumes, and Business Consulting services. Flat R30 delivery across Durban!";
+                    let reply = "I can guide you through our full product catalog, WebXR 3D Showroom, Cereal Hampers, M-Scents perfumes, and Business Consulting services. Flat R30 delivery across Durban!";
                     const lower = userText.toLowerCase();
                     if (lower.includes('price') || lower.includes('cost')) reply = "Cereal Hampers are R250, Family Bulk Hampers are R380, Juices Africa is R160, and M-Scents perfumes are R120.";
                     if (lower.includes('delivery')) reply = "We offer flat R30 delivery across Durban & eNanda!";
@@ -343,7 +360,7 @@
                                             Nollie's Living Organisation & WebXR Metaverse
                                         </h2>
                                         <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-medium">
-                                            Discover our streamlined retail catalog, immersive 3D WebXR showroom, and professional executive support services tailored for Durban and surrounding regions.
+                                            Discover our full product catalog, immersive 3D WebXR showroom, and professional executive support services tailored for Durban and surrounding regions.
                                         </p>
                                         <div className="flex flex-wrap gap-3 pt-2">
                                             <button onClick={launchWebXrSimulator} className="press-effect enterprise-btn py-3 px-6 rounded-2xl text-xs shadow-lg">Launch 3D WebXR VR 🥽</button>
@@ -368,12 +385,23 @@
                                 <div className="enterprise-glass p-6 rounded-3xl border border-white/15 flex flex-col sm:flex-row justify-between items-center gap-4">
                                     <div>
                                         <h3 className="text-xl font-black font-display">Product & Hamper Marketplace</h3>
-                                        <p className="text-xs text-slate-400">Wholesale cereal hampers, bulk groceries, and luxury fragrances.</p>
+                                        <p className="text-xs text-slate-400">Explore our full wholesale inventory below.</p>
                                     </div>
+                                    <input type="text" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder="🔍 Search catalog..." 
+                                           className="w-full sm:w-72 px-4 py-2.5 rounded-xl bg-slate-950 border border-white/20 text-white text-xs outline-none focus:border-white"/>
                                 </div>
+
+                                <div className="flex flex-wrap gap-2">
+                                    <button onClick={() => setSelectedCategory('all')} className={`px-4 py-2 rounded-xl text-xs font-bold ${selectedCategory === 'all' ? 'bg-white text-slate-950' : 'bg-slate-900 text-slate-300'}`}>All Products</button>
+                                    <button onClick={() => setSelectedCategory('cereal')} className={`px-4 py-2 rounded-xl text-xs font-bold ${selectedCategory === 'cereal' ? 'bg-white text-slate-950' : 'bg-slate-900 text-slate-300'}`}>Cereal Hampers</button>
+                                    <button onClick={() => setSelectedCategory('essentials')} className={`px-4 py-2 rounded-xl text-xs font-bold ${selectedCategory === 'essentials' ? 'bg-white text-slate-950' : 'bg-slate-900 text-slate-300'}`}>Bulk Essentials</button>
+                                    <button onClick={() => setSelectedCategory('juice')} className={`px-4 py-2 rounded-xl text-xs font-bold ${selectedCategory === 'juice' ? 'bg-white text-slate-950' : 'bg-slate-900 text-slate-300'}`}>Juices Africa</button>
+                                    <button onClick={() => setSelectedCategory('perfume')} className={`px-4 py-2 rounded-xl text-xs font-bold ${selectedCategory === 'perfume' ? 'bg-white text-slate-950' : 'bg-slate-900 text-slate-300'}`}>M-Scents Perfumes</button>
+                                </div>
+
                                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                                    {PRODUCTS.map(p => (
-                                        <div key={p.id} className="enterprise-glass rounded-3xl p-4 border border-white/15 space-y-3 flex flex-col justify-between enterprise-card-hover">
+                                    {filteredProducts.map(p => (
+                                        <div key={p.id} onClick={() => setActiveModalProduct(p)} className="enterprise-glass rounded-3xl p-4 border border-white/15 space-y-3 flex flex-col justify-between enterprise-card-hover cursor-pointer">
                                             <div className="h-40 rounded-2xl overflow-hidden relative bg-slate-950">
                                                 <img src={p.img} alt={p.title} className="w-full h-full object-cover" onError={(e)=>{e.target.onerror=null; e.target.src=FALLBACK_SVG;}}/>
                                                 <span className="absolute top-2.5 left-2.5 bg-slate-950/90 text-[10px] font-mono px-2.5 py-1 rounded-full uppercase font-bold text-sky-300 border border-sky-400/30">{p.badge}</span>
@@ -384,7 +412,7 @@
                                             </div>
                                             <div className="flex justify-between items-center pt-2 border-t border-white/10">
                                                 <span className="text-sm font-black font-mono">R {p.price.toFixed(2)}</span>
-                                                <button onClick={() => addToCart(p.title, p.price)} className="press-effect enterprise-btn px-4 py-2 rounded-xl text-xs font-bold">+ Add</button>
+                                                <button onClick={(e) => { e.stopPropagation(); addToCart(p.title, p.price); }} className="press-effect enterprise-btn px-4 py-2 rounded-xl text-xs font-bold">+ Add</button>
                                             </div>
                                         </div>
                                     ))}
@@ -482,6 +510,25 @@
                             </section>
                         )}
                     </main>
+
+                    {/* PRODUCT DETAILS MODAL */}
+                    {activeModalProduct && (
+                        <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-50 flex items-center justify-center p-4">
+                            <div className="enterprise-glass rounded-3xl p-6 sm:p-8 border border-white/30 max-w-md w-full space-y-4 shadow-2xl">
+                                <div className="flex justify-between items-center border-b border-white/15 pb-3">
+                                    <h3 className="font-bold text-base font-display">{activeModalProduct.title}</h3>
+                                    <button onClick={() => setActiveModalProduct(null)} className="text-slate-400 font-bold text-lg">&times;</button>
+                                </div>
+                                <img src={activeModalProduct.img} alt={activeModalProduct.title} className="w-full h-48 object-cover rounded-2xl bg-slate-900 border border-slate-800" onError={(e)=>{e.target.onerror=null; e.target.src=FALLBACK_SVG;}}/>
+                                <p className="text-xs text-slate-300 leading-relaxed">{activeModalProduct.desc}</p>
+                                <div className="text-[11px] text-sky-400 font-mono">Dimensions: {activeModalProduct.dimensions}</div>
+                                <div className="flex justify-between items-center pt-3 border-t border-white/15">
+                                    <span className="text-lg font-black font-mono">R {activeModalProduct.price.toFixed(2)}</span>
+                                    <button onClick={() => { addToCart(activeModalProduct.title, activeModalProduct.price); setActiveModalProduct(null); }} className="press-effect enterprise-btn px-6 py-2.5 rounded-xl text-xs font-bold">+ Add to Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                    )}
 
                     {/* PRIVACY NOTICE */}
                     {!popiaAccepted && (
