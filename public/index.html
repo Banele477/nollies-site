@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Nollie's Enterprise VR Metaverse | Living Organisation & WebXR Suite</title>
+    <title>Nollie's Living Organisation | Premium Enterprise & WebXR Suite</title>
     <meta name="theme-color" content="#030712">
     <link rel="manifest" href="/manifest.json">
     <script src="https://cdn.tailwindcss.com"></script>
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script crossorigin src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    <!-- Three.js & WebXR for Enterprise 3D Virtual Reality Rendering -->
+    <!-- Three.js & WebXR for Immersive 3D Rendering -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700;900&display=swap" rel="stylesheet">
     <style>
@@ -26,47 +26,37 @@
         .enterprise-bg {
             background-color: #030712;
             background-image: 
-                radial-gradient(at 10% 10%, rgba(56, 189, 248, 0.18) 0px, transparent 50%),
-                radial-gradient(at 90% 15%, rgba(168, 85, 247, 0.18) 0px, transparent 50%),
-                radial-gradient(at 50% 50%, rgba(16, 185, 129, 0.15) 0px, transparent 60%),
+                radial-gradient(at 10% 10%, rgba(56, 189, 248, 0.15) 0px, transparent 50%),
+                radial-gradient(at 90% 15%, rgba(168, 85, 247, 0.15) 0px, transparent 50%),
                 linear-gradient(to bottom, #030712, #070a14);
             background-attachment: fixed;
         }
 
         .enterprise-glass {
-            background: rgba(10, 15, 30, 0.92);
-            backdrop-filter: blur(40px) saturate(200%);
-            -webkit-backdrop-filter: blur(40px) saturate(200%);
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            box-shadow: 0 30px 80px -10px rgba(0, 0, 0, 0.9), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            background: rgba(10, 15, 30, 0.90);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
         }
 
         .enterprise-card-hover {
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: all 0.3s ease;
         }
         .enterprise-card-hover:hover {
-            transform: translateY(-6px) scale(1.01);
-            border-color: rgba(255, 255, 255, 0.7);
-            box-shadow: 0 40px 100px -15px rgba(56, 189, 248, 0.35);
+            transform: translateY(-4px);
+            border-color: rgba(255, 255, 255, 0.4);
+            box-shadow: 0 30px 60px -15px rgba(56, 189, 248, 0.25);
         }
 
         .enterprise-btn {
-            background: linear-gradient(135deg, #ffffff 0%, #38bdf8 40%, #10b981 100%);
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            background: linear-gradient(135deg, #ffffff 0%, #38bdf8 50%, #10b981 100%);
+            transition: all 0.3s ease;
             color: #030712;
             font-weight: 800;
-            box-shadow: 0 6px 25px rgba(56, 189, 248, 0.4);
         }
         .enterprise-btn:hover {
-            box-shadow: 0 10px 35px rgba(56, 189, 248, 0.7);
-            transform: translateY(-2px) scale(1.03);
-            color: #030712;
-        }
-
-        .nav-pill {
-            transition: all 0.3s ease;
-        }
-        .nav-pill:hover {
+            box-shadow: 0 8px 25px rgba(56, 189, 248, 0.6);
             transform: translateY(-2px);
         }
 
@@ -81,13 +71,13 @@
         const { useState, useEffect, useRef } = React;
 
         const NOLLIE_AVATAR = "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80";
-        const FALLBACK_SVG = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='400' viewBox='0 0 600 400'><rect width='100%\' height='100%' fill='%230f172a'/><text x='50%' y='50%' fill='%23ffffff' font-family='sans-serif' font-size='22' font-weight='bold' text-anchor='middle' dominant-baseline='middle'>Nollie%27s Enterprise VR Suite</text></svg>";
+        const FALLBACK_SVG = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='400' viewBox='0 0 600 400'><rect width='100%' height='100%' fill='%230f172a'/><text x='50%' y='50%' fill='%23ffffff' font-family='sans-serif' font-size='22' font-weight='bold' text-anchor='middle' dominant-baseline='middle'>Nollie%27s Living Organisation</text></svg>";
 
         const PRODUCTS = [
-            { id: 'c1', cat: 'cereal', title: 'Cereal Hamper Package 1', price: 250, badge: '5 Items', desc: 'Jungle Oats 1kg, Future Life 500g, Noodles, Bokomo Corn Flakes 1kg, Weet-Bix 450g.', img: 'https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=600&q=80', arDimensions: '35cm x 25cm x 20cm' },
-            { id: 'b1', cat: 'essentials', title: 'Family Bulk Grocery Hamper', price: 380, badge: 'Best Value', desc: '10kg Maize Meal, 5L Sunflower Oil, 2kg White Sugar, 2kg Rice, Baked Beans (x4).', img: 'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=600&q=80', arDimensions: '50cm x 40cm x 30cm' },
-            { id: 'j1', cat: 'juice', title: 'Juices Africa (4L Bottle)', price: 160, badge: 'Makes 20L', desc: 'Guava, Mixed Berry, Tropical Punch high yield fruit concentrate.', img: 'https://images.unsplash.com/photo-1613478223719-2ab802602423?auto=format&fit=crop&w=600&q=80', arDimensions: '30cm x 15cm x 15cm' },
-            { id: 'p1', cat: 'perfume', title: 'M-Scents Perfumes (40ml)', price: 120, badge: 'Luxury', desc: 'Silver Sense, Red Dezire, White OUD, Blue Dezire, StallioN.', img: 'https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&w=600&q=80', arDimensions: '12cm x 6cm x 4cm' }
+            { id: 'c1', cat: 'cereal', title: 'Cereal Hamper Package 1', price: 250, badge: '5 Items', desc: 'Jungle Oats 1kg, Future Life 500g, Noodles, Bokomo Corn Flakes 1kg, Weet-Bix 450g.', img: 'https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=600&q=80' },
+            { id: 'b1', cat: 'essentials', title: 'Family Bulk Grocery Hamper', price: 380, badge: 'Best Value', desc: '10kg Maize Meal, 5L Sunflower Oil, 2kg White Sugar, 2kg Rice, Baked Beans (x4).', img: 'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=600&q=80' },
+            { id: 'j1', cat: 'juice', title: 'Juices Africa (4L Bottle)', price: 160, badge: 'Makes 20L', desc: 'Guava, Mixed Berry, Tropical Punch high yield fruit concentrate.', img: 'https://images.unsplash.com/photo-1613478223719-2ab802602423?auto=format&fit=crop&w=600&q=80' },
+            { id: 'p1', cat: 'perfume', title: 'M-Scents Perfumes (40ml)', price: 120, badge: 'Luxury', desc: 'Silver Sense, Red Dezire, White OUD, Blue Dezire, StallioN.', img: 'https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&w=600&q=80' }
         ];
 
         const HAMPER_OPTIONS = [
@@ -100,8 +90,8 @@
         ];
 
         const BOOKABLE_SERVICES = [
-            { id: 's1', title: 'Supply Chain & Hamper Consultation', price: 50, duration: '30 min', desc: 'Expert strategic consultation selecting household groceries & bulk hampers in Durban.' },
-            { id: 's2', title: 'M-Scents VR Fragrance Sampling', price: 0, duration: '20 min', desc: 'Sample signature M-Scents perfumes at our local Durban eNanda hub or VR lab.' },
+            { id: 's1', title: 'Supply Chain & Hamper Consultation', price: 50, duration: '30 min', desc: 'Expert strategic consultation selecting household groceries & bulk hampers.' },
+            { id: 's2', title: 'M-Scents VR Fragrance Sampling', price: 0, duration: '20 min', desc: 'Sample signature M-Scents perfumes at our local Durban eNanda showroom.' },
             { id: 's3', title: 'Mbango VA Process Engineering', price: 150, duration: '45 min', desc: 'Virtual executive assistance, workflow automation, and digital growth advice.' }
         ];
 
@@ -109,8 +99,6 @@
             const [activeTab, setActiveTab] = useState('home');
             const [cart, setCart] = useState(JSON.parse(localStorage.getItem('nollies_cart') || '[]'));
             const [orders, setOrders] = useState(JSON.parse(localStorage.getItem('nollies_orders') || '[]'));
-            const [bookings, setBookings] = useState([]);
-            const [reviews, setReviews] = useState(JSON.parse(localStorage.getItem('nollies_reviews') || '[]'));
             const [loyaltyCoins, setLoyaltyCoins] = useState(Number(localStorage.getItem('nollies_loyalty') || '150'));
             const [popiaAccepted, setPopiaAccepted] = useState(localStorage.getItem('nollies_popia_accepted') === 'true');
 
@@ -136,7 +124,7 @@
             // AI Assistant State
             const [isAiOpen, setIsAiOpen] = useState(false);
             const [aiMessages, setAiMessages] = useState([
-                { sender: 'ai', text: 'Sawubona! I am your Enterprise Assistant. How can I guide you through our WebXR VR showroom or business administration metrics today?' }
+                { sender: 'ai', text: 'Sawubona! Welcome to Nollie\'s Living Organisation. How can I assist you with our catalog, virtual showroom, or booking services today?' }
             ]);
             const [aiInput, setAiInput] = useState('');
             const chatEndRef = useRef(null);
@@ -169,12 +157,12 @@
             const acceptPopia = () => {
                 localStorage.setItem('nollies_popia_accepted', 'true');
                 setPopiaAccepted(true);
-                showToast('🔒 POPIA Data Consent Recorded.');
+                showToast('🔒 Privacy Consent Recorded.');
             };
 
             const launchWebXrSimulator = () => {
                 setIsVrActive(true);
-                showToast('🥽 Launching Three.js WebXR Stereo VR Metaverse...');
+                showToast('🥽 Launching Three.js WebXR 3D Showroom...');
             };
 
             // THREE.JS 3D CANVAS EFFECT
@@ -292,7 +280,7 @@
                 setAiInput('');
 
                 setTimeout(() => {
-                    let reply = "I can guide you through our WebXR 3D Showroom, Cereal Hampers, M-Scents perfumes, and Business Administration Analytics. Flat R30 delivery across Durban!";
+                    let reply = "I can guide you through our WebXR 3D Showroom, Cereal Hampers, M-Scents perfumes, and Business Consulting services. Flat R30 delivery across Durban!";
                     const lower = userText.toLowerCase();
                     if (lower.includes('price') || lower.includes('cost')) reply = "Cereal Hampers are R250, Family Bulk Hampers are R380, Juices Africa is R160, and M-Scents perfumes are R120.";
                     if (lower.includes('delivery')) reply = "We offer flat R30 delivery across Durban & eNanda!";
@@ -304,29 +292,23 @@
                 <div className="min-h-screen relative enterprise-bg text-slate-100">
                     <div className="h-1 bg-gradient-to-r from-sky-400 via-emerald-400 to-purple-500 fixed top-0 z-50 w-full"></div>
 
-                    {/* PURPOSE & GUIDE BAR */}
-                    <div className="bg-slate-950 border-b border-white/10 px-4 py-2 text-center text-xs font-mono text-sky-300">
-                        🌟 <strong>Academic & Enterprise Purpose:</strong> Showcasing Three.js WebXR Immersive Commerce, Financial Management & Automated Durban Logistics for 100% Top Honors.
-                    </div>
-
-                    {/* MAIN HEADER & STREAMLINED NAVIGATION */}
-                    <header className="sticky top-0 z-40 enterprise-glass border-b border-white/15 px-4 sm:px-8 py-3.5 flex flex-col sm:flex-row justify-between items-center gap-4 shadow-xl">
+                    {/* MAIN HEADER & NAVIGATION */}
+                    <header className="sticky top-0 z-40 enterprise-glass border-b border-white/10 px-4 sm:px-8 py-3.5 flex flex-col sm:flex-row justify-between items-center gap-4 shadow-xl">
                         <div className="flex items-center space-x-3 cursor-pointer" onClick={() => setActiveTab('home')}>
-                            <img src={NOLLIE_AVATAR} alt="Banele" className="w-10 h-10 rounded-xl object-cover border border-sky-400 shadow" />
+                            <img src={NOLLIE_AVATAR} alt="Nollie" className="w-10 h-10 rounded-xl object-cover border border-sky-400 shadow" />
                             <div>
-                                <h1 className="text-sm font-black tracking-wider uppercase font-display">Nollie's Enterprise Suite</h1>
-                                <span className="text-[10px] text-slate-400 font-mono">Managed by Banele Gumbi</span>
+                                <h1 className="text-sm font-black tracking-wider uppercase font-display">Nollie's Living Organisation</h1>
+                                <span className="text-[10px] text-slate-400 font-mono">Durban eNanda Global Hub</span>
                             </div>
                         </div>
 
-                        {/* CLEAR NAVIGATION PILLS */}
                         <nav className="flex flex-wrap items-center justify-center gap-1.5 text-xs font-bold">
-                            <button onClick={() => setActiveTab('home')} className={`px-3.5 py-2 rounded-xl nav-pill ${activeTab === 'home' ? 'bg-white text-slate-950 shadow-md font-black' : 'bg-slate-900/80 text-slate-300 hover:bg-slate-800'}`}>🏠 Home</button>
-                            <button onClick={() => setActiveTab('catalog')} className={`px-3.5 py-2 rounded-xl nav-pill ${activeTab === 'catalog' ? 'bg-white text-slate-950 shadow-md font-black' : 'bg-slate-900/80 text-slate-300 hover:bg-slate-800'}`}>🛍️ Marketplace</button>
-                            <button onClick={() => setActiveTab('builder')} className={`px-3.5 py-2 rounded-xl nav-pill ${activeTab === 'builder' ? 'bg-white text-slate-950 shadow-md font-black' : 'bg-slate-900/80 text-slate-300 hover:bg-slate-800'}`}>✨ Hamper Builder</button>
-                            <button onClick={() => setActiveTab('consulting')} className={`px-3.5 py-2 rounded-xl nav-pill ${activeTab === 'consulting' ? 'bg-white text-slate-950 shadow-md font-black' : 'bg-slate-900/80 text-slate-300 hover:bg-slate-800'}`}>📅 Consulting</button>
-                            <button onClick={() => setActiveTab('orders')} className={`px-3.5 py-2 rounded-xl nav-pill ${activeTab === 'orders' ? 'bg-white text-slate-950 shadow-md font-black' : 'bg-slate-900/80 text-slate-300 hover:bg-slate-800'}`}>📦 Orders</button>
-                            <button onClick={() => setActiveTab('admin')} className={`px-3.5 py-2 rounded-xl nav-pill ${activeTab === 'admin' ? 'bg-emerald-400 text-slate-950 shadow-md font-black' : 'bg-slate-900/80 text-emerald-400 hover:bg-slate-800'}`}>🔐 Analytics</button>
+                            <button onClick={() => setActiveTab('home')} className={`px-3.5 py-2 rounded-xl transition-all ${activeTab === 'home' ? 'bg-white text-slate-950 shadow-md font-black' : 'bg-slate-900/80 text-slate-300 hover:bg-slate-800'}`}>Home</button>
+                            <button onClick={() => setActiveTab('catalog')} className={`px-3.5 py-2 rounded-xl transition-all ${activeTab === 'catalog' ? 'bg-white text-slate-950 shadow-md font-black' : 'bg-slate-900/80 text-slate-300 hover:bg-slate-800'}`}>Marketplace</button>
+                            <button onClick={() => setActiveTab('builder')} className={`px-3.5 py-2 rounded-xl transition-all ${activeTab === 'builder' ? 'bg-white text-slate-950 shadow-md font-black' : 'bg-slate-900/80 text-slate-300 hover:bg-slate-800'}`}>Hamper Builder</button>
+                            <button onClick={() => setActiveTab('consulting')} className={`px-3.5 py-2 rounded-xl transition-all ${activeTab === 'consulting' ? 'bg-white text-slate-950 shadow-md font-black' : 'bg-slate-900/80 text-slate-300 hover:bg-slate-800'}`}>Consulting</button>
+                            <button onClick={() => setActiveTab('orders')} className={`px-3.5 py-2 rounded-xl transition-all ${activeTab === 'orders' ? 'bg-white text-slate-950 shadow-md font-black' : 'bg-slate-900/80 text-slate-300 hover:bg-slate-800'}`}>Orders</button>
+                            <button onClick={() => setActiveTab('admin')} className={`px-3.5 py-2 rounded-xl transition-all ${activeTab === 'admin' ? 'bg-emerald-400 text-slate-950 shadow-md font-black' : 'bg-slate-900/80 text-emerald-400 hover:bg-slate-800'}`}>Dashboard</button>
                         </nav>
 
                         <div className="flex items-center space-x-2">
@@ -334,7 +316,7 @@
                                 🪙 {loyaltyCoins} Coins
                             </div>
                             <button onClick={() => setIsCartOpen(true)} className="press-effect enterprise-btn px-4 py-2 rounded-xl text-xs flex items-center space-x-1.5">
-                                <span>🛒 Cart</span>
+                                <span>Cart</span>
                                 <span className="bg-slate-950 text-white text-[10px] rounded-full h-5 w-5 flex items-center justify-center font-black">{cart.length}</span>
                             </button>
                         </div>
@@ -342,11 +324,10 @@
 
                     {/* MAIN CONTENT AREA */}
                     <main className="max-w-6xl mx-auto px-4 mt-8 space-y-8">
-                        {/* 3D WEBXR MODAL / VIEWER */}
                         {isVrActive && (
                             <section className="relative w-full h-[450px] rounded-3xl overflow-hidden enterprise-glass border-2 border-sky-400 shadow-2xl">
                                 <div className="absolute top-4 left-4 z-10 bg-slate-950/90 border border-sky-400 px-3 py-1.5 rounded-xl text-xs font-mono">
-                                    🥽 Three.js WebXR Immersive 3D Metaverse Active
+                                    🥽 Three.js WebXR 3D Showroom Active
                                 </div>
                                 <button onClick={() => setIsVrActive(false)} className="absolute top-4 right-4 z-10 bg-slate-950/90 border border-white/40 text-white text-xs px-3 py-1.5 rounded-xl">Close ✕</button>
                                 <div ref={canvasContainerRef} className="w-full h-full"></div>
@@ -355,27 +336,27 @@
 
                         {activeTab === 'home' && (
                             <section className="space-y-8">
-                                <div className="enterprise-glass p-8 sm:p-12 rounded-3xl border border-white/20 shadow-2xl flex flex-col md:flex-row justify-between items-center gap-8">
+                                <div className="enterprise-glass p-8 sm:p-12 rounded-3xl border border-white/15 shadow-2xl flex flex-col md:flex-row justify-between items-center gap-8">
                                     <div className="space-y-4 max-w-lg">
-                                        <span className="bg-sky-500/20 text-sky-300 border border-sky-400/30 text-[10px] font-mono px-3 py-1 rounded-full uppercase font-bold">🌟 100% Distinction Project</span>
+                                        <span className="bg-sky-500/20 text-sky-300 border border-sky-400/30 text-[10px] font-mono px-3 py-1 rounded-full uppercase font-bold">🌟 Premium Living & Retail Suite</span>
                                         <h2 className="text-3xl sm:text-4xl font-black font-display tracking-tight leading-tight">
                                             Nollie's Living Organisation & WebXR Metaverse
                                         </h2>
                                         <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-medium">
-                                            An advanced software and business administration platform combining wholesale supply chain management, 3D WebXR immersive shopping, and local Durban fulfillment.
+                                            Discover our streamlined retail catalog, immersive 3D WebXR showroom, and professional executive support services tailored for Durban and surrounding regions.
                                         </p>
                                         <div className="flex flex-wrap gap-3 pt-2">
-                                            <button onClick={launchWebXrSimulator} className="press-effect enterprise-btn py-3 px-6 rounded-2xl text-xs shadow-lg">Launch WebXR 3D VR 🥽</button>
-                                            <button onClick={() => setActiveTab('catalog')} className="press-effect bg-slate-900 border border-white/30 text-white py-3 px-6 rounded-2xl text-xs hover:bg-slate-800 shadow">Browse Marketplace 🛍️</button>
+                                            <button onClick={launchWebXrSimulator} className="press-effect enterprise-btn py-3 px-6 rounded-2xl text-xs shadow-lg">Launch 3D WebXR VR 🥽</button>
+                                            <button onClick={() => setActiveTab('catalog')} className="press-effect bg-slate-900 border border-white/30 text-white py-3 px-6 rounded-2xl text-xs hover:bg-slate-800 shadow">Explore Marketplace 🛍️</button>
                                         </div>
                                     </div>
-                                    <div className="w-full md:w-72 bg-slate-950/90 p-6 rounded-3xl border border-white/20 text-center space-y-3 enterprise-card-hover">
-                                        <img src={NOLLIE_AVATAR} alt="Banele" className="w-24 h-24 rounded-2xl object-cover mx-auto border-2 border-sky-400 shadow"/>
+                                    <div className="w-full md:w-72 bg-slate-950/90 p-6 rounded-3xl border border-white/15 text-center space-y-3 enterprise-card-hover">
+                                        <img src={NOLLIE_AVATAR} alt="Nollie" className="w-24 h-24 rounded-2xl object-cover mx-auto border-2 border-sky-400 shadow"/>
                                         <h3 className="text-sm font-black font-display">Banele Gumbi</h3>
-                                        <p className="text-[11px] text-sky-400 font-mono">Project Director & Developer</p>
+                                        <p className="text-[11px] text-sky-400 font-mono">Managing Director & Architect</p>
                                         <div className="text-[11px] bg-slate-900 p-2.5 rounded-xl font-mono text-slate-300 space-y-1">
                                             <div>Base: Durban, SA</div>
-                                            <div className="text-emerald-400">Status: 100% Distinction 🌟</div>
+                                            <div className="text-emerald-400">Status: Fully Operational 🟢</div>
                                         </div>
                                     </div>
                                 </div>
@@ -384,15 +365,15 @@
 
                         {activeTab === 'catalog' && (
                             <section className="space-y-6">
-                                <div className="enterprise-glass p-6 rounded-3xl border border-white/20 flex flex-col sm:flex-row justify-between items-center gap-4">
+                                <div className="enterprise-glass p-6 rounded-3xl border border-white/15 flex flex-col sm:flex-row justify-between items-center gap-4">
                                     <div>
-                                        <h3 className="text-xl font-black font-display">Enterprise 3D Marketplace</h3>
-                                        <p className="text-xs text-slate-400">Explore wholesale cereal hampers, bulk groceries, and luxury fragrances.</p>
+                                        <h3 className="text-xl font-black font-display">Product & Hamper Marketplace</h3>
+                                        <p className="text-xs text-slate-400">Wholesale cereal hampers, bulk groceries, and luxury fragrances.</p>
                                     </div>
                                 </div>
                                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                                     {PRODUCTS.map(p => (
-                                        <div key={p.id} className="enterprise-glass rounded-3xl p-4 border border-white/20 space-y-3 flex flex-col justify-between enterprise-card-hover">
+                                        <div key={p.id} className="enterprise-glass rounded-3xl p-4 border border-white/15 space-y-3 flex flex-col justify-between enterprise-card-hover">
                                             <div className="h-40 rounded-2xl overflow-hidden relative bg-slate-950">
                                                 <img src={p.img} alt={p.title} className="w-full h-full object-cover" onError={(e)=>{e.target.onerror=null; e.target.src=FALLBACK_SVG;}}/>
                                                 <span className="absolute top-2.5 left-2.5 bg-slate-950/90 text-[10px] font-mono px-2.5 py-1 rounded-full uppercase font-bold text-sky-300 border border-sky-400/30">{p.badge}</span>
@@ -412,10 +393,10 @@
                         )}
 
                         {activeTab === 'builder' && (
-                            <section className="enterprise-glass p-8 rounded-3xl border border-white/20 space-y-6">
+                            <section className="enterprise-glass p-8 rounded-3xl border border-white/15 space-y-6">
                                 <div>
                                     <h3 className="text-xl font-black font-display">✨ Custom Cereal Hamper Builder</h3>
-                                    <p className="text-xs text-slate-400">Select 5 items to assemble your custom enterprise bundle for R250.00.</p>
+                                    <p className="text-xs text-slate-400">Select 5 items to assemble your custom household bundle for R250.00.</p>
                                 </div>
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
                                     {HAMPER_OPTIONS.map(item => (
@@ -433,10 +414,10 @@
                         )}
 
                         {activeTab === 'consulting' && (
-                            <section className="enterprise-glass p-8 rounded-3xl border border-white/20 space-y-6">
+                            <section className="enterprise-glass p-8 rounded-3xl border border-white/15 space-y-6">
                                 <div>
-                                    <h3 className="text-xl font-black font-display">📅 Enterprise Consulting & Services</h3>
-                                    <p className="text-xs text-slate-400">Schedule expert supply chain or virtual assistant consultations.</p>
+                                    <h3 className="text-xl font-black font-display">📅 Business Consulting & Services</h3>
+                                    <p className="text-xs text-slate-400">Schedule expert supply chain or virtual executive assistant sessions.</p>
                                 </div>
                                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
                                     {BOOKABLE_SERVICES.map(s => (
@@ -456,8 +437,8 @@
                         )}
 
                         {activeTab === 'orders' && (
-                            <section className="enterprise-glass p-8 rounded-3xl border border-white/20 space-y-4">
-                                <h3 className="text-xl font-black font-display">📦 Order History & Dispatch Records</h3>
+                            <section className="enterprise-glass p-8 rounded-3xl border border-white/15 space-y-4">
+                                <h3 className="text-xl font-black font-display">📦 Order History & Fulfillment</h3>
                                 <div className="space-y-3 text-xs">
                                     {orders.length === 0 ? (
                                         <p className="text-slate-400">No orders recorded yet.</p>
@@ -478,10 +459,10 @@
 
                         {activeTab === 'admin' && (
                             <section className="space-y-6">
-                                <div className="enterprise-glass p-6 rounded-3xl border border-white/20 flex justify-between items-center">
+                                <div className="enterprise-glass p-6 rounded-3xl border border-white/15 flex justify-between items-center">
                                     <div>
-                                        <h3 className="text-xl font-black font-display">🔐 Director Analytics Console</h3>
-                                        <p className="text-xs text-slate-400">Live financial metrics and database telemetry.</p>
+                                        <h3 className="text-xl font-black font-display">🔐 Executive Analytics Console</h3>
+                                        <p className="text-xs text-slate-400">Live revenue metrics and business telemetry.</p>
                                     </div>
                                 </div>
                                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
@@ -502,22 +483,22 @@
                         )}
                     </main>
 
-                    {/* POPIA NOTICE */}
+                    {/* PRIVACY NOTICE */}
                     {!popiaAccepted && (
-                        <div className="fixed bottom-0 inset-x-0 z-50 bg-slate-950/95 border-t border-white/30 p-4 text-xs">
+                        <div className="fixed bottom-0 inset-x-0 z-50 bg-slate-950/95 border-t border-white/20 p-4 text-xs">
                             <div className="max-w-6xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-3">
-                                <p className="text-slate-300">🇿🇦 POPIA Compliance: Personal details are handled securely for Durban order dispatch.</p>
+                                <p className="text-slate-300">Privacy Notice: Personal details are handled securely for local order dispatch.</p>
                                 <button onClick={acceptPopia} className="enterprise-btn px-5 py-2.5 rounded-xl font-bold">Accept & Continue</button>
                             </div>
                         </div>
                     )}
 
-                    {/* 24/7 AI ASSISTANT CHAT */}
+                    {/* AI ASSISTANT CHAT */}
                     <div className="fixed bottom-6 right-6 z-50">
                         {isAiOpen && (
-                            <div className="enterprise-glass rounded-3xl w-80 h-[400px] shadow-2xl flex flex-col mb-3 overflow-hidden border border-white/30">
-                                <div className="bg-slate-950 p-3.5 border-b border-white/20 flex justify-between items-center text-xs">
-                                    <span className="font-bold">Nollie AI Assistant</span>
+                            <div className="enterprise-glass rounded-3xl w-80 h-[400px] shadow-2xl flex flex-col mb-3 overflow-hidden border border-white/20">
+                                <div className="bg-slate-950 p-3.5 border-b border-white/15 flex justify-between items-center text-xs">
+                                    <span className="font-bold">Virtual Assistant</span>
                                     <button onClick={() => setIsAiOpen(false)} className="text-slate-400 font-bold">&times;</button>
                                 </div>
                                 <div className="flex-1 p-3 overflow-y-auto space-y-2 text-xs bg-slate-950/60">
@@ -528,23 +509,23 @@
                                     ))}
                                     <div ref={chatEndRef} />
                                 </div>
-                                <form onSubmit={handleAiSend} className="p-2.5 bg-slate-950 border-t border-white/20 flex gap-2">
-                                    <input type="text" value={aiInput} onChange={(e)=>setAiInput(e.target.value)} placeholder="Ask a question..." className="flex-1 px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-xs outline-none"/>
+                                <form onSubmit={handleAiSend} className="p-2.5 bg-slate-950 border-t border-white/15 flex gap-2">
+                                    <input type="text" value={aiInput} onChange={(e)=>setAiInput(e.target.value)} placeholder="Type a message..." className="flex-1 px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-xs outline-none"/>
                                     <button type="submit" className="enterprise-btn px-3 py-2 rounded-xl text-xs font-bold">Send</button>
                                 </form>
                             </div>
                         )}
                         <button onClick={() => setIsAiOpen(!isAiOpen)} className="press-effect enterprise-btn p-3.5 rounded-full shadow-xl font-bold">
-                            🤖 AI Help
+                            🤖 Chat
                         </button>
                     </div>
 
                     {/* CART MODAL */}
                     {isCartOpen && (
                         <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-50 flex flex-col justify-end">
-                            <div className="enterprise-glass rounded-t-3xl p-6 max-w-lg mx-auto w-full space-y-4 shadow-2xl border-t border-white/30 max-h-[85vh] flex flex-col">
-                                <div className="flex justify-between items-center border-b border-white/20 pb-3">
-                                    <h3 className="font-bold text-sm">🛒 Enterprise Cart & Checkout</h3>
+                            <div className="enterprise-glass rounded-t-3xl p-6 max-w-lg mx-auto w-full space-y-4 shadow-2xl border-t border-white/20 max-h-[85vh] flex flex-col">
+                                <div className="flex justify-between items-center border-b border-white/15 pb-3">
+                                    <h3 className="font-bold text-sm">Shopping Cart & Checkout</h3>
                                     <button onClick={() => setIsCartOpen(false)} className="text-slate-400 font-bold text-lg">&times;</button>
                                 </div>
                                 <div className="overflow-y-auto flex-1 space-y-2 text-xs">
@@ -562,7 +543,7 @@
                                         ))
                                     )}
                                 </div>
-                                <div className="space-y-2 pt-2 border-t border-white/20 text-xs">
+                                <div className="space-y-2 pt-2 border-t border-white/15 text-xs">
                                     <input type="text" value={customerName} onChange={(e)=>setCustomerName(e.target.value)} placeholder="Full Name *" className="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 outline-none"/>
                                     <input type="tel" value={customerPhone} onChange={(e)=>setCustomerPhone(e.target.value)} placeholder="Phone Number *" className="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 outline-none"/>
                                     <div className="flex justify-between font-bold pt-2">
