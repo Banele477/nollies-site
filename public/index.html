@@ -105,6 +105,7 @@
         const { useState, useEffect, useRef } = React;
 
         const NOLLIE_AVATAR = "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80";
+        const DURBAN_BANNER = "https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=1200&q=80";
         const FALLBACK_SVG = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='400' viewBox='0 0 600 400'><rect width='100%' height='100%' fill='%230f172a'/><text x='50%' y='50%' fill='%23ffffff' font-family='sans-serif' font-size='22' font-weight='bold' text-anchor='middle' dominant-baseline='middle'>Nollie%27s Dynamic Hub</text></svg>";
 
         const PRODUCTS = [
@@ -121,26 +122,26 @@
         ];
 
         const HAMPER_OPTIONS = [
-            { name: 'Jungle Oats 1kg', category: 'Cereal' },
-            { name: 'Future Life 500g', category: 'Cereal' },
-            { name: 'Bokomo Corn Flakes 1kg', category: 'Cereal' },
-            { name: 'Weet-Bix 450g', category: 'Cereal' },
-            { name: 'Nutrifics 450g', category: 'Cereal' },
-            { name: 'Happy Valley Rice Puffs', category: 'Cereal' },
-            { name: 'Kellogg\'s Noodles (5 Pack)', category: 'Snacks' },
-            { name: 'Juice Concentrate 300ml', category: 'Beverage' }
+            { name: 'Jungle Oats 1kg', category: 'Cereal', img: 'https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=150&q=80' },
+            { name: 'Future Life 500g', category: 'Cereal', img: 'https://images.unsplash.com/photo-1517093788734-90fa7b733160?auto=format&fit=crop&w=150&q=80' },
+            { name: 'Bokomo Corn Flakes 1kg', category: 'Cereal', img: 'https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=150&q=80' },
+            { name: 'Weet-Bix 450g', category: 'Cereal', img: 'https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=150&q=80' },
+            { name: 'Nutrifics 450g', category: 'Cereal', img: 'https://images.unsplash.com/photo-1517093788734-90fa7b733160?auto=format&fit=crop&w=150&q=80' },
+            { name: 'Happy Valley Rice Puffs', category: 'Cereal', img: 'https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=150&q=80' },
+            { name: 'Kellogg\'s Noodles (5 Pack)', category: 'Snacks', img: 'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=150&q=80' },
+            { name: 'Juice Concentrate 300ml', category: 'Beverage', img: 'https://images.unsplash.com/photo-1613478223719-2ab802602423?auto=format&fit=crop&w=150&q=80' }
         ];
 
         const BOOKABLE_SERVICES = [
-            { id: 's1', title: 'Doorstep Hamper Consultation & Delivery', price: 50, duration: '30 min', desc: 'In-person assistance selecting household groceries & bulk hampers in eNanda & Durban.' },
-            { id: 's2', title: 'M-Scents Fragrance Sampling Session', price: 0, duration: '20 min', desc: 'Sample signature M-Scents perfumes at our local eNanda hub point.' },
-            { id: 's3', title: 'Mbango VA Admin & Business Support', price: 150, duration: '45 min', desc: 'Virtual assistance, administrative support, document preparation, & digital advice.' }
+            { id: 's1', title: 'Doorstep Hamper Consultation & Delivery', price: 50, duration: '30 min', desc: 'In-person assistance selecting household groceries & bulk hampers in eNanda & Durban.', img: 'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=300&q=80' },
+            { id: 's2', title: 'M-Scents Fragrance Sampling Session', price: 0, duration: '20 min', desc: 'Sample signature M-Scents perfumes at our local eNanda hub point.', img: 'https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&w=300&q=80' },
+            { id: 's3', title: 'Mbango VA Admin & Business Support', price: 150, duration: '45 min', desc: 'Virtual assistance, administrative support, document preparation, & digital advice.', img: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80' }
         ];
 
         const INITIAL_REVIEWS = [
-            { id: 1, name: 'Snerh Dlamini', rating: 5, comment: 'The Family Bulk Grocery Hamper saved our month! Delivered right on time in eNanda. Excellent service!', date: '2 October 2026' },
-            { id: 2, name: 'Sthelo Mkhize', rating: 5, comment: 'M-Scents perfumes smell incredible and last all day. Super professional delivery across Durban.', date: '10 October 2026' },
-            { id: 3, name: 'Ayanda Msomi', rating: 5, comment: 'Custom Cereal Hamper builder is such a brilliant feature! Got all my favorite breakfast items instantly.', date: '14 October 2026' }
+            { id: 1, name: 'Snerh Dlamini', rating: 5, comment: 'The Family Bulk Grocery Hamper saved our month! Delivered right on time in eNanda. Excellent service!', date: '2 October 2026', avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80' },
+            { id: 2, name: 'Sthelo Mkhize', rating: 5, comment: 'M-Scents perfumes smell incredible and last all day. Super professional delivery across Durban.', date: '10 October 2026', avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&q=80' },
+            { id: 3, name: 'Ayanda Msomi', rating: 5, comment: 'Custom Cereal Hamper builder is such a brilliant feature! Got all my favorite breakfast items instantly.', date: '14 October 2026', avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=100&q=80' }
         ];
 
         const LIVE_TICKER_ITEMS = [
@@ -166,7 +167,7 @@
 
             // Community Board State
             const [communityPosts, setCommunityPosts] = useState(JSON.parse(localStorage.getItem('nollies_community') || JSON.stringify([
-                { id: 1, author: 'Banele Gumbi', msg: 'Welcome to Nollie\'s Durban Hub! Drop your neighborhood requests here.', time: 'Today' }
+                { id: 1, author: 'Banele Gumbi', msg: 'Welcome to Nollie\'s Durban Hub! Drop your neighborhood requests here.', time: 'Today', avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80' }
             ])));
             const [newPostAuthor, setNewPostAuthor] = useState('');
             const [newPostMsg, setNewPostMsg] = useState('');
@@ -380,7 +381,8 @@
                     name: newReviewName,
                     rating: Number(newReviewRating),
                     comment: newReviewComment,
-                    date: new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
+                    date: new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }),
+                    avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=100&q=80'
                 };
                 setReviews([newRev, ...reviews]);
                 setNewReviewName('');
@@ -398,7 +400,8 @@
                     id: communityPosts.length + 1,
                     author: newPostAuthor,
                     msg: newPostMsg,
-                    time: 'Just now'
+                    time: 'Just now',
+                    avatar: 'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?auto=format&fit=crop&w=100&q=80'
                 };
                 setCommunityPosts([post, ...communityPosts]);
                 setNewPostAuthor('');
@@ -667,48 +670,58 @@
                     <main className="max-w-6xl mx-auto px-4 mt-8 space-y-10 animate-fade-in">
                         {activeTab === 'home' && (
                             <section className="space-y-10 animate-fade-in">
-                                <div className="relative overflow-hidden rounded-3xl border border-white/20 p-8 sm:p-14 shadow-2xl rainbow-glass flex flex-col lg:flex-row items-center justify-between gap-10">
-                                    <div className="absolute -right-20 -top-20 w-96 h-96 bg-white/10 rounded-full blur-3xl pointer-events-none"></div>
-                                    <div className="space-y-6 max-w-xl z-10">
-                                        <div className="inline-flex items-center space-x-2 bg-slate-950/90 px-4 py-1.5 rounded-full border border-white/30 text-xs font-mono text-white shadow-sm">
-                                           <span>☀️ Durban, KZN • 24°C Sunny • eNanda Coastal Hub</span>
-                                        </div>
-                                        <h2 className="text-3xl sm:text-5xl font-black tracking-tight white-rainbow-animated-text leading-tight font-display">
-                                            {dynamicGreeting}
-                                        </h2>
-                                        <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-medium">
-                                            Serving eNanda and greater Durban with top-grade cereal hampers, bulk groceries, Juices Africa concentrates, and M-Scents luxury fragrances—delivered fast with complete transparency and a flat R30 delivery fee!
-                                        </p>
-                                        <div className="flex flex-wrap gap-3 pt-2">
-                                            <button onClick={() => setActiveTab('catalog')} className="press-effect white-rainbow-btn font-extrabold py-3.5 px-7 rounded-2xl text-xs shadow-lg hover:scale-105 transition-all">Browse Marketplace 🛍️</button>
-                                            <button onClick={() => setActiveTab('ai-matcher')} className="press-effect bg-slate-900/90 border border-white/40 text-white font-bold py-3.5 px-7 rounded-2xl text-xs shadow hover:border-white transition-all flex items-center space-x-2">
-                                                <span>🧠 AI Smart Matcher</span>
-                                            </button>
-                                        </div>
+                                {/* HERO WITH STRATEGIC DURBAN IMAGE BANNER */}
+                                <div className="relative overflow-hidden rounded-3xl border border-white/20 shadow-2xl rainbow-glass">
+                                    <div className="absolute inset-0 z-0">
+                                        <img src={DURBAN_BANNER} alt="Durban Hub" className="w-full h-full object-cover opacity-25 filter brightness-75 scale-105" />
+                                        <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/80 to-transparent"></div>
                                     </div>
                                     
-                                    <div className="w-full lg:w-80 bg-slate-950/85 p-6 rounded-3xl border border-white/25 shadow-2xl space-y-4 text-center z-10">
-                                        <div className="relative w-28 h-28 mx-auto rounded-3xl overflow-hidden border-2 border-white/70 shadow-md">
-                                            <img src={NOLLIE_AVATAR} alt="Nollie Representative" className="w-full h-full object-cover" />
+                                    <div className="relative z-10 p-8 sm:p-14 flex flex-col lg:flex-row items-center justify-between gap-10">
+                                        <div className="space-y-6 max-w-xl">
+                                            <div className="inline-flex items-center space-x-2 bg-slate-950/90 px-4 py-1.5 rounded-full border border-white/30 text-xs font-mono text-white shadow-sm">
+                                               <span>☀️ Durban, KZN • 24°C Sunny • eNanda Coastal Hub</span>
+                                            </div>
+                                            <h2 className="text-3xl sm:text-5xl font-black tracking-tight white-rainbow-animated-text leading-tight font-display">
+                                                {dynamicGreeting}
+                                            </h2>
+                                            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-medium">
+                                                Serving eNanda and greater Durban with top-grade cereal hampers, bulk groceries, Juices Africa concentrates, and M-Scents luxury fragrances—delivered fast with complete transparency and a flat R30 delivery fee!
+                                            </p>
+                                            <div className="flex flex-wrap gap-3 pt-2">
+                                                <button onClick={() => setActiveTab('catalog')} className="press-effect white-rainbow-btn font-extrabold py-3.5 px-7 rounded-2xl text-xs shadow-lg hover:scale-105 transition-all">Browse Marketplace 🛍️</button>
+                                                <button onClick={() => setActiveTab('ai-matcher')} className="press-effect bg-slate-900/90 border border-white/40 text-white font-bold py-3.5 px-7 rounded-2xl text-xs shadow hover:border-white transition-all flex items-center space-x-2">
+                                                    <span>🧠 AI Smart Matcher</span>
+                                                </button>
+                                            </div>
                                         </div>
-                                        <div>
-                                            <h3 className="text-base font-black text-white font-display">Nollie Gumbi</h3>
-                                            <p className="text-[11px] text-white font-mono font-bold">eNanda Founder & Director</p>
-                                        </div>
-                                        <div className="space-y-2 text-[11px] bg-slate-900/90 p-3 rounded-2xl border border-white/15 text-slate-300 font-mono">
-                                            <div className="flex justify-between"><span>Base:</span><strong className="text-white">Durban, KZN</strong></div>
-                                            <div className="flex justify-between"><span>App Package:</span><strong className="text-emerald-400">Android APK Ready ⚡</strong></div>
-                                            <div className="flex justify-between"><span>Dispatch:</span><strong className="text-amber-300">WhatsApp / Call</strong></div>
+                                        
+                                        <div className="w-full lg:w-80 bg-slate-950/85 p-6 rounded-3xl border border-white/25 shadow-2xl space-y-4 text-center z-10">
+                                            <div className="relative w-28 h-28 mx-auto rounded-3xl overflow-hidden border-2 border-white/70 shadow-md">
+                                                <img src={NOLLIE_AVATAR} alt="Nollie Representative" className="w-full h-full object-cover" />
+                                            </div>
+                                            <div>
+                                                <h3 className="text-base font-black text-white font-display">Nollie Gumbi</h3>
+                                                <p className="text-[11px] text-white font-mono font-bold">eNanda Founder & Director</p>
+                                            </div>
+                                            <div className="space-y-2 text-[11px] bg-slate-900/90 p-3 rounded-2xl border border-white/15 text-slate-300 font-mono">
+                                                <div className="flex justify-between"><span>Base:</span><strong className="text-white">Durban, KZN</strong></div>
+                                                <div className="flex justify-between"><span>App Package:</span><strong className="text-emerald-400">Android APK Ready ⚡</strong></div>
+                                                <div className="flex justify-between"><span>Dispatch:</span><strong className="text-amber-300">WhatsApp / Call</strong></div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
 
                                 {/* FLASH DEALS BANNER */}
                                 <div className="rainbow-glass border border-white/30 p-6 sm:p-8 rounded-3xl shadow-2xl flex flex-col md:flex-row justify-between items-center gap-6">
-                                    <div className="space-y-2 text-center md:text-left">
-                                        <span className="bg-red-500/20 text-red-300 border border-red-500/40 text-[10px] font-mono px-3 py-1 rounded-full uppercase font-bold">⚡ Limited Time Flash Deal</span>
-                                        <h3 className="text-xl sm:text-2xl font-black text-white font-display">Family Bulk Grocery Hamper Combo</h3>
-                                        <p className="text-xs text-slate-300">Get an extra R30 off automatically with flat R30 delivery across eNanda & Durban!</p>
+                                    <div className="flex items-center gap-4">
+                                        <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=150&q=80" alt="Flash Deal" className="w-20 h-20 rounded-2xl object-cover border border-white/30 hidden sm:block shadow-md"/>
+                                        <div className="space-y-1 text-center md:text-left">
+                                            <span className="bg-red-500/20 text-red-300 border border-red-500/40 text-[10px] font-mono px-3 py-1 rounded-full uppercase font-bold">⚡ Limited Time Flash Deal</span>
+                                            <h3 className="text-xl sm:text-2xl font-black text-white font-display">Family Bulk Grocery Hamper Combo</h3>
+                                            <p className="text-xs text-slate-300">Get an extra R30 off automatically with flat R30 delivery across eNanda & Durban!</p>
+                                        </div>
                                     </div>
                                     <div className="flex flex-col items-center gap-3">
                                         <div className="bg-slate-950 px-5 py-2.5 rounded-2xl border border-white/20 text-white font-mono font-black text-sm tracking-widest shadow-inner">
@@ -778,8 +791,11 @@
                                 </div>
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 text-xs">
                                     {HAMPER_OPTIONS.map((item) => (
-                                        <label key={item.name} className={`flex items-center justify-between p-4 rounded-2xl border transition-all cursor-pointer ${selectedHamperItems.includes(item.name) ? 'bg-white/15 border-white shadow-md' : 'bg-slate-950/80 border-slate-800 hover:border-slate-600'}`}>
-                                            <span className="font-bold text-white">{item.name} <span className="text-[10px] text-slate-400 font-mono">({item.category})</span></span>
+                                        <label key={item.name} className={`flex items-center justify-between p-3 rounded-2xl border transition-all cursor-pointer ${selectedHamperItems.includes(item.name) ? 'bg-white/15 border-white shadow-md' : 'bg-slate-950/80 border-slate-800 hover:border-slate-600'}`}>
+                                            <div className="flex items-center space-x-3">
+                                                <img src={item.img} alt={item.name} className="w-10 h-10 rounded-xl object-cover border border-white/20"/>
+                                                <span className="font-bold text-white">{item.name} <span className="text-[10px] text-slate-400 font-mono block">({item.category})</span></span>
+                                            </div>
                                             <input type="checkbox" checked={selectedHamperItems.includes(item.name)} onChange={() => handleHamperToggle(item.name)} className="w-4 h-4 accent-white rounded cursor-pointer"/>
                                         </label>
                                     ))}
@@ -830,6 +846,7 @@
                                     <div className="bg-slate-950/90 p-6 rounded-3xl border border-white/20 flex flex-col justify-center items-center text-center space-y-4">
                                         {matchedResult ? (
                                             <div className="space-y-3 animate-fade-in">
+                                                <img src={matchedResult.img} alt={matchedResult.title} className="w-32 h-32 object-cover rounded-2xl mx-auto border border-white/30 shadow-lg"/>
                                                 <span className="bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-[10px] font-mono px-3 py-1 rounded-full uppercase font-bold">✨ Perfect AI Match Found</span>
                                                 <h4 className="text-lg font-black text-white font-display">{matchedResult.title}</h4>
                                                 <p className="text-xs text-slate-300 max-w-sm">{matchedResult.desc}</p>
@@ -872,12 +889,15 @@
                                         <h4 className="text-sm font-extrabold text-white font-display">📢 Live Community Stream</h4>
                                         <div className="space-y-3">
                                             {communityPosts.map((post) => (
-                                                <div key={post.id} className="bg-slate-950/90 p-5 rounded-3xl border border-white/15 space-y-2 rainbow-card-hover text-xs">
-                                                    <div className="flex justify-between items-center">
-                                                        <span className="font-bold text-white font-display">{post.author}</span>
-                                                        <span className="text-[10px] text-slate-400 font-mono">{post.time}</span>
+                                                <div key={post.id} className="bg-slate-950/90 p-5 rounded-3xl border border-white/15 space-y-2 rainbow-card-hover text-xs flex items-start space-x-4">
+                                                    <img src={post.avatar} alt={post.author} className="w-10 h-10 rounded-full object-cover border border-white/30 flex-shrink-0"/>
+                                                    <div className="flex-1">
+                                                        <div className="flex justify-between items-center">
+                                                            <span className="font-bold text-white font-display">{post.author}</span>
+                                                            <span className="text-[10px] text-slate-400 font-mono">{post.time}</span>
+                                                        </div>
+                                                        <p className="text-slate-300 leading-relaxed font-medium mt-1">{post.msg}</p>
                                                     </div>
-                                                    <p className="text-slate-300 leading-relaxed font-medium">{post.msg}</p>
                                                 </div>
                                             ))}
                                         </div>
@@ -927,13 +947,16 @@
                                             <h4 className="text-sm font-extrabold text-white font-display">💬 Verified Customer Experiences</h4>
                                             <div className="space-y-3">
                                                 {reviews.map((rev) => (
-                                                    <div key={rev.id} className="bg-slate-950/90 p-5 rounded-3xl border border-white/15 space-y-2 rainbow-card-hover">
-                                                        <div className="flex justify-between items-center">
-                                                            <span className="font-bold text-white text-xs font-display">{rev.name}</span>
-                                                            <span className="text-[10px] text-slate-400 font-mono">{rev.date}</span>
+                                                    <div key={rev.id} className="bg-slate-950/90 p-5 rounded-3xl border border-white/15 space-y-2 rainbow-card-hover flex items-start space-x-4">
+                                                        <img src={rev.avatar} alt={rev.name} className="w-10 h-10 rounded-full object-cover border border-white/30 flex-shrink-0"/>
+                                                        <div className="flex-1">
+                                                            <div className="flex justify-between items-center">
+                                                                <span className="font-bold text-white text-xs font-display">{rev.name}</span>
+                                                                <span className="text-[10px] text-slate-400 font-mono">{rev.date}</span>
+                                                            </div>
+                                                            <div className="text-amber-300 text-xs mt-0.5">{"⭐".repeat(rev.rating)}</div>
+                                                            <p className="text-xs text-slate-300 leading-relaxed font-medium mt-1">"{rev.comment}"</p>
                                                         </div>
-                                                        <div className="text-amber-300 text-xs">{"⭐".repeat(rev.rating)}</div>
-                                                        <p className="text-xs text-slate-300 leading-relaxed font-medium">"{rev.comment}"</p>
                                                     </div>
                                                 ))}
                                             </div>
@@ -1007,13 +1030,16 @@
                                         <h4 className="text-sm font-extrabold text-white font-display">Available Services:</h4>
                                         <div className="space-y-3">
                                             {BOOKABLE_SERVICES.map((s) => (
-                                                <div key={s.id} onClick={() => setBookingService(s.title)} className={`p-4 rounded-2xl border cursor-pointer transition-all ${bookingService === s.title ? 'bg-white/15 border-white shadow-md' : 'bg-slate-950/80 border-slate-800 hover:border-slate-600'}`}>
-                                                    <div className="flex justify-between items-center font-bold text-xs text-white">
-                                                        <span>{s.title}</span>
-                                                        <span className="text-white font-mono font-black">{s.price > 0 ? `R ${s.price}` : 'FREE'}</span>
+                                                <div key={s.id} onClick={() => setBookingService(s.title)} className={`p-4 rounded-2xl border cursor-pointer transition-all flex items-center space-x-3 ${bookingService === s.title ? 'bg-white/15 border-white shadow-md' : 'bg-slate-950/80 border-slate-800 hover:border-slate-600'}`}>
+                                                    <img src={s.img} alt={s.title} className="w-12 h-12 rounded-xl object-cover border border-white/20 flex-shrink-0"/>
+                                                    <div className="flex-1">
+                                                        <div className="flex justify-between items-center font-bold text-xs text-white">
+                                                            <span>{s.title}</span>
+                                                            <span className="text-white font-mono font-black">{s.price > 0 ? `R ${s.price}` : 'FREE'}</span>
+                                                        </div>
+                                                        <p className="text-[10px] text-slate-400 mt-0.5 line-clamp-1">{s.desc}</p>
+                                                        <span className="text-[9px] text-slate-500 font-mono block mt-1">⏱️ {s.duration}</span>
                                                     </div>
-                                                    <p className="text-[11px] text-slate-400 mt-1">{s.desc}</p>
-                                                    <span className="text-[10px] text-slate-500 font-mono block mt-2">⏱️ Duration: {s.duration}</span>
                                                 </div>
                                             ))}
                                         </div>
