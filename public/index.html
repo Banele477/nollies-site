@@ -20,9 +20,10 @@
         }
         h1, h2, h3, h4, .font-display { font-family: 'Space Grotesk', sans-serif; }
         
+        /* NEW FRESH IMMERSIVE BACKGROUND PICTURE (Durban Coastal / Modern Marketplace Vibe) */
         .hero-bg-image {
-            background: linear-gradient(to bottom, rgba(2, 6, 23, 0.85), rgba(9, 13, 22, 0.95)), 
-                        url('https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1600&q=80');
+            background: linear-gradient(to bottom, rgba(2, 6, 23, 0.82), rgba(9, 13, 22, 0.94)), 
+                        url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -103,7 +104,6 @@
 
         const PRODUCTS = [
             { id: 'c1', cat: 'cereal', title: 'Cereal Hamper Package 1', price: 250, badge: '5 Items', desc: 'Jungle Oats 1kg, Future Life 500g, Noodles, Bokomo Corn Flakes 1kg, Weet-Bix 450g.', img: 'https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=600&q=80' },
-            // ENHANCED PACKAGE 2 IMAGE WITH VIBRANT PREMIUM CEREAL VISUAL
             { id: 'c2', cat: 'cereal', title: 'Cereal Hamper Package 2', price: 250, badge: '5 Items', desc: 'Bokomo Corn Flakes 1kg, Rice Puffs, Juice, Porridge, Noodles.', img: 'https://images.unsplash.com/photo-1517093788734-90fa7b733160?auto=format&fit=crop&w=800&q=80' },
             { id: 'c3', cat: 'cereal', title: 'Cereal Hamper Package 3', price: 250, badge: '5 Items', desc: 'Bokomo Weet-Bix 450g, Corn Flakes 1kg, Future Life 500g, Nutrifics 450g, Noodles.', img: 'https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=600&q=80' },
             { id: 'b1', cat: 'essentials', title: 'Family Bulk Grocery Hamper', price: 380, badge: 'Best Value', desc: '10kg Maize Meal, 5L Sunflower Oil, 2kg White Sugar, 2kg Rice, 410g Baked Beans (x4).', img: 'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=600&q=80' },
@@ -135,7 +135,7 @@
         const LIVE_TICKER_ITEMS = [
             "🔥 HOT DEAL: Family Bulk Grocery Hamper (R380) - Best Seller in eNanda!",
             "🤖 24/7 AI ASSISTANT ONLINE: Tap bottom-right to ask Nollie AI anything!",
-            "✨ ENHANCED VISUALS: Stunning Background Imagery & Cereal Package 2 Loaded!",
+            "✨ FRESH COASTAL BACKGROUND LOADED: Stunning Durban Vibes Active!",
             "🚀 FAST DISPATCH: Flat R30 Delivery Across Durban & eNanda!",
             "💧 JUICES AFRICA: 4L High-Yield Concentrates Making 20L Juice!",
             "💎 M-SCENTS: Luxury 40ml Fragrances Available Now in Durban!"
@@ -159,10 +159,9 @@
             const [quickTrackId, setQuickTrackId] = useState('');
             const [trackResult, setTrackResult] = useState(null);
 
-            // AI ASSISTANT CHAT STATES
             const [isAiOpen, setIsAiOpen] = useState(false);
             const [aiMessages, setAiMessages] = useState([
-                { sender: 'ai', text: 'Sawubona! I am Nollie AI, your 24/7 Durban Hub assistant. How can I help you with our new cereal hampers, perfumes, or deliveries today?' }
+                { sender: 'ai', text: 'Sawubona! I am Nollie AI, your 24/7 Durban Hub assistant. How can I help you with our hampers, perfumes, or deliveries today?' }
             ]);
             const [aiInput, setAiInput] = useState('');
             const chatEndRef = useRef(null);
@@ -305,12 +304,10 @@
                 setAiInput('');
 
                 setTimeout(() => {
-                    let reply = "I can assist you with that! Feel free to explore our Cereal Hampers (Package 2 has a fresh visual update!), Family Bulk Grocery Hampers, and M-Scents perfumes. Flat R30 delivery across Durban and eNanda!";
+                    let reply = "I can assist you with that! Feel free to explore our Cereal Hampers, Family Bulk Grocery Hampers, and M-Scents perfumes. Flat R30 delivery across Durban and eNanda!";
                     const lower = userText.toLowerCase();
 
-                    if (lower.includes('package 2') || lower.includes('cereal hamper 2')) {
-                        reply = "Cereal Hamper Package 2 is R250 and includes Bokomo Corn Flakes 1kg, Rice Puffs, Juice, Porridge, and Noodles with our newly updated high-res package visual!";
-                    } else if (lower.includes('price') || lower.includes('cost') || lower.includes('how much')) {
+                    if (lower.includes('price') || lower.includes('cost') || lower.includes('how much')) {
                         reply = "Our Cereal Hampers are R250, Family Bulk Hampers are R380, Juices Africa 4L is R160, and M-Scents perfumes are R120. Delivery across Durban & eNanda is a flat R30!";
                     } else if (lower.includes('delivery') || lower.includes('deliver') || lower.includes('durban') || lower.includes('enanda')) {
                         reply = "Yes! We deliver directly across eNanda, Durban CBD, and surrounding KZN areas with a flat R30 delivery fee.";
@@ -597,7 +594,7 @@
                                 <div className="rainbow-glass border border-white/10 p-6 rounded-3xl shadow-xl flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                                     <div>
                                         <h3 className="text-2xl font-black rainbow-animated-text font-display">Coastal Marketplace Catalog</h3>
-                                        <p className="text-xs text-slate-400">Explore premium cereal hampers (including updated Package 2 visuals), bulk essentials, and luxury fragrances.</p>
+                                        <p className="text-xs text-slate-400">Explore premium cereal hampers, bulk essentials, and luxury fragrances.</p>
                                     </div>
                                     <input type="text" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder="🔍 Search Durban marketplace..." 
                                            className="w-full sm:w-80 px-4 py-3 rounded-2xl border border-purple-500/30 bg-slate-950/90 text-white placeholder-slate-500 text-xs outline-none focus:border-purple-400 focus:ring-2 focus:ring-purple-500/20 transition-all"/>
@@ -894,7 +891,7 @@
                                 </div>
 
                                 <form onSubmit={handleAiSend} className="p-3 bg-slate-950/95 border-t border-purple-500/30 flex gap-2">
-                                    <input type="text" value={aiInput} onChange={(e) => setAiInput(e.target.value)} placeholder="Ask about hamper package 2, prices..." 
+                                    <input type="text" value={aiInput} onChange={(e) => setAiInput(e.target.value)} placeholder="Ask about hampers, prices, delivery..." 
                                            className="flex-1 px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white text-xs outline-none focus:border-purple-400"/>
                                     <button type="submit" className="press-effect rainbow-btn px-4 py-2.5 rounded-xl text-xs font-black shadow">Send</button>
                                 </form>
@@ -970,7 +967,7 @@
                         <div className="fixed inset-0 bg-slate-950/85 backdrop-blur-md z-50 flex items-center justify-center p-4 animate-fade-in">
                             <div className="rainbow-glass rounded-3xl p-6 sm:p-8 border border-purple-500/40 max-w-md w-full space-y-5 shadow-2xl">
                                 <div className="flex justify-between items-center border-b border-white/10 pb-4">
-                                    <h3 className="font-black text-base text-white font-display">{activeModalProduct.title}</h3>
+                                    <h3 className="text-base font-black text-white font-display">{activeModalProduct.title}</h3>
                                     <button onClick={() => setActiveModalProduct(null)} className="press-effect text-slate-400 text-xl font-bold bg-slate-900 w-9 h-9 rounded-full flex items-center justify-center hover:bg-slate-800">&times;</button>
                                 </div>
                                 <img src={activeModalProduct.img} alt="Product" className="w-full h-52 object-cover rounded-2xl bg-slate-900 border border-slate-800 opacity-95" onError={(e)=>{e.target.onerror=null; e.target.src=FALLBACK_SVG;}}/>
