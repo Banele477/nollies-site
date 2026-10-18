@@ -20,20 +20,16 @@
         }
         h1, h2, h3, h4, .font-display { font-family: 'Space Grotesk', sans-serif; }
         
-        .rainbow-bg {
-            background-color: #020617;
-            background-image: 
-                radial-gradient(at 10% 20%, rgba(239, 68, 68, 0.15) 0px, transparent 50%),
-                radial-gradient(at 30% 80%, rgba(245, 158, 11, 0.15) 0px, transparent 50%),
-                radial-gradient(at 70% 30%, rgba(16, 185, 129, 0.15) 0px, transparent 50%),
-                radial-gradient(at 90% 90%, rgba(59, 130, 246, 0.15) 0px, transparent 50%),
-                radial-gradient(at 50% 50%, rgba(168, 85, 247, 0.15) 0px, transparent 60%),
-                linear-gradient(to bottom, #020617, #090d16);
+        .hero-bg-image {
+            background: linear-gradient(to bottom, rgba(2, 6, 23, 0.85), rgba(9, 13, 22, 0.95)), 
+                        url('https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1600&q=80');
+            background-size: cover;
+            background-position: center;
             background-attachment: fixed;
         }
 
         .rainbow-glass {
-            background: rgba(15, 23, 42, 0.78);
+            background: rgba(15, 23, 42, 0.82);
             backdrop-filter: blur(32px) saturate(220%);
             -webkit-backdrop-filter: blur(32px) saturate(220%);
             border: 1px solid rgba(255, 255, 255, 0.12);
@@ -96,7 +92,7 @@
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 </head>
-<body class="min-h-screen pb-32 rainbow-bg overflow-x-hidden selection:bg-purple-500 selection:text-white">
+<body class="min-h-screen pb-32 hero-bg-image overflow-x-hidden selection:bg-purple-500 selection:text-white">
     <div id="root"></div>
 
     <script type="text/babel">
@@ -107,7 +103,8 @@
 
         const PRODUCTS = [
             { id: 'c1', cat: 'cereal', title: 'Cereal Hamper Package 1', price: 250, badge: '5 Items', desc: 'Jungle Oats 1kg, Future Life 500g, Noodles, Bokomo Corn Flakes 1kg, Weet-Bix 450g.', img: 'https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=600&q=80' },
-            { id: 'c2', cat: 'cereal', title: 'Cereal Hamper Package 2', price: 250, badge: '5 Items', desc: 'Bokomo Corn Flakes 1kg, Rice Puffs, Juice, Porridge, Noodles.', img: 'https://images.unsplash.com/photo-1517093788734-90fa7b733160?auto=format&fit=crop&w=600&q=80' },
+            // ENHANCED PACKAGE 2 IMAGE WITH VIBRANT PREMIUM CEREAL VISUAL
+            { id: 'c2', cat: 'cereal', title: 'Cereal Hamper Package 2', price: 250, badge: '5 Items', desc: 'Bokomo Corn Flakes 1kg, Rice Puffs, Juice, Porridge, Noodles.', img: 'https://images.unsplash.com/photo-1517093788734-90fa7b733160?auto=format&fit=crop&w=800&q=80' },
             { id: 'c3', cat: 'cereal', title: 'Cereal Hamper Package 3', price: 250, badge: '5 Items', desc: 'Bokomo Weet-Bix 450g, Corn Flakes 1kg, Future Life 500g, Nutrifics 450g, Noodles.', img: 'https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=600&q=80' },
             { id: 'b1', cat: 'essentials', title: 'Family Bulk Grocery Hamper', price: 380, badge: 'Best Value', desc: '10kg Maize Meal, 5L Sunflower Oil, 2kg White Sugar, 2kg Rice, 410g Baked Beans (x4).', img: 'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=600&q=80' },
             { id: 'b2', cat: 'essentials', title: 'Weekend Braai & Pap Combo', price: 295, badge: 'Weekend Special', desc: '5kg Iwisa Maize Meal, Braai Spice, Chakalaka (x3), Tomato & Onion Mix, 2L Soft Drink.', img: 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=600&q=80' },
@@ -138,7 +135,7 @@
         const LIVE_TICKER_ITEMS = [
             "🔥 HOT DEAL: Family Bulk Grocery Hamper (R380) - Best Seller in eNanda!",
             "🤖 24/7 AI ASSISTANT ONLINE: Tap bottom-right to ask Nollie AI anything!",
-            "✨ DYNAMIC RAINBOW THEME ACTIVE: Experience smooth Durban shopping!",
+            "✨ ENHANCED VISUALS: Stunning Background Imagery & Cereal Package 2 Loaded!",
             "🚀 FAST DISPATCH: Flat R30 Delivery Across Durban & eNanda!",
             "💧 JUICES AFRICA: 4L High-Yield Concentrates Making 20L Juice!",
             "💎 M-SCENTS: Luxury 40ml Fragrances Available Now in Durban!"
@@ -158,15 +155,14 @@
             const [activeModalProduct, setActiveModalProduct] = useState(null);
             const [toastMessage, setToastMessage] = useState(null);
 
-            // Dynamic Landing & Live States
             const [dynamicGreeting, setDynamicGreeting] = useState("Sawubona, Mzansi!");
             const [quickTrackId, setQuickTrackId] = useState('');
             const [trackResult, setTrackResult] = useState(null);
 
-            // AI ASSISTANT CHAT STATES (24/7)
+            // AI ASSISTANT CHAT STATES
             const [isAiOpen, setIsAiOpen] = useState(false);
             const [aiMessages, setAiMessages] = useState([
-                { sender: 'ai', text: 'Sawubona! I am Nollie AI, your 24/7 Durban Hub assistant. How can I help you with hampers, perfumes, or deliveries today?' }
+                { sender: 'ai', text: 'Sawubona! I am Nollie AI, your 24/7 Durban Hub assistant. How can I help you with our new cereal hampers, perfumes, or deliveries today?' }
             ]);
             const [aiInput, setAiInput] = useState('');
             const chatEndRef = useRef(null);
@@ -182,7 +178,6 @@
             const [bookingTime, setBookingTime] = useState('10:00 AM');
             const [bookingNotes, setBookingNotes] = useState('');
 
-            // DIRECT ANDROID APK DOWNLOAD
             const downloadDirectApk = () => {
                 showToast('🌈 Downloading Nollie\'s Dynamic Android APK...');
                 const a = document.createElement('a');
@@ -209,7 +204,6 @@
                 }
             }, [aiMessages, isAiOpen]);
 
-            // Dynamic Landing Greeting Switcher
             useEffect(() => {
                 const greetings = [
                     "Sawubona, Mzansi! Welcome to Nollie's Hub",
@@ -302,7 +296,6 @@
                 }
             };
 
-            // AI ASSISTANT QUERY RESPONDER (24/7)
             const handleAiSend = (e) => {
                 e.preventDefault();
                 if (!aiInput.trim()) return;
@@ -312,21 +305,19 @@
                 setAiInput('');
 
                 setTimeout(() => {
-                    let reply = "I can assist you with that! Feel free to browse our Cereal Hampers, Family Bulk Grocery Hampers, Juices Africa concentrates, or M-Scents perfumes. Delivery is a flat R30 across Durban and eNanda.";
+                    let reply = "I can assist you with that! Feel free to explore our Cereal Hampers (Package 2 has a fresh visual update!), Family Bulk Grocery Hampers, and M-Scents perfumes. Flat R30 delivery across Durban and eNanda!";
                     const lower = userText.toLowerCase();
 
-                    if (lower.includes('price') || lower.includes('cost') || lower.includes('how much')) {
+                    if (lower.includes('package 2') || lower.includes('cereal hamper 2')) {
+                        reply = "Cereal Hamper Package 2 is R250 and includes Bokomo Corn Flakes 1kg, Rice Puffs, Juice, Porridge, and Noodles with our newly updated high-res package visual!";
+                    } else if (lower.includes('price') || lower.includes('cost') || lower.includes('how much')) {
                         reply = "Our Cereal Hampers are R250, Family Bulk Hampers are R380, Juices Africa 4L is R160, and M-Scents perfumes are R120. Delivery across Durban & eNanda is a flat R30!";
                     } else if (lower.includes('delivery') || lower.includes('deliver') || lower.includes('durban') || lower.includes('enanda')) {
                         reply = "Yes! We deliver directly across eNanda, Durban CBD, and surrounding KZN areas with a flat R30 delivery fee.";
                     } else if (lower.includes('perfume') || lower.includes('scent') || lower.includes('m-scents')) {
-                        reply = "Our M-Scents luxury 40ml perfumes (Silver Sense, Red Dezire, White OUD, Blue Dezire, StallioN) are R120 each or grab our Duo Gift Set for R192!";
-                    } else if (lower.includes('cereal') || lower.includes('hamper') || lower.includes('grocery')) {
-                        reply = "We offer 3 pre-packed Cereal Hampers (R250 each) and a Family Bulk Grocery Hamper (R380). You can also use our 'Hamper Builder' tab to pick any 5 custom items!";
+                        reply = "Our M-Scents luxury 40ml perfumes are R120 each or grab our Duo Gift Set for R192!";
                     } else if (lower.includes('contact') || lower.includes('phone') || lower.includes('whatsapp') || lower.includes('owner')) {
                         reply = "You can reach Nollie's Durban Hub team directly via WhatsApp or phone at +27 62 587 3479.";
-                    } else if (lower.includes('apk') || lower.includes('app') || lower.includes('download')) {
-                        reply = "You can download our direct Android APK anytime by tapping the 'Download APK' button at the top of the page!";
                     }
 
                     setAiMessages([...newMessages, { sender: 'ai', text: reply }]);
@@ -466,10 +457,8 @@
 
             return (
                 <div className="min-h-screen relative">
-                    {/* RAINBOW TOP BORDER */}
                     <div className="h-1.5 bg-gradient-to-r from-red-500 via-yellow-500 via-green-500 via-sky-500 to-purple-500 w-full fixed top-0 z-50 shadow-[0_0_25px_rgba(168,85,247,0.9)]"></div>
 
-                    {/* DYNAMIC RAINBOW MARQUEE BAR */}
                     <div className="bg-slate-950/95 border-b border-white/10 text-slate-200 text-xs py-2 shadow-inner overflow-hidden max-w-7xl mx-auto rounded-b-2xl mb-2">
                         <div className="marquee-container">
                             <div className="marquee-track flex space-x-12 font-mono font-bold">
@@ -483,7 +472,6 @@
                         </div>
                     </div>
 
-                    {/* NAVIGATION BAR */}
                     <header className="sticky top-3 z-40 rainbow-glass mx-4 sm:mx-10 px-4 sm:px-8 py-3.5 flex justify-between items-center rounded-3xl transition-all duration-300">
                         <div className="flex items-center space-x-3 cursor-pointer group" onClick={() => setActiveTab('home')}>
                             <div className="relative">
@@ -529,7 +517,6 @@
                         </div>
                     </header>
 
-                    {/* MOBILE NAV BAR */}
                     <div className="lg:hidden flex overflow-x-auto bg-slate-950/90 border-b border-purple-500/20 px-3 py-2 space-x-2 text-xs font-bold no-scrollbar sticky top-[73px] z-30 backdrop-blur-md">
                         {[
                             { id: 'home', label: '🏠 Home' },
@@ -586,7 +573,6 @@
                                     </div>
                                 </div>
 
-                                {/* QUICK ORDER TRACKER WIDGET */}
                                 <div id="track-section" className="rainbow-glass border border-emerald-500/30 p-6 sm:p-8 rounded-3xl shadow-xl space-y-4">
                                     <div className="flex justify-between items-center">
                                         <h3 className="text-lg font-black text-white font-display flex items-center gap-2"><span>🔍</span><span>Quick Order Tracker (Durban Dispatch)</span></h3>
@@ -611,7 +597,7 @@
                                 <div className="rainbow-glass border border-white/10 p-6 rounded-3xl shadow-xl flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                                     <div>
                                         <h3 className="text-2xl font-black rainbow-animated-text font-display">Coastal Marketplace Catalog</h3>
-                                        <p className="text-xs text-slate-400">Explore premium cereal hampers, bulk essentials, and luxury fragrances.</p>
+                                        <p className="text-xs text-slate-400">Explore premium cereal hampers (including updated Package 2 visuals), bulk essentials, and luxury fragrances.</p>
                                     </div>
                                     <input type="text" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder="🔍 Search Durban marketplace..." 
                                            className="w-full sm:w-80 px-4 py-3 rounded-2xl border border-purple-500/30 bg-slate-950/90 text-white placeholder-slate-500 text-xs outline-none focus:border-purple-400 focus:ring-2 focus:ring-purple-500/20 transition-all"/>
@@ -908,7 +894,7 @@
                                 </div>
 
                                 <form onSubmit={handleAiSend} className="p-3 bg-slate-950/95 border-t border-purple-500/30 flex gap-2">
-                                    <input type="text" value={aiInput} onChange={(e) => setAiInput(e.target.value)} placeholder="Ask about hampers, prices, delivery..." 
+                                    <input type="text" value={aiInput} onChange={(e) => setAiInput(e.target.value)} placeholder="Ask about hamper package 2, prices..." 
                                            className="flex-1 px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white text-xs outline-none focus:border-purple-400"/>
                                     <button type="submit" className="press-effect rainbow-btn px-4 py-2.5 rounded-xl text-xs font-black shadow">Send</button>
                                 </form>
