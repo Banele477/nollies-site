@@ -9,11 +9,14 @@ var base=location.pathname.replace(/[^\/]*$/,"");
 var CDN="https://cdn.jsdelivr.net/gh/"+OWNER+"/"+REPO+"@"+BRANCH+"/public/images/";
 var FALL="data:image/svg+xml;utf8,"+encodeURIComponent("<svg xmlns='http://www.w3.org/2000/svg' width='600' height='600'><rect width='100%' height='100%' fill='#0f172a'/><text x='50%' y='50%' fill='#38bdf8' font-family='sans-serif' font-size='20' font-weight='700' text-anchor='middle'>Nqobile's Hub Item</text></svg>");
 
-var CATS={
-  all:"✨ All Items",
-  bundle:"📦 Combos & Hampers",
-  pantry:"🥣 Pantry & Drinks",
-  flyer:"🎯 Flyers & Specials"
+var TABS={
+  all:"🔥 All Highlights",
+  trending:"⚡ Trending Deals",
+  bundle:"📦 Bulk & Hampers",
+  pantry:"🥣 Pantry Essentials",
+  campus:"🎓 DUT Campus Specials",
+  meeting:"📅 Book Meeting",
+  popia:"🔒 POPIA Policy"
 };
 
 var css=`
@@ -31,11 +34,11 @@ var css=`
 .search-box input:focus { border-color: #38bdf8; box-shadow: 0 0 20px rgba(56, 189, 248, 0.25); }
 .search-box svg { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); width: 18px; height: 18px; fill: #94a3b8; }
 
-/* Category Pills & Hub Nav */
-#nqc .ch { display: flex; gap: 10px; overflow-x: auto; padding: 4px 4px 16px; scrollbar-width: none; justify-content: center; flex-wrap: wrap; }
+/* Rebuilt Advanced Tab Navigation */
+#nqc .ch { display: flex; gap: 10px; overflow-x: auto; padding: 4px 4px 20px; scrollbar-width: none; justify-content: center; flex-wrap: wrap; }
 #nqc .ch::-webkit-scrollbar { display: none; }
-#nqc .ch button { flex: none; padding: 10px 20px; border-radius: 999px; border: 1px solid rgba(255, 255, 255, 0.1); background: rgba(30, 41, 59, 0.6); color: #cbd5e1; font-weight: 600; font-size: 13px; cursor: pointer; transition: all 0.25s ease; backdrop-filter: blur(8px); }
-#nqc .ch button:hover { border-color: rgba(56, 189, 248, 0.4); color: #fff; }
+#nqc .ch button { flex: none; padding: 10px 18px; border-radius: 999px; border: 1px solid rgba(255, 255, 255, 0.1); background: rgba(30, 41, 59, 0.6); color: #cbd5e1; font-weight: 600; font-size: 13px; cursor: pointer; transition: all 0.25s ease; backdrop-filter: blur(8px); }
+#nqc .ch button:hover { border-color: rgba(56, 189, 248, 0.4); color: #fff; transform: translateY(-2px); }
 #nqc .ch button.on { background: linear-gradient(135deg, #38bdf8 0%, #2563eb 100%); color: #0f172a; border-color: transparent; font-weight: 800; box-shadow: 0 4px 15px rgba(56, 189, 248, 0.35); }
 
 /* Social Media Hub Row */
@@ -71,7 +74,7 @@ var css=`
 .form-group { margin-bottom: 16px; }
 .form-group label { display: block; font-size: 13px; font-weight: 600; color: #fff; margin-bottom: 6px; }
 .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 12px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.15); background: rgba(30,41,59,0.8); color: #fff; box-sizing: border-box; font-size: 14px; }
-.submit-form-btn { padding: 12px 24px; border-radius: 12px; background: #22c55e; color: #fff; font-weight: 800; border: none; cursor: pointer; }
+.submit-form-btn { padding: 12px 24px; border-radius: 12px; background: #22c55e; color: #fff; font-weight: 800; border: none; cursor: pointer; box-shadow: 0 4px 15px rgba(34, 197, 94, 0.3); }
 
 /* Floating Quick Action Bar */
 .cart-floating-bar { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: rgba(15, 23, 42, 0.92); backdrop-filter: blur(20px); border: 1px solid rgba(56, 189, 248, 0.35); padding: 12px 24px; border-radius: 999px; z-index: 99999; display: flex; align-items: center; gap: 16px; box-shadow: 0 10px 40px rgba(0,0,0,0.6); }
@@ -181,40 +184,55 @@ function init(){
   var meetingView = sec.querySelector("#meeting-view");
   var popiaView = sec.querySelector("#popia-view");
 
-  // Render Category Buttons plus dynamic tabs
-  Object.keys(CATS).forEach(function(k){
-    var b=document.createElement("button"); b.textContent=CATS[k]; b.dataset.k=k; if(k==="all") b.className="on";
+  var tabButtons = {};
+
+  // Render Tabs dynamically
+  Object.keys(TABS).forEach(function(k){
+    var b=document.createElement("button");
+    b.textContent=TABS[k];
+    b.dataset.tab=k;
+    if(k==="all") b.className="on";
     ch.appendChild(b);
+    tabButtons[k] = b;
   });
 
-  // Extra Dynamic Tabs for Meeting & Privacy
-  var meetTab = document.createElement("button"); meetTab.textContent = "📅 Book Meeting";
-  meetTab.addEventListener("click", function(){
-    ch.querySelectorAll("button").forEach(function(x){ x.classList.remove("on"); });
-    meetTab.classList.add("on");
-    catalogContainer.style.display = "none";
-    meetingView.classList.add("active");
-    popiaView.classList.remove("active");
-  });
-  ch.appendChild(meetTab);
+  function switchTab(tabKey) {
+    Object.keys(tabButtons).forEach(function(k){
+      tabButtons[k].classList.toggle("on", k === tabKey);
+    });
 
-  var popiaTab = document.createElement("button"); popiaTab.textContent = "🔒 POPIA Policy";
-  popiaTab.addEventListener("click", function(){
-    ch.querySelectorAll("button").forEach(function(x){ x.classList.remove("on"); });
-    popiaTab.classList.add("on");
-    catalogContainer.style.display = "none";
-    meetingView.classList.remove("active");
-    popiaView.classList.add("active");
-  });
-  ch.appendChild(popiaTab);
+    if(tabKey === "meeting") {
+      catalogContainer.style.display = "none";
+      meetingView.classList.add("active");
+      popiaView.classList.remove("active");
+    } else if(tabKey === "popia") {
+      catalogContainer.style.display = "none";
+      meetingView.classList.remove("active");
+      popiaView.classList.add("active");
+    } else {
+      catalogContainer.style.display = "block";
+      meetingView.classList.remove("active");
+      popiaView.classList.remove("active");
+      renderGrid(tabKey, sec.querySelector("#nq-search").value);
+    }
+  }
 
-  function renderGrid(filterCat, searchQuery) {
+  function renderGrid(activeTab, searchQuery) {
     g.innerHTML = "";
     P.forEach(function(p){
-      var catMapped = (p.c === 'hamper' || p.c === 'bulk') ? 'bundle' : (p.c === 'cereal' || p.c === 'juice') ? 'pantry' : p.c;
-      var matchCat = (filterCat==="all" || catMapped===filterCat);
+      var isTrending = (p.c === 'flyer' || p.c === 'juice' || p.t.toLowerCase().includes('special') || p.t.toLowerCase().includes('combo'));
+      var isBundle = (p.c === 'hamper' || p.c === 'bulk' || p.t.toLowerCase().includes('hamper') || p.t.toLowerCase().includes('box'));
+      var isPantry = (p.c === 'cereal' || p.c === 'juice' || p.t.toLowerCase().includes('cereal') || p.t.toLowerCase().includes('noodles'));
+      var isCampus = (p.t.toLowerCase().includes('student') || p.t.toLowerCase().includes('campus') || p.c === 'flyer');
+
+      var matchTab = true;
+      if(activeTab === "trending") matchTab = isTrending;
+      else if(activeTab === "bundle") matchTab = isBundle;
+      else if(activeTab === "pantry") matchTab = isPantry;
+      else if(activeTab === "campus") matchTab = isCampus;
+
       var matchSearch = (!searchQuery || p.t.toLowerCase().includes(searchQuery.toLowerCase()));
-      if(!matchCat || !matchSearch) return;
+      if(!matchTab || !matchSearch) return;
       
       var d=document.createElement("div"); d.className="c";
       d.innerHTML=`
@@ -252,40 +270,22 @@ function init(){
   renderGrid("all", "");
 
   ch.addEventListener("click",function(e){
-    var b=e.target.closest("button"); if(!b || b === meetTab || b === popiaTab) return;
-    ch.querySelectorAll("button").forEach(function(x){ x.classList.toggle("on", x===b); });
-    catalogContainer.style.display = "block";
-    meetingView.classList.remove("active");
-    popiaView.classList.remove("active");
-    renderGrid(b.dataset.k, sec.querySelector("#nq-search").value);
+    var b=e.target.closest("button"); if(!b) return;
+    switchTab(b.dataset.tab);
   });
 
   sec.querySelector("#nq-search").addEventListener("input", function(e){
     var activeBtn = ch.querySelector("button.on");
-    if(activeBtn !== meetTab && activeBtn !== popiaTab) {
-      renderGrid(activeBtn ? activeBtn.dataset.k : "all", e.target.value);
+    var activeKey = activeBtn ? activeBtn.dataset.tab : "all";
+    if(activeKey !== "meeting" && activeKey !== "popia") {
+      renderGrid(activeKey, e.target.value);
     }
   });
 
   // Footer Link Handlers
-  sec.querySelector("#nav-catalog").addEventListener("click", function(){
-    catalogContainer.style.display = "block";
-    meetingView.classList.remove("active");
-    popiaView.classList.remove("active");
-    window.scrollTo({top:0, behavior:'smooth'});
-  });
-  sec.querySelector("#nav-meeting").addEventListener("click", function(){
-    catalogContainer.style.display = "none";
-    meetingView.classList.add("active");
-    popiaView.classList.remove("active");
-    window.scrollTo({top:0, behavior:'smooth'});
-  });
-  sec.querySelector("#nav-popia").addEventListener("click", function(){
-    catalogContainer.style.display = "none";
-    meetingView.classList.remove("active");
-    popiaView.classList.add("active");
-    window.scrollTo({top:0, behavior:'smooth'});
-  });
+  sec.querySelector("#nav-catalog").addEventListener("click", function(){ switchTab("all"); window.scrollTo({top:0, behavior:'smooth'}); });
+  sec.querySelector("#nav-meeting").addEventListener("click", function(){ switchTab("meeting"); window.scrollTo({top:0, behavior:'smooth'}); });
+  sec.querySelector("#nav-popia").addEventListener("click", function(){ switchTab("popia"); window.scrollTo({top:0, behavior:'smooth'}); });
 
   // Meeting Form WhatsApp Dispatcher
   sec.querySelector("#submit-meet").addEventListener("click", function(){
