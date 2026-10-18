@@ -11,7 +11,7 @@ ready(function(){
   var tt=document.createElement("div");tt.id="nq3-toast";document.body.appendChild(tt);
 
   var nav=document.createElement("nav");nav.id="nq3-nav";
-  nav.innerHTML="<button data-g='top'><span>🏠</span>Home</button><button data-g='shop'><span>🛍️</span>Shop</button><button data-g='order'><span>⚡</span>Order</button><a class='go' target='_blank' rel='noopener' href='https://wa.me/"+WA+"?text="+(window.nqEnc||encodeURIComponent)("Hi Nqobile's Hub, I have a question.")+"'><span>💬</span>Chat</a>";
+  nav.innerHTML="<button data-g='top'><span>🏠</span>Home</button><button data-g='shop'><span>🛍️</span>Shop</button><button data-g='order'><span>⚡</span>Order</button><a class='go' target='_blank' rel='noopener' href='https://wa.me/"+WA+"?text="+encodeURIComponent("Hi Nqobile's Hub, I have a question.")+"'><span>💬</span>Chat</a>";
   nav.addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;
     if(b.dataset.g==="top")scrollTo({top:0,behavior:"smooth"});
     if(b.dataset.g==="shop"){var s=$("#nqc");s?s.scrollIntoView({behavior:"smooth"}):toast("Shop is loading...")}
@@ -35,7 +35,7 @@ function enhance(c){
       var ok=(k==="all"||d.dataset.c===k)&&(!s||d.textContent.toLowerCase().indexOf(s)>-1);
       d.style.display=ok?"":"none";if(ok)n++;
     });
-    if(!n){none.innerHTML="No match. <a target='_blank' rel='noopener' href='https://wa.me/"+WA+"?text="+(window.nqEnc||encodeURIComponent)("Hi Nqobile's Hub, do you have: "+q.value)+"'>Ask us on WhatsApp</a>";none.style.display="block"}else none.style.display="none";
+    if(!n){none.innerHTML="No match. <a target='_blank' rel='noopener' href='https://wa.me/"+WA+"?text="+encodeURIComponent("Hi Nqobile's Hub, do you have: "+q.value)+"'>Ask us on WhatsApp</a>";none.style.display="block"}else none.style.display="none";
   }
   q.addEventListener("input",apply);
   ch.addEventListener("click",function(){setTimeout(apply,0)});
@@ -43,7 +43,7 @@ function enhance(c){
   var faq=document.createElement("section");faq.id="nq3-faq";
   faq.innerHTML="<h2>❓ Good to know</h2>"+
   "<details><summary>How does delivery work?</summary><p>We deliver across Durban and eNanda for a flat R30. Send your order on WhatsApp and we confirm it with you.</p></details>"+
-  "<details><summary>How do I pay?</summary><p>Choose at checkout: cash on delivery, EFT, PayShap or online payment (the options shown depend on what we have switched on). Ask us on WhatsApp if unsure.</p></details>"+
+  "<details><summary>How do I pay?</summary><p>Cash on delivery is available. Ask us on WhatsApp about other options.</p></details>"+
   "<details><summary>Can I collect my order?</summary><p>Yes. Choose Collect in the Order sheet and delivery is free.</p></details>"+
   "<details><summary>Do you do bulk orders?</summary><p>Yes. Hampers, bulk boxes and juice concentrates are available in bulk. Message us for a quote.</p></details>";
   c.parentNode.insertBefore(faq,c.nextSibling);
