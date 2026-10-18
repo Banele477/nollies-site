@@ -20,10 +20,10 @@
         }
         h1, h2, h3, h4, .font-display { font-family: 'Space Grotesk', sans-serif; }
         
-        /* NEW FRESH IMMERSIVE BACKGROUND PICTURE (Durban Coastal / Modern Marketplace Vibe) */
+        /* GREEN WAVES & EMERALD COASTAL BACKGROUND VIBE */
         .hero-bg-image {
-            background: linear-gradient(to bottom, rgba(2, 6, 23, 0.82), rgba(9, 13, 22, 0.94)), 
-                        url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80');
+            background: linear-gradient(to bottom, rgba(2, 44, 34, 0.78), rgba(2, 6, 23, 0.95)), 
+                        url('https://images.unsplash.com/photo-1518837695005-2083093ee35b?auto=format&fit=crop&w=1600&q=80');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -33,7 +33,7 @@
             background: rgba(15, 23, 42, 0.82);
             backdrop-filter: blur(32px) saturate(220%);
             -webkit-backdrop-filter: blur(32px) saturate(220%);
-            border: 1px solid rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(16, 185, 129, 0.25);
             box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.7);
         }
 
@@ -42,8 +42,8 @@
         }
         .rainbow-card-hover:hover {
             transform: translateY(-6px) scale(1.01);
-            border-color: rgba(239, 68, 68, 0.4);
-            box-shadow: 0 30px 70px -12px rgba(168, 85, 247, 0.35);
+            border-color: rgba(16, 185, 129, 0.5);
+            box-shadow: 0 30px 70px -12px rgba(16, 185, 129, 0.35);
         }
 
         @keyframes rainbowText {
@@ -52,22 +52,22 @@
         }
 
         .rainbow-animated-text {
-            background: linear-gradient(135deg, #ef4444, #f59e0b, #10b981, #0ea5e9, #a855f7, #ec4899);
+            background: linear-gradient(135deg, #10b981, #34d399, #6ee7b7, #38bdf8, #818cf8, #c084fc);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             animation: rainbowText 8s linear infinite;
         }
 
         .rainbow-btn {
-            background: linear-gradient(135deg, #ef4444 0%, #f59e0b 25%, #10b981 50%, #0ea5e9 75%, #a855f7 100%);
+            background: linear-gradient(135deg, #059669 0%, #10b981 30%, #34d399 60%, #0ea5e9 100%);
             background-size: 200% auto;
             transition: all 0.4s ease;
             color: #ffffff;
-            box-shadow: 0 4px 20px rgba(168, 85, 247, 0.4);
+            box-shadow: 0 4px 20px rgba(16, 185, 129, 0.4);
         }
         .rainbow-btn:hover {
             background-position: right center;
-            box-shadow: 0 6px 30px rgba(239, 68, 68, 0.6);
+            box-shadow: 0 6px 30px rgba(5, 150, 105, 0.6);
             transform: translateY(-2px);
         }
 
@@ -93,7 +93,7 @@
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 </head>
-<body class="min-h-screen pb-32 hero-bg-image overflow-x-hidden selection:bg-purple-500 selection:text-white">
+<body class="min-h-screen pb-32 hero-bg-image overflow-x-hidden selection:bg-emerald-500 selection:text-white">
     <div id="root"></div>
 
     <script type="text/babel">
@@ -133,9 +133,9 @@
         ];
 
         const LIVE_TICKER_ITEMS = [
+            "💚 GREEN WAVES VIBE ACTIVE: Emerald Coastal Background Loaded!",
             "🔥 HOT DEAL: Family Bulk Grocery Hamper (R380) - Best Seller in eNanda!",
             "🤖 24/7 AI ASSISTANT ONLINE: Tap bottom-right to ask Nollie AI anything!",
-            "✨ FRESH COASTAL BACKGROUND LOADED: Stunning Durban Vibes Active!",
             "🚀 FAST DISPATCH: Flat R30 Delivery Across Durban & eNanda!",
             "💧 JUICES AFRICA: 4L High-Yield Concentrates Making 20L Juice!",
             "💎 M-SCENTS: Luxury 40ml Fragrances Available Now in Durban!"
@@ -178,7 +178,7 @@
             const [bookingNotes, setBookingNotes] = useState('');
 
             const downloadDirectApk = () => {
-                showToast('🌈 Downloading Nollie\'s Dynamic Android APK...');
+                showToast('💚 Downloading Nollie\'s Dynamic Android APK...');
                 const a = document.createElement('a');
                 a.href = '/downloads/nollies.apk';
                 a.download = 'NolliesHub.apk';
@@ -454,14 +454,14 @@
 
             return (
                 <div className="min-h-screen relative">
-                    <div className="h-1.5 bg-gradient-to-r from-red-500 via-yellow-500 via-green-500 via-sky-500 to-purple-500 w-full fixed top-0 z-50 shadow-[0_0_25px_rgba(168,85,247,0.9)]"></div>
+                    <div className="h-1.5 bg-gradient-to-r from-emerald-500 via-teal-400 via-green-500 to-cyan-500 w-full fixed top-0 z-50 shadow-[0_0_25px_rgba(16,185,129,0.9)]"></div>
 
-                    <div className="bg-slate-950/95 border-b border-white/10 text-slate-200 text-xs py-2 shadow-inner overflow-hidden max-w-7xl mx-auto rounded-b-2xl mb-2">
+                    <div className="bg-slate-950/95 border-b border-emerald-500/20 text-slate-200 text-xs py-2 shadow-inner overflow-hidden max-w-7xl mx-auto rounded-b-2xl mb-2">
                         <div className="marquee-container">
                             <div className="marquee-track flex space-x-12 font-mono font-bold">
                                 {LIVE_TICKER_ITEMS.concat(LIVE_TICKER_ITEMS).map((ticker, i) => (
                                     <span key={i} className="flex items-center gap-2">
-                                        <span className="w-2 h-2 rounded-full bg-pink-500 animate-ping"></span>
+                                        <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
                                         <span className="rainbow-animated-text">{ticker}</span>
                                     </span>
                                 ))}
@@ -472,18 +472,18 @@
                     <header className="sticky top-3 z-40 rainbow-glass mx-4 sm:mx-10 px-4 sm:px-8 py-3.5 flex justify-between items-center rounded-3xl transition-all duration-300">
                         <div className="flex items-center space-x-3 cursor-pointer group" onClick={() => setActiveTab('home')}>
                             <div className="relative">
-                                <img src={NOLLIE_AVATAR} alt="Nollie" className="w-12 h-12 rounded-2xl object-cover border-2 border-purple-400/60 shadow-lg group-hover:scale-105 transition-all duration-300" />
+                                <img src={NOLLIE_AVATAR} alt="Nollie" className="w-12 h-12 rounded-2xl object-cover border-2 border-emerald-400/60 shadow-lg group-hover:scale-105 transition-all duration-300" />
                                 <span className="absolute -bottom-1 -right-1 w-3.5 h-3.5 bg-emerald-400 border-2 border-slate-950 rounded-full shadow-[0_0_10px_#10b981] animate-pulse"></span>
                             </div>
                             <div>
                                 <h1 className="text-lg font-black tracking-wider text-white leading-none font-display uppercase flex items-center gap-1.5">
-                                    Nollie's <span className="text-[9px] bg-purple-500/20 text-purple-300 px-1.5 py-0.5 rounded border border-purple-500/30 font-mono">RAINBOW</span>
+                                    Nollie's <span className="text-[9px] bg-emerald-500/20 text-emerald-300 px-1.5 py-0.5 rounded border border-emerald-500/30 font-mono">GREEN HUB</span>
                                 </h1>
                                 <span className="text-[10px] font-bold text-slate-300 tracking-widest uppercase">eNanda Coastal Hub</span>
                             </div>
                         </div>
                         
-                        <nav className="hidden lg:flex items-center space-x-1 bg-slate-950/70 p-1.5 rounded-2xl border border-white/10 text-xs font-bold text-slate-300 shadow-inner">
+                        <nav className="hidden lg:flex items-center space-x-1 bg-slate-950/70 p-1.5 rounded-2xl border border-emerald-500/20 text-xs font-bold text-slate-300 shadow-inner">
                             {[
                                 { id: 'home', label: '🏠 Home' },
                                 { id: 'catalog', label: '🛍️ Catalog' },
@@ -495,7 +495,7 @@
                                 { id: 'privacy', label: '🔒 Security' }
                             ].map(tab => (
                                 <button key={tab.id} onClick={() => { if(tab.id==='orders' || tab.id==='admin'){ fetchOrders(); fetchBookings(); } setActiveTab(tab.id); }} 
-                                        className={`px-3.5 py-2 rounded-xl transition-all duration-300 ${activeTab === tab.id ? 'rainbow-btn font-extrabold shadow-lg scale-105' : 'hover:text-purple-300 hover:bg-slate-900/60'}`}>
+                                        className={`px-3.5 py-2 rounded-xl transition-all duration-300 ${activeTab === tab.id ? 'rainbow-btn font-extrabold shadow-lg scale-105' : 'hover:text-emerald-300 hover:bg-slate-900/60'}`}>
                                     {tab.label}
                                 </button>
                             ))}
@@ -509,12 +509,12 @@
 
                             <button onClick={() => setIsCartOpen(true)} className="press-effect relative flex items-center space-x-2 rainbow-btn text-xs font-black px-5 py-2.5 rounded-2xl shadow hover:scale-105 transition-all">
                                 <span>🛒 Cart</span>
-                                <span className="bg-slate-950 text-purple-300 border border-purple-400/50 text-[11px] rounded-full h-5 w-5 flex items-center justify-center font-black">{cart.length}</span>
+                                <span className="bg-slate-950 text-emerald-300 border border-emerald-400/50 text-[11px] rounded-full h-5 w-5 flex items-center justify-center font-black">{cart.length}</span>
                             </button>
                         </div>
                     </header>
 
-                    <div className="lg:hidden flex overflow-x-auto bg-slate-950/90 border-b border-purple-500/20 px-3 py-2 space-x-2 text-xs font-bold no-scrollbar sticky top-[73px] z-30 backdrop-blur-md">
+                    <div className="lg:hidden flex overflow-x-auto bg-slate-950/90 border-b border-emerald-500/20 px-3 py-2 space-x-2 text-xs font-bold no-scrollbar sticky top-[73px] z-30 backdrop-blur-md">
                         {[
                             { id: 'home', label: '🏠 Home' },
                             { id: 'catalog', label: '🛍️ Catalog' },
@@ -534,11 +534,11 @@
                     <main className="max-w-6xl mx-auto px-4 mt-8 space-y-10 animate-fade-in">
                         {activeTab === 'home' && (
                             <section className="space-y-10 animate-fade-in">
-                                <div className="relative overflow-hidden rounded-3xl border border-purple-500/30 p-8 sm:p-14 shadow-2xl rainbow-glass flex flex-col lg:flex-row items-center justify-between gap-10">
-                                    <div className="absolute -right-20 -top-20 w-96 h-96 bg-purple-500/15 rounded-full blur-3xl pointer-events-none"></div>
+                                <div className="relative overflow-hidden rounded-3xl border border-emerald-500/35 p-8 sm:p-14 shadow-2xl rainbow-glass flex flex-col lg:flex-row items-center justify-between gap-10">
+                                    <div className="absolute -right-20 -top-20 w-96 h-96 bg-emerald-500/15 rounded-full blur-3xl pointer-events-none"></div>
                                     <div className="space-y-6 max-w-xl z-10">
-                                        <div className="inline-flex items-center space-x-2 bg-slate-950/90 px-4 py-1.5 rounded-full border border-purple-500/30 text-xs font-mono text-purple-300 shadow-sm">
-                                           <span>🌴 eNanda & Durban, KZN • Instant Dynamic Hub</span>
+                                        <div className="inline-flex items-center space-x-2 bg-slate-950/90 px-4 py-1.5 rounded-full border border-emerald-500/30 text-xs font-mono text-emerald-300 shadow-sm">
+                                           <span>💚 eNanda & Durban, KZN • Green Waves Wave Hub</span>
                                         </div>
                                         <h2 className="text-3xl sm:text-5xl font-black tracking-tight rainbow-animated-text leading-tight font-display">
                                             {dynamicGreeting}
@@ -554,13 +554,13 @@
                                         </div>
                                     </div>
                                     
-                                    <div className="w-full lg:w-80 bg-slate-950/85 p-6 rounded-3xl border border-purple-500/30 shadow-2xl space-y-4 text-center z-10">
-                                        <div className="relative w-28 h-28 mx-auto rounded-3xl overflow-hidden border-2 border-purple-400/60 shadow-md">
+                                    <div className="w-full lg:w-80 bg-slate-950/85 p-6 rounded-3xl border border-emerald-500/30 shadow-2xl space-y-4 text-center z-10">
+                                        <div className="relative w-28 h-28 mx-auto rounded-3xl overflow-hidden border-2 border-emerald-400/60 shadow-md">
                                             <img src={NOLLIE_AVATAR} alt="Nollie Representative" className="w-full h-full object-cover" />
                                         </div>
                                         <div>
                                             <h3 className="text-base font-black text-white font-display">Nollie Gumbi</h3>
-                                            <p className="text-[11px] text-purple-300 font-mono font-bold">eNanda Founder & Director</p>
+                                            <p className="text-[11px] text-emerald-300 font-mono font-bold">eNanda Founder & Director</p>
                                         </div>
                                         <div className="space-y-2 text-[11px] bg-slate-900/90 p-3 rounded-2xl border border-white/10 text-slate-300 font-mono">
                                             <div className="flex justify-between"><span>Base:</span><strong className="text-white">Durban, KZN</strong></div>
@@ -591,17 +591,17 @@
 
                         {activeTab === 'catalog' && (
                             <div id="shop-section" className="space-y-6 animate-fade-in">
-                                <div className="rainbow-glass border border-white/10 p-6 rounded-3xl shadow-xl flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                                <div className="rainbow-glass border border-emerald-500/20 p-6 rounded-3xl shadow-xl flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                                     <div>
                                         <h3 className="text-2xl font-black rainbow-animated-text font-display">Coastal Marketplace Catalog</h3>
                                         <p className="text-xs text-slate-400">Explore premium cereal hampers, bulk essentials, and luxury fragrances.</p>
                                     </div>
                                     <input type="text" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder="🔍 Search Durban marketplace..." 
-                                           className="w-full sm:w-80 px-4 py-3 rounded-2xl border border-purple-500/30 bg-slate-950/90 text-white placeholder-slate-500 text-xs outline-none focus:border-purple-400 focus:ring-2 focus:ring-purple-500/20 transition-all"/>
+                                           className="w-full sm:w-80 px-4 py-3 rounded-2xl border border-emerald-500/30 bg-slate-950/90 text-white placeholder-slate-500 text-xs outline-none focus:border-emerald-400 focus:ring-2 focus:ring-emerald-500/20 transition-all"/>
                                 </div>
                                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                                     {filteredProducts.map((p) => (
-                                        <div key={p.id} className="rainbow-glass rounded-3xl border border-white/10 shadow-xl overflow-hidden flex flex-col justify-between rainbow-card-hover">
+                                        <div key={p.id} className="rainbow-glass rounded-3xl border border-emerald-500/20 shadow-xl overflow-hidden flex flex-col justify-between rainbow-card-hover">
                                             <div onClick={() => setActiveModalProduct(p)} className="cursor-pointer">
                                                 <div className="h-48 overflow-hidden relative bg-slate-950 flex items-center justify-center">
                                                     <img src={p.img} alt={p.title} className="w-full h-full object-cover hover:scale-105 transition-transform duration-500 opacity-95 hover:opacity-100" onError={(e)=>{e.target.onerror=null; e.target.src=FALLBACK_SVG;}}/>
@@ -613,7 +613,7 @@
                                                 </div>
                                             </div>
                                             <div className="p-5 pt-0 flex justify-between items-center">
-                                                <span className="text-lg font-black text-purple-400 font-mono">R {p.price.toFixed(2)}</span>
+                                                <span className="text-lg font-black text-emerald-400 font-mono">R {p.price.toFixed(2)}</span>
                                                 <button onClick={() => addToCart(p.title, p.price)} className="press-effect rainbow-btn text-white text-xs font-black px-4 py-2.5 rounded-xl shadow hover:scale-105 transition-all">+ Add</button>
                                             </div>
                                         </div>
@@ -623,22 +623,22 @@
                         )}
 
                         {activeTab === 'builder' && (
-                            <section className="rainbow-glass border border-purple-500/30 p-6 sm:p-12 rounded-3xl shadow-xl space-y-6 animate-fade-in">
+                            <section className="rainbow-glass border border-emerald-500/30 p-6 sm:p-12 rounded-3xl shadow-xl space-y-6 animate-fade-in">
                                 <div className="max-w-xl space-y-2">
                                     <h3 className="text-2xl font-black rainbow-animated-text font-display">✨ Build Custom Cereal Hamper</h3>
-                                    <p className="text-xs sm:text-sm text-slate-300">Choose <strong className="text-purple-300">5 preferred items</strong> to assemble your custom bundle for <strong className="text-white">R250.00</strong>!</p>
+                                    <p className="text-xs sm:text-sm text-slate-300">Choose <strong className="text-emerald-300">5 preferred items</strong> to assemble your custom bundle for <strong className="text-white">R250.00</strong>!</p>
                                 </div>
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 text-xs">
                                     {HAMPER_OPTIONS.map((item) => (
-                                        <label key={item.name} className={`flex items-center justify-between p-4 rounded-2xl border transition-all cursor-pointer ${selectedHamperItems.includes(item.name) ? 'bg-purple-950/40 border-purple-400 shadow-md' : 'bg-slate-950/80 border-slate-800 hover:border-slate-700'}`}>
+                                        <label key={item.name} className={`flex items-center justify-between p-4 rounded-2xl border transition-all cursor-pointer ${selectedHamperItems.includes(item.name) ? 'bg-emerald-950/40 border-emerald-400 shadow-md' : 'bg-slate-950/80 border-slate-800 hover:border-slate-700'}`}>
                                             <span className="font-bold text-white">{item.name} <span className="text-[10px] text-slate-400 font-mono">({item.category})</span></span>
-                                            <input type="checkbox" checked={selectedHamperItems.includes(item.name)} onChange={() => handleHamperToggle(item.name)} className="w-4 h-4 accent-purple-400 rounded cursor-pointer"/>
+                                            <input type="checkbox" checked={selectedHamperItems.includes(item.name)} onChange={() => handleHamperToggle(item.name)} className="w-4 h-4 accent-emerald-400 rounded cursor-pointer"/>
                                         </label>
                                     ))}
                                 </div>
-                                <div className="border-t border-white/10 pt-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                                <div className="border-t border-emerald-500/20 pt-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                                     <div>
-                                        <div className="text-xs text-slate-400">Selected Slots: <span className="font-extrabold text-purple-300 text-sm font-mono">{selectedHamperItems.length} / 5</span></div>
+                                        <div className="text-xs text-slate-400">Selected Slots: <span className="font-extrabold text-emerald-300 text-sm font-mono">{selectedHamperItems.length} / 5</span></div>
                                         <div className="text-2xl font-black text-white font-mono">R 250.00</div>
                                     </div>
                                     <button onClick={addCustomHamper} className="press-effect rainbow-btn text-white font-black px-8 py-4 rounded-2xl text-xs shadow-xl w-full sm:w-auto hover:scale-105 transition-transform">Add Custom Hamper 🛒</button>
@@ -647,7 +647,7 @@
                         )}
 
                         {activeTab === 'booking' && (
-                            <section className="rainbow-glass border border-purple-500/30 p-6 sm:p-12 rounded-3xl shadow-xl space-y-8 animate-fade-in">
+                            <section className="rainbow-glass border border-emerald-500/30 p-6 sm:p-12 rounded-3xl shadow-xl space-y-8 animate-fade-in">
                                 <div>
                                     <h3 className="text-2xl font-black rainbow-animated-text font-display">📅 Appointment & Service Booking</h3>
                                     <p className="text-xs text-slate-400 mt-1">Schedule consultations, fragrance sampling sessions, or Virtual Assistance support directly with Nollie's Durban team.</p>
@@ -658,10 +658,10 @@
                                         <h4 className="text-sm font-extrabold text-white font-display">Available Services:</h4>
                                         <div className="space-y-3">
                                             {BOOKABLE_SERVICES.map((s) => (
-                                                <div key={s.id} onClick={() => setBookingService(s.title)} className={`p-4 rounded-2xl border cursor-pointer transition-all ${bookingService === s.title ? 'bg-purple-950/50 border-purple-400 shadow-md' : 'bg-slate-950/80 border-slate-800 hover:border-slate-700'}`}>
+                                                <div key={s.id} onClick={() => setBookingService(s.title)} className={`p-4 rounded-2xl border cursor-pointer transition-all ${bookingService === s.title ? 'bg-emerald-950/50 border-emerald-400 shadow-md' : 'bg-slate-950/80 border-slate-800 hover:border-slate-700'}`}>
                                                     <div className="flex justify-between items-center font-bold text-xs text-white">
                                                         <span>{s.title}</span>
-                                                        <span className="text-purple-300 font-mono font-black">{s.price > 0 ? `R ${s.price}` : 'FREE'}</span>
+                                                        <span className="text-emerald-300 font-mono font-black">{s.price > 0 ? `R ${s.price}` : 'FREE'}</span>
                                                     </div>
                                                     <p className="text-[11px] text-slate-400 mt-1">{s.desc}</p>
                                                     <span className="text-[10px] text-slate-500 font-mono block mt-2">⏱️ Duration: {s.duration}</span>
@@ -670,24 +670,24 @@
                                         </div>
                                     </div>
 
-                                    <form onSubmit={submitBooking} className="lg:col-span-2 bg-slate-950/90 p-6 rounded-3xl border border-white/10 space-y-4">
-                                        <h4 className="text-sm font-extrabold text-white border-b border-white/10 pb-3 font-display">Appointment Details</h4>
+                                    <form onSubmit={submitBooking} className="lg:col-span-2 bg-slate-950/90 p-6 rounded-3xl border border-emerald-500/20 space-y-4">
+                                        <h4 className="text-sm font-extrabold text-white border-b border-emerald-500/20 pb-3 font-display">Appointment Details</h4>
                                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
                                             <div>
                                                 <label className="text-slate-400 block mb-1">Full Name *</label>
-                                                <input type="text" required value={customerName} onChange={(e) => setCustomerName(e.target.value)} placeholder="e.g. Banele Gumbi" className="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-700 text-white outline-none focus:border-purple-400"/>
+                                                <input type="text" required value={customerName} onChange={(e) => setCustomerName(e.target.value)} placeholder="e.g. Banele Gumbi" className="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-700 text-white outline-none focus:border-emerald-400"/>
                                             </div>
                                             <div>
                                                 <label className="text-slate-400 block mb-1">Phone Number *</label>
-                                                <input type="tel" required value={customerPhone} onChange={(e) => setCustomerPhone(e.target.value)} placeholder="e.g. 0625873479" className="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-700 text-white outline-none focus:border-purple-400"/>
+                                                <input type="tel" required value={customerPhone} onChange={(e) => setCustomerPhone(e.target.value)} placeholder="e.g. 0625873479" className="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-700 text-white outline-none focus:border-emerald-400"/>
                                             </div>
                                             <div>
                                                 <label className="text-slate-400 block mb-1">Preferred Date *</label>
-                                                <input type="date" required value={bookingDate} onChange={(e) => setBookingDate(e.target.value)} className="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-700 text-white outline-none focus:border-purple-400"/>
+                                                <input type="date" required value={bookingDate} onChange={(e) => setBookingDate(e.target.value)} className="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-700 text-white outline-none focus:border-emerald-400"/>
                                             </div>
                                             <div>
                                                 <label className="text-slate-400 block mb-1">Preferred Time *</label>
-                                                <select value={bookingTime} onChange={(e) => setBookingTime(e.target.value)} className="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-700 text-white outline-none focus:border-purple-400">
+                                                <select value={bookingTime} onChange={(e) => setBookingTime(e.target.value)} className="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-700 text-white outline-none focus:border-emerald-400">
                                                     <option>09:00 AM</option>
                                                     <option>10:00 AM</option>
                                                     <option>11:30 AM</option>
@@ -698,7 +698,7 @@
                                         </div>
                                         <div>
                                             <label className="text-slate-400 block text-xs mb-1">Notes / Instructions</label>
-                                            <textarea value={bookingNotes} onChange={(e) => setBookingNotes(e.target.value)} rows="3" placeholder="Additional details..." className="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-700 text-white text-xs outline-none focus:border-purple-400"></textarea>
+                                            <textarea value={bookingNotes} onChange={(e) => setBookingNotes(e.target.value)} rows="3" placeholder="Additional details..." className="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-700 text-white text-xs outline-none focus:border-emerald-400"></textarea>
                                         </div>
                                         <button type="submit" className="press-effect w-full rainbow-btn text-white font-extrabold py-4 rounded-2xl text-xs shadow-xl hover:scale-[1.01] transition-transform">
                                             Transmit Appointment Request 📅
@@ -709,27 +709,27 @@
                         )}
 
                         {activeTab === 'specials' && (
-                            <section className="rainbow-glass border border-purple-500/30 p-6 sm:p-12 rounded-3xl shadow-xl space-y-6 animate-fade-in">
+                            <section className="rainbow-glass border border-emerald-500/30 p-6 sm:p-12 rounded-3xl shadow-xl space-y-6 animate-fade-in">
                                 <div className="max-w-xl space-y-2">
                                     <h3 className="text-2xl font-black rainbow-animated-text font-display">🔥 Bulk Specials & Packages</h3>
                                     <p className="text-xs sm:text-sm text-slate-300">Take advantage of community wholesale packages designed to stretch your monthly grocery budget further.</p>
                                 </div>
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                    <div className="bg-slate-950/90 p-6 rounded-3xl border border-white/10 space-y-3 rainbow-card-hover">
+                                    <div className="bg-slate-950/90 p-6 rounded-3xl border border-emerald-500/20 space-y-3 rainbow-card-hover">
                                         <span className="rainbow-btn text-white text-[10px] font-mono font-bold px-3 py-1 rounded-full uppercase">Wholesale Package</span>
                                         <h4 className="text-lg font-black text-white font-display">Family Bulk Grocery Hamper</h4>
                                         <p className="text-xs text-slate-400">10kg Maize Meal, 5L Sunflower Oil, 2kg White Sugar, 2kg Rice, and 410g Baked Beans (x4).</p>
                                         <div className="flex justify-between items-center pt-2">
-                                            <span className="text-xl font-black text-purple-400 font-mono">R 380.00</span>
+                                            <span className="text-xl font-black text-emerald-400 font-mono">R 380.00</span>
                                             <button onClick={() => addToCart('Family Bulk Grocery Hamper', 380)} className="press-effect rainbow-btn text-white text-xs font-black px-5 py-2.5 rounded-xl shadow">+ Add to Cart</button>
                                         </div>
                                     </div>
-                                    <div className="bg-slate-950/90 p-6 rounded-3xl border border-white/10 space-y-3 rainbow-card-hover">
+                                    <div className="bg-slate-950/90 p-6 rounded-3xl border border-emerald-500/20 space-y-3 rainbow-card-hover">
                                         <span className="rainbow-btn text-white text-[10px] font-mono font-bold px-3 py-1 rounded-full uppercase">Weekend Promo</span>
                                         <h4 className="text-lg font-black text-white font-display">Weekend Braai & Pap Combo</h4>
                                         <p className="text-xs text-slate-400">5kg Iwisa Maize Meal, Braai Spice, Chakalaka (x3), Tomato & Onion Mix, and 2L Soft Drink.</p>
                                         <div className="flex justify-between items-center pt-2">
-                                            <span className="text-xl font-black text-purple-400 font-mono">R 295.00</span>
+                                            <span className="text-xl font-black text-emerald-400 font-mono">R 295.00</span>
                                             <button onClick={() => addToCart('Weekend Braai & Pap Combo', 295)} className="press-effect rainbow-btn text-white text-xs font-black px-5 py-2.5 rounded-xl shadow">+ Add to Cart</button>
                                         </div>
                                     </div>
@@ -738,22 +738,22 @@
                         )}
 
                         {activeTab === 'orders' && (
-                            <section className="rainbow-glass border border-purple-500/30 p-6 sm:p-12 rounded-3xl shadow-xl space-y-6 animate-fade-in">
-                                <div className="flex justify-between items-center border-b border-white/10 pb-4">
+                            <section className="rainbow-glass border border-emerald-500/30 p-6 sm:p-12 rounded-3xl shadow-xl space-y-6 animate-fade-in">
+                                <div className="flex justify-between items-center border-b border-emerald-500/20 pb-4">
                                     <div>
                                         <h3 className="text-2xl font-black rainbow-animated-text font-display">📦 Order & Booking History</h3>
                                         <p className="text-xs text-slate-400">Synced securely with SQLite & Flask backend.</p>
                                     </div>
-                                    <button onClick={() => { fetchOrders(); fetchBookings(); }} className="press-effect bg-slate-900 border border-slate-700 text-xs font-bold px-4 py-2 rounded-xl text-slate-200 hover:border-purple-400 transition-all">🔄 Refresh</button>
+                                    <button onClick={() => { fetchOrders(); fetchBookings(); }} className="press-effect bg-slate-900 border border-slate-700 text-xs font-bold px-4 py-2 rounded-xl text-slate-200 hover:border-emerald-400 transition-all">🔄 Refresh</button>
                                 </div>
                                 <div className="space-y-4 text-xs">
                                     {orders.length === 0 && bookings.length === 0 ? (
-                                        <div className="bg-slate-950/90 p-8 rounded-2xl border border-white/10 text-center space-y-2">
+                                        <div className="bg-slate-950/90 p-8 rounded-2xl border border-emerald-500/20 text-center space-y-2">
                                             <p className="text-slate-400">No orders or bookings recorded yet.</p>
                                         </div>
                                     ) : (
                                         orders.map((o, idx) => (
-                                            <div key={idx} className="bg-slate-950/90 p-5 rounded-2xl border border-white/10 space-y-3 shadow-lg rainbow-card-hover">
+                                            <div key={idx} className="bg-slate-950/90 p-5 rounded-2xl border border-emerald-500/20 space-y-3 shadow-lg rainbow-card-hover">
                                                 <div className="flex justify-between items-center">
                                                     <span className="font-black text-white text-sm font-display">Order #{o.id || (orders.length - idx)}</span>
                                                     <span className="text-emerald-400 font-mono font-black text-sm">R {o.total.toFixed(2)}</span>
@@ -761,9 +761,9 @@
                                                 <div className="text-[11px] text-slate-400 flex flex-wrap gap-2 font-mono">
                                                     <span>{o.date || 'Recent Order'}</span>
                                                     {o.customer_name && <span className="text-slate-300 font-bold">• Client: {o.customer_name} ({o.customer_phone})</span>}
-                                                    {o.payment_method && <span className="text-purple-300 font-bold">• Gateway: {o.payment_method}</span>}
+                                                    {o.payment_method && <span className="text-emerald-300 font-bold">• Gateway: {o.payment_method}</span>}
                                                 </div>
-                                                <div className="border-t border-white/10 pt-3 space-y-1.5">
+                                                <div className="border-t border-emerald-500/20 pt-3 space-y-1.5">
                                                     {o.items.map((item, iIdx) => (
                                                         <div key={iIdx} className="flex justify-between text-slate-300">
                                                             <span>• {item.title}</span>
@@ -780,9 +780,9 @@
 
                         {activeTab === 'admin' && (
                             <section className="space-y-6 animate-fade-in">
-                                <div className="rainbow-glass border border-purple-500/40 p-6 rounded-3xl shadow-2xl flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                                <div className="rainbow-glass border border-emerald-500/40 p-6 rounded-3xl shadow-2xl flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                                     <div>
-                                        <div className="inline-flex items-center space-x-2 bg-slate-950 px-3 py-1 rounded-full border border-purple-500/30 text-[10px] font-mono font-bold text-purple-300 mb-2">
+                                        <div className="inline-flex items-center space-x-2 bg-slate-950 px-3 py-1 rounded-full border border-emerald-500/30 text-[10px] font-mono font-bold text-emerald-300 mb-2">
                                             <span>🔒 Durban Hub Security Active</span>
                                         </div>
                                         <h3 className="text-2xl font-black rainbow-animated-text font-display">Nollie's Owner Control Console</h3>
@@ -792,44 +792,44 @@
                                 </div>
 
                                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                                    <div className="bg-slate-950/90 p-6 rounded-3xl border border-white/10 space-y-1 rainbow-card-hover">
+                                    <div className="bg-slate-950/90 p-6 rounded-3xl border border-emerald-500/20 space-y-1 rainbow-card-hover">
                                         <span className="text-slate-400 text-xs font-semibold">Total Revenue Generated</span>
                                         <div className="text-2xl font-black text-emerald-400 font-mono">R {totalRevenue.toFixed(2)}</div>
                                     </div>
-                                    <div className="bg-slate-950/90 p-6 rounded-3xl border border-white/10 space-y-1 rainbow-card-hover">
+                                    <div className="bg-slate-950/90 p-6 rounded-3xl border border-emerald-500/20 space-y-1 rainbow-card-hover">
                                         <span className="text-slate-400 text-xs font-semibold">Total Orders</span>
                                         <div className="text-2xl font-black text-white font-mono">{orders.length}</div>
                                     </div>
-                                    <div className="bg-slate-950/90 p-6 rounded-3xl border border-white/10 space-y-1 rainbow-card-hover">
+                                    <div className="bg-slate-950/90 p-6 rounded-3xl border border-emerald-500/20 space-y-1 rainbow-card-hover">
                                         <span className="text-slate-400 text-xs font-semibold">Active Bookings</span>
-                                        <div className="text-2xl font-black text-purple-300 font-mono">{bookings.length}</div>
+                                        <div className="text-2xl font-black text-emerald-300 font-mono">{bookings.length}</div>
                                     </div>
                                 </div>
 
                                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                                    <div className="rainbow-glass border border-white/10 p-6 rounded-3xl shadow-xl space-y-4">
+                                    <div className="rainbow-glass border border-emerald-500/20 p-6 rounded-3xl shadow-xl space-y-4">
                                         <h4 className="text-base font-extrabold text-white font-display">Customer Orders Feed</h4>
                                         <div className="space-y-3 text-xs">
                                             {orders.map((o, idx) => (
-                                                <div key={idx} className="bg-slate-950/90 p-4 rounded-2xl border border-white/10 space-y-2">
+                                                <div key={idx} className="bg-slate-950/90 p-4 rounded-2xl border border-emerald-500/20 space-y-2">
                                                     <div className="flex justify-between font-bold text-white">
                                                         <span>Order #{o.id} - {o.customer_name}</span>
                                                         <span className="text-emerald-400 font-mono">R {o.total.toFixed(2)}</span>
                                                     </div>
-                                                    <div className="text-[11px] text-slate-400 font-mono">Payment: <span className="text-purple-300 font-bold">{o.payment_method}</span> ({o.payment_status})</div>
+                                                    <div className="text-[11px] text-slate-400 font-mono">Payment: <span className="text-emerald-300 font-bold">{o.payment_method}</span> ({o.payment_status})</div>
                                                 </div>
                                             ))}
                                         </div>
                                     </div>
 
-                                    <div className="rainbow-glass border border-white/10 p-6 rounded-3xl shadow-xl space-y-4">
+                                    <div className="rainbow-glass border border-emerald-500/20 p-6 rounded-3xl shadow-xl space-y-4">
                                         <h4 className="text-base font-extrabold text-white font-display">Service Bookings Log</h4>
                                         <div className="space-y-3 text-xs">
                                             {bookings.map((b, idx) => (
-                                                <div key={idx} className="bg-slate-950/90 p-4 rounded-2xl border border-white/10 space-y-1">
+                                                <div key={idx} className="bg-slate-950/90 p-4 rounded-2xl border border-emerald-500/20 space-y-1">
                                                     <div className="flex justify-between font-bold text-white">
                                                         <span>{b.service_type}</span>
-                                                        <span className="text-purple-300 font-mono">{b.status}</span>
+                                                        <span className="text-emerald-300 font-mono">{b.status}</span>
                                                     </div>
                                                     <div className="text-[11px] text-slate-400">Client: {b.customer_name} ({b.customer_phone})</div>
                                                     <div className="text-[11px] text-slate-500 font-mono">Scheduled: {b.booking_date} at {b.booking_time}</div>
@@ -842,17 +842,17 @@
                         )}
 
                         {activeTab === 'privacy' && (
-                            <section className="rainbow-glass border border-purple-500/30 p-6 sm:p-12 rounded-3xl shadow-xl space-y-6 animate-fade-in">
-                                <div className="border-b border-white/10 pb-4">
+                            <section className="rainbow-glass border border-emerald-500/30 p-6 sm:p-12 rounded-3xl shadow-xl space-y-6 animate-fade-in">
+                                <div className="border-b border-emerald-500/20 pb-4">
                                     <h3 className="text-2xl font-black rainbow-animated-text font-display">🔒 Privacy Policy & Data Security</h3>
                                     <p className="text-xs text-slate-400 mt-1">Effective Date: October 2026 | Nollie's eNanda & Durban Hub</p>
                                 </div>
                                 <div className="space-y-4 text-xs text-slate-300 leading-relaxed">
-                                    <div className="bg-slate-950/90 p-5 rounded-2xl border border-white/10 space-y-2">
+                                    <div className="bg-slate-950/90 p-5 rounded-2xl border border-emerald-500/20 space-y-2">
                                         <h4 className="font-bold text-white text-sm font-display">1. Secure Gateway Processing</h4>
                                         <p className="text-slate-400">All digital payment transactions (Capitec Pay, Instant EFT, Card) are encrypted via standard financial API gateways following South African POPIA protocols.</p>
                                     </div>
-                                    <div className="bg-slate-950/90 p-5 rounded-2xl border border-white/10 space-y-2">
+                                    <div className="bg-slate-950/90 p-5 rounded-2xl border border-emerald-500/20 space-y-2">
                                         <h4 className="font-bold text-white text-sm font-display">2. Contact Information Security</h4>
                                         <p className="text-slate-400">Client details are utilized strictly for delivery confirmation and consultation scheduling in eNanda and Durban and are stored securely within local database instances.</p>
                                     </div>
@@ -864,8 +864,8 @@
                     {/* 24/7 AI ASSISTANT CHAT WIDGET */}
                     <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end">
                         {isAiOpen && (
-                            <div className="rainbow-glass border border-purple-500/50 rounded-3xl w-80 sm:w-96 h-[450px] shadow-2xl flex flex-col mb-4 overflow-hidden animate-fade-in">
-                                <div className="bg-slate-950/95 p-4 border-b border-purple-500/30 flex justify-between items-center">
+                            <div className="rainbow-glass border border-emerald-500/50 rounded-3xl w-80 sm:w-96 h-[450px] shadow-2xl flex flex-col mb-4 overflow-hidden animate-fade-in">
+                                <div className="bg-slate-950/95 p-4 border-b border-emerald-500/30 flex justify-between items-center">
                                     <div className="flex items-center space-x-2.5">
                                         <span className="relative flex h-3 w-3">
                                           <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
@@ -882,7 +882,7 @@
                                 <div className="flex-1 p-4 overflow-y-auto space-y-3 text-xs bg-slate-950/60">
                                     {aiMessages.map((msg, i) => (
                                         <div key={i} className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}>
-                                            <div className={`max-w-[80%] p-3 rounded-2xl leading-relaxed ${msg.sender === 'user' ? 'bg-purple-600 text-white rounded-br-none shadow-md' : 'bg-slate-900 text-slate-200 border border-purple-500/20 rounded-bl-none shadow-sm font-medium'}`}>
+                                            <div className={`max-w-[80%] p-3 rounded-2xl leading-relaxed ${msg.sender === 'user' ? 'bg-emerald-600 text-white rounded-br-none shadow-md' : 'bg-slate-900 text-slate-200 border border-emerald-500/20 rounded-bl-none shadow-sm font-medium'}`}>
                                                 {msg.text}
                                             </div>
                                         </div>
@@ -890,24 +890,24 @@
                                     <div ref={chatEndRef} />
                                 </div>
 
-                                <form onSubmit={handleAiSend} className="p-3 bg-slate-950/95 border-t border-purple-500/30 flex gap-2">
+                                <form onSubmit={handleAiSend} className="p-3 bg-slate-950/95 border-t border-emerald-500/30 flex gap-2">
                                     <input type="text" value={aiInput} onChange={(e) => setAiInput(e.target.value)} placeholder="Ask about hampers, prices, delivery..." 
-                                           className="flex-1 px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white text-xs outline-none focus:border-purple-400"/>
+                                           className="flex-1 px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white text-xs outline-none focus:border-emerald-400"/>
                                     <button type="submit" className="press-effect rainbow-btn px-4 py-2.5 rounded-xl text-xs font-black shadow">Send</button>
                                 </form>
                             </div>
                         )}
 
                         <button onClick={() => setIsAiOpen(!isAiOpen)} className="press-effect rainbow-btn p-4 rounded-full shadow-2xl flex items-center justify-center space-x-2 text-white font-black hover:scale-110 transition-all">
-                            <span className="text-xl">🤖</span>
+                            <span className="text-xl">💚</span>
                             {!isAiOpen && <span className="text-xs font-mono pr-1">Ask Nollie AI</span>}
                         </button>
                     </div>
 
                     {isCartOpen && (
                         <div className="fixed inset-0 bg-slate-950/85 backdrop-blur-md z-50 flex flex-col justify-end animate-fade-in">
-                            <div className="rainbow-glass rounded-t-3xl p-6 sm:p-8 border-t border-purple-500/30 max-h-[90vh] flex flex-col shadow-2xl max-w-2xl mx-auto w-full">
-                                <div className="flex justify-between items-center border-b border-white/10 pb-4">
+                            <div className="rainbow-glass rounded-t-3xl p-6 sm:p-8 border-t border-emerald-500/30 max-h-[90vh] flex flex-col shadow-2xl max-w-2xl mx-auto w-full">
+                                <div className="flex justify-between items-center border-b border-emerald-500/20 pb-4">
                                     <h3 className="font-black text-base text-white flex items-center space-x-2 font-display"><span>🛒</span><span>Neural Cart & Payment Gateway</span></h3>
                                     <button onClick={() => setIsCartOpen(false)} className="press-effect text-slate-400 text-xl font-bold bg-slate-900 w-9 h-9 rounded-full flex items-center justify-center hover:bg-slate-800">&times;</button>
                                 </div>
@@ -918,43 +918,43 @@
                                             <p className="text-slate-400 italic">Your cart is empty.</p>
                                         ) : (
                                             cart.map((item, idx) => (
-                                                <div key={idx} className="flex justify-between items-center bg-slate-950/90 p-3 rounded-2xl border border-white/10 text-slate-200">
-                                                    <div><div className="font-extrabold text-white">{item.title}</div><div className="text-purple-300 font-mono text-[11px]">R {item.price.toFixed(2)}</div></div>
+                                                <div key={idx} className="flex justify-between items-center bg-slate-950/90 p-3 rounded-2xl border border-emerald-500/20 text-slate-200">
+                                                    <div><div className="font-extrabold text-white">{item.title}</div><div className="text-emerald-300 font-mono text-[11px]">R {item.price.toFixed(2)}</div></div>
                                                     <button onClick={() => removeFromCart(idx)} className="text-red-400 font-bold bg-slate-900 w-7 h-7 rounded-full flex items-center justify-center">✕</button>
                                                 </div>
                                             ))
                                         )}
                                     </div>
 
-                                    <div className="bg-slate-950/90 p-4 rounded-2xl border border-white/10 space-y-3">
+                                    <div className="bg-slate-950/90 p-4 rounded-2xl border border-emerald-500/20 space-y-3">
                                         <span className="text-white font-extrabold block font-display">👤 Delivery & Contact Info:</span>
                                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                                            <input type="text" value={customerName} onChange={(e) => setCustomerName(e.target.value)} placeholder="Full Name *" className="px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white outline-none focus:border-purple-400"/>
-                                            <input type="tel" value={customerPhone} onChange={(e) => setCustomerPhone(e.target.value)} placeholder="Phone Number (e.g. 0625873479) *" className="px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white outline-none focus:border-purple-400"/>
+                                            <input type="text" value={customerName} onChange={(e) => setCustomerName(e.target.value)} placeholder="Full Name *" className="px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white outline-none focus:border-emerald-400"/>
+                                            <input type="tel" value={customerPhone} onChange={(e) => setCustomerPhone(e.target.value)} placeholder="Phone Number (e.g. 0625873479) *" className="px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white outline-none focus:border-emerald-400"/>
                                         </div>
-                                        <input type="text" value={deliveryAddress} onChange={(e) => setDeliveryAddress(e.target.value)} placeholder="eNanda / Durban Street Address" className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white outline-none focus:border-purple-400"/>
+                                        <input type="text" value={deliveryAddress} onChange={(e) => setDeliveryAddress(e.target.value)} placeholder="eNanda / Durban Street Address" className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white outline-none focus:border-emerald-400"/>
 
-                                        <div className="space-y-2 pt-2 border-t border-white/10">
+                                        <div className="space-y-2 pt-2 border-t border-emerald-500/20">
                                             <span className="text-white font-extrabold block font-display">💳 Payment Method:</span>
                                             <div className="grid grid-cols-3 gap-2">
                                                 <button onClick={() => setPaymentMethod('COD')} className={`p-2.5 rounded-xl border text-[11px] font-bold text-center transition-all ${paymentMethod === 'COD' ? 'bg-emerald-600 text-white border-emerald-400 shadow-md' : 'bg-slate-900 text-slate-400 border-slate-800'}`}>💵 Cash on Delivery</button>
-                                                <button onClick={() => setPaymentMethod('CAPITEC_PAY')} className={`p-2.5 rounded-xl border text-[11px] font-bold text-center transition-all ${paymentMethod === 'CAPITEC_PAY' ? 'bg-purple-600 text-white border-purple-400 shadow-md' : 'bg-slate-900 text-slate-400 border-slate-800'}`}>📲 Capitec / EFT</button>
-                                                <button onClick={() => setPaymentMethod('CARD_ONLINE')} className={`p-2.5 rounded-xl border text-[11px] font-bold text-center transition-all ${paymentMethod === 'CARD_ONLINE' ? 'bg-amber-600 text-white border-amber-400 shadow-md' : 'bg-slate-900 text-slate-400 border-slate-800'}`}>💳 Online Card</button>
+                                                <button onClick={() => setPaymentMethod('CAPITEC_PAY')} className={`p-2.5 rounded-xl border text-[11px] font-bold text-center transition-all ${paymentMethod === 'CAPITEC_PAY' ? 'bg-emerald-700 text-white border-emerald-400 shadow-md' : 'bg-slate-900 text-slate-400 border-slate-800'}`}>📲 Capitec / EFT</button>
+                                                <button onClick={() => setPaymentMethod('CARD_ONLINE')} className={`p-2.5 rounded-xl border text-[11px] font-bold text-center transition-all ${paymentMethod === 'CARD_ONLINE' ? 'bg-teal-600 text-white border-teal-400 shadow-md' : 'bg-slate-900 text-slate-400 border-slate-800'}`}>💳 Online Card</button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div className="py-3 border-t border-white/10 flex space-x-2.5">
+                                <div className="py-3 border-t border-emerald-500/20 flex space-x-2.5">
                                     <input type="text" value={promoCode} onChange={(e) => setPromoCode(e.target.value)} placeholder="Promo code (NOLLIE10)" className="flex-1 px-4 py-3 text-xs rounded-xl bg-slate-900 border border-slate-700 text-white uppercase outline-none"/>
                                     <button onClick={applyPromo} className="press-effect rainbow-btn text-white text-xs font-black px-5 py-3 rounded-xl shadow">Apply</button>
                                 </div>
 
-                                <div className="border-t border-white/10 pt-4 space-y-2.5 text-xs">
+                                <div className="border-t border-emerald-500/20 pt-4 space-y-2.5 text-xs">
                                     <div className="flex justify-between text-slate-300 font-medium font-mono"><span>Subtotal:</span><span>R {subtotal.toFixed(2)}</span></div>
                                     <div className="flex justify-between text-slate-300 font-medium font-mono"><span>Discount:</span><span className="text-emerald-400">-R {discount.toFixed(2)}</span></div>
                                     <div className="flex justify-between text-slate-300 font-medium font-mono"><span>Delivery Fee (Durban/eNanda):</span><span>R 30.00</span></div>
-                                    <div className="flex justify-between text-lg font-black text-white pt-2 border-t border-white/10"><span>Total:</span><span className="text-purple-300 font-mono font-extrabold">R {grandTotal.toFixed(2)}</span></div>
+                                    <div className="flex justify-between text-lg font-black text-white pt-2 border-t border-emerald-500/20"><span>Total:</span><span className="text-emerald-300 font-mono font-extrabold">R {grandTotal.toFixed(2)}</span></div>
                                     <button onClick={handleCheckout} className="press-effect w-full rainbow-btn text-white font-extrabold py-4 rounded-2xl text-sm shadow-xl mt-2 flex items-center justify-center space-x-2 hover:scale-[1.01] transition-transform">
                                         <span>Pay R{grandTotal.toFixed(2)} & Complete Order 🚀</span>
                                     </button>
@@ -965,15 +965,15 @@
 
                     {activeModalProduct && (
                         <div className="fixed inset-0 bg-slate-950/85 backdrop-blur-md z-50 flex items-center justify-center p-4 animate-fade-in">
-                            <div className="rainbow-glass rounded-3xl p-6 sm:p-8 border border-purple-500/40 max-w-md w-full space-y-5 shadow-2xl">
-                                <div className="flex justify-between items-center border-b border-white/10 pb-4">
+                            <div className="rainbow-glass rounded-3xl p-6 sm:p-8 border border-emerald-500/40 max-w-md w-full space-y-5 shadow-2xl">
+                                <div className="flex justify-between items-center border-b border-emerald-500/20 pb-4">
                                     <h3 className="text-base font-black text-white font-display">{activeModalProduct.title}</h3>
                                     <button onClick={() => setActiveModalProduct(null)} className="press-effect text-slate-400 text-xl font-bold bg-slate-900 w-9 h-9 rounded-full flex items-center justify-center hover:bg-slate-800">&times;</button>
                                 </div>
                                 <img src={activeModalProduct.img} alt="Product" className="w-full h-52 object-cover rounded-2xl bg-slate-900 border border-slate-800 opacity-95" onError={(e)=>{e.target.onerror=null; e.target.src=FALLBACK_SVG;}}/>
                                 <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-medium">{activeModalProduct.desc}</p>
-                                <div className="flex justify-between items-center pt-4 border-t border-white/10">
-                                    <span className="text-xl font-black text-purple-400 font-mono">R {activeModalProduct.price.toFixed(2)}</span>
+                                <div className="flex justify-between items-center pt-4 border-t border-emerald-500/20">
+                                    <span className="text-xl font-black text-emerald-400 font-mono">R {activeModalProduct.price.toFixed(2)}</span>
                                     <button onClick={() => { addToCart(activeModalProduct.title, activeModalProduct.price); setActiveModalProduct(null); }} className="press-effect rainbow-btn text-white font-extrabold px-6 py-3.5 rounded-2xl text-xs shadow-xl hover:scale-105 transition-transform">+ Add to Cart</button>
                                 </div>
                             </div>
@@ -981,7 +981,7 @@
                     )}
 
                     {toastMessage && (
-                        <div className="fixed bottom-6 left-6 rainbow-glass border border-purple-400 text-purple-300 text-xs font-black px-6 py-4 rounded-2xl shadow-xl z-50 animate-fade-in font-mono">
+                        <div className="fixed bottom-6 left-6 rainbow-glass border border-emerald-400 text-emerald-300 text-xs font-black px-6 py-4 rounded-2xl shadow-xl z-50 animate-fade-in font-mono">
                             {toastMessage}
                         </div>
                     )}
