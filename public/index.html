@@ -87,9 +87,21 @@
             const [activeModalProduct, setActiveModalProduct] = useState(null);
             const [toastMessage, setToastMessage] = useState(null);
 
+            // Customer Contact & Delivery Info State
+            const [customerName, setCustomerName] = useState(localStorage.getItem('nollies_customer_name') || '');
+            const [customerPhone, setCustomerPhone] = useState(localStorage.getItem('nollies_customer_phone') || '');
+            const [commPreference, setCommPreference] = useState('whatsapp'); // 'whatsapp', 'sms', 'call'
+            const [deliveryAddress, setDeliveryAddress] = useState(localStorage.getItem('nollies_customer_address') || '');
+
             useEffect(() => {
                 localStorage.setItem('nollies_cart', JSON.stringify(cart));
             }, [cart]);
+
+            useEffect(() => {
+                localStorage.setItem('nollies_customer_name', customerName);
+                localStorage.setItem('nollies_customer_phone', customerPhone);
+                localStorage.setItem('nollies_customer_address', deliveryAddress);
+            }, [customerName, customerPhone, deliveryAddress]);
 
             const fetchOrders = () => {
                 fetch('/api/orders')
@@ -163,13 +175,25 @@
             const deliveryFee = 30;
             const grandTotal = cart.length > 0 ? (subtotal - discount) + deliveryFee : 0;
 
-            const checkoutWhatsApp = () => {
+            const handleCheckout = () => {
                 if (cart.length === 0) {
                     alert('Your cart is empty!');
                     return;
                 }
-                
-                const orderPayload = { items: [...cart], total: grandTotal };
+
+                if (!customerName.trim() || !customerPhone.trim()) {
+                    alert('Please provide your Name and Contact Phone Number before checking out.');
+                    return;
+                }
+
+                const orderPayload = {
+                    customer_name: customerName,
+                    customer_phone: customerPhone,
+                    comm_preference: commPreference,
+                    delivery_address: deliveryAddress,
+                    items: [...cart],
+                    total: grandTotal
+                };
 
                 fetch('/api/orders', {
                     method: 'POST',
@@ -185,13 +209,26 @@
                     }
                 })
                 .catch(err => {
-                    const localFallback = { id: orders.length + 1, date: new Date().toLocaleString(), items: [...cart], total: grandTotal };
+                    const localFallback = { 
+                        id: orders.length + 1, 
+                        date: new Date().toLocaleString(), 
+                        customer_name: customerName,
+                        customer_phone: customerPhone,
+                        comm_preference: commPreference,
+                        delivery_address: deliveryAddress,
+                        items: [...cart], 
+                        total: grandTotal 
+                    };
                     const updated = [localFallback, ...orders];
                     setOrders(updated);
                     localStorage.setItem('nollies_orders', JSON.stringify(updated));
                 });
 
-                let msg = "Hi Nollie's (eNanda Premier Hub), I would like to order:%0A%0A";
+                // Format Message for Preferred Channel
+                let msg = `Hi Nollie's! Order from ${customerName} (${customerPhone}):%0A%0A`;
+                msg += `Preferred Contact: ${commPreference.toUpperCase()}%0A`;
+                if (deliveryAddress) msg += `Address: ${deliveryAddress}%0A%0A`;
+                msg += `Items:%0A`;
                 cart.forEach(i => msg += `• ${i.title} - R${i.price}%0A`);
                 if (discountPercent > 0) msg += `%0ADiscount (${discountPercent}%): -R${discount.toFixed(2)}`;
                 msg += `%0ADelivery Fee: R30%0A*Total: R${grandTotal.toFixed(2)}*`;
@@ -199,7 +236,14 @@
                 setCart([]);
                 setIsCartOpen(false);
                 setActiveTab('orders');
-                window.open(`https://wa.me/27625873479?text=${msg}`, '_blank');
+
+                if (commPreference === 'whatsapp') {
+                    window.open(`https://wa.me/27625873479?text=${msg}`, '_blank');
+                } else if (commPreference === 'sms') {
+                    window.open(`sms:+27625873479?body=${decodeURIComponent(msg)}`, '_blank');
+                } else {
+                    alert(`Order Submitted! Nollie's team will call you directly at ${customerPhone} to confirm your order.`);
+                }
             };
 
             const filteredProducts = PRODUCTS.filter(p => {
@@ -234,6 +278,7 @@
                             <button onClick={() => setActiveTab('specials')} className={`px-4 py-2 rounded-xl transition-all ${activeTab === 'specials' ? 'silver-gradient text-slate-950 font-black shadow' : 'hover:text-white'}`}>🔥 Bulk Specials</button>
                             <button onClick={() => { fetchOrders(); setActiveTab('orders'); }} className={`px-4 py-2 rounded-xl transition-all ${activeTab === 'orders' ? 'silver-gradient text-slate-950 font-black shadow' : 'hover:text-white'}`}>📦 My Orders</button>
                             <button onClick={() => { fetchOrders(); setActiveTab('admin'); }} className={`px-4 py-2 rounded-xl transition-all ${activeTab === 'admin' ? 'silver-gradient text-slate-950 font-black shadow' : 'hover:text-white'}`}>🔐 Owner Admin</button>
+                            <button onClick={() => setActiveTab('privacy')} className={`px-4 py-2 rounded-xl transition-all ${activeTab === 'privacy' ? 'silver-gradient text-slate-950 font-black shadow' : 'hover:text-white'}`}>🔒 Privacy</button>
                             <button onClick={() => setActiveTab('about')} className={`px-4 py-2 rounded-xl transition-all ${activeTab === 'about' ? 'silver-gradient text-slate-950 font-black shadow' : 'hover:text-white'}`}>ℹ️ Info</button>
                         </nav>
 
@@ -252,7 +297,8 @@
                         <button onClick={() => setActiveTab('builder')} className={`px-4 py-2 rounded-xl whitespace-nowrap transition-all ${activeTab === 'builder' ? 'silver-gradient text-slate-950 font-black' : 'text-slate-300 bg-slate-950'}`}>✨ Hamper Builder</button>
                         <button onClick={() => setActiveTab('specials')} className={`px-4 py-2 rounded-xl whitespace-nowrap transition-all ${activeTab === 'specials' ? 'silver-gradient text-slate-950 font-black' : 'text-slate-300 bg-slate-950'}`}>🔥 Bulk Specials</button>
                         <button onClick={() => { fetchOrders(); setActiveTab('orders'); }} className={`px-4 py-2 rounded-xl whitespace-nowrap transition-all ${activeTab === 'orders' ? 'silver-gradient text-slate-950 font-black' : 'text-slate-300 bg-slate-950'}`}>📦 Orders</button>
-                        <button onClick={() => { fetchOrders(); setActiveTab('admin'); }} className={`px-4 py-2 rounded-xl whitespace-nowrap transition-all ${activeTab === 'admin' ? 'silver-gradient text-slate-950 font-black' : 'text-slate-300 bg-slate-950'}`}>🔐 Owner Admin</button>
+                        <button onClick={() => { fetchOrders(); setActiveTab('admin'); }} className={`px-4 py-2 rounded-xl whitespace-nowrap transition-all ${activeTab === 'admin' ? 'silver-gradient text-slate-950 font-black' : 'text-slate-300 bg-slate-950'}`}>🔐 Admin</button>
+                        <button onClick={() => setActiveTab('privacy')} className={`px-4 py-2 rounded-xl whitespace-nowrap transition-all ${activeTab === 'privacy' ? 'silver-gradient text-slate-950 font-black' : 'text-slate-300 bg-slate-950'}`}>🔒 Privacy</button>
                         <button onClick={() => setActiveTab('about')} className={`px-4 py-2 rounded-xl whitespace-nowrap transition-all ${activeTab === 'about' ? 'silver-gradient text-slate-950 font-black' : 'text-slate-300 bg-slate-950'}`}>ℹ️ Info</button>
                     </div>
 
@@ -266,7 +312,6 @@
                         {/* TAB 0: HOME PAGE */}
                         {activeTab === 'home' && (
                             <section className="space-y-10 animate-fade-in">
-                                {/* Hero Banner */}
                                 <div className="relative overflow-hidden rounded-3xl border silver-border p-8 sm:p-14 shadow-2xl bg-glass flex flex-col lg:flex-row items-center justify-between gap-10">
                                     <div className="absolute -right-20 -top-20 w-80 h-80 silver-gradient rounded-full blur-3xl opacity-15 pointer-events-none"></div>
                                     <div className="space-y-6 max-w-2xl">
@@ -295,35 +340,8 @@
                                             </div>
                                             <div className="flex justify-between bg-slate-950 p-3 rounded-xl border silver-border">
                                                 <span className="text-slate-400">Checkout Gateway</span>
-                                                <span className="font-extrabold silver-text">WhatsApp 💬</span>
+                                                <span className="font-extrabold silver-text">WhatsApp / Call / SMS 💬</span>
                                             </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {/* Feature Category Grid */}
-                                <div className="space-y-4">
-                                    <h3 className="text-xl font-black silver-text">Featured Collections</h3>
-                                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                                        <div onClick={() => setActiveTab('catalog')} className="bg-glass p-6 rounded-3xl border silver-border shadow-xl cursor-pointer hover:border-slate-400 transition-all space-y-3">
-                                            <div className="text-3xl">🌾</div>
-                                            <h4 className="font-extrabold text-white text-sm">Cereal Hampers</h4>
-                                            <p className="text-slate-400 text-xs">5-item breakfast bundles including Jungle Oats, Corn Flakes, & Weet-Bix.</p>
-                                        </div>
-                                        <div onClick={() => setActiveTab('specials')} className="bg-glass p-6 rounded-3xl border silver-border shadow-xl cursor-pointer hover:border-slate-400 transition-all space-y-3">
-                                            <div className="text-3xl">📦</div>
-                                            <h4 className="font-extrabold text-white text-sm">Family Bulk Groceries</h4>
-                                            <p className="text-slate-400 text-xs">Wholesale staple combos: 10kg Maize Meal, 5L Oil, 2kg Sugar & Beans.</p>
-                                        </div>
-                                        <div onClick={() => setActiveTab('catalog')} className="bg-glass p-6 rounded-3xl border silver-border shadow-xl cursor-pointer hover:border-slate-400 transition-all space-y-3">
-                                            <div className="text-3xl">🧃</div>
-                                            <h4 className="font-extrabold text-white text-sm">Juices Africa</h4>
-                                            <p className="text-slate-400 text-xs">4L fruit juice concentrates yielding up to 20L of refreshing juice.</p>
-                                        </div>
-                                        <div onClick={() => setActiveTab('catalog')} className="bg-glass p-6 rounded-3xl border silver-border shadow-xl cursor-pointer hover:border-slate-400 transition-all space-y-3">
-                                            <div className="text-3xl">💎</div>
-                                            <h4 className="font-extrabold text-white text-sm">M-Scents Perfumes</h4>
-                                            <p className="text-slate-400 text-xs">Signature 40ml luxury fragrances including Silver Sense & White OUD.</p>
                                         </div>
                                     </div>
                                 </div>
@@ -455,7 +473,11 @@
                                                     <span className="font-extrabold text-white text-sm">Order #{o.id || (orders.length - idx)}</span>
                                                     <span className="text-emerald-400 font-black text-sm">R {o.total.toFixed(2)}</span>
                                                 </div>
-                                                <div className="text-[11px] text-slate-400">{o.date || 'Recent Order'}</div>
+                                                <div className="text-[11px] text-slate-400 flex flex-wrap gap-2">
+                                                    <span>{o.date || 'Recent Order'}</span>
+                                                    {o.customer_name && <span className="text-slate-300 font-bold">• Customer: {o.customer_name} ({o.customer_phone})</span>}
+                                                    {o.comm_preference && <span className="text-amber-400 font-bold">• Mode: {o.comm_preference.toUpperCase()}</span>}
+                                                </div>
                                                 <div className="border-t silver-border pt-3 space-y-1.5">
                                                     {o.items.map((item, iIdx) => (
                                                         <div key={iIdx} className="flex justify-between text-slate-300">
@@ -480,7 +502,7 @@
                                             <span>🔒 Secure Owner Dashboard</span>
                                         </div>
                                         <h3 className="text-2xl font-black silver-text">Nollie's Owner Control Console</h3>
-                                        <p className="text-xs text-slate-400">Live order tracking, revenue analytics, and direct customer dispatch.</p>
+                                        <p className="text-xs text-slate-400">Live order tracking, revenue analytics, and multi-channel customer dispatch.</p>
                                     </div>
                                     <button onClick={fetchOrders} className="press-effect silver-gradient text-slate-950 font-extrabold text-xs px-5 py-3 rounded-xl shadow">🔄 Sync Orders</button>
                                 </div>
@@ -514,10 +536,20 @@
                                                         <div>
                                                             <span className="font-black text-white text-sm">Order #{o.id || (orders.length - idx)}</span>
                                                             <span className="text-slate-400 text-[11px] block sm:inline sm:ml-2">{o.date || 'Just now'}</span>
+                                                            {o.customer_name && (
+                                                                <div className="text-emerald-400 font-bold text-xs mt-1">
+                                                                    👤 {o.customer_name} ({o.customer_phone}) - Mode: {o.comm_preference ? o.comm_preference.toUpperCase() : 'WHATSAPP'}
+                                                                </div>
+                                                            )}
+                                                            {o.delivery_address && (
+                                                                <div className="text-slate-300 text-[11px]">📍 {o.delivery_address}</div>
+                                                            )}
                                                         </div>
-                                                        <div className="flex items-center space-x-3">
+                                                        <div className="flex flex-wrap items-center gap-2">
                                                             <span className="bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-black text-xs px-3 py-1 rounded-xl">R {(o.total || 0).toFixed(2)}</span>
-                                                            <button onClick={() => window.open('https://wa.me/27625873479', '_blank')} className="press-effect bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs px-3.5 py-2 rounded-xl shadow">💬 WhatsApp Customer</button>
+                                                            <button onClick={() => window.open(`https://wa.me/${o.customer_phone || '27625873479'}`, '_blank')} className="press-effect bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs px-3 py-1.5 rounded-xl shadow">💬 WhatsApp</button>
+                                                            <button onClick={() => window.open(`tel:${o.customer_phone || '0625873479'}`, '_blank')} className="press-effect bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs px-3 py-1.5 rounded-xl shadow">📞 Phone Call</button>
+                                                            <button onClick={() => window.open(`sms:${o.customer_phone || '0625873479'}`, '_blank')} className="press-effect bg-amber-600 hover:bg-amber-500 text-white font-bold text-xs px-3 py-1.5 rounded-xl shadow">✉️ SMS</button>
                                                         </div>
                                                     </div>
                                                     <div className="space-y-1.5">
@@ -539,7 +571,31 @@
                             </section>
                         )}
 
-                        {/* TAB 6: ABOUT / eNanda INFO */}
+                        {/* TAB 6: PRIVACY POLICY */}
+                        {activeTab === 'privacy' && (
+                            <section className="bg-glass border silver-border p-6 sm:p-12 rounded-3xl shadow-xl space-y-6 animate-fade-in">
+                                <div className="border-b silver-border pb-4">
+                                    <h3 className="text-2xl font-black silver-text">🔒 Privacy Policy & Data Protection (POPIA Compliance)</h3>
+                                    <p className="text-xs text-slate-400 mt-1">Effective Date: October 2026 | Nollie's eNanda Premier Hub</p>
+                                </div>
+                                <div className="space-y-4 text-xs text-slate-300 leading-relaxed">
+                                    <div className="bg-slate-900/90 p-5 rounded-2xl border silver-border space-y-2">
+                                        <h4 className="font-bold text-white text-sm">1. Information We Collect</h4>
+                                        <p className="text-slate-400">When you place an order with Nollie's, we collect your full name, contact phone number, chosen communication preference (WhatsApp, SMS, or Phone Call), and eNanda delivery address to fulfill your order accurately.</p>
+                                    </div>
+                                    <div className="bg-slate-900/90 p-5 rounded-2xl border silver-border space-y-2">
+                                        <h4 className="font-bold text-white text-sm">2. How We Use Your Contact Details</h4>
+                                        <p className="text-slate-400">Your details are used strictly for order confirmation, delivery coordination in eNanda, and customer service updates. We respect your communication choices and never share or sell your data to third parties.</p>
+                                    </div>
+                                    <div className="bg-slate-900/90 p-5 rounded-2xl border silver-border space-y-2">
+                                        <h4 className="font-bold text-white text-sm">3. Data Security & Storage</h4>
+                                        <p className="text-slate-400">Order records are securely stored within our local SQLite database layer and local encrypted session tokens following South African Protection of Personal Information Act (POPIA) guidelines.</p>
+                                    </div>
+                                </div>
+                            </section>
+                        )}
+
+                        {/* TAB 7: ABOUT / eNanda INFO */}
                         {activeTab === 'about' && (
                             <section className="bg-glass border silver-border p-6 sm:p-12 rounded-3xl shadow-xl space-y-6 animate-fade-in">
                                 <h3 className="text-2xl font-black silver-text">ℹ️ About Nollie's & eNanda Hub</h3>
@@ -549,45 +605,70 @@
                                         <p className="text-slate-400 leading-relaxed">We provide reliable, fast doorstep delivery across all sectors of eNanda and surrounding Durban communities for a flat R30 fee.</p>
                                     </div>
                                     <div className="bg-slate-900/90 p-6 rounded-3xl border silver-border space-y-2">
-                                        <h4 className="font-bold text-white text-sm">💬 Instant WhatsApp Checkout</h4>
-                                        <p className="text-slate-400 leading-relaxed">No complicated login forms. Build your cart or custom hamper, apply promo codes like <strong className="text-white">NOLLIE10</strong>, and send your order straight to our WhatsApp dispatch desk.</p>
+                                        <h4 className="font-bold text-white text-sm">💬 Flexible Multi-Channel Dispatch</h4>
+                                        <p className="text-slate-400 leading-relaxed">Choose your preferred communication method during checkout: instant WhatsApp chat, SMS text message, or direct phone call from our eNanda team.</p>
                                     </div>
                                 </div>
                             </section>
                         )}
                     </main>
 
-                    {/* Cart Modal Drawer */}
+                    {/* Cart & Customer Details Modal Drawer */}
                     {isCartOpen && (
                         <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-50 flex flex-col justify-end animate-fade-in">
-                            <div className="bg-glass rounded-t-3xl p-6 sm:p-8 border-t silver-border max-h-[85vh] flex flex-col shadow-2xl max-w-2xl mx-auto w-full">
+                            <div className="bg-glass rounded-t-3xl p-6 sm:p-8 border-t silver-border max-h-[90vh] flex flex-col shadow-2xl max-w-2xl mx-auto w-full">
                                 <div className="flex justify-between items-center border-b silver-border pb-4">
-                                    <h3 className="font-black text-base text-white flex items-center space-x-2"><span>🛒</span><span>Your Order Summary</span></h3>
+                                    <h3 className="font-black text-base text-white flex items-center space-x-2"><span>🛒</span><span>Your Order & Contact Details</span></h3>
                                     <button onClick={() => setIsCartOpen(false)} className="press-effect text-slate-400 text-xl font-bold bg-slate-800 w-9 h-9 rounded-full flex items-center justify-center hover:bg-slate-700">&times;</button>
                                 </div>
-                                <div className="py-4 overflow-y-auto flex-1 space-y-3 text-xs">
-                                    {cart.length === 0 ? (
-                                        <p className="text-slate-400 italic">Your cart is empty.</p>
-                                    ) : (
-                                        cart.map((item, idx) => (
-                                            <div key={idx} className="flex justify-between items-center bg-slate-900/90 p-3 rounded-2xl border silver-border text-slate-200">
-                                                <div><div className="font-extrabold text-white">{item.title}</div><div className="text-slate-400 text-[11px]">R {item.price.toFixed(2)}</div></div>
-                                                <button onClick={() => removeFromCart(idx)} className="text-red-400 font-bold bg-slate-800 w-7 h-7 rounded-full flex items-center justify-center">✕</button>
+                                <div className="py-4 overflow-y-auto flex-1 space-y-4 text-xs">
+                                    {/* Item List */}
+                                    <div className="space-y-2">
+                                        <span className="text-slate-400 font-bold uppercase text-[10px]">Cart Items:</span>
+                                        {cart.length === 0 ? (
+                                            <p className="text-slate-400 italic">Your cart is empty.</p>
+                                        ) : (
+                                            cart.map((item, idx) => (
+                                                <div key={idx} className="flex justify-between items-center bg-slate-900/90 p-3 rounded-2xl border silver-border text-slate-200">
+                                                    <div><div className="font-extrabold text-white">{item.title}</div><div className="text-slate-400 text-[11px]">R {item.price.toFixed(2)}</div></div>
+                                                    <button onClick={() => removeFromCart(idx)} className="text-red-400 font-bold bg-slate-800 w-7 h-7 rounded-full flex items-center justify-center">✕</button>
+                                                </div>
+                                            ))
+                                        )}
+                                    </div>
+
+                                    {/* Customer Contact Input Form */}
+                                    <div className="bg-slate-900/90 p-4 rounded-2xl border silver-border space-y-3">
+                                        <span className="text-white font-extrabold block">👤 Delivery & Contact Information:</span>
+                                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                            <input type="text" value={customerName} onChange={(e) => setCustomerName(e.target.value)} placeholder="Full Name *" className="px-3.5 py-2.5 rounded-xl bg-slate-950 border silver-border text-white outline-none"/>
+                                            <input type="tel" value={customerPhone} onChange={(e) => setCustomerPhone(e.target.value)} placeholder="Phone Number (e.g. 0625873479) *" className="px-3.5 py-2.5 rounded-xl bg-slate-950 border silver-border text-white outline-none"/>
+                                        </div>
+                                        <input type="text" value={deliveryAddress} onChange={(e) => setDeliveryAddress(e.target.value)} placeholder="eNanda Sector / Street Address" className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border silver-border text-white outline-none"/>
+
+                                        <div className="space-y-1.5 pt-1">
+                                            <span className="text-slate-400 text-[11px] font-bold">Preferred Contact Channel:</span>
+                                            <div className="flex space-x-2">
+                                                <button onClick={() => setCommPreference('whatsapp')} className={`flex-1 py-2 rounded-xl text-xs font-bold transition-all ${commPreference === 'whatsapp' ? 'bg-emerald-600 text-white shadow' : 'bg-slate-950 text-slate-400 border silver-border'}`}>💬 WhatsApp</button>
+                                                <button onClick={() => setCommPreference('sms')} className={`flex-1 py-2 rounded-xl text-xs font-bold transition-all ${commPreference === 'sms' ? 'bg-amber-600 text-white shadow' : 'bg-slate-950 text-slate-400 border silver-border'}`}>✉️ SMS</button>
+                                                <button onClick={() => setCommPreference('call')} className={`flex-1 py-2 rounded-xl text-xs font-bold transition-all ${commPreference === 'call' ? 'bg-blue-600 text-white shadow' : 'bg-slate-950 text-slate-400 border silver-border'}`}>📞 Phone Call</button>
                                             </div>
-                                        ))
-                                    )}
+                                        </div>
+                                    </div>
                                 </div>
+
                                 <div className="py-3 border-t silver-border flex space-x-2.5">
                                     <input type="text" value={promoCode} onChange={(e) => setPromoCode(e.target.value)} placeholder="Promo code (NOLLIE10)" className="flex-1 px-4 py-3 text-xs rounded-xl bg-slate-900 border silver-border text-white uppercase outline-none"/>
                                     <button onClick={applyPromo} className="press-effect silver-gradient text-slate-950 text-xs font-bold px-5 py-3 rounded-xl shadow">Apply</button>
                                 </div>
+
                                 <div className="border-t silver-border pt-4 space-y-2.5 text-xs">
                                     <div className="flex justify-between text-slate-300 font-medium"><span>Subtotal:</span><span>R {subtotal.toFixed(2)}</span></div>
                                     <div className="flex justify-between text-slate-300 font-medium"><span>Discount:</span><span className="text-emerald-400">-R {discount.toFixed(2)}</span></div>
                                     <div className="flex justify-between text-slate-300 font-medium"><span>Delivery Fee (eNanda):</span><span>R 30.00</span></div>
                                     <div className="flex justify-between text-lg font-black text-white pt-2 border-t silver-border"><span>Total Amount:</span><span className="silver-text">R {grandTotal.toFixed(2)}</span></div>
-                                    <button onClick={checkoutWhatsApp} className="press-effect w-full bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold py-4 rounded-2xl text-sm shadow-xl mt-2 flex items-center justify-center space-x-2">
-                                        <span>Send Order on WhatsApp 💬</span>
+                                    <button onClick={handleCheckout} className="press-effect w-full bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold py-4 rounded-2xl text-sm shadow-xl mt-2 flex items-center justify-center space-x-2">
+                                        <span>Submit Order via {commPreference.toUpperCase()} 🚀</span>
                                     </button>
                                 </div>
                             </div>

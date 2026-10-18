@@ -13,10 +13,6 @@ with app.app_context():
 def index():
     return send_from_directory('public', 'index.html')
 
-@app.route('/admin.html')
-def admin():
-    return send_from_directory('public', 'admin.html')
-
 @app.route('/<path:path>')
 def static_proxy(path):
     if os.path.exists(os.path.join('public', path)):
@@ -29,7 +25,15 @@ def handle_orders():
         data = request.json
         if not data or 'items' not in data or 'total' not in data:
             return jsonify({'error': 'Invalid payload'}), 400
-        saved = save_order(data['items'], data['total'])
+        
+        saved = save_order(
+            items=data['items'], 
+            total=data['total'],
+            customer_name=data.get('customer_name', ''),
+            customer_phone=data.get('customer_phone', ''),
+            comm_preference=data.get('comm_preference', 'whatsapp'),
+            delivery_address=data.get('delivery_address', '')
+        )
         return jsonify({'status': 'success', 'order': saved}), 201
     else:
         orders = load_orders()
@@ -37,5 +41,5 @@ def handle_orders():
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
-    print(f"🚀 Nollie's Server starting on http://localhost:{port} (Admin: http://localhost:{port}/admin.html)")
+    print(f"🚀 Nollie's Server active on http://localhost:{port}")
     app.run(host='0.0.0.0', port=port, debug=True)
