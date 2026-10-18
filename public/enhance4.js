@@ -17,7 +17,7 @@ var GROUPS=[
  ["🧃 Drinks",["Tropika Orange 200ml (3-pack)","Juices Africa 4L Guava","Juices Africa 4L Mixed Berry","Juices Africa 4L Cocktail","Juices Africa 4L Tropical Punch"]]];
 
 function $(s,r){return(r||document).querySelector(s)}
-function wa(t){return"https://wa.me/"+WA+"?text="+encodeURIComponent(t)}
+function wa(t){return"https://wa.me/"+WA+"?text="+(window.nqEnc||encodeURIComponent)(t)}
 function today(){return new Date().toLocaleDateString("en-CA")}
 function ld(k){try{return JSON.parse(localStorage.getItem(k))}catch(e){return null}}
 function sv(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
