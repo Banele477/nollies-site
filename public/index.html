@@ -36,7 +36,6 @@
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-        /* Animation Keyframes */
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(12px); }
             to { opacity: 1; transform: translateY(0); }
@@ -49,15 +48,10 @@
             0%, 100% { opacity: 0.2; transform: scale(1); }
             50% { opacity: 0.35; transform: scale(1.05); }
         }
-        @keyframes marquee {
-            0% { transform: translateX(0%); }
-            100% { transform: translateX(-50%); }
-        }
 
         .animate-fade-in { animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
         .animate-float { animation: floatSlow 4s ease-in-out infinite; }
         .animate-glow { animation: pulseGlow 6s ease-in-out infinite; }
-        .animate-marquee { display: inline-block; white-space: nowrap; animation: marquee 22s linear infinite; }
         .card-hover { transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
         .card-hover:hover { transform: translateY(-4px); border-color: rgba(226, 232, 240, 0.35); box-shadow: 0 20px 40px -15px rgba(0,0,0,0.7); }
     </style>
@@ -132,7 +126,6 @@
                 localStorage.setItem('nollies_customer_address', deliveryAddress);
             }, [customerName, customerPhone, deliveryAddress]);
 
-            // Real-world Live Activity Ticker Switcher
             useEffect(() => {
                 const interval = setInterval(() => {
                     setLiveActivityIndex((prev) => (prev + 1) % REAL_WORLD_FEED.length);
@@ -288,7 +281,6 @@
                 return matchesCat && matchesSearch;
             });
 
-            // Admin metrics
             const totalRevenue = orders.reduce((sum, o) => sum + (o.total || 0), 0);
             const avgOrderVal = orders.length > 0 ? totalRevenue / orders.length : 0;
 
@@ -299,7 +291,7 @@
                     {/* Navigation Header */}
                     <header className="sticky top-1 z-40 bg-glass border-b silver-border px-4 sm:px-12 py-4 flex justify-between items-center shadow-2xl">
                         <div className="flex items-center space-x-3 cursor-pointer group" onClick={() => setActiveTab('home')}>
-                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80" alt="Nollie" className="w-11 h-11 rounded-2xl object-cover border silver-border shadow-xl group-hover:scale-105 transition-transform"/>
+                            <img src="/images/nollie.jpg" alt="Nollie" className="w-11 h-11 rounded-2xl object-cover border silver-border shadow-xl group-hover:scale-105 transition-transform" onError={(e)=>{e.target.onerror=null; e.target.src=FALLBACK_SVG;}}/>
                             <div>
                                 <h1 className="text-base font-extrabold tracking-tight text-white leading-none">Nollie's</h1>
                                 <span className="text-[10px] font-semibold text-slate-400 tracking-widest uppercase">eNanda Premier Hub</span>
@@ -350,7 +342,6 @@
                         {/* TAB 0: HOME PAGE */}
                         {activeTab === 'home' && (
                             <section className="space-y-10 animate-fade-in">
-                                {/* Animated Hero Banner */}
                                 <div className="relative overflow-hidden rounded-3xl border silver-border p-8 sm:p-14 shadow-2xl bg-glass flex flex-col lg:flex-row items-center justify-between gap-10">
                                     <div className="absolute -right-20 -top-20 w-80 h-80 silver-gradient rounded-full blur-3xl opacity-20 pointer-events-none animate-glow"></div>
                                     <div className="space-y-6 max-w-2xl">
@@ -388,7 +379,6 @@
                                     </div>
                                 </div>
 
-                                {/* Animated Category Cards Grid */}
                                 <div className="space-y-4">
                                     <h3 className="text-xl font-black silver-text">Featured Collections</h3>
                                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
@@ -691,7 +681,6 @@
                                     <button onClick={() => setIsCartOpen(false)} className="press-effect text-slate-400 text-xl font-bold bg-slate-800 w-9 h-9 rounded-full flex items-center justify-center hover:bg-slate-700">&times;</button>
                                 </div>
                                 <div className="py-4 overflow-y-auto flex-1 space-y-4 text-xs">
-                                    {/* Item List */}
                                     <div className="space-y-2">
                                         <span className="text-slate-400 font-bold uppercase text-[10px]">Cart Items:</span>
                                         {cart.length === 0 ? (
@@ -706,7 +695,6 @@
                                         )}
                                     </div>
 
-                                    {/* Customer Contact Input Form */}
                                     <div className="bg-slate-900/90 p-4 rounded-2xl border silver-border space-y-3">
                                         <span className="text-white font-extrabold block">👤 Delivery & Contact Information:</span>
                                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
