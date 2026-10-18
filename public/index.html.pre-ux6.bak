@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Nqobile's | Exhilarating 2026 Raindrop 3D Durban Hub</title>
+    <meta name="theme-color" content="#030712">
+    <link rel="manifest" href="/manifest.json">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            -webkit-tap-highlight-color: transparent;
+            background-color: #030712;
+            color: #f8fafc;
+            overflow-x: hidden;
+        }
+        h1, h2, h3, h4, .font-display { font-family: 'Space Grotesk', sans-serif; }
+        
+        .white-rainbow-bg {
+            background-color: #030712;
+            background-image: 
+                radial-gradient(at 15% 15%, rgba(255, 255, 255, 0.22) 0px, transparent 50%),
+                radial-gradient(at 85% 20%, rgba(239, 68, 68, 0.2) 0px, transparent 50%),
+                radial-gradient(at 50% 50%, rgba(255, 255, 255, 0.28) 0px, transparent 60%),
+                radial-gradient(at 20% 85%, rgba(59, 130, 246, 0.2) 0px, transparent 50%),
+                radial-gradient(at 85% 85%, rgba(168, 85, 247, 0.2) 0px, transparent 50%),
+                linear-gradient(to bottom, #030712, #0b0f19);
+            background-attachment: fixed;
+        }
+
+        .rainbow-glass {
+            background: rgba(15, 23, 42, 0.88);
+            backdrop-filter: blur(35px) saturate(200%);
+            -webkit-backdrop-filter: blur(35px) saturate(200%);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 35px 80px -15px rgba(0, 0, 0, 0.9), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+        }
+
+        .rainbow-card-hover {
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .rainbow-card-hover:hover {
+            transform: translateY(-6px) scale(1.02);
+            border-color: rgba(255, 255, 255, 0.75);
+            box-shadow: 0 40px 90px -15px rgba(255, 255, 255, 0.4);
+        }
+
+        .press-effect {
+            transition: transform 0.1s ease, filter 0.1s ease;
+        }
+        .press-effect:active {
+            transform: scale(0.95);
+            filter: brightness(1.2);
+        }
+
+        @keyframes whiteRainbowText {
+            0% { filter: hue-rotate(0deg); }
+            100% { filter: hue-rotate(360deg); }
+        }
+
+        .white-rainbow-animated-text {
+            background: linear-gradient(135deg, #ffffff, #f43f5e, #fbbf24, #34d399, #38bdf8, #a855f7, #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: whiteRainbowText 6s linear infinite;
+        }
+
+        .white-rainbow-btn {
+            background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 20%, #ef4444 40%, #10b981 60%, #0ea5e9 80%, #a855f7 100%);
+            background-size: 250% auto;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            color: #030712;
+            font-weight: 900;
+            box-shadow: 0 4px 20px rgba(255, 255, 255, 0.4);
+        }
+        .white-rainbow-btn:hover {
+            background-position: right center;
+            box-shadow: 0 8px 35px rgba(255, 255, 255, 0.8);
+            transform: translateY(-2px) scale(1.03);
+            color: #ffffff;
+        }
+
+        .raindrop-pill {
+            position: relative;
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.22), rgba(15, 23, 42, 0.92));
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            box-shadow: 0 15px 35px -5px rgba(0, 0, 0, 0.8), inset 0 2px 5px rgba(255, 255, 255, 0.5);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            overflow: hidden;
+        }
+        .raindrop-pill::before {
+            content: '';
+            position: absolute;
+            top: 4px;
+            left: 25%;
+            width: 40%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.85);
+            border-radius: 999px;
+        }
+        .raindrop-pill:hover {
+            transform: translateY(-5px) scale(1.08);
+            border-color: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 20px 45px rgba(255, 255, 255, 0.4), inset 0 2px 8px rgba(255, 255, 255, 0.9);
+        }
+        .raindrop-active {
+            background: linear-gradient(135deg, #ffffff 0%, #f43f5e 30%, #38bdf8 70%, #a855f7 100%);
+            color: #030712 !important;
+            font-weight: 900;
+            border: 1px solid #ffffff;
+            box-shadow: 0 0 35px rgba(255, 255, 255, 0.9), inset 0 2px 8px rgba(255, 255, 255, 1);
+            transform: scale(1.1) translateY(-3px);
+        }
+
+        .marquee-container { overflow: hidden; white-space: nowrap; position: relative; width: 100%; }
+        .marquee-track { display: inline-block; animation: marqueeScroll 20s linear infinite; }
+        .marquee-track:hover { animation-play-state: paused; }
+        @keyframes marqueeScroll { 0% { transform: translateX(0%); } 100% { transform: translateX(-50%); } }
+
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+<link rel="stylesheet" href="enhance3.css?v=1792356450">
+<link rel="stylesheet" href="enhance4.css?v=1792356482">
+</head>
+<body class="min-h-screen pb-32 white-rainbow-bg overflow-x-hidden selection:bg-white selection:text-slate-950">
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect, useRef } = React;
+
+        const NOLLIE_AVATAR = "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=75";
+        const FALLBACK_SVG = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='500' height='350' viewBox='0 0 500 350'><rect width='100%' height='100%' fill='%230f172a'/><text x='50%' y='50%' fill='%23ffffff' font-family='sans-serif' font-size='18' font-weight='bold' text-anchor='middle' dominant-baseline='middle'></text></svg>";
+
+        const PHOTOS_LIST = window.NQ_PHOTOS || [];
+        const PROMO_FLYERS = PHOTOS_LIST.length > 0 ? PHOTOS_LIST.map((p, idx) => ({
+            id: 'fl' + idx,
+            title: p.t,
+            badge: p.c.toUpperCase() === 'HAMPER' ? 'Wholesale Deal' : (p.c.toUpperCase() === 'BULK' ? 'Top Seller' : 'Fresh Stock'),
+            price: p.c.toUpperCase() === 'HAMPER' ? 'R250.00' : (p.c.toUpperCase() === 'BULK' ? 'R380.00' : 'R160.00'),
+            desc: p.t,
+            img: 'images/' + p.n,
+            tag: p.c.toUpperCase()
+        })) : [
+            { id: 'fl1', title: 'Cereal Hamper Complete Showcase', badge: 'Wholesale Deal', price: 'R250.00', desc: 'Real stock breakfast bundle including Jungle Oats, Weet-Bix, Corn Flakes, Future Life, Nutrific & Tropika juice.', img: 'images/juices-africa-flavours.jpg', tag: 'CEREAL HAMPER' }
+        ];
+
+        const PRODUCTS = PHOTOS_LIST.length > 0 ? PHOTOS_LIST.map((p, idx) => ({
+            id: 'p' + idx,
+            cat: p.c,
+            title: p.t,
+            price: p.c === 'bulk' ? 380 : (p.c === 'juice' ? 160 : 250),
+            badge: p.c.toUpperCase(),
+            desc: p.t,
+            img: 'images/' + p.n,
+            arDimensions: '35cm x 25cm x 20cm'
+        })) : [];
+
+        const HAMPER_OPTIONS = [
+            { name: 'Jungle Oats 1kg', category: 'Cereal', img: 'images/juices-africa-flavours.jpg' },
+            { name: 'Future Life 500g', category: 'Cereal', img: 'images/juices-africa-flavours.jpg' },
+            { name: 'Bokomo Corn Flakes 1kg', category: 'Cereal', img: 'images/juices-africa-flavours.jpg' },
+            { name: 'Weet-Bix 450g', category: 'Cereal', img: 'images/juices-africa-flavours.jpg' },
+            { name: 'Nutrifics 450g', category: 'Cereal', img: 'images/juices-africa-flavours.jpg' },
+            { name: 'Tropika Dairy Fruit Mix (1L)', category: 'Beverage', img: 'images/juices-africa-flavours.jpg' }
+        ];
+
+        const BOOKABLE_SERVICES = [
+            { id: 's1', title: 'Doorstep Hamper Consultation & Delivery', price: 50, duration: '30 min', desc: 'In-person assistance selecting household groceries & bulk hampers in Durban.', img: 'images/juices-africa-flavours.jpg' },
+            { id: 's2', title: 'M-Scents Fragrance Sampling Session', price: 0, duration: '20 min', desc: 'Sample signature M-Scents perfumes at our local Durban hub point.', img: 'images/juices-africa-flavours.jpg' }
+        ];
+
+        const INITIAL_REVIEWS = [
+            { id: 1, name: 'Snerh Dlamini', rating: 5, comment: 'The Cereal Hamper combo saved our breakfast routine! Fast delivery in Durban.', date: '2 October 2026', avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=75' },
+            { id: 2, name: 'Sthelo Mkhize', rating: 5, comment: 'M-Scents Selver Sense and White OUD smell incredible and last all day. Super professional!', date: '10 October 2026', avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&q=75' }
+        ];
+
+        const LIVE_TICKER_ITEMS = [
+            "🏆 NQOBILE'S DURBAN HUB: Official Business Account (nqobilegila518@gmail.com) Active!",
+            "🔥 HOT DEAL: Cereal Hamper Combos (R250) & Family Boxes (R380)!",
+            "🤖 24/7 AI ASSISTANT ONLINE: Tap bottom-right to ask Nqobile AI anything!",
+            "🚀 FAST DISPATCH: Flat R30 Delivery Across Durban & eNanda!",
+            "💧 JUICES AFRICA: 4L High-Yield Concentrates & Tropika Stock Ready!",
+            "💎 M-SCENTS: Luxury 40ml Fragrances Available Now in Durban!"
+        ];
+
+        function App() {
+            const [activeTab, setActiveTab] = useState('home');
+            const [isMasterMenuOpen, setIsMasterMenuOpen] = useState(false);
+            const [cart, setCart] = useState(JSON.parse(localStorage.getItem('nollies_cart') || '[]'));
+            const [orders, setOrders] = useState([]);
+            const [reviews, setReviews] = useState(JSON.parse(localStorage.getItem('nollies_reviews') || JSON.stringify(INITIAL_REVIEWS)));
+            const [popiaAccepted, setPopiaAccepted] = useState(localStorage.getItem('nollies_popia_accepted') === 'true');
+            const [loyaltyCoins, setLoyaltyCoins] = useState(Number(localStorage.getItem('nollies_loyalty') || '150'));
+
+            const [arProduct, setArProduct] = useState(null);
+            const [arZoom, setArZoom] = useState(1);
+            const [arRotation, setArRotation] = useState(0);
+
+            const [activePoster, setActivePoster] = useState(null);
+            const [communityPosts, setCommunityPosts] = useState(JSON.parse(localStorage.getItem('nollies_community') || JSON.stringify([
+                { id: 1, author: 'Nqobile Gila (Business Owner)', msg: 'Welcome to our verified Durban business hub! Check out our real stock of cereal hampers and M-Scents perfumes.', time: 'Today', avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=75' }
+            ])));
+            const [newPostAuthor, setNewPostAuthor] = useState('');
+            const [newPostMsg, setNewPostMsg] = useState('');
+
+            const [searchQuery, setSearchQuery] = useState('');
+            const [selectedCategory, setSelectedCategory] = useState('all');
+            const [isCartOpen, setIsCartOpen] = useState(false);
+            const [discountPercent, setDiscountPercent] = useState(0);
+            const [selectedHamperItems, setSelectedHamperItems] = useState([]);
+            const [activeModalProduct, setActiveModalProduct] = useState(null);
+            const [toastMessage, setToastMessage] = useState(null);
+
+            const [customerName, setCustomerName] = useState(localStorage.getItem('nollies_customer_name') || '');
+            const [customerPhone, setCustomerPhone] = useState(localStorage.getItem('nollies_customer_phone') || '');
+
+            const [bookingService, setBookingService] = useState('Doorstep Hamper Consultation & Delivery');
+            const [bookingDate, setBookingDate] = useState('2026-10-22');
+
+            const [newReviewName, setNewReviewName] = useState('');
+            const [newReviewRating, setNewReviewRating] = useState('5');
+            const [newReviewComment, setNewReviewComment] = useState('');
+
+            const [isAiOpen, setIsAiOpen] = useState(false);
+            const [aiMessages, setAiMessages] = useState([
+                { sender: 'ai', text: 'Sawubona! I am Nqobile AI Assistant for nqobilegila518@gmail.com. How can I assist you with your order today?' }
+            ]);
+            const [aiInput, setAiInput] = useState('');
+            const chatEndRef = useRef(null);
+
+            const showToast = (msg) => {
+                setToastMessage(msg);
+                setTimeout(() => setToastMessage(null), 2500);
+            };
+
+            const acceptPopia = () => {
+                localStorage.setItem('nollies_popia_accepted', 'true');
+                setPopiaAccepted(true);
+                showToast('🔒 POPIA Consent Recorded.');
+            };
+
+            const downloadDirectApk = () => {
+                showToast('✨ Downloading Android APK...');
+                const a = document.createElement('a');
+                a.href = '/downloads/nollies.apk';
+                a.download = 'NqobilesHub.apk';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+            };
+
+            useEffect(() => {
+                localStorage.setItem('nollies_cart', JSON.stringify(cart));
+            }, [cart]);
+
+            const addToCart = (title, price) => {
+                setCart([...cart, { title, price }]);
+                setLoyaltyCoins(prev => prev + 20);
+                showToast(`🛒 ${title} added (+20 Coins)`);
+            };
+
+            const removeFromCart = (index) => {
+                const newCart = [...cart];
+                newCart.splice(index, 1);
+                setCart(newCart);
+                showToast('Item removed.');
+            };
+
+            const handleHamperToggle = (name) => {
+                if (selectedHamperItems.includes(name)) {
+                    setSelectedHamperItems(selectedHamperItems.filter(i => i !== name));
+                } else {
+                    if (selectedHamperItems.length >= 5) {
+                        alert('Maximum 5 items allowed for custom hampling.');
+                        return;
+                    }
+                    setSelectedHamperItems([...selectedHamperItems, name]);
+                }
+            };
+
+            const addCustomHamper = () => {
+                if (selectedHamperItems.length < 5) {
+                    alert('Please select exactly 5 items to assemble your custom bundle!');
+                    return;
+                }
+                addToCart(`Custom Cereal Hamper (${selectedHamperItems.join(', ')})`, 250);
+                setSelectedHamperItems([]);
+                setActiveTab('catalog');
+            };
+
+            const handleAddReview = (e) => {
+                e.preventDefault();
+                if (!newReviewName.trim() || !newReviewComment.trim()) return;
+                const newRev = {
+                    id: reviews.length + 1,
+                    name: newReviewName,
+                    rating: Number(newReviewRating),
+                    comment: newReviewComment,
+                    date: new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }),
+                    avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=100&q=75'
+                };
+                setReviews([newRev, ...reviews]);
+                setNewReviewName('');
+                setNewReviewComment('');
+                setLoyaltyCoins(prev => prev + 35);
+                showToast('⭐ Review published! (+35 Bonus Coins)');
+            };
+
+            const handleAddCommunityPost = (e) => {
+                e.preventDefault();
+                if (!newPostAuthor.trim() || !newPostMsg.trim()) return;
+                const post = {
+                    id: communityPosts.length + 1,
+                    author: newPostAuthor,
+                    msg: newPostMsg,
+                    time: 'Just now',
+                    avatar: 'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?auto=format&fit=crop&w=100&q=75'
+                };
+                setCommunityPosts([post, ...communityPosts]);
+                setNewPostAuthor('');
+                setNewPostMsg('');
+                showToast('💬 Posted to Board!');
+            };
+
+            const shareCartToWhatsApp = () => {
+                if (cart.length === 0) {
+                    alert('Your cart is empty!');
+                    return;
+                }
+                let text = `Sawubona Nqobile's Hub (nqobilegila518@gmail.com)! Order:%0A`;
+                cart.forEach(i => text += `• ${i.title} - R${i.price}%0A`);
+                window.open(`https://wa.me/27637019808?text=${text}`, '_blank');
+            };
+
+            const subtotal = cart.reduce((sum, item) => sum + item.price, 0);
+            const discount = (subtotal * discountPercent) / 100;
+            const deliveryFee = 30;
+            const grandTotal = cart.length > 0 ? (subtotal - discount) + deliveryFee : 0;
+
+            const handleCheckout = () => {
+                if (cart.length === 0) return;
+                if (!customerName.trim() || !customerPhone.trim()) {
+                    alert('Please provide Full Name and Phone Number.');
+                    return;
+                }
+                const order = {
+                    id: orders.length + 1,
+                    date: new Date().toLocaleTimeString(),
+                    customer_name: customerName,
+                    customer_phone: customerPhone,
+                    items: [...cart],
+                    total: grandTotal
+                };
+                setOrders([order, ...orders]);
+                setLoyaltyCoins(prev => prev + 75);
+                setCart([]);
+                setIsCartOpen(false);
+                setActiveTab('orders');
+                window.open(`https://wa.me/27637019808?text=Order%20from%20${customerName}%20Total:%20R${grandTotal}`, '_blank');
+            };
+
+            const filteredProducts = PRODUCTS.filter(p => {
+                const matchesCat = selectedCategory === 'all' || p.cat === selectedCategory;
+                const matchesSearch = p.title.toLowerCase().includes(searchQuery.toLowerCase());
+                return matchesCat && matchesSearch;
+            });
+
+            const menuTabs = [
+                { id: 'home', label: '🌟 Durban Home & Hub', desc: 'Featured banners & quick tracking' },
+                { id: 'catalog', label: '🛍️ Marketplace & 3D AR', desc: 'Browse hampers, juices & perfumes' },
+                { id: 'posters', label: '🖼️ Posters & Flyers', desc: 'Official promotion media' },
+                { id: 'builder', label: '✨ Hamper Builder', desc: 'Customize your own 5-item bundle' },
+                { id: 'community', label: '💬 Community Bulletin Board', desc: 'Client announcements' },
+                { id: 'reviews', label: '⭐ Reviews & Feedback', desc: 'Client feedback & loyalty coins' },
+                { id: 'booking', label: '📅 Consultations & Sampling', desc: 'Schedule expert advice' },
+                { id: 'legal', label: '🇿🇦 SA Legal (POPIA)', desc: 'Consumer protection standards' },
+                { id: 'orders', label: '📦 Orders & Telemetry', desc: 'Track dispatches & records' },
+                { id: 'admin', label: '🔐 Business Analytics Console', desc: 'Financial reports & database logs' }
+            ];
+
+            const currentActiveTabObj = menuTabs.find(t => t.id === activeTab) || menuTabs[0];
+
+            return (
+                <div className="min-h-screen relative cinematic-stage">
+                    <div className="h-1.5 bg-gradient-to-r from-red-500 via-amber-400 via-emerald-400 via-sky-400 via-purple-500 to-white w-full fixed top-0 z-50"></div>
+
+                    <div className="bg-slate-950/95 border-b border-white/15 text-slate-200 text-xs py-1.5 max-w-7xl mx-auto rounded-b-2xl mb-1">
+                        <div className="marquee-container">
+                            <div className="marquee-track flex space-x-12 font-mono font-bold">
+                                {LIVE_TICKER_ITEMS.concat(LIVE_TICKER_ITEMS).map((ticker, i) => (
+                                    <span key={i} className="flex items-center gap-2">
+                                        <span className="w-2 h-2 rounded-full bg-red-400"></span>
+                                        <span className="white-rainbow-animated-text">{ticker}</span>
+                                    </span>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+
+                    <header className="sticky top-3 z-40 rainbow-glass mx-4 sm:mx-10 px-4 sm:px-8 py-3.5 flex justify-between items-center rounded-3xl shadow-2xl">
+                        <div className="flex items-center space-x-3 cursor-pointer group" onClick={() => setActiveTab('home')}>
+                            <img src={NOLLIE_AVATAR} alt="Nqobile" loading="lazy" className="w-12 h-12 rounded-2xl object-cover border-2 border-white/80 shadow-lg group-hover:scale-105 transition-transform" />
+                            <div>
+                                <h1 className="text-lg font-black tracking-wider text-white font-display uppercase flex items-center gap-1.5">
+                                    Nqobile's <span className="text-[9px] bg-red-500/20 text-red-300 px-1.5 py-0.5 rounded border border-red-400/40 font-mono">DURBAN HUB</span>
+                                </h1>
+                                <span className="text-[10px] font-bold text-slate-300 tracking-widest uppercase flex items-center gap-1"><span>📧</span><span>nqobilegila518@gmail.com</span></span>
+                            </div>
+                        </div>
+                        
+                        <div className="relative">
+                            <button onClick={() => setIsMasterMenuOpen(!isMasterMenuOpen)} 
+                                    className="press-effect raindrop-pill raindrop-active px-8 py-4 text-xs font-black flex items-center space-x-3 shadow-2xl">
+                                <span className="text-base">💧</span>
+                                <span className="tracking-wider">MENU: {currentActiveTabObj.label}</span>
+                                <span>▼</span>
+                            </button>
+
+                            {isMasterMenuOpen && (
+                                <div className="absolute right-0 mt-3 w-80 sm:w-96 rainbow-glass rounded-3xl border border-white/40 p-4 shadow-2xl z-50 space-y-2">
+                                    <div className="px-3 py-2 border-b border-white/20 flex justify-between items-center">
+                                        <span className="text-[10px] font-mono font-bold text-sky-300 uppercase">Select Hub Section</span>
+                                        <button onClick={()=>setIsMasterMenuOpen(false)} className="text-slate-400 hover:text-white text-base font-bold">&times;</button>
+                                    </div>
+                                    <div className="max-h-[65vh] overflow-y-auto space-y-2 pr-1 no-scrollbar">
+                                        {menuTabs.map((tab) => (
+                                            <button key={tab.id} onClick={() => { setActiveTab(tab.id); setIsMasterMenuOpen(false); showToast(`Navigated to ${tab.label}`); }} className={`press-effect w-full text-left px-4 py-3 raindrop-pill flex flex-col space-y-1 ${activeTab === tab.id ? 'raindrop-active' : 'hover:scale-[1.03]'}`}>
+                                                <div className="flex justify-between items-center">
+                                                    <span className="text-xs font-black font-display">{tab.label}</span>
+                                                    <span className="text-[10px] font-mono opacity-80">💧 Drop</span>
+                                                </div>
+                                                <span className={`text-[10px] opacity-90 ${activeTab === tab.id ? 'text-slate-950 font-bold' : 'text-slate-300'}`}>{tab.desc}</span>
+                                            </button>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+
+                        <div className="flex items-center space-x-2.5">
+                            <div className="hidden sm:flex items-center space-x-1.5 bg-amber-500/20 border border-amber-400/40 px-3 py-2 rounded-2xl text-[11px] font-mono font-bold text-amber-300">
+                                <span>🪙</span><span>{loyaltyCoins} Coins</span>
+                            </div>
+                            <button onClick={downloadDirectApk} className="press-effect bg-white/15 hover:bg-white/25 border border-white/40 text-white text-xs font-black px-4 py-2.5 rounded-2xl shadow">APK</button>
+                            <button onClick={() => setIsCartOpen(true)} className="press-effect relative white-rainbow-btn text-xs font-black px-5 py-2.5 rounded-2xl shadow">
+                                🛒 Cart ({cart.length})
+                            </button>
+                        </div>
+                    </header>
+
+                    <main className="max-w-6xl mx-auto px-4 mt-8 space-y-10">
+                        {activeTab === 'home' && (
+                            <section className="space-y-10">
+                                <div className="relative overflow-hidden rounded-3xl border border-white/30 shadow-2xl rainbow-glass p-8 sm:p-14 flex flex-col lg:flex-row items-center justify-between gap-10">
+                                    <div className="space-y-6 max-w-xl">
+                                        <div className="inline-flex items-center space-x-2 bg-slate-950/90 px-4 py-1.5 rounded-full border border-red-400/40 text-xs font-mono text-red-300 shadow-sm">
+                                           <span>💧 Verified Business Account • nqobilegila518@gmail.com</span>
+                                        </div>
+                                        <h2 className="text-3xl sm:text-5xl font-black tracking-tight white-rainbow-animated-text leading-tight font-display">
+                                            Sawubona! Welcome to Nqobile's Verified Durban Business Hub
+                                        </h2>
+                                        <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-medium">
+                                            Explore real stock of cereal breakfast hampers, bulk packed wholesale boxes, and M-Scents luxury perfumes with instant WhatsApp dispatch.
+                                        </p>
+                                        <div className="flex flex-wrap gap-3 pt-2">
+                                            <button onClick={() => { setActiveTab('catalog'); showToast('Opened Marketplace Catalog'); }} className="press-effect white-rainbow-btn font-extrabold py-3.5 px-7 rounded-2xl text-xs shadow-lg">Explore Real Stock Catalog 🛍️</button>
+                                            <button onClick={() => { setActiveTab('builder'); showToast('Opened Hamper Builder'); }} className="press-effect raindrop-pill px-6 py-3.5 text-xs font-bold text-white shadow">✨ Build Custom Hamper</button>
+                                        </div>
+                                    </div>
+                                    
+                                    <div className="w-full lg:w-80 bg-slate-950/85 p-6 rounded-3xl border border-white/25 shadow-2xl space-y-4 text-center z-10 rainbow-card-hover">
+                                        <div className="relative w-28 h-28 mx-auto rounded-3xl overflow-hidden border-2 border-white/80 shadow-md">
+                                            <img src={NOLLIE_AVATAR} alt="Nqobile Gila" loading="lazy" className="w-full h-full object-cover" />
+                                        </div>
+                                        <div>
+                                            <h3 className="text-base font-black text-white font-display">Nqobile Gila</h3>
+                                            <p className="text-[11px] text-sky-400 font-mono font-bold">Business Owner</p>
+                                        </div>
+                                        <div className="space-y-2 text-[11px] bg-slate-900/90 p-3 rounded-2xl border border-white/15 text-slate-300 font-mono">
+                                            <div className="flex justify-between"><span>Email:</span><strong className="text-white text-[10px]">nqobilegila518@gmail.com</strong></div>
+                                            <div className="flex justify-between"><span>Phone/WhatsApp:</span><strong className="text-white">+27 63 701 9808</strong></div>
+                                            <div className="flex justify-between"><span>Dispatch:</span><strong className="text-emerald-400">Flat R30 Rate 🚀</strong></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="space-y-4">
+                                    <div className="flex justify-between items-center px-1">
+                                        <h3 className="text-xl font-black text-white font-display flex items-center gap-2"><span>🖼️</span><span>Strategic Product Showcases & Flyers</span></h3>
+                                        <button onClick={()=>setActiveTab('posters')} className="press-effect text-xs text-slate-300 hover:text-white font-bold font-mono">View All Posters →</button>
+                                    </div>
+                                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                                        {PROMO_FLYERS.slice(0, 3).map((f) => (
+                                            <div key={f.id} onClick={()=>setActivePoster(f)} className="rainbow-glass rounded-3xl border border-white/20 p-4 space-y-3 cursor-pointer rainbow-card-hover press-effect">
+                                                <div className="h-44 rounded-2xl overflow-hidden relative bg-slate-950 border border-white/10 flex items-center justify-center">
+                                                    <img src={f.img} alt={f.title} loading="lazy" className="w-full h-full object-cover" onError={(e)=>{e.target.onerror=null; e.target.src=FALLBACK_SVG;}}/>
+                                                    <span className="absolute top-2.5 left-2.5 bg-slate-950/90 border border-white/40 text-white font-mono text-[9px] font-black px-2.5 py-1 rounded-full uppercase shadow">{f.badge}</span>
+                                                </div>
+                                                <div>
+                                                    <h4 className="font-extrabold text-white text-xs font-display">{f.title}</h4>
+                                                    <p className="text-[11px] text-slate-400 mt-1 line-clamp-2">{f.desc}</p>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            </section>
+                        )}
+
+                        {activeTab === 'posters' && (
+                            <section className="rainbow-glass border border-white/25 p-6 sm:p-12 rounded-3xl shadow-xl space-y-6">
+                                <h3 className="text-2xl font-black white-rainbow-animated-text font-display">🖼️ Real Product Flyers & Posters</h3>
+                                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                                    {PROMO_FLYERS.map((flyer) => (
+                                        <div key={flyer.id} className="rainbow-glass rounded-3xl border border-white/25 p-5 space-y-4 shadow-2xl flex flex-col justify-between">
+                                            <div className="space-y-3">
+                                                <div className="h-64 rounded-2xl overflow-hidden relative bg-slate-950 border border-white/20 flex items-center justify-center">
+                                                    <img src={flyer.img} alt={flyer.title} loading="lazy" className="w-full h-full object-cover" onError={(e)=>{e.target.onerror=null; e.target.src=FALLBACK_SVG;}}/>
+                                                    <span className="absolute top-3 left-3 bg-slate-950/90 border border-white/40 text-white font-mono text-[10px] font-black px-3 py-1 rounded-full uppercase shadow">{flyer.badge}</span>
+                                                </div>
+                                                <h4 className="text-base font-black text-white font-display">{flyer.title}</h4>
+                                                <p className="text-xs text-slate-300 leading-relaxed font-medium">{flyer.desc}</p>
+                                            </div>
+                                            <div className="pt-3 border-t border-white/15 flex justify-between items-center">
+                                                <span className="text-sm font-black text-white font-mono">{flyer.price}</span>
+                                                <button onClick={()=>setActivePoster(flyer)} className="press-effect white-rainbow-btn text-slate-950 text-xs font-black px-4 py-2.5 rounded-xl shadow">Inspect Poster 🔍</button>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </section>
+                        )}
+
+                        {activeTab === 'catalog' && (
+                            <div className="space-y-6">
+                                <div className="rainbow-glass border border-white/20 p-6 rounded-3xl shadow-xl flex flex-col sm:flex-row justify-between items-center gap-4">
+                                    <div>
+                                        <h3 className="text-2xl font-black white-rainbow-animated-text font-display">Real Stock Marketplace</h3>
+                                        <p className="text-xs text-slate-400">Browse Nqobile's verified inventory: cereal hampers, bulk boxes, juices, and M-Scents.</p>
+                                    </div>
+                                    <input type="text" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder="🔍 Search stock..." 
+                                           className="w-full sm:w-80 px-4 py-3 rounded-2xl border border-white/35 bg-slate-950/90 text-white text-xs outline-none focus:border-white"/>
+                                </div>
+                                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                                    {filteredProducts.map((p) => (
+                                        <div key={p.id} className="rainbow-glass rounded-3xl border border-white/15 shadow-xl overflow-hidden flex flex-col justify-between rainbow-card-hover">
+                                            <div onClick={() => setActiveModalProduct(p)} className="cursor-pointer">
+                                                <div className="h-48 overflow-hidden relative bg-slate-950 flex items-center justify-center">
+                                                    <img src={p.img} alt={p.title} loading="lazy" className="w-full h-full object-cover opacity-95" onError={(e)=>{e.target.onerror=null; e.target.src=FALLBACK_SVG;}}/>
+                                                    <span className="absolute top-3 left-3 z-10 white-rainbow-btn text-slate-950 text-[10px] font-black px-3 py-1 rounded-full uppercase font-mono">{p.badge}</span>
+                                                    <button onClick={(e) => { e.stopPropagation(); setArProduct(p); setArZoom(1); setArRotation(0); showToast(`Opening 3D view for ${p.title}`); }} className="press-effect absolute bottom-3 right-3 bg-slate-950/90 border border-white/50 text-white text-[10px] font-mono font-black px-3 py-1.5 rounded-xl shadow-lg flex items-center gap-1.5 hover:bg-white hover:text-slate-950 transition-colors">
+                                                        <span>💧</span><span>3D Raindrop View</span>
+                                                    </button>
+                                                </div>
+                                                <div className="p-5">
+                                                    <h3 className="text-sm font-black text-white mb-1 font-display">{p.title}</h3>
+                                                    <p className="text-[11px] text-slate-400 line-clamp-2 leading-relaxed">{p.desc}</p>
+                                                </div>
+                                            </div>
+                                            <div className="p-5 pt-0 flex justify-between items-center">
+                                                <span className="text-lg font-black text-white font-mono">R {p.price.toFixed(2)}</span>
+                                                <button onClick={() => addToCart(p.title, p.price)} className="press-effect white-rainbow-btn text-slate-950 text-xs font-black px-4 py-2.5 rounded-xl shadow">+ Add</button>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+
+                        {activeTab === 'builder' && (
+                            <section className="rainbow-glass border border-white/25 p-6 sm:p-12 rounded-3xl shadow-xl space-y-6">
+                                <div className="max-w-xl space-y-2">
+                                    <h3 className="text-2xl font-black white-rainbow-animated-text font-display">✨ Build Custom Cereal Hamper</h3>
+                                    <p className="text-xs sm:text-sm text-slate-300">Choose <strong className="text-white">5 preferred items</strong> from Nqobile's stock for <strong className="text-white">R250.00</strong>!</p>
+                                </div>
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 text-xs">
+                                    {HAMPER_OPTIONS.map((item) => (
+                                        <label key={item.name} className={`flex items-center justify-between p-3 rounded-2xl border cursor-pointer transition-all ${selectedHamperItems.includes(item.name) ? 'bg-white/15 border-white shadow-md' : 'bg-slate-950/80 border-slate-800'}`}>
+                                            <div className="flex items-center space-x-3">
+                                                <img src={item.img} alt={item.name} loading="lazy" className="w-10 h-10 rounded-xl object-cover border border-white/20" onError={(e)=>{e.target.onerror=null; e.target.src=FALLBACK_SVG;}}/>
+                                                <span className="font-bold text-white">{item.name} <span className="text-[10px] text-slate-400 font-mono block">({item.category})</span></span>
+                                            </div>
+                                            <input type="checkbox" checked={selectedHamperItems.includes(item.name)} onChange={() => handleHamperToggle(item.name)} className="w-4 h-4 accent-white rounded cursor-pointer"/>
+                                        </label>
+                                    ))}
+                                </div>
+                                <div className="border-t border-white/20 pt-6 flex flex-col sm:flex-row justify-between items-center gap-4">
+                                    <div className="text-xs text-slate-400">Selected Slots: <span className="font-extrabold text-white text-sm font-mono">{selectedHamperItems.length} / 5</span></div>
+                                    <button onClick={addCustomHamper} className="press-effect white-rainbow-btn text-slate-950 font-black px-8 py-4 rounded-2xl text-xs shadow-xl">Add Custom Hamper 🛒</button>
+                                </div>
+                            </section>
+                        )}
+
+                        {activeTab === 'community' && (
+                            <section className="rainbow-glass border border-white/25 p-6 sm:p-12 rounded-3xl shadow-xl space-y-8">
+                                <h3 className="text-2xl font-black white-rainbow-animated-text font-display">💬 Community Bulletin Board</h3>
+                                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                                    <form onSubmit={handleAddCommunityPost} className="bg-slate-950/90 p-6 rounded-3xl border border-white/20 space-y-4 text-xs">
+                                        <h4 className="text-sm font-extrabold text-white font-display">📝 Post Message</h4>
+                                        <input type="text" required value={newPostAuthor} onChange={(e)=>setNewPostAuthor(e.target.value)} placeholder="Your Name *" className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white outline-none"/>
+                                        <textarea required rows="3" value={newPostMsg} onChange={(e)=>setNewPostMsg(e.target.value)} placeholder="Message..." className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white outline-none"></textarea>
+                                        <button type="submit" className="press-effect w-full white-rainbow-btn text-slate-950 font-extrabold py-3 rounded-xl shadow-lg">Post Message 💬</button>
+                                    </form>
+                                    <div className="lg:col-span-2 space-y-4">
+                                        {communityPosts.map((post) => (
+                                            <div key={post.id} className="bg-slate-950/90 p-5 rounded-3xl border border-white/15 text-xs flex items-start space-x-4">
+                                                <img src={post.avatar} alt={post.author} loading="lazy" className="w-10 h-10 rounded-full object-cover border border-white/30"/>
+                                                <div>
+                                                    <span className="font-bold text-white font-display">{post.author}</span>
+                                                    <p className="text-slate-300 mt-1">{post.msg}</p>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            </section>
+                        )}
+
+                        {activeTab === 'reviews' && (
+                            <section className="rainbow-glass border border-white/25 p-6 sm:p-12 rounded-3xl shadow-xl space-y-8">
+                                <h3 className="text-2xl font-black white-rainbow-animated-text font-display">⭐ Client Reviews & Feedback Hub</h3>
+                                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                                    <form onSubmit={handleAddReview} className="bg-slate-950/90 p-6 rounded-3xl border border-white/20 space-y-4 text-xs">
+                                        <h4 className="text-sm font-extrabold text-white font-display">✍️ Leave Review (+35 Coins)</h4>
+                                        <input type="text" required value={newReviewName} onChange={(e)=>setNewReviewName(e.target.value)} placeholder="Your Name *" className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white outline-none"/>
+                                        <select value={newReviewRating} onChange={(e)=>setNewReviewRating(e.target.value)} className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white outline-none">
+                                            <option value="5">⭐⭐⭐⭐⭐ (5/5)</option>
+                                        </select>
+                                        <textarea required rows="3" value={newReviewComment} onChange={(e)=>setNewReviewComment(e.target.value)} placeholder="Review comment..." className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white outline-none"></textarea>
+                                        <button type="submit" className="press-effect w-full white-rainbow-btn text-slate-950 font-extrabold py-3 rounded-xl shadow-lg">Publish Review ⭐</button>
+                                    </form>
+                                    <div className="lg:col-span-2 space-y-4">
+                                        {reviews.map((rev) => (
+                                            <div key={rev.id} className="bg-slate-950/90 p-5 rounded-3xl border border-white/15 text-xs flex items-start space-x-4">
+                                                <img src={rev.avatar} alt={rev.name} loading="lazy" className="w-10 h-10 rounded-full object-cover border border-white/30"/>
+                                                <div>
+                                                    <div className="flex justify-between"><span className="font-bold text-white font-display">{rev.name}</span><span className="text-[10px] text-slate-400 font-mono">{rev.date}</span></div>
+                                                    <div className="text-amber-300 text-xs">{"⭐".repeat(rev.rating)}</div>
+                                                    <p className="text-xs text-slate-300 mt-1">"{rev.comment}"</p>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            </section>
+                        )}
+
+                        {activeTab === 'booking' && (
+                            <section className="rainbow-glass border border-white/25 p-6 sm:p-12 rounded-3xl shadow-xl space-y-8">
+                                <h3 className="text-2xl font-black white-rainbow-animated-text font-display">📅 Appointment & Service Booking</h3>
+                                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                                    <div className="space-y-3">
+                                        {BOOKABLE_SERVICES.map((s) => (
+                                            <div key={s.id} onClick={() => setBookingService(s.title)} className={`press-effect p-4 rounded-2xl border cursor-pointer text-xs flex items-center space-x-3 ${bookingService === s.title ? 'bg-white/15 border-white shadow-md' : 'bg-slate-950/80 border-slate-800'}`}>
+                                                <img src={s.img} alt={s.title} loading="lazy" className="w-12 h-12 rounded-xl object-cover border border-white/20" onError={(e)=>{e.target.onerror=null; e.target.src=FALLBACK_SVG;}}/>
+                                                <div><strong className="text-white block">{s.title}</strong><span className="text-slate-400 font-mono">{s.price > 0 ? `R ${s.price}` : 'FREE'}</span></div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                    <form onSubmit={(e)=>{e.preventDefault(); showToast('📅 Appointment Booked Successfully!');}} className="lg:col-span-2 bg-slate-950/90 p-6 rounded-3xl border border-white/20 space-y-4 text-xs">
+                                        <input type="text" required value={customerName} onChange={(e) => setCustomerName(e.target.value)} placeholder="Full Name *" className="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-700 text-white outline-none"/>
+                                        <input type="tel" required value={customerPhone} onChange={(e) => setCustomerPhone(e.target.value)} placeholder="Phone Number *" className="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-700 text-white outline-none"/>
+                                        <input type="date" required value={bookingDate} onChange={(e) => setBookingDate(e.target.value)} className="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-700 text-white outline-none"/>
+                                        <button type="submit" className="press-effect w-full white-rainbow-btn text-slate-950 font-extrabold py-4 rounded-2xl text-xs shadow-xl">Transmit Appointment Request 📅</button>
+                                    </form>
+                                </div>
+                            </section>
+                        )}
+
+                        {activeTab === 'legal' && (
+                            <section className="rainbow-glass border border-white/25 p-6 sm:p-12 rounded-3xl shadow-xl space-y-8 text-xs">
+                                <h3 className="text-2xl font-black white-rainbow-animated-text font-display">🇿🇦 SA Regulatory & POPIA Center</h3>
+                                <p className="text-slate-300 leading-relaxed">Nqobile's Hub (nqobilegila518@gmail.com) processes personal data securely under POPIA regulations for Durban dispatches.</p>
+                            </section>
+                        )}
+
+                        {activeTab === 'orders' && (
+                            <section className="rainbow-glass border border-white/25 p-6 sm:p-12 rounded-3xl shadow-xl space-y-6 text-xs">
+                                <h3 className="text-2xl font-black white-rainbow-animated-text font-display">📦 Order & Telemetry History</h3>
+                                {orders.length === 0 ? <p className="text-slate-400">No orders recorded yet.</p> : orders.map((o, idx) => (
+                                    <div key={idx} className="bg-slate-950/90 p-5 rounded-2xl border border-white/20 space-y-2">
+                                        <div className="flex justify-between font-bold text-white"><span>Order #{o.id}</span><span>R {o.total.toFixed(2)}</span></div>
+                                        <p className="text-slate-400 font-mono">{o.customer_name} ({o.customer_phone})</p>
+                                    </div>
+                                ))}
+                            </section>
+                        )}
+
+                        {activeTab === 'admin' && (
+                            <section className="rainbow-glass border border-white/35 p-6 sm:p-12 rounded-3xl shadow-2xl space-y-6 text-xs">
+                                <h3 className="text-2xl font-black white-rainbow-animated-text font-display">🔐 Business Analytics Console</h3>
+                                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 font-mono">
+                                    <div className="bg-slate-950 p-6 rounded-3xl border border-white/20"><span>Revenue</span><div className="text-xl font-black text-white mt-1">R {orders.reduce((sum, o) => sum + o.total, 0).toFixed(2)}</div></div>
+                                    <div className="bg-slate-950 p-6 rounded-3xl border border-white/20"><span>Orders</span><div className="text-xl font-black text-white mt-1">{orders.length}</div></div>
+                                    <div className="bg-slate-950 p-6 rounded-3xl border border-white/20"><span>Email</span><div className="text-xs text-sky-400 mt-1">nqobilegila518@gmail.com</div></div>
+                                </div>
+                            </section>
+                        )}
+                    </main>
+
+                    {arProduct && (
+                        <div className="fixed inset-0 bg-slate-950/90 backdrop-blur-md z-50 flex items-center justify-center p-4">
+                            <div className="rainbow-glass rounded-3xl p-6 sm:p-8 border border-white/50 max-w-lg w-full space-y-5 shadow-2xl relative">
+                                <button onClick={() => setArProduct(null)} className="press-effect absolute top-4 right-4 text-slate-400 text-xl font-bold bg-slate-900 w-9 h-9 rounded-full flex items-center justify-center">&times;</button>
+                                <h3 className="text-xl font-black text-white font-display">{arProduct.title}</h3>
+                                <div className="h-64 rounded-2xl overflow-hidden border border-white/30 bg-slate-950 flex items-center justify-center">
+                                    <img src={arProduct.img} alt={arProduct.title} loading="lazy" style={{ transform: `scale(${arZoom}) rotate(${arRotation}deg)`, transition: 'transform 0.2s ease' }} className="w-48 h-48 object-cover rounded-2xl shadow-2xl" onError={(e)=>{e.target.onerror=null; e.target.src=FALLBACK_SVG;}}/>
+                                </div>
+                                <div className="grid grid-cols-3 gap-2">
+                                    <button onClick={() => { setArRotation(r => r + 45); showToast('Rotated'); }} className="press-effect bg-slate-900 border border-white/30 py-2 rounded-xl text-white font-bold text-xs">Rotate ↻</button>
+                                    <button onClick={() => { setArZoom(z => Math.min(z + 0.2, 2)); showToast('Zoomed In'); }} className="press-effect bg-slate-900 border border-white/30 py-2 rounded-xl text-white font-bold text-xs">Zoom +</button>
+                                    <button onClick={() => { setArZoom(z => Math.max(z - 0.2, 0.8)); showToast('Zoomed Out'); }} className="press-effect bg-slate-900 border border-white/30 py-2 rounded-xl text-white font-bold text-xs">Zoom -</button>
+                                </div>
+                                <button onClick={() => { addToCart(arProduct.title, arProduct.price); setArProduct(null); }} className="press-effect w-full white-rainbow-btn text-slate-950 font-extrabold py-3 rounded-2xl text-xs shadow-xl">+ Add to Cart 🛒</button>
+                            </div>
+                        </div>
+                    )}
+
+                    {activePoster && (
+                        <div className="fixed inset-0 bg-slate-950/90 backdrop-blur-md z-50 flex items-center justify-center p-4">
+                            <div className="rainbow-glass rounded-3xl p-6 sm:p-8 border border-white/40 max-w-lg w-full space-y-5 shadow-2xl relative">
+                                <button onClick={() => setActivePoster(null)} className="press-effect absolute top-4 right-4 text-slate-400 text-xl font-bold bg-slate-900 w-9 h-9 rounded-full flex items-center justify-center">&times;</button>
+                                <h3 className="text-xl font-black text-white font-display">{activePoster.title}</h3>
+                                <div className="h-72 rounded-2xl overflow-hidden border border-white/20 bg-slate-900 flex items-center justify-center">
+                                    <img src={activePoster.img} alt={activePoster.title} loading="lazy" className="w-full h-full object-cover" onError={(e)=>{e.target.onerror=null; e.target.src=FALLBACK_SVG;}}/>
+                                </div>
+                                <button onClick={() => { addToCart(activePoster.title, 250); setActivePoster(null); }} className="press-effect w-full white-rainbow-btn text-slate-950 font-extrabold py-3 rounded-2xl text-xs shadow-xl">Order Package 🛒</button>
+                            </div>
+                        </div>
+                    )}
+
+                    {!popiaAccepted && (
+                        <div className="fixed bottom-0 inset-x-0 z-50 bg-slate-950/95 border-t border-white/30 p-4 shadow-2xl">
+                            <div className="max-w-6xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4 text-xs">
+                                <p className="text-slate-300">Nqobile's Hub (nqobilegila518@gmail.com) processes personal data securely under POPIA.</p>
+                                <button onClick={acceptPopia} className="press-effect white-rainbow-btn text-slate-950 text-xs font-black px-6 py-3 rounded-xl shadow-lg">Accept & Continue 🔒</button>
+                            </div>
+                        </div>
+                    )}
+
+                    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end">
+                        {isAiOpen && (
+                            <div className="rainbow-glass border border-white/40 rounded-3xl w-80 sm:w-96 h-[450px] shadow-2xl flex flex-col mb-4 overflow-hidden">
+                                <div className="bg-slate-950/95 p-4 border-b border-white/25 flex justify-between items-center">
+                                    <h4 className="text-xs font-black text-white font-display uppercase">Nqobile AI Assistant</h4>
+                                    <button onClick={() => setIsAiOpen(false)} className="press-effect text-slate-400 text-lg font-bold">&times;</button>
+                                </div>
+                                <div className="flex-1 p-4 overflow-y-auto space-y-3 text-xs bg-slate-950/60">
+                                    {aiMessages.map((msg, i) => (
+                                        <div key={i} className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}>
+                                            <div className={`max-w-[80%] p-3 rounded-2xl ${msg.sender === 'user' ? 'bg-white text-slate-950 font-bold shadow-md' : 'bg-slate-900 text-slate-200 border border-white/20 shadow-sm'}`}>{msg.text}</div>
+                                        </div>
+                                    ))}
+                                    <div ref={chatEndRef} />
+                                </div>
+                                <form onSubmit={(e)=>{e.preventDefault(); if(!aiInput.trim())return; setAiMessages([...aiMessages, {sender:'user', text:aiInput}, {sender:'ai', text:'Sawubona! Nqobile\'s team is ready to assist.'}]); setAiInput('');}} className="p-3 bg-slate-950/95 border-t border-white/25 flex gap-2">
+                                    <input type="text" value={aiInput} onChange={(e) => setAiInput(e.target.value)} placeholder="Ask..." className="flex-1 px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white text-xs outline-none"/>
+                                    <button type="submit" className="press-effect white-rainbow-btn px-4 py-2.5 rounded-xl text-xs font-black shadow">Send</button>
+                                </form>
+                            </div>
+                        )}
+                        <button onClick={() => { setIsAiOpen(!isAiOpen); showToast('Toggled AI Assistant'); }} className="press-effect white-rainbow-btn p-4 rounded-full shadow-2xl text-slate-950 font-black text-xl">💧</button>
+                    </div>
+
+                    {isCartOpen && (
+                        <div className="fixed inset-0 bg-slate-950/85 backdrop-blur-md z-50 flex flex-col justify-end">
+                            <div className="rainbow-glass rounded-t-3xl p-6 sm:p-8 border-t border-white/30 max-h-[90vh] flex flex-col shadow-2xl max-w-2xl mx-auto w-full">
+                                <div className="flex justify-between items-center border-b border-white/20 pb-4">
+                                    <h3 className="font-black text-base text-white font-display">🛒 Secure Cart & Checkout</h3>
+                                    <button onClick={() => setIsCartOpen(false)} className="press-effect text-slate-400 text-xl font-bold">&times;</button>
+                                </div>
+                                <div className="py-4 overflow-y-auto flex-1 space-y-4 text-xs">
+                                    <div className="space-y-2">
+                                        <div className="flex justify-between items-center">
+                                            <span className="text-slate-400 font-bold uppercase text-[10px] font-mono">Cart Items:</span>
+                                            <button onClick={shareCartToWhatsApp} className="press-effect bg-emerald-600/30 border border-emerald-500/50 text-emerald-300 text-[10px] font-bold px-3 py-1 rounded-xl shadow">Share to WhatsApp 📲</button>
+                                        </div>
+                                        {cart.map((item, idx) => (
+                                            <div key={idx} className="flex justify-between items-center bg-slate-950/90 p-3 rounded-2xl border border-white/20 text-slate-200">
+                                                <div><div className="font-extrabold text-white">{item.title}</div><div className="text-white font-mono text-[11px]">R {item.price.toFixed(2)}</div></div>
+                                                <button onClick={() => removeFromCart(idx)} className="press-effect text-red-400 font-bold">✕</button>
+                                            </div>
+                                        ))}
+                                    </div>
+                                    <div className="space-y-2 pt-2">
+                                        <input type="text" value={customerName} onChange={(e) => setCustomerName(e.target.value)} placeholder="Full Name *" className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white text-xs outline-none"/>
+                                        <input type="tel" value={customerPhone} onChange={(e) => setCustomerPhone(e.target.value)} placeholder="Phone Number *" className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white text-xs outline-none"/>
+                                    </div>
+                                </div>
+                                <div className="border-t border-white/20 pt-4 space-y-2.5 text-xs">
+                                    <div className="flex justify-between text-lg font-black text-white"><span>Total:</span><span className="text-white font-mono">R {grandTotal.toFixed(2)}</span></div>
+                                    <button onClick={handleCheckout} className="press-effect w-full white-rainbow-btn text-slate-950 font-extrabold py-4 rounded-2xl text-sm shadow-xl">Pay R{grandTotal.toFixed(2)} & Complete Order 🚀</button>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+
+                    {activeModalProduct && (
+                        <div className="fixed inset-0 bg-slate-950/85 backdrop-blur-md z-50 flex items-center justify-center p-4">
+                            <div className="rainbow-glass rounded-3xl p-6 sm:p-8 border border-white/40 max-w-md w-full space-y-5 shadow-2xl">
+                                <div className="flex justify-between items-center border-b border-white/20 pb-4">
+                                    <h3 className="text-base font-black text-white font-display">{activeModalProduct.title}</h3>
+                                    <button onClick={() => setActiveModalProduct(null)} className="press-effect text-slate-400 text-xl font-bold">&times;</button>
+                                </div>
+                                <img src={activeModalProduct.img} alt="Product" loading="lazy" className="w-full h-52 object-cover rounded-2xl bg-slate-900 border border-slate-800" onError={(e)=>{e.target.onerror=null; e.target.src=FALLBACK_SVG;}}/>
+                                <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-medium">{activeModalProduct.desc}</p>
+                                <button onClick={() => { addToCart(activeModalProduct.title, activeModalProduct.price); setActiveModalProduct(null); }} className="press-effect w-full white-rainbow-btn text-slate-950 font-extrabold px-5 py-3 rounded-2xl text-xs shadow-xl">+ Add to Cart</button>
+                            </div>
+                        </div>
+                    )}
+
+                    {toastMessage && (
+                        <div className="fixed bottom-6 left-6 rainbow-glass border border-red-400 text-white text-xs font-black px-6 py-4 rounded-2xl shadow-xl z-50 font-mono animate-bounce">
+                            {toastMessage}
+                        </div>
+                    )}
+                </div>
+            );
+        }
+
+        ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+<script src="enhance3.js?v=1792356450" defer></script>
+<script src="enhance4.js?v=1792356482" defer></script>
+<div id="nq-stock-link" style="text-align:center;padding:28px 14px 120px"><a href="stock.html" style="display:inline-block;padding:14px 26px;border-radius:999px;background:#25d366;color:#04210f;font:800 16px sans-serif;text-decoration:none">🛍️ See all our stock</a></div>
+</body>
+</html>
