@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Nollie's | 2026 Immersive Raindrop 3D Durban Hub</title>
+    <title>Nollie's | Exhilarating 2026 Raindrop 3D Durban Hub</title>
     <meta name="theme-color" content="#030712">
     <link rel="manifest" href="/manifest.json">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -24,30 +24,30 @@
         .white-rainbow-bg {
             background-color: #030712;
             background-image: 
-                radial-gradient(at 15% 15%, rgba(255, 255, 255, 0.2) 0px, transparent 50%),
-                radial-gradient(at 85% 20%, rgba(239, 68, 68, 0.18) 0px, transparent 50%),
-                radial-gradient(at 50% 50%, rgba(255, 255, 255, 0.25) 0px, transparent 60%),
-                radial-gradient(at 20% 85%, rgba(59, 130, 246, 0.18) 0px, transparent 50%),
-                radial-gradient(at 85% 85%, rgba(168, 85, 247, 0.18) 0px, transparent 50%),
+                radial-gradient(at 15% 15%, rgba(255, 255, 255, 0.22) 0px, transparent 50%),
+                radial-gradient(at 85% 20%, rgba(239, 68, 68, 0.2) 0px, transparent 50%),
+                radial-gradient(at 50% 50%, rgba(255, 255, 255, 0.28) 0px, transparent 60%),
+                radial-gradient(at 20% 85%, rgba(59, 130, 246, 0.2) 0px, transparent 50%),
+                radial-gradient(at 85% 85%, rgba(168, 85, 247, 0.2) 0px, transparent 50%),
                 linear-gradient(to bottom, #030712, #0b0f19);
             background-attachment: fixed;
         }
 
         .rainbow-glass {
             background: rgba(15, 23, 42, 0.85);
-            backdrop-filter: blur(45px) saturate(260%);
-            -webkit-backdrop-filter: blur(45px) saturate(260%);
-            border: 1px solid rgba(255, 255, 255, 0.26);
-            box-shadow: 0 40px 90px -15px rgba(0, 0, 0, 0.95), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+            backdrop-filter: blur(50px) saturate(280%);
+            -webkit-backdrop-filter: blur(50px) saturate(280%);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 45px 100px -15px rgba(0, 0, 0, 0.98), inset 0 1px 0 rgba(255, 255, 255, 0.4);
         }
 
         .rainbow-card-hover {
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .rainbow-card-hover:hover {
-            transform: translateY(-8px) scale(1.02);
-            border-color: rgba(255, 255, 255, 0.6);
-            box-shadow: 0 45px 100px -12px rgba(255, 255, 255, 0.4);
+            transform: translateY(-12px) scale(1.03) rotateX(2deg) rotateY(-2deg);
+            border-color: rgba(255, 255, 255, 0.75);
+            box-shadow: 0 55px 120px -15px rgba(255, 255, 255, 0.5);
         }
 
         @keyframes whiteRainbowText {
@@ -59,7 +59,7 @@
             background: linear-gradient(135deg, #ffffff, #f43f5e, #fbbf24, #34d399, #38bdf8, #a855f7, #ffffff);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: whiteRainbowText 7s linear infinite;
+            animation: whiteRainbowText 6s linear infinite;
         }
 
         .white-rainbow-btn {
@@ -68,86 +68,86 @@
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             color: #030712;
             font-weight: 900;
-            box-shadow: 0 4px 25px rgba(255, 255, 255, 0.4);
+            box-shadow: 0 6px 30px rgba(255, 255, 255, 0.5);
         }
         .white-rainbow-btn:hover {
             background-position: right center;
-            box-shadow: 0 8px 40px rgba(255, 255, 255, 0.8);
-            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 12px 50px rgba(255, 255, 255, 0.9);
+            transform: translateY(-4px) scale(1.05);
             color: #ffffff;
         }
 
         @keyframes floatAnim {
             0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-8px) rotate(1deg); }
+            50% { transform: translateY(-10px) rotate(1.5deg); }
         }
         .floating-badge {
-            animation: floatAnim 4s ease-in-out infinite;
+            animation: floatAnim 3.5s ease-in-out infinite;
         }
 
         @keyframes pulseGlow {
-            0%, 100% { opacity: 0.85; box-shadow: 0 0 20px rgba(255,255,255,0.4); }
-            50% { opacity: 1; box-shadow: 0 0 45px rgba(255,255,255,0.95); }
+            0%, 100% { opacity: 0.9; box-shadow: 0 0 25px rgba(255,255,255,0.5); }
+            50% { opacity: 1; box-shadow: 0 0 55px rgba(255,255,255,1); }
         }
         .pulse-glow-effect {
-            animation: pulseGlow 3s ease-in-out infinite;
+            animation: pulseGlow 2.5s ease-in-out infinite;
         }
 
-        /* RAINDROP 💧 ANIMATED NAVIGATION STYLES */
-        @keyframes dropFall {
-            0% { transform: translateY(-35px) scale(0.6); opacity: 0; }
-            60% { transform: translateY(6px) scale(1.05); opacity: 1; }
-            100% { transform: translateY(0px) scale(1); opacity: 1; }
+        /* EXHILARATING RAINDROP 💧 PHYSICS ANIMATIONS */
+        @keyframes dropFallExhilarating {
+            0% { transform: translateY(-40px) scale(0.4) rotate(-10deg); opacity: 0; }
+            70% { transform: translateY(8px) scale(1.08) rotate(2deg); opacity: 1; }
+            100% { transform: translateY(0px) scale(1) rotate(0deg); opacity: 1; }
         }
 
         .raindrop-pill {
             position: relative;
             border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-            background: linear-gradient(145deg, rgba(255, 255, 255, 0.18), rgba(15, 23, 42, 0.9));
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            box-shadow: 0 15px 35px -5px rgba(0, 0, 0, 0.7), inset 0 2px 4px rgba(255, 255, 255, 0.4);
-            animation: dropFall 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.22), rgba(15, 23, 42, 0.92));
+            backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            box-shadow: 0 20px 45px -5px rgba(0, 0, 0, 0.8), inset 0 2px 5px rgba(255, 255, 255, 0.5);
+            animation: dropFallExhilarating 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.3) both;
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             overflow: hidden;
         }
         .raindrop-pill::before {
             content: '';
             position: absolute;
-            top: 4px;
+            top: 5px;
             left: 25%;
-            width: 35%;
-            height: 4px;
-            background: rgba(255, 255, 255, 0.7);
+            width: 40%;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.85);
             border-radius: 999px;
             filter: blur(0.5px);
         }
         .raindrop-pill:hover {
-            transform: translateY(-6px) scale(1.08);
-            border-color: rgba(255, 255, 255, 0.8);
-            box-shadow: 0 20px 45px rgba(255, 255, 255, 0.35), inset 0 2px 6px rgba(255, 255, 255, 0.7);
-            background: linear-gradient(145deg, rgba(255, 255, 255, 0.3), rgba(30, 41, 59, 0.95));
+            transform: translateY(-8px) scale(1.12);
+            border-color: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 25px 60px rgba(255, 255, 255, 0.45), inset 0 2px 8px rgba(255, 255, 255, 0.9);
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.35), rgba(30, 41, 59, 0.98));
         }
         .raindrop-active {
             background: linear-gradient(135deg, #ffffff 0%, #f43f5e 30%, #38bdf8 70%, #a855f7 100%);
             color: #030712 !important;
             font-weight: 900;
             border: 1px solid #ffffff;
-            box-shadow: 0 0 35px rgba(255, 255, 255, 0.8), inset 0 2px 6px rgba(255, 255, 255, 0.9);
-            transform: scale(1.1) translateY(-4px);
+            box-shadow: 0 0 45px rgba(255, 255, 255, 0.95), inset 0 2px 8px rgba(255, 255, 255, 1);
+            transform: scale(1.15) translateY(-5px);
         }
 
         .cinematic-stage {
-            perspective: 1200px;
+            perspective: 1400px;
             transform-style: preserve-3d;
         }
         .cinematic-card-3d {
             transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.6s ease;
-            transform: rotateX(4deg) rotateY(-4deg);
+            transform: rotateX(5deg) rotateY(-5deg);
         }
         .cinematic-card-3d:hover {
-            transform: rotateX(0deg) rotateY(0deg) scale(1.03) translateY(-6px);
-            box-shadow: 0 50px 100px -20px rgba(255, 255, 255, 0.4);
+            transform: rotateX(0deg) rotateY(0deg) scale(1.04) translateY(-8px);
+            box-shadow: 0 60px 120px -20px rgba(255, 255, 255, 0.5);
         }
 
         .marquee-container {
@@ -158,11 +158,11 @@
         }
         .marquee-track {
             display: inline-block;
-            animation: marqueeScroll 25s linear infinite;
+            animation: marqueeScroll 22s linear infinite;
         }
         .marquee-track-reverse {
             display: inline-block;
-            animation: marqueeScrollReverse 22s linear infinite;
+            animation: marqueeScrollReverse 20s linear infinite;
         }
         .marquee-track:hover, .marquee-track-reverse:hover {
             animation-play-state: paused;
@@ -237,7 +237,7 @@
         ];
 
         const LIVE_TICKER_ITEMS = [
-            "🏆 2026 RAINDROP 3D HUB: POPIA Protected & Consumer CPA Standard Active!",
+            "🏆 2026 EXHILARATING RAINDROP 3D HUB: POPIA Protected & Consumer CPA Standard Active!",
             "🔥 HOT DEAL: Family Bulk Grocery Hamper (R380) - Best Seller in eNanda!",
             "🤖 24/7 AI ASSISTANT ONLINE: Tap bottom-right to ask Nollie AI anything!",
             "🚀 FAST DISPATCH: Flat R30 Delivery Across Durban & eNanda!",
@@ -405,9 +405,9 @@
 
             useEffect(() => {
                 const greetings = [
-                    "Sawubona, Mzansi! Welcome to Nollie's Hub",
-                    "eNanda's Premier 2026 Raindrop 3D Digital Marketplace",
-                    "Experience Cinematic Durban Shopping & Delivery",
+                    "Sawubona, Mzansi! Welcome to Nollie's Exhilarating Hub",
+                    "eNanda's Premier 2026 Exhilarating Raindrop 3D Marketplace",
+                    "Experience Exhilarating Cinematic Durban Shopping & Delivery",
                     "Order Bulk Hampers & Luxury Perfumes Instantly"
                 ];
                 let idx = 0;
@@ -735,7 +735,7 @@
 
             return (
                 <div className="min-h-screen relative cinematic-stage transition-all duration-700">
-                    <div className="h-1.5 bg-gradient-to-r from-white via-red-400 via-amber-300 via-emerald-400 via-sky-400 to-purple-400 w-full fixed top-0 z-50 shadow-[0_0_30px_rgba(255,255,255,0.95)]"></div>
+                    <div className="h-1.5 bg-gradient-to-r from-white via-red-400 via-amber-300 via-emerald-400 via-sky-400 to-purple-400 w-full fixed top-0 z-50 shadow-[0_0_35px_rgba(255,255,255,1)]"></div>
 
                     {/* DUAL STREAM MARQUEE */}
                     <div className="bg-slate-950/95 border-b border-white/15 text-slate-200 text-xs py-1.5 shadow-inner overflow-hidden max-w-7xl mx-auto rounded-b-2xl mb-1 space-y-1">
@@ -761,7 +761,7 @@
                         </div>
                     </div>
 
-                    {/* 2026 ULTRA-CLEAN RAINDROP MASTER MENU NAVIGATION BAR */}
+                    {/* 2026 EXHILARATING RAINDROP MASTER MENU NAVIGATION BAR */}
                     <header className="sticky top-3 z-40 rainbow-glass mx-4 sm:mx-10 px-4 sm:px-8 py-3.5 flex justify-between items-center rounded-3xl transition-all duration-500 shadow-2xl">
                         <div className="flex items-center space-x-3 cursor-pointer group" onClick={() => setActiveTab('home')}>
                             <div className="relative">
@@ -770,37 +770,37 @@
                             </div>
                             <div>
                                 <h1 className="text-lg font-black tracking-wider text-white leading-none font-display uppercase flex items-center gap-1.5 group-hover:tracking-widest transition-all duration-300">
-                                    Nollie's <span className="text-[9px] bg-white/20 text-white px-1.5 py-0.5 rounded border border-white/40 font-mono">2026 HUB</span>
+                                    Nollie's <span className="text-[9px] bg-white/20 text-white px-1.5 py-0.5 rounded border border-white/40 font-mono">EXHILARATING 2026</span>
                                 </h1>
                                 <span className="text-[10px] font-bold text-slate-300 tracking-widest uppercase">Raindrop 3D Durban Hub</span>
                             </div>
                         </div>
                         
-                        {/* RAINDROP 💧 MASTER MENU BUTTON */}
+                        {/* EXHILARATING RAINDROP 💧 MASTER MENU BUTTON */}
                         <div className="relative">
                             <button onClick={() => setIsMasterMenuOpen(!isMasterMenuOpen)} 
-                                    className="press-effect raindrop-pill raindrop-active px-7 py-3.5 text-xs font-black flex items-center space-x-3 shadow-2xl hover:scale-110 transition-all duration-500 pulse-glow-effect">
+                                    className="press-effect raindrop-pill raindrop-active px-8 py-4 text-xs font-black flex items-center space-x-3 shadow-2xl hover:scale-115 transition-all duration-500 pulse-glow-effect">
                                 <span className="text-base animate-bounce">💧</span>
-                                <span className="tracking-wide">RAINDROP MENU: {currentActiveTabObj.label}</span>
+                                <span className="tracking-wider">EXHILARATING MENU: {currentActiveTabObj.label}</span>
                                 <span className={`transform transition-transform duration-300 ${isMasterMenuOpen ? 'rotate-180' : ''}`}>▼</span>
                             </button>
 
-                            {/* RAINDROP DROPDOWN MODAL WITH STAGGERED DROP ANIMATIONS */}
+                            {/* EXHILARATING RAINDROP DROPDOWN MODAL WITH STAGGERED DROP PHYSICS */}
                             {isMasterMenuOpen && (
                                 <div className="absolute right-0 mt-3 w-80 sm:w-96 rainbow-glass rounded-3xl border border-white/40 p-4 shadow-2xl z-50 animate-fade-in space-y-2">
                                     <div className="px-3 py-2 border-b border-white/20 flex justify-between items-center">
                                         <span className="text-[10px] font-mono font-bold text-slate-300 uppercase tracking-wider flex items-center gap-1.5">
-                                            <span>💧</span><span>Interactive Raindrop Directory</span>
+                                            <span>💧</span><span>Exhilarating Raindrop Directory</span>
                                         </span>
                                         <button onClick={()=>setIsMasterMenuOpen(false)} className="text-slate-400 hover:text-white text-base font-bold">&times;</button>
                                     </div>
                                     <div className="max-h-[65vh] overflow-y-auto space-y-2 pr-1 no-scrollbar">
                                         {menuTabs.map((tab, idx) => (
-                                            <button key={tab.id} style={{ animationDelay: `${idx * 0.04}s` }} onClick={() => { 
+                                            <button key={tab.id} style={{ animationDelay: `${idx * 0.035}s` }} onClick={() => { 
                                                 if(tab.id==='orders' || tab.id==='admin'){ fetchOrders(); fetchBookings(); } 
                                                 setActiveTab(tab.id); 
                                                 setIsMasterMenuOpen(false); 
-                                            }} className={`w-full text-left px-4 py-3 raindrop-pill flex flex-col space-y-1 ${activeTab === tab.id ? 'raindrop-active scale-[1.03]' : 'hover:scale-[1.02]'}`}>
+                                            }} className={`w-full text-left px-4 py-3 raindrop-pill flex flex-col space-y-1 ${activeTab === tab.id ? 'raindrop-active scale-[1.04]' : 'hover:scale-[1.03]'}`}>
                                                 <div className="flex justify-between items-center">
                                                     <span className="text-xs font-black font-display">{tab.label}</span>
                                                     <span className="text-[10px] font-mono opacity-80">💧 Drop</span>
@@ -840,7 +840,7 @@
                     <main className="max-w-6xl mx-auto px-4 mt-8 space-y-10 transition-all duration-700">
                         {activeTab === 'home' && (
                             <section className="space-y-10 animate-fade-in cinematic-stage">
-                                {/* 2026 CINEMATIC 3D HERO BANNER */}
+                                {/* 2026 EXHILARATING 3D HERO BANNER */}
                                 <div className="relative overflow-hidden rounded-3xl border border-white/30 shadow-2xl rainbow-glass cinematic-card-3d">
                                     <div className="absolute inset-0 z-0">
                                         <img src={DURBAN_BANNER} alt="Durban Hub" className="w-full h-full object-cover opacity-30 filter brightness-75 scale-110 transition-transform duration-1000 hover:scale-125" />
@@ -850,18 +850,18 @@
                                     <div className="relative z-10 p-8 sm:p-14 flex flex-col lg:flex-row items-center justify-between gap-10">
                                         <div className="space-y-6 max-w-xl">
                                             <div className="inline-flex items-center space-x-2 bg-slate-950/90 px-4 py-1.5 rounded-full border border-white/30 text-xs font-mono text-white shadow-sm floating-badge">
-                                               <span>💧 2026 Raindrop 3D Experience • Durban, KZN</span>
+                                               <span>💧 Exhilarating 2026 Raindrop Experience • Durban, KZN</span>
                                             </div>
                                             <h2 className="text-3xl sm:text-5xl font-black tracking-tight white-rainbow-animated-text leading-tight font-display">
                                                 {dynamicGreeting}
                                             </h2>
                                             <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-medium">
-                                                Welcome to the next generation of digital commerce. Serving eNanda and greater Durban with interactive raindrop tab navigation, 3D product visualization, top-grade cereal hampers, bulk groceries, and luxury M-Scents fragrances with flat R30 delivery!
+                                                Welcome to the pinnacle of digital commerce. Serving eNanda and greater Durban with exhilarating raindrop tab navigation, 3D product visualization, top-grade cereal hampers, bulk groceries, and luxury M-Scents fragrances with flat R30 delivery!
                                             </p>
                                             <div className="flex flex-wrap gap-3 pt-2">
                                                 <button onClick={() => setActiveTab('catalog')} className="press-effect white-rainbow-btn font-extrabold py-3.5 px-7 rounded-2xl text-xs shadow-lg hover:scale-105 transition-all duration-300">Browse 3D Catalog 🛍️</button>
                                                 <button onClick={() => setIsMasterMenuOpen(true)} className="press-effect raindrop-pill px-6 py-3.5 text-xs font-bold text-white shadow hover:scale-105 transition-all duration-300 flex items-center space-x-2">
-                                                    <span>💧 Open Raindrop Menu</span>
+                                                    <span>💧 Open Exhilarating Menu</span>
                                                 </button>
                                             </div>
                                         </div>
