@@ -1,0 +1,23 @@
+body{padding-bottom:calc(76px + env(safe-area-inset-bottom))!important}
+#ux-wa,#nq-fab{display:none!important}
+#ux-top{bottom:calc(86px + env(safe-area-inset-bottom))!important}
+#nq3-trust{display:flex;gap:18px;overflow-x:auto;white-space:nowrap;padding:9px 14px;background:rgba(15,23,42,.95);border-bottom:1px solid rgba(255,255,255,.15);color:#e2e8f0;font:600 12px sans-serif;scrollbar-width:none}
+#nq3-trust::-webkit-scrollbar{display:none}
+#nq3-nav{position:fixed;left:0;right:0;bottom:0;z-index:9997;display:flex;background:rgba(15,23,42,.96);backdrop-filter:blur(20px);border-top:1px solid rgba(255,255,255,.2);padding-bottom:env(safe-area-inset-bottom)}
+#nq3-nav a,#nq3-nav button{flex:1;min-height:58px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;background:none;border:0;color:#cbd5e1;font:700 11px sans-serif;text-decoration:none}
+#nq3-nav span{font-size:20px;line-height:1}
+#nq3-nav .go{color:#4ade80}
+#nq3-nav b{position:absolute;margin:-6px 0 0 22px;background:#f43f5e;color:#fff;border-radius:999px;font-size:10px;padding:1px 6px;display:none}
+#nq3-search{width:100%;box-sizing:border-box;margin:0 0 10px;padding:13px 16px;border-radius:999px;border:1px solid #475569;background:#0b1220;color:#fff;font-size:16px}
+#nq3-none{display:none;text-align:center;color:#94a3b8;padding:24px 8px;font:14px sans-serif}
+#nq3-none a{color:#4ade80}
+#nq3-faq{max-width:760px;margin:0 auto 40px;padding:0 14px;color:#fff;font-family:sans-serif}
+#nq3-faq h2{text-align:center;font-size:22px}
+#nq3-faq details{background:rgba(15,23,42,.85);border:1px solid rgba(255,255,255,.18);border-radius:14px;margin-bottom:8px;padding:0 14px}
+#nq3-faq summary{padding:15px 0;font-weight:700;font-size:15px;cursor:pointer;min-height:24px}
+#nq3-faq p{margin:0 0 14px;color:#cbd5e1;font-size:14px;line-height:1.5}
+#nq3-foot{text-align:center;color:#94a3b8;font:13px sans-serif;padding:0 14px 30px}
+#nq3-foot a,#nq3-foot button{display:inline-block;margin:6px;padding:12px 20px;border-radius:999px;border:1px solid #475569;background:#1e293b;color:#fff;font:700 14px sans-serif;text-decoration:none}
+#nqc .c img{background:linear-gradient(110deg,#0f172a 30%,#1e293b 50%,#0f172a 70%);background-size:200% 100%;animation:nq3sh 1.4s linear infinite}
+@keyframes nq3sh{to{background-position:-200% 0}}
+#nq3-toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);padding:10px 18px;border-radius:999px;background:#0f172a;color:#fff;border:1px solid #475569;font:13px sans-serif;z-index:99999;display:none}
