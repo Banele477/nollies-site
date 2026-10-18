@@ -50,7 +50,7 @@ var css=`
 #nqc .c img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s ease; cursor: zoom-in; }
 #nqc .c:hover img { transform: scale(1.05); }
 
-.stock-tag { position: absolute; top: 12px; left: 12px; background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(12px); border: 1px solid rgba(34, 197, 94, 0.3); color: #4ade80; font-size: 10px; font-weight: 700; text-transform: uppercase; padding: 5px 12px; border-radius: 999px; letter-spacing: 0.5px; }
+.stock-tag { position: absolute; top: 12px; left: 12px; background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(12px); border: 1px solid rgba(34, 197, 94, 0.3); color: #4ade80; font-size: 10px; font-weight: 700; text-transform: uppercase; padding: 5px 12px; border-radius: 999px; letter-spacing: 0.5px; z-index: 2; }
 
 .content-box { padding: 18px; display: flex; flex-direction: column; flex-grow: 1; justify-content: space-between; }
 #nqc .c p { margin: 0 0 14px 0; font-size: 13.5px; line-height: 1.5; color: #cbd5e1; font-weight: 500; }
