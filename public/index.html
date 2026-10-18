@@ -131,42 +131,50 @@
 <body class="min-h-screen pb-32 white-rainbow-bg overflow-x-hidden selection:bg-white selection:text-slate-950">
     <div id="root"></div>
 
+    <script src="/photos.js"></script>
     <script type="text/babel">
         const { useState, useEffect, useRef } = React;
 
         const NOLLIE_AVATAR = "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=75";
-        const DURBAN_BANNER = "https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=900&q=75";
         const FALLBACK_SVG = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='500' height='350' viewBox='0 0 500 350'><rect width='100%' height='100%' fill='%230f172a'/><text x='50%' y='50%' fill='%23ffffff' font-family='sans-serif' font-size='18' font-weight='bold' text-anchor='middle' dominant-baseline='middle'>Nqobile Hub Stock</text></svg>";
 
-        const PROMO_FLYERS = [
-            { id: 'fl1', title: 'Cereal Hamper Complete Showcase', badge: 'Wholesale Deal', price: 'R250.00', desc: 'Real stock breakfast bundle including Jungle Oats, Weet-Bix, Corn Flakes, Future Life, Nutrific & Tropika juice.', img: '/images/1000040076_2.jpg', tag: 'CEREAL HAMPER' },
-            { id: 'fl2', title: 'Bulk Packed Wholesale Hamper Box', badge: 'Top Seller', price: 'R380.00', desc: 'Securely packaged family grocery boxes ready for immediate Durban doorstep dispatch.', img: '/images/1000040067_2.jpg', tag: 'BULK ESSENTIALS' },
-            { id: 'fl3', title: 'M-Scents Luxury Fragrance Showcase', badge: '40ml EDP', price: 'R120 / Duo R192', desc: 'Selver Sense, Dezire Red, White OUD, Wild Intense, Sky Oud, Blue Dezire & StallioN.', img: '/images/1000040057_2.jpg', tag: 'LUXURY PERFUMES' }
+        // Dynamically map processed photos from photos.js for flyers & posters
+        const PHOTOS_LIST = window.NQ_PHOTOS || [];
+        const PROMO_FLYERS = PHOTOS_LIST.length > 0 ? PHOTOS_LIST.map((p, idx) => ({
+            id: 'fl' + idx,
+            title: p.t,
+            badge: p.c.toUpperCase() === 'HAMPER' ? 'Wholesale Deal' : (p.c.toUpperCase() === 'BULK' ? 'Top Seller' : 'Fresh Stock'),
+            price: p.c.toUpperCase() === 'HAMPER' ? 'R250.00' : (p.c.toUpperCase() === 'BULK' ? 'R380.00' : 'R160.00'),
+            desc: p.t,
+            img: '/images/' + p.n,
+            tag: p.c.toUpperCase()
+        })) : [
+            { id: 'fl1', title: 'Cereal Hamper Complete Showcase', badge: 'Wholesale Deal', price: 'R250.00', desc: 'Real stock breakfast bundle including Jungle Oats, Weet-Bix, Corn Flakes, Future Life, Nutrific & Tropika juice.', img: '/images/juices-africa-flavours.jpg', tag: 'CEREAL HAMPER' }
         ];
 
-        const PRODUCTS = [
-            { id: 'c1', cat: 'cereal', title: 'Cereal Hamper Package 1 (Floor Display)', price: 250, badge: '5 Items', desc: 'Includes Jungle Oats 1kg, Future Life 500g, Bokomo Corn Flakes 1kg, Weet-Bix 450g & Tropika Juice.', img: '/images/1000040071_2.jpg', arDimensions: '35cm x 25cm x 20cm (Box)' },
-            { id: 'c2', cat: 'cereal', title: 'Cereal Hamper Package 2 (Studio Layout)', price: 250, badge: '5 Items', desc: 'Nutrific Super Mornings, Jungle Oats, Weet-Bix, Corn Flakes & Tropika Dairy Fruit Mix.', img: '/images/1000040076_2.jpg', arDimensions: '35cm x 25cm x 20cm (Box)' },
-            { id: 'b1', cat: 'essentials', title: 'Family Bulk Grocery Hamper Box', price: 380, badge: 'Best Value', desc: 'Packed box containing Jungle Oats, Weet-Bix, Corn Flakes, Future Life, Nutrific & Tropika.', img: '/images/1000040067_2.jpg', arDimensions: '50cm x 40cm x 30cm (Heavy Bundle)' },
-            { id: 'j1', cat: 'juice', title: 'Juices Africa & Tropika Refreshment Pack', price: 160, badge: 'High Yield', desc: 'High yield fruit juice concentrate & Tropika dairy fruit mix bottles.', img: '/images/1000040064_2.jpg', arDimensions: '30cm x 15cm x 15cm (Jug)' },
-            { id: 'p1', cat: 'perfume', title: 'M-Scents Luxury Perfume (40ml)', price: 120, badge: '40ml EDP', desc: 'Selver Sense, Dezire Red, White OUD, Wild Intense, Sky Oud, Blue Dezire & StallioN.', img: '/images/1000040057_2.jpg', arDimensions: '12cm x 6cm x 4cm (Glass Bottle)' },
-            { id: 'p2', cat: 'perfume', title: 'M-Scents Duo Gift Set (2x 40ml)', price: 192, badge: 'Save R48', desc: 'Choose any two signature 40ml luxury fragrances in gift presentation packaging.', img: '/images/1000040059_2.jpg', arDimensions: '18cm x 14cm x 6cm (Gift Box)' }
-        ];
+        const PRODUCTS = PHOTOS_LIST.length > 0 ? PHOTOS_LIST.map((p, idx) => ({
+            id: 'p' + idx,
+            cat: p.c,
+            title: p.t,
+            price: p.c === 'bulk' ? 380 : (p.c === 'juice' ? 160 : 250),
+            badge: p.c.toUpperCase(),
+            desc: p.t,
+            img: '/images/' + p.n,
+            arDimensions: '35cm x 25cm x 20cm'
+        })) : [];
 
         const HAMPER_OPTIONS = [
-            { name: 'Jungle Oats 1kg', category: 'Cereal', img: '/images/1000040076_2.jpg' },
-            { name: 'Future Life 500g', category: 'Cereal', img: '/images/1000040076_2.jpg' },
-            { name: 'Bokomo Corn Flakes 1kg', category: 'Cereal', img: '/images/1000040076_2.jpg' },
-            { name: 'Weet-Bix 450g', category: 'Cereal', img: '/images/1000040076_2.jpg' },
-            { name: 'Nutrifics 450g', category: 'Cereal', img: '/images/1000040076_2.jpg' },
-            { name: 'Tropika Dairy Fruit Mix (1L)', category: 'Beverage', img: '/images/1000040064_2.jpg' },
-            { name: 'Juices Africa 4L Concentrate', category: 'Beverage', img: '/images/1000040071_2.jpg' },
-            { name: 'M-Scents Selver Sense 40ml', category: 'Perfume', img: '/images/1000040057_2.jpg' }
+            { name: 'Jungle Oats 1kg', category: 'Cereal', img: '/images/juices-africa-flavours.jpg' },
+            { name: 'Future Life 500g', category: 'Cereal', img: '/images/juices-africa-flavours.jpg' },
+            { name: 'Bokomo Corn Flakes 1kg', category: 'Cereal', img: '/images/juices-africa-flavours.jpg' },
+            { name: 'Weet-Bix 450g', category: 'Cereal', img: '/images/juices-africa-flavours.jpg' },
+            { name: 'Nutrifics 450g', category: 'Cereal', img: '/images/juices-africa-flavours.jpg' },
+            { name: 'Tropika Dairy Fruit Mix (1L)', category: 'Beverage', img: '/images/juices-africa-flavours.jpg' }
         ];
 
         const BOOKABLE_SERVICES = [
-            { id: 's1', title: 'Doorstep Hamper Consultation & Delivery', price: 50, duration: '30 min', desc: 'In-person assistance selecting household groceries & bulk hampers in Durban.', img: '/images/1000040067_2.jpg' },
-            { id: 's2', title: 'M-Scents Fragrance Sampling Session', price: 0, duration: '20 min', desc: 'Sample signature M-Scents perfumes at our local Durban hub point.', img: '/images/1000040057_2.jpg' }
+            { id: 's1', title: 'Doorstep Hamper Consultation & Delivery', price: 50, duration: '30 min', desc: 'In-person assistance selecting household groceries & bulk hampers in Durban.', img: '/images/juices-africa-flavours.jpg' },
+            { id: 's2', title: 'M-Scents Fragrance Sampling Session', price: 0, duration: '20 min', desc: 'Sample signature M-Scents perfumes at our local Durban hub point.', img: '/images/juices-africa-flavours.jpg' }
         ];
 
         const INITIAL_REVIEWS = [
@@ -206,7 +214,6 @@
             const [searchQuery, setSearchQuery] = useState('');
             const [selectedCategory, setSelectedCategory] = useState('all');
             const [isCartOpen, setIsCartOpen] = useState(false);
-            const [promoCode, setPromoCode] = useState('');
             const [discountPercent, setDiscountPercent] = useState(0);
             const [selectedHamperItems, setSelectedHamperItems] = useState([]);
             const [activeModalProduct, setActiveModalProduct] = useState(null);
@@ -214,12 +221,9 @@
 
             const [customerName, setCustomerName] = useState(localStorage.getItem('nollies_customer_name') || '');
             const [customerPhone, setCustomerPhone] = useState(localStorage.getItem('nollies_customer_phone') || '');
-            const [deliveryAddress, setDeliveryAddress] = useState(localStorage.getItem('nollies_customer_address') || '');
-            const [paymentMethod, setPaymentMethod] = useState('COD'); 
 
             const [bookingService, setBookingService] = useState('Doorstep Hamper Consultation & Delivery');
             const [bookingDate, setBookingDate] = useState('2026-10-22');
-            const [bookingTime, setBookingTime] = useState('10:00 AM');
 
             const [newReviewName, setNewReviewName] = useState('');
             const [newReviewRating, setNewReviewRating] = useState('5');
@@ -290,15 +294,6 @@
                 addToCart(`Custom Cereal Hamper (${selectedHamperItems.join(', ')})`, 250);
                 setSelectedHamperItems([]);
                 setActiveTab('catalog');
-            };
-
-            const applyPromo = () => {
-                if (promoCode.trim().toUpperCase() === 'NOLLIE10') {
-                    setDiscountPercent(10);
-                    showToast('🎉 10% Discount Applied!');
-                } else {
-                    alert('Invalid promo code!');
-                }
             };
 
             const handleAddReview = (e) => {
@@ -430,7 +425,7 @@
                             </button>
 
                             {isMasterMenuOpen && (
-                                <div className="absolute right-0 mt-3 w-80 sm:w-96 rainbow-glass rounded-3xl border border-white/40 p-4 shadow-2xl z-50 space-y-2 animate-fade-in">
+                                <div className="absolute right-0 mt-3 w-80 sm:w-96 rainbow-glass rounded-3xl border border-white/40 p-4 shadow-2xl z-50 space-y-2">
                                     <div className="px-3 py-2 border-b border-white/20 flex justify-between items-center">
                                         <span className="text-[10px] font-mono font-bold text-sky-300 uppercase">Select Hub Section</span>
                                         <button onClick={()=>setIsMasterMenuOpen(false)} className="text-slate-400 hover:text-white text-base font-bold">&times;</button>
@@ -503,7 +498,7 @@
                                         <button onClick={()=>setActiveTab('posters')} className="press-effect text-xs text-slate-300 hover:text-white font-bold font-mono">View All Posters →</button>
                                     </div>
                                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-                                        {PROMO_FLYERS.map((f) => (
+                                        {PROMO_FLYERS.slice(0, 3).map((f) => (
                                             <div key={f.id} onClick={()=>setActivePoster(f)} className="rainbow-glass rounded-3xl border border-white/20 p-4 space-y-3 cursor-pointer rainbow-card-hover press-effect">
                                                 <div className="h-44 rounded-2xl overflow-hidden relative bg-slate-950 border border-white/10 flex items-center justify-center">
                                                     <img src={f.img} alt={f.title} loading="lazy" className="w-full h-full object-cover" onError={(e)=>{e.target.onerror=null; e.target.src=FALLBACK_SVG;}}/>
