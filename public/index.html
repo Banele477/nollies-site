@@ -154,10 +154,6 @@
             const [toastMessage, setToastMessage] = useState(null);
             const [liveActivityIndex, setLiveActivityIndex] = useState(0);
 
-            // One-Touch PWA Install State
-            const [installPromptEvent, setInstallPromptEvent] = useState(null);
-            const [showInstallBanner, setShowInstallBanner] = useState(false);
-
             const [customerName, setCustomerName] = useState(localStorage.getItem('nollies_customer_name') || '');
             const [customerPhone, setCustomerPhone] = useState(localStorage.getItem('nollies_customer_phone') || '');
             const [commPreference, setCommPreference] = useState('whatsapp');
@@ -169,38 +165,28 @@
             const [bookingTime, setBookingTime] = useState('10:00 AM');
             const [bookingNotes, setBookingNotes] = useState('');
 
-            // Register Service Worker and Capture One-Touch Install Prompt
             useEffect(() => {
                 if ('serviceWorker' in navigator) {
-                    navigator.serviceWorker.register('/service-worker.js')
-                        .then(() => console.log('[PWA Engine] Offline cache ready.'))
-                        .catch(err => console.error(err));
+                    navigator.serviceWorker.register('/service-worker.js').catch(err => console.error(err));
                 }
-
-                window.addEventListener('beforeinstallprompt', (e) => {
-                    e.preventDefault();
-                    setInstallPromptEvent(e);
-                    setShowInstallBanner(true);
-                });
-
-                window.addEventListener('appinstalled', () => {
-                    setShowInstallBanner(false);
-                    setInstallPromptEvent(null);
-                    showToast('🎉 Nollie\'s App Installed Successfully!');
-                });
             }, []);
 
-            const triggerOneTouchInstall = async () => {
-                if (installPromptEvent) {
-                    installPromptEvent.prompt();
-                    const choiceResult = await installPromptEvent.userChoice;
-                    if (choiceResult.outcome === 'accepted') {
-                        setShowInstallBanner(false);
-                    }
-                    setInstallPromptEvent(null);
-                } else {
-                    alert('To install Nollie\'s App with one touch: Tap your browser menu (3 dots) and select "Add to Home Screen" or "Install App".');
-                }
+            const triggerNativeApkDownload = () => {
+                // Direct file download trigger for Android APK package
+                const apkUrl = '/downloads/nollies.apk';
+                showToast('📦 Initiating Native Android APK Download...');
+                
+                // Check if file exists or prompt user with build instructions / direct link
+                const anchor = document.createElement('a');
+                anchor.href = apkUrl;
+                anchor.download = 'NolliesHub.apk';
+                document.body.appendChild(anchor);
+                anchor.click();
+                document.body.removeChild(anchor);
+                
+                setTimeout(() => {
+                    alert('📥 If the download does not start automatically, wrap your website URL via PWABuilder or Appmaker to generate your custom APK binary file.');
+                }, 1500);
             };
 
             useEffect(() => {
@@ -421,22 +407,6 @@
                 <div className="min-h-screen relative">
                     <div className="h-1 bg-gradient-to-r from-cyan-500 via-purple-500 to-emerald-400 w-full fixed top-0 z-50 shadow-[0_0_15px_rgba(6,182,212,0.8)]"></div>
 
-                    {/* One-Touch App Install Banner */}
-                    {showInstallBanner && (
-                        <div className="bg-gradient-to-r from-cyan-600 via-blue-600 to-purple-600 text-white px-4 py-2.5 text-xs font-bold flex justify-between items-center shadow-lg sticky top-1 z-50 animate-bounce">
-                            <div className="flex items-center space-x-2">
-                                <span>📲</span>
-                                <span>Install Nollie's App for lightning-fast offline access!</span>
-                            </div>
-                            <div className="flex items-center space-x-2">
-                                <button onClick={triggerOneTouchInstall} className="bg-slate-950 text-cyan-300 px-3 py-1.5 rounded-xl font-black shadow border border-cyan-400 hover:bg-slate-900">
-                                    Download Now ⚡
-                                </button>
-                                <button onClick={() => setShowInstallBanner(false)} className="text-white hover:text-slate-200 px-1.5 font-bold">✕</button>
-                            </div>
-                        </div>
-                    )}
-
                     <header className="sticky top-1 z-40 cyber-glass cyber-glass-glow px-4 sm:px-10 py-3.5 flex justify-between items-center transition-all duration-300">
                         <div className="flex items-center space-x-3 cursor-pointer group" onClick={() => setActiveTab('home')}>
                             <div className="relative">
@@ -470,9 +440,9 @@
                         </nav>
 
                         <div className="flex items-center space-x-2.5">
-                            <button onClick={triggerOneTouchInstall} className="press-effect flex items-center space-x-1.5 bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 text-xs font-black px-3.5 py-2.5 rounded-2xl shadow transition-all">
-                                <span>📲</span>
-                                <span className="hidden sm:inline">Download App</span>
+                            <button onClick={triggerNativeApkDownload} className="press-effect flex items-center space-x-1.5 bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 text-xs font-black px-3.5 py-2.5 rounded-2xl shadow transition-all">
+                                <span>🤖</span>
+                                <span className="hidden sm:inline">Download Android APK</span>
                             </button>
 
                             <button onClick={() => setIsCartOpen(true)} className="press-effect relative flex items-center space-x-2.5 cyber-button-primary text-white text-xs font-black px-5 py-2.5 rounded-2xl shadow-[0_0_20px_rgba(6,182,212,0.35)] hover:scale-105 transition-all">
@@ -522,8 +492,8 @@
                                         </p>
                                         <div className="flex flex-wrap gap-3 pt-2">
                                             <button onClick={() => setActiveTab('catalog')} className="press-effect cyber-button-primary text-white font-extrabold py-3.5 px-7 rounded-2xl text-xs shadow-lg hover:scale-105 transition-all">Browse Marketplace 🛍️</button>
-                                            <button onClick={triggerOneTouchInstall} className="press-effect bg-slate-900/90 border border-emerald-500/50 text-emerald-300 font-bold py-3.5 px-7 rounded-2xl text-xs shadow hover:border-emerald-400 transition-all flex items-center space-x-2">
-                                                <span>📲 One-Touch App Download</span>
+                                            <button onClick={triggerNativeApkDownload} className="press-effect bg-slate-900/90 border border-emerald-500/50 text-emerald-300 font-bold py-3.5 px-7 rounded-2xl text-xs shadow hover:border-emerald-400 transition-all flex items-center space-x-2">
+                                                <span>🤖 Direct Android APK Download</span>
                                             </button>
                                         </div>
                                     </div>
@@ -538,7 +508,7 @@
                                         </div>
                                         <div className="space-y-2 text-[11px] bg-slate-900/90 p-3 rounded-2xl border border-white/10 text-slate-300 font-mono">
                                             <div className="flex justify-between"><span>Coverage:</span><strong className="text-white">eNanda & Surrounds</strong></div>
-                                            <div className="flex justify-between"><span>Offline App:</span><strong className="text-emerald-400">1-Touch Ready ⚡</strong></div>
+                                            <div className="flex justify-between"><span>App Package:</span><strong className="text-emerald-400">Android APK Ready ⚡</strong></div>
                                             <div className="flex justify-between"><span>Dispatch:</span><strong className="text-cyan-400">WhatsApp / Call</strong></div>
                                         </div>
                                     </div>
