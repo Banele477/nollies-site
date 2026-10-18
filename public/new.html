@@ -60,6 +60,14 @@
     <div id="featured" class="noscroll snap-x-m flex gap-3 overflow-x-auto px-4 pt-3 pb-2 max-w-6xl mx-auto"></div>
   </section>
 
+  <!-- PERFUMES -->
+  <section id="perfumes" class="hidden max-w-6xl mx-auto px-4 mt-10 scroll-mt-16">
+    <h2 class="text-xl font-extrabold">🌸 Perfumes</h2>
+    <p class="text-sm text-slate-400 mt-1 mb-3">80ml parfum range. Tap a fragrance to ask about it on WhatsApp.</p>
+    <div id="perfCover"></div>
+    <div id="perfGrid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3"></div>
+  </section>
+
   <!-- FULL SHOP -->
   <section id="shop" class="max-w-6xl mx-auto px-4 mt-10 scroll-mt-16">
     <h2 class="text-xl font-extrabold">🛍️ All our stock</h2>
@@ -68,6 +76,14 @@
     <p id="count" class="text-xs text-slate-400 mt-3 mb-3"></p>
     <div id="grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3"></div>
     <p id="empty" class="hidden text-center text-slate-400 py-12">Nothing matches. Ask us on WhatsApp, we may have it.</p>
+  </section>
+
+  <!-- FULL RANGE LIST -->
+  <section id="rangeSec" class="hidden max-w-6xl mx-auto px-4 mt-10 scroll-mt-16">
+    <h2 class="text-xl font-extrabold">📋 Full range</h2>
+    <p class="text-sm text-slate-400 mt-1 mb-4">Everything we stock. Tap "Ask" for today's price and availability.</p>
+    <div id="range"></div>
+    <p id="rangeEmpty" class="hidden text-center text-slate-400 py-8">No items match your search.</p>
   </section>
 
   <!-- HOW TO ORDER -->
@@ -119,6 +135,7 @@ const CATS = {
   cereals:  {label:"Cereals",    emoji:"🥣"},
   juices:   {label:"Juices",     emoji:"🧃"},
   perfumes: {label:"Perfumes",   emoji:"🌸"},
+  pantry:   {label:"Pantry",     emoji:"🍜"},
   stock:    {label:"More stock", emoji:"🛍️"}
 };
 const $ = id => document.getElementById(id);
@@ -129,7 +146,10 @@ const meta = k => CATS[k] || {label: k.charAt(0).toUpperCase() + k.slice(1), emo
 const badge = c => c === "hampers" ? "Wholesale Deal" : c === "bulk" ? "Top Seller" : "Fresh Stock";
 const pic = (p, cls) => `<img src="thumbs/${p.file}" alt="${esc(p.caption)}" loading="lazy" onerror="this.onerror=null;this.src='images/${p.file}'" class="${cls}">`;
 
-let items = [], cat = "all", term = "";
+let items = [], range = [], cat = "all", term = "";
+const catKeys = () => [...new Set(items.map(p => p.category).concat(range.map(r => r.category)))];
+const rText = r => (r.name + " " + (r.size || "") + " " + (r.note || "")).toLowerCase();
+const rAsk = r => ask(r.name + (r.size ? " (" + r.size + ")" : ""));
 
 ["waTop","waHero","waFoot","waNav"].forEach(id => { $(id).href = wa("Hi Nqobile's Hub, I'd like to place an order."); });
 $("yr").textContent = new Date().getFullYear();
@@ -141,19 +161,60 @@ function hero() {
 }
 
 function tiles() {
-  const keys = [...new Set(items.map(p => p.category))];
-  $("tiles").innerHTML = keys.map(k => {
-    const m = meta(k), list = items.filter(p => p.category === k);
+  $("tiles").innerHTML = catKeys().map(k => {
+    const m = meta(k), photos = items.filter(p => p.category === k), n = range.filter(r => r.category === k).length || photos.length;
+    const bg = photos.length ? pic(photos[0], "absolute inset-0 w-full h-full object-cover opacity-70")
+                             : `<div class="absolute inset-0 bg-gradient-to-br from-emerald-600/40 to-slate-800"></div>`;
     return `<button data-k="${esc(k)}" class="relative overflow-hidden rounded-2xl aspect-[4/3] text-left border border-white/10 active:scale-95 transition">
-      ${pic(list[0], "absolute inset-0 w-full h-full object-cover opacity-70")}
+      ${bg}
       <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent"></div>
       <div class="relative h-full flex flex-col justify-end p-3">
         <span class="text-2xl leading-none">${m.emoji}</span>
         <span class="font-extrabold">${esc(m.label)}</span>
-        <span class="text-xs text-slate-300">${list.length} item${list.length === 1 ? "" : "s"}</span>
+        <span class="text-xs text-slate-300">${n} item${n === 1 ? "" : "s"}</span>
       </div></button>`;
   }).join("");
 }
+
+function perfumes() {
+  const t = term.trim().toLowerCase();
+  const list = range.filter(r => r.category === "perfumes" && (!t || rText(r).includes(t)));
+  const cover = items.find(p => p.category === "perfumes");
+  $("perfumes").classList.toggle("hidden", list.length === 0);
+  $("perfCover").innerHTML = cover ? `<div class="rounded-2xl overflow-hidden border border-white/10 mb-3">${pic(cover, "w-full max-h-80 object-cover cursor-zoom-in")}</div>` : "";
+  $("perfGrid").innerHTML = list.map(r => `
+    <div class="rounded-2xl bg-slate-900 border border-white/10 p-3 flex flex-col">
+      <p class="font-extrabold leading-tight">${esc(r.name)}</p>
+      <p class="text-xs text-slate-400 mt-0.5 flex-1">${esc(r.size || "")}</p>
+      <a href="${rAsk(r)}" target="_blank" rel="noopener" class="mt-3 rounded-full bg-emerald-500 text-slate-950 text-center font-extrabold text-xs py-2">💬 Ask about this</a>
+    </div>`).join("");
+}
+
+function rangeList() {
+  const t = term.trim().toLowerCase();
+  $("rangeSec").classList.toggle("hidden", !range.some(r => r.category !== "perfumes"));
+  const list = range.filter(r => r.category !== "perfumes" && (cat === "all" || r.category === cat) && (!t || rText(r).includes(t)));
+  $("rangeEmpty").classList.toggle("hidden", list.length > 0);
+  const groups = {};
+  list.forEach(r => (groups[r.category] = groups[r.category] || []).push(r));
+  $("range").innerHTML = Object.keys(groups).map(k => {
+    const m = meta(k);
+    return `<div class="mb-5">
+      <h3 class="font-bold text-sm text-emerald-300 mb-2">${m.emoji} ${esc(m.label)}</h3>
+      <div class="rounded-2xl bg-slate-900 border border-white/10 divide-y divide-white/10">
+        ${groups[k].map(r => `
+          <div class="flex items-center justify-between gap-3 px-4 py-3">
+            <div class="min-w-0">
+              <p class="font-bold text-sm">${esc(r.name)}</p>
+              <p class="text-xs text-slate-400">${esc([r.size, r.note].filter(Boolean).join(" · "))}</p>
+            </div>
+            <a href="${rAsk(r)}" target="_blank" rel="noopener" class="flex-none rounded-full bg-emerald-500 text-slate-950 text-xs font-extrabold px-4 py-2">Ask</a>
+          </div>`).join("")}
+      </div></div>`;
+  }).join("");
+}
+
+function refresh() { chips(); grid(); perfumes(); rangeList(); }
 
 function featured() {
   let list = items.filter(p => p.category === "hampers" || p.category === "bulk");
@@ -170,7 +231,7 @@ function featured() {
 }
 
 function chips() {
-  const keys = ["all"].concat([...new Set(items.map(p => p.category))]);
+  const keys = ["all"].concat(catKeys());
   $("chips").innerHTML = keys.map(k => {
     const on = k === cat;
     const lbl = k === "all" ? "All" : meta(k).emoji + " " + meta(k).label;
@@ -205,23 +266,29 @@ function openLb(src) {
 
 $("tiles").addEventListener("click", e => {
   const b = e.target.closest("button"); if (!b) return;
-  cat = b.dataset.k; chips(); grid();
-  $("shop").scrollIntoView({behavior: "smooth"});
+  cat = b.dataset.k; refresh();
+  const target = (cat === "perfumes" && !$("perfumes").classList.contains("hidden")) ? $("perfumes") : $("shop");
+  target.scrollIntoView({behavior: "smooth"});
 });
 $("chips").addEventListener("click", e => {
   const b = e.target.closest("button"); if (!b) return;
-  cat = b.dataset.k; chips(); grid();
+  cat = b.dataset.k; refresh();
 });
-$("q").addEventListener("input", e => { term = e.target.value; grid(); });
-["grid", "featured"].forEach(id => $(id).addEventListener("click", e => {
+$("q").addEventListener("input", e => { term = e.target.value; grid(); perfumes(); rangeList(); });
+["grid", "featured", "perfCover"].forEach(id => $(id).addEventListener("click", e => {
   const im = e.target.closest("img"); if (im) openLb(im.getAttribute("src"));
 }));
 $("lb").addEventListener("click", e => { if (e.target.tagName !== "A") $("lb").style.display = "none"; });
 document.addEventListener("keydown", e => { if (e.key === "Escape") $("lb").style.display = "none"; });
 
-fetch("data/products.json", {cache: "no-cache"})
-  .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
-  .then(d => { items = d; hero(); tiles(); featured(); chips(); grid(); })
+const load = u => fetch(u, {cache: "no-cache"}).then(r => { if (!r.ok) throw new Error(r.status); return r.json(); });
+Promise.all([load("data/products.json").catch(() => []), load("data/items.json").catch(() => [])])
+  .then(([p, r]) => {
+    items = p; range = r;
+    if (!items.length && !range.length) throw new Error("empty");
+    if (items.length) { hero(); featured(); }
+    tiles(); refresh();
+  })
   .catch(() => { $("count").textContent = "Could not load stock. Please refresh, or order on WhatsApp."; });
 </script>
 </body>

@@ -1,0 +1,25 @@
+[
+  {"name":"Selver Sense","category":"perfumes","size":"80ml parfum"},
+  {"name":"Dezire Red","category":"perfumes","size":"80ml parfum"},
+  {"name":"Dezire Blue","category":"perfumes","size":"80ml parfum"},
+  {"name":"Intense Wild","category":"perfumes","size":"80ml parfum"},
+  {"name":"Wild","category":"perfumes","size":"80ml parfum"},
+  {"name":"Sky Oud","category":"perfumes","size":"80ml parfum"},
+  {"name":"White Oud Classic","category":"perfumes","size":"80ml parfum"},
+  {"name":"Stallion For Him","category":"perfumes","size":"80ml parfum"},
+
+  {"name":"Bokomo Corn Flakes","category":"cereals","size":"1kg"},
+  {"name":"Bokomo Weet-Bix","category":"cereals","size":"450g","note":"24 biscuits"},
+  {"name":"Nutrific Super Mornings","category":"cereals","size":"450g","note":"24 wholewheat biscuits"},
+  {"name":"Jungle Oats","category":"cereals","size":"1kg","note":"The original favourite"},
+  {"name":"Futurelife Smart Food","category":"cereals","size":"500g","note":"Original flavour, mix as a meal or shake"},
+  {"name":"Happy Valley Rice Puffs Original","category":"cereals","note":"Gluten free, 100% vegan"},
+
+  {"name":"Juices Africa Guava concentrate","category":"juices","size":"4L","note":"Makes 20L, dilute 1+4"},
+  {"name":"Juices Africa Mixed Berry concentrate","category":"juices","size":"4L","note":"Makes 20L, dilute 1+4"},
+  {"name":"Juices Africa Cocktail concentrate","category":"juices","size":"4L","note":"Makes 20L, dilute 1+4"},
+  {"name":"Juices Africa Tropical Punch concentrate","category":"juices","size":"4L","note":"Makes 20L, dilute 1+4"},
+  {"name":"Clover Tropika Orange dairy fruit mix","category":"juices","size":"200ml","note":"Sold in packs"},
+
+  {"name":"Kellogg's Instant Noodles Beef flavour","category":"pantry","size":"70g x 5 packs"}
+]
