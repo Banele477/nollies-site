@@ -1,2 +1,22 @@
-{"name":"Nollie's","short_name":"Nollie's","start_url":"./","display":"standalone",
- "background_color":"#2b1055","theme_color":"#2b1055","icons":[]}
+{
+  "short_name": "Nollie's",
+  "name": "Nollie's Premier Hub & Quantum Marketplace",
+  "description": "eNanda's premier portal for cereal hampers, bulk groceries, M-Scents, and service consultations.",
+  "icons": [
+    {
+      "src": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=192&q=80",
+      "type": "image/jpeg",
+      "sizes": "192x192"
+    },
+    {
+      "src": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=512&q=80",
+      "type": "image/jpeg",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#030712",
+  "theme_color": "#030712",
+  "display": "standalone",
+  "orientation": "portrait"
+}
