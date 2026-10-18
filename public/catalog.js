@@ -86,7 +86,7 @@
         <div class="mh-panel">
           <h2 style="color:#38bdf8; margin-top:0;">💬 Direct Support & WhatsApp</h2>
           <p style="color:#94a3b8; font-size:13px;">Connect instantly with Nqbobile's Hub team.</p>
-          <a href="https://wa.me/${WA}?text=Hi%20Nqbobile's%20Hub,%20I%20need%20assistance!" target="_blank" class="mh-action" style="margin-top:12px; max-width:250px;">Open WhatsApp Chat ↗</a>
+          <a href="https://wa.me/" + WA + "?text=Hi%20Nqbobile's%20Hub,%20I%20need%20assistance!" target="_blank" class="mh-action" style="margin-top:12px; max-width:250px;">Open WhatsApp Chat ↗</a>
         </div>
       </div>
 
@@ -126,7 +126,7 @@
       else if(t.includes("juice")) { bg = "#064e3b"; accent = "#34d399"; icon = "🧃"; }
       else if(t.includes("hamper") || t.includes("combo")) { bg = "#1e3a8a"; accent = "#60a5fa"; icon = "🧺"; }
 
-      img.src = "data:image/svg+xml;utf8,+ encodeURIComponent(
+      img.src = "data:image/svg+xml;utf8," + encodeURIComponent(
         "<svg xmlns='http://www.w3.org/2000/svg' width='600' height='600' viewBox='0 0 600 600'>" +
         "<defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0%' stop-color='" + bg + "'/><stop offset='100%' stop-color='#020617'/></linearGradient></defs>" +
         "<rect width='100%' height='100%' fill='url(#g)'/>" +
