@@ -8,116 +8,119 @@ if(!P.length)return;
 var base=location.pathname.replace(/[^\/]*$/,"");
 var CDN="https://cdn.jsdelivr.net/gh/"+OWNER+"/"+REPO+"@"+BRANCH+"/public/images/";
 
-// Luxury Branded Visual Asset Generator
+// Professional SVG Card Generator (Replaces empty boxes with branded art)
 function makeCardSvg(title, category){
-  var bg = "#090d16", accent = "#f59e0b", icon = "👑";
-  var tLower = title.toLowerCase();
-  if(category === "juice" || tLower.includes("juice") || tLower.includes("concentrate")){ bg = "#022c22"; accent = "#34d399"; icon = "✨"; }
-  else if(category === "hamper" || tLower.includes("hamper") || tLower.includes("breakfast")){ bg = "#172554"; accent = "#60a5fa"; icon = "💎"; }
-  else if(category === "cereal" || tLower.includes("cereal") || tLower.includes("noodles") || tLower.includes("oats")){ bg = "#451a03"; accent = "#fbbf24"; icon = "🌟"; }
-  else if(category === "flyer" || tLower.includes("flyer") || tLower.includes("poster") || tLower.includes("supply")){ bg = "#500724"; accent = "#f43f5e"; icon = "🔥"; }
+  var bg = "#0f172a", accent = "#38bdf8", icon = "📦";
+  if(category === "juice" || title.toLowerCase().includes("juice")){ bg = "#064e3b"; accent = "#34d399"; icon = "🧃"; }
+  else if(category === "hamper" || title.toLowerCase().includes("hamper")){ bg = "#1e3a8a"; accent = "#60a5fa"; icon = "🧺"; }
+  else if(category === "cereal" || title.toLowerCase().includes("cereal") || title.toLowerCase().includes("noodles")){ bg = "#78350f"; accent = "#facc15"; icon = "🥣"; }
+  else if(category === "flyer" || title.toLowerCase().includes("flyer") || title.toLowerCase().includes("poster")){ bg = "#831843"; accent = "#f43f5e"; icon = "🎯"; }
 
-  var safeTitle = title.length > 30 ? title.substring(0, 28) + "..." : title;
+  var safeTitle = title.length > 35 ? title.substring(0, 33) + "..." : title;
   return "data:image/svg+xml;utf8," + encodeURIComponent(
     "<svg xmlns='http://www.w3.org/2000/svg' width='800' height='800' viewBox='0 0 800 800'>" +
-    "<defs><linearGradient id='bg' x1='0' y1='0' x2='1' y2='1'><stop offset='0%' stop-color='" + bg + "'/><stop offset='100%' stop-color='#020617'/></linearGradient></defs>" +
-    "<rect width='100%' height='100%' fill='url(#bg)'/>" +
-    "<rect x='30' y='30' width='740' height='740' rx='36' fill='none' stroke='" + accent + "' stroke-width='3' opacity='0.4'/>" +
-    "<circle cx='400' cy='300' r='100' fill='" + accent + "' opacity='0.1'/>" +
-    "<text x='400' y='335' font-size='90' text-anchor='middle'>" + icon + "</text>" +
-    "<text x='400' y='460' fill='#ffffff' font-family='system-ui, sans-serif' font-size='26' font-weight='900' letter-spacing='3px' text-anchor='middle'>NQOBILE'S HUB</text>" +
-    "<text x='400' y='510' fill='" + accent + "' font-family='system-ui, sans-serif' font-size='18' font-weight='700' text-anchor='middle'>" + safeTitle + "</text>" +
-    "<rect x='240' y='600' width='320' height='56' rx='28' fill='" + accent + "'/>" +
-    "<text x='400' y='636' fill='#0f172a' font-family='system-ui, sans-serif' font-size='16' font-weight='900' letter-spacing='1px' text-anchor='middle'>OFFICIAL BRAND STORE</text>" +
+    "<defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0%' stop-color='" + bg + "'/><stop offset='100%' stop-color='#020617'/></linearGradient></defs>" +
+    "<rect width='100%' height='100%' fill='url(#g)'/>" +
+    "<rect x='50' y='50' width='700' height='700' rx='36' fill='none' stroke='" + accent + "' stroke-width='4' opacity='0.4'/>" +
+    "<circle cx='400' cy='320' r='110' fill='" + accent + "' opacity='0.12'/>" +
+    "<text x='400' y='350' font-size='110' text-anchor='middle'>" + icon + "</text>" +
+    "<text x='400' y='500' fill='#ffffff' font-family='system-ui, sans-serif' font-size='32' font-weight='800' text-anchor='middle'>NQOBILE'S HUB</text>" +
+    "<text x='400' y='550' fill='" + accent + "' font-family='system-ui, sans-serif' font-size='22' font-weight='600' text-anchor='middle'>" + safeTitle + "</text>" +
+    "<rect x='250' y='630' width='300' height='60' rx='30' fill='" + accent + "'/>" +
+    "<text x='400' y='668' fill='#0f172a' font-family='system-ui, sans-serif' font-size='20' font-weight='800' text-anchor='middle'>TAP TO VIEW</text>" +
     "</svg>"
   );
 }
 
 var TABS={
-  all:"👑 All Collections",
-  trending:"✨ Luxury Trends",
-  bundle:"💎 Bulk & Hampers",
-  pantry:"🌟 Pantry Essentials",
-  campus:"🎓 DUT Campus Elite",
-  meeting:"📅 VIP Consultation",
-  popia:"🔒 Privacy & POPIA"
+  all:"🔥 All Highlights",
+  trending:"⚡ Trending Deals",
+  bundle:"📦 Bulk & Hampers",
+  pantry:"🥣 Pantry Essentials",
+  campus:"🎓 DUT Campus Specials",
+  meeting:"📅 Book Meeting",
+  popia:"🔒 POPIA Policy"
 };
 
 var css=`
-#nqc { max-width: 1200px; margin: 40px auto 120px; padding: 0 16px; color: #f8fafc; font-family: system-ui, -apple-system, sans-serif; }
-#nqc .nq-header { text-align: center; margin-bottom: 28px; }
-#nqc h2 { font-size: 36px; font-weight: 900; background: linear-gradient(135deg, #ffffff 0%, #fbbf24 50%, #f59e0b 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin: 0 0 8px 0; letter-spacing: -0.5px; }
-#nqc .s { color: #94a3b8; font-size: 14px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; }
+#nqc { max-width: 1200px; margin: 30px auto 120px; padding: 0 16px; color: #f8fafc; font-family: system-ui, -apple-system, sans-serif; }
+#nqc .nq-header { text-align: center; margin-bottom: 24px; }
+#nqc h2 { font-size: 32px; font-weight: 900; background: linear-gradient(135deg, #f8fafc 0%, #38bdf8 50%, #818cf8 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin: 0 0 8px 0; letter-spacing: -0.5px; }
+#nqc .s { color: #94a3b8; font-size: 14px; font-weight: 500; }
 
-/* Luxury Brand Banner */
-.nq-banner { background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(59, 130, 246, 0.15)); border: 1px solid rgba(245, 158, 11, 0.4); border-radius: 20px; padding: 14px 24px; text-align: center; margin-bottom: 28px; font-size: 13.5px; color: #fbbf24; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 10px; backdrop-filter: blur(16px); box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+.nq-banner { background: linear-gradient(135deg, rgba(56, 189, 248, 0.12), rgba(129, 140, 248, 0.12)); border: 1px solid rgba(56, 189, 248, 0.3); border-radius: 16px; padding: 12px 20px; text-align: center; margin-bottom: 24px; font-size: 13px; color: #38bdf8; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 8px; backdrop-filter: blur(12px); box-shadow: 0 8px 32px rgba(0,0,0,0.2); }
 
-/* Luxury Glass Search Bar */
-.search-box { max-width: 540px; margin: 0 auto 24px; position: relative; }
-.search-box input { width: 100%; padding: 15px 20px 15px 48px; border-radius: 999px; border: 1px solid rgba(245, 158, 11, 0.3); background: rgba(15, 23, 42, 0.9); backdrop-filter: blur(20px); color: #fff; font-size: 14px; outline: none; box-sizing: border-box; transition: all 0.3s ease; box-shadow: 0 4px 25px rgba(0,0,0,0.4); }
-.search-box input:focus { border-color: #fbbf24; box-shadow: 0 0 25px rgba(251, 191, 36, 0.3); }
-.search-box svg { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); width: 18px; height: 18px; fill: #fbbf24; }
+.search-box { max-width: 520px; margin: 0 auto 20px; position: relative; }
+.search-box input { width: 100%; padding: 14px 20px 14px 46px; border-radius: 999px; border: 1px solid rgba(255, 255, 255, 0.15); background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(16px); color: #fff; font-size: 14px; outline: none; box-sizing: border-box; transition: all 0.3s ease; box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
+.search-box input:focus { border-color: #38bdf8; box-shadow: 0 0 20px rgba(56, 189, 248, 0.25); }
+.search-box svg { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); width: 18px; height: 18px; fill: #94a3b8; }
 
-/* Branded Luxury Tabs */
 #nqc .ch { display: flex; gap: 10px; overflow-x: auto; padding: 4px 4px 20px; scrollbar-width: none; justify-content: center; flex-wrap: wrap; }
 #nqc .ch::-webkit-scrollbar { display: none; }
-#nqc .ch button { flex: none; padding: 11px 20px; border-radius: 999px; border: 1px solid rgba(255, 255, 255, 0.1); background: rgba(30, 41, 59, 0.7); color: #cbd5e1; font-weight: 600; font-size: 13px; cursor: pointer; transition: all 0.25s ease; backdrop-filter: blur(10px); }
-#nqc .ch button:hover { border-color: #fbbf24; color: #fff; transform: translateY(-2px); }
-#nqc .ch button.on { background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); color: #0f172a; border-color: transparent; font-weight: 900; box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4); }
+#nqc .ch button { flex: none; padding: 10px 18px; border-radius: 999px; border: 1px solid rgba(255, 255, 255, 0.1); background: rgba(30, 41, 59, 0.6); color: #cbd5e1; font-weight: 600; font-size: 13px; cursor: pointer; transition: all 0.25s ease; backdrop-filter: blur(8px); }
+#nqc .ch button:hover { border-color: rgba(56, 189, 248, 0.4); color: #fff; transform: translateY(-2px); }
+#nqc .ch button.on { background: linear-gradient(135deg, #38bdf8 0%, #2563eb 100%); color: #0f172a; border-color: transparent; font-weight: 800; box-shadow: 0 4px 15px rgba(56, 189, 248, 0.35); }
 
-/* Social Media VIP Row */
-.social-hub-row { display: flex; justify-content: center; gap: 12px; margin-bottom: 28px; flex-wrap: wrap; }
-.social-btn { display: inline-flex; align-items: center; gap: 6px; padding: 9px 18px; border-radius: 999px; background: rgba(30, 41, 59, 0.8); border: 1px solid rgba(245, 158, 11, 0.2); color: #cbd5e1; font-size: 12px; font-weight: 700; text-decoration: none; transition: all 0.2s ease; backdrop-filter: blur(10px); }
-.social-btn:hover { border-color: #fbbf24; color: #fbbf24; transform: translateY(-2px); box-shadow: 0 4px 15px rgba(245, 158, 11, 0.2); }
+.social-hub-row { display: flex; justify-content: center; gap: 12px; margin-bottom: 24px; flex-wrap: wrap; }
+.social-btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 999px; background: rgba(30, 41, 59, 0.7); border: 1px solid rgba(255,255,255,0.1); color: #cbd5e1; font-size: 12px; font-weight: 700; text-decoration: none; transition: all 0.2s ease; backdrop-filter: blur(8px); }
+.social-btn:hover { border-color: #38bdf8; color: #38bdf8; transform: translateY(-2px); }
 
-/* Product Grid & Luxury Cards */
 #nqc .g { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 24px; }
-#nqc .c { background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(20px); border: 1px solid rgba(245, 158, 11, 0.2); border-radius: 24px; overflow: hidden; display: flex; flex-direction: column; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 15px 35px rgba(0,0,0,0.4); }
-#nqc .c:hover { transform: translateY(-6px); border-color: #fbbf24; box-shadow: 0 20px 45px rgba(245, 158, 11, 0.2); }
+#nqc .c { background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 22px; overflow: hidden; display: flex; flex-direction: column; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+#nqc .c:hover { transform: translateY(-6px); border-color: rgba(56, 189, 248, 0.4); box-shadow: 0 20px 40px rgba(56, 189, 248, 0.15); }
 
 .img-wrap { position: relative; width: 100%; aspect-ratio: 1; background: #080c14; overflow: hidden; }
 #nqc .c img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s ease; cursor: zoom-in; }
 #nqc .c:hover img { transform: scale(1.05); }
 
-.stock-tag { position: absolute; top: 12px; left: 12px; background: rgba(15, 23, 42, 0.9); backdrop-filter: blur(12px); border: 1px solid rgba(245, 158, 11, 0.4); color: #fbbf24; font-size: 10px; font-weight: 800; text-transform: uppercase; padding: 5px 12px; border-radius: 999px; letter-spacing: 1px; z-index: 2; }
+.stock-tag { position: absolute; top: 12px; left: 12px; background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(12px); border: 1px solid rgba(34, 197, 94, 0.3); color: #4ade80; font-size: 10px; font-weight: 700; text-transform: uppercase; padding: 5px 12px; border-radius: 999px; letter-spacing: 0.5px; z-index: 2; }
 
-.content-box { padding: 20px; display: flex; flex-direction: column; flex-grow: 1; justify-content: space-between; }
-#nqc .c p { margin: 0 0 14px 0; font-size: 14px; line-height: 1.5; color: #f8fafc; font-weight: 600; }
+.content-box { padding: 18px; display: flex; flex-direction: column; flex-grow: 1; justify-content: space-between; }
+#nqc .c p { margin: 0 0 14px 0; font-size: 13.5px; line-height: 1.5; color: #cbd5e1; font-weight: 500; }
 
-.features-row { display: flex; gap: 6px; margin-bottom: 16px; flex-wrap: wrap; }
-.feature-pill { font-size: 10px; padding: 4px 10px; border-radius: 6px; background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.3); color: #fbbf24; font-weight: 700; }
+.features-row { display: flex; gap: 6px; margin-bottom: 14px; flex-wrap: wrap; }
+.feature-pill { font-size: 10px; padding: 4px 10px; border-radius: 6px; background: rgba(56, 189, 248, 0.08); border: 1px solid rgba(56, 189, 248, 0.18); color: #38bdf8; font-weight: 600; }
 
-#nqc .c button.order-btn { width: 100%; padding: 13px; border-radius: 14px; background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); color: #0f172a; font-weight: 900; font-size: 14px; border: none; cursor: pointer; transition: all 0.2s ease; box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4); letter-spacing: 0.5px; }
+#nqc .c button.order-btn { width: 100%; padding: 12px; border-radius: 14px; background: linear-gradient(135deg, #38bdf8 0%, #2563eb 100%); color: #fff; font-weight: 700; font-size: 13.5px; border: none; cursor: pointer; transition: all 0.2s ease; box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3); }
 #nqc .c button.order-btn:hover { opacity: 0.95; transform: scale(1.02); }
 
-.dynamic-view { display: none; background: rgba(15, 23, 42, 0.9); backdrop-filter: blur(24px); border: 1px solid rgba(245, 158, 11, 0.3); border-radius: 28px; padding: 32px; margin-top: 20px; box-shadow: 0 25px 60px rgba(0,0,0,0.6); }
+.dynamic-view { display: none; background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1); border-radius: 24px; padding: 30px; margin-top: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
 .dynamic-view.active { display: block; }
-.dynamic-view h3 { color: #fbbf24; margin-top: 0; font-size: 24px; font-weight: 900; }
-.dynamic-view p, .dynamic-view li { color: #cbd5e1; font-size: 14px; line-height: 1.7; }
-.form-group { margin-bottom: 18px; }
-.form-group label { display: block; font-size: 13px; font-weight: 700; color: #fbbf24; margin-bottom: 6px; }
-.form-group input, .form-group textarea, .form-group select { width: 100%; padding: 13px; border-radius: 12px; border: 1px solid rgba(245, 158, 11, 0.3); background: rgba(30,41,59,0.8); color: #fff; box-sizing: border-box; font-size: 14px; }
-.submit-form-btn { padding: 13px 26px; border-radius: 12px; background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%); color: #fff; font-weight: 900; border: none; cursor: pointer; box-shadow: 0 6px 20px rgba(34, 197, 94, 0.4); }
+.dynamic-view h3 { color: #38bdf8; margin-top: 0; font-size: 22px; }
+.dynamic-view p, .dynamic-view li { color: #cbd5e1; font-size: 14px; line-height: 1.6; }
+.form-group { margin-bottom: 16px; }
+.form-group label { display: block; font-size: 13px; font-weight: 600; color: #fff; margin-bottom: 6px; }
+.form-group input, .form-group textarea, .form-group select { width: 100%; padding: 12px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.15); background: rgba(30,41,59,0.8); color: #fff; box-sizing: border-box; font-size: 14px; }
+.submit-form-btn { padding: 12px 24px; border-radius: 12px; background: #22c55e; color: #fff; font-weight: 800; border: none; cursor: pointer; box-shadow: 0 4px 15px rgba(34, 197, 94, 0.3); }
 
-.cart-floating-bar { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(24px); border: 1px solid rgba(245, 158, 11, 0.5); padding: 14px 28px; border-radius: 999px; z-index: 99999; display: flex; align-items: center; gap: 16px; box-shadow: 0 15px 50px rgba(0,0,0,0.7); }
-.cart-floating-bar span { font-size: 13.5px; font-weight: 700; color: #f8fafc; }
-.cart-floating-bar button { padding: 9px 20px; border-radius: 999px; background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); color: #0f172a; font-weight: 900; font-size: 12.5px; border: none; cursor: pointer; box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4); }
+.cart-floating-bar { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: rgba(15, 23, 42, 0.92); backdrop-filter: blur(20px); border: 1px solid rgba(56, 189, 248, 0.35); padding: 12px 24px; border-radius: 999px; z-index: 99999; display: flex; align-items: center; gap: 16px; box-shadow: 0 10px 40px rgba(0,0,0,0.6); }
+.cart-floating-bar span { font-size: 13px; font-weight: 600; color: #e2e8f0; }
+.cart-floating-bar button { padding: 8px 18px; border-radius: 999px; background: #22c55e; color: #fff; font-weight: 800; font-size: 12px; border: none; cursor: pointer; box-shadow: 0 4px 12px rgba(34, 197, 94, 0.4); }
 
-#nqlb { position: fixed; inset: 0; background: rgba(2, 6, 23, 0.97); backdrop-filter: blur(28px); z-index: 9999999; display: none; align-items: center; justify-content: center; flex-direction: column; padding: 20px; opacity: 0; transition: opacity 0.3s ease; }
+#nqlb { position: fixed; inset: 0; background: rgba(2, 6, 23, 0.96); backdrop-filter: blur(24px); z-index: 9999999; display: none; align-items: center; justify-content: center; flex-direction: column; padding: 20px; opacity: 0; transition: opacity 0.3s ease; }
 #nqlb.open { display: flex; opacity: 1; }
-#nqlb img { max-width: 90%; max-height: 65vh; border-radius: 24px; box-shadow: 0 25px 60px rgba(0,0,0,0.8); border: 1px solid rgba(245, 158, 11, 0.4); }
-#nqlb p { color: #f8fafc; font-size: 16px; font-weight: 700; text-align: center; margin: 16px 0; max-width: 500px; }
-#nqlb button { padding: 13px 30px; border-radius: 999px; background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); color: #0f172a; font-weight: 900; font-size: 14px; border: none; cursor: pointer; box-shadow: 0 8px 25px rgba(245, 158, 11, 0.5); }
+#nqlb img { max-width: 90%; max-height: 65vh; border-radius: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.7); border: 1px solid rgba(255,255,255,0.1); }
+#nqlb p { color: #f8fafc; font-size: 15px; font-weight: 600; text-align: center; margin: 16px 0; max-width: 500px; }
+#nqlb button { padding: 12px 28px; border-radius: 999px; background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%); color: #fff; font-weight: 800; font-size: 14px; border: none; cursor: pointer; box-shadow: 0 6px 20px rgba(34, 197, 94, 0.4); }
 
 .footer-links { text-align: center; margin-top: 50px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 12px; color: #94a3b8; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
-.footer-links a { color: #fbbf24; text-decoration: none; cursor: pointer; font-weight: 700; }
+.footer-links a { color: #38bdf8; text-decoration: none; cursor: pointer; font-weight: 600; }
 .footer-links a:hover { text-decoration: underline; }
 `;
 
 function setSrc(img, p){
   var n = p.n;
   if(n.indexOf("data:image") === 0) { img.src = n; return; }
-  img.src = makeCardSvg(p.t, p.c);
+  var l=[base+"images/"+n, CDN+n], i=0;
+  function nx(){ 
+    if(i < l.length) {
+      img.src = l[i++];
+    } else {
+      // If local/CDN image is missing, render our gorgeous custom illustrated card instead of text!
+      img.src = makeCardSvg(p.t, p.c);
+    }
+  }
+  img.onerror = nx; nx();
 }
 
 function init(){
@@ -125,15 +128,15 @@ function init(){
   var sec=document.createElement("section"); sec.id="nqc";
   sec.innerHTML=`
     <div class="nq-header">
-      <h2>👑 NQOBILE'S LUXURY HUB</h2>
-      <div class="s">Official Durban CBD & DUT Campus Elite Store</div>
+      <h2>🛍️ Nqobile's Hub Durban</h2>
+      <div class="s">Fast Local Durban CBD & DUT Campus Delivery</div>
     </div>
     <div class="nq-banner">
-      <span>✨ <strong>VIP MEMBER PERK:</strong> Free Priority Express Delivery Across Durban CBD & DUT Campuses!</span>
+      <span>🔥 <strong>WEEKLY SPECIAL:</strong> Free Same-Day Doorstep Delivery Around Durban CBD & DUT Campuses!</span>
     </div>
 
     <div class="social-hub-row">
-      <a class="social-btn" href="https://wa.me/${WA}" target="_blank">💬 VIP WhatsApp</a>
+      <a class="social-btn" href="https://wa.me/${WA}" target="_blank">💬 WhatsApp Hub</a>
       <a class="social-btn" href="https://instagram.com" target="_blank">📸 Instagram</a>
       <a class="social-btn" href="https://facebook.com" target="_blank">👥 Facebook Page</a>
       <a class="social-btn" href="https://tiktok.com" target="_blank">🎵 TikTok Reels</a>
@@ -141,7 +144,7 @@ function init(){
 
     <div class="search-box">
       <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
-      <input type="text" id="nq-search" placeholder="Search luxury hampers, premium cereals, juices...">
+      <input type="text" id="nq-search" placeholder="Search hampers, cereals, juices, or flyers...">
     </div>
 
     <div class="ch"></div>
@@ -151,8 +154,8 @@ function init(){
     </div>
 
     <div id="meeting-view" class="dynamic-view">
-      <h3>📅 Schedule a VIP Consultation</h3>
-      <p>Book an exclusive appointment with Nqobile's Hub management for bulk corporate orders, private campus supply, or partnerships.</p>
+      <h3>📅 Schedule a Consultation or Business Meeting</h3>
+      <p>Book a meeting with Nqobile's Hub team for bulk campus orders, supplier partnerships, or event catering in Durban.</p>
       <div class="form-group">
         <label>Your Full Name:</label>
         <input type="text" id="meet-name" placeholder="e.g. Banele Gumbi">
@@ -162,33 +165,34 @@ function init(){
         <input type="text" id="meet-phone" placeholder="e.g. 072 123 4567">
       </div>
       <div class="form-group">
-        <label>Appointment Type:</label>
+        <label>Meeting Purpose:</label>
         <select id="meet-type">
-          <option value="VIP Bulk Order">📦 VIP Bulk Order Inquiry</option>
-          <option value="Business Partnership">🤝 Strategic Partnership</option>
-          <option value="General Inquiry">💬 General Consultation</option>
+          <option value="Bulk Order Consultation">📦 Bulk Campus / Household Order</option>
+          <option value="Partnership & Supplier">🤝 Business Partnership</option>
+          <option value="General Inquiry">💬 General Inquiry</option>
         </select>
       </div>
       <div class="form-group">
         <label>Preferred Date & Time:</label>
         <input type="datetime-local" id="meet-datetime">
       </div>
-      <button class="submit-form-btn" id="submit-meet">📅 Confirm Appointment via WhatsApp</button>
+      <button class="submit-form-btn" id="submit-meet">📅 Confirm & Send via WhatsApp</button>
     </div>
 
     <div id="popia-view" class="dynamic-view">
-      <h3>🔒 POPIA Compliance & Privacy Charter</h3>
-      <p><strong>Nqobile's Hub</strong> adheres strictly to the Protection of Personal Information Act (POPIA) of South Africa to safeguard your client data.</p>
-      <p><strong>1. Data Collection:</strong> We collect only essential details (Name, Contact Number, Delivery Location) required for secure local order fulfillment in Durban.</p>
-      <p><strong>2. Confidentiality:</strong> Your information remains strictly confidential and is never shared, sold, or exposed to third parties.</p>
-      <p><strong>3. Secure Transactions:</strong> All communications occur over encrypted channels directly via official business WhatsApp protocols.</p>
+      <h3>🔒 POPIA Compliance & Privacy Policy</h3>
+      <p><strong>Nqobile's Hub</strong> is committed to protecting your personal information in accordance with the Protection of Personal Information Act (POPIA) of South Africa.</p>
+      <p><strong>1. Information We Collect:</strong> We collect only necessary details required to process your orders and local deliveries (e.g., Name, Phone Number, and Delivery Address in Durban).</p>
+      <p><strong>2. Purpose of Processing:</strong> Your information is used strictly to fulfill customer purchases, coordinate campus deliveries via WhatsApp or direct communication, and improve our services.</p>
+      <p><strong>3. Security Safeguards:</strong> We do not sell, rent, or trade your personal data to third parties. All communications are securely encrypted via WhatsApp and standard web protocols.</p>
+      <p><strong>4. Your Rights:</strong> You have the right to request access to your stored personal data or ask for its deletion at any time by contacting us directly.</p>
     </div>
 
     <div class="footer-links">
-      <span>© 2026 Nqobile's Luxury Hub Durban</span>
-      <a id="nav-catalog">👑 Collections</a>
-      <a id="nav-meeting">📅 VIP Booking</a>
-      <a id="nav-popia">🔒 Privacy Policy</a>
+      <span>© 2026 Nqobile's Hub Durban</span>
+      <a id="nav-catalog">🛍️ Catalog</a>
+      <a id="nav-meeting">📅 Book Meeting</a>
+      <a id="nav-popia">🔒 POPIA & Privacy Policy</a>
     </div>
   `;
 
@@ -249,22 +253,22 @@ function init(){
       var d=document.createElement("div"); d.className="c";
       d.innerHTML=`
         <div class="img-wrap">
-          <div class="stock-tag">👑 Verified Stock</div>
+          <div class="stock-tag">⚡ In Stock</div>
           <img alt="${p.t}" loading="lazy">
         </div>
         <div class="content-box">
           <p>${p.t}</p>
           <div class="features-row">
-            <span class="feature-pill">✨ Premium Grade</span>
-            <span class="feature-pill">⚡ VIP Express</span>
+            <span class="feature-pill">✓ Verified Fresh</span>
+            <span class="feature-pill">✓ Durban Express</span>
           </div>
-          <button class="order-btn">👑 Secure Order via WhatsApp</button>
+          <button class="order-btn">💬 Order via WhatsApp</button>
         </div>
       `;
       setSrc(d.querySelector("img"), p);
 
       var triggerWhatsApp = function(){
-        var msg = "Hi Nqobile's Luxury Hub, I would like to order: " + p.t + ". Please confirm availability and priority delivery!";
+        var msg = "Hi Nqobile's Hub, I would like to order: " + p.t + ". Please confirm availability and delivery details!";
         window.open("https://wa.me/" + WA + "?text=" + encodeURIComponent(msg), "_blank");
       };
 
@@ -299,30 +303,30 @@ function init(){
   sec.querySelector("#nav-popia").addEventListener("click", function(){ switchTab("popia"); window.scrollTo({top:0, behavior:'smooth'}); });
 
   sec.querySelector("#submit-meet").addEventListener("click", function(){
-    var name = sec.querySelector("#meet-name").value || "Valued VIP Client";
+    var name = sec.querySelector("#meet-name").value || "Valued Client";
     var phone = sec.querySelector("#meet-phone").value || "N/A";
     var type = sec.querySelector("#meet-type").value;
     var dt = sec.querySelector("#meet-datetime").value || "As soon as possible";
-    var m = "📅 *VIP CONSULTATION REQUEST*\n👤 Name: " + name + "\n📞 Phone: " + phone + "\n🎯 Type: " + type + "\n🕒 Time: " + dt;
+    var m = "📅 *MEETING / CONSULTATION REQUEST*\n👤 Name: " + name + "\n📞 Phone: " + phone + "\n🎯 Type: " + type + "\n🕒 Time: " + dt;
     window.open("https://wa.me/" + WA + "?text=" + encodeURIComponent(m), "_blank");
   });
 
   var floatBar = document.createElement("div"); floatBar.className = "cart-floating-bar";
   floatBar.innerHTML = `
-    <span>👑 Need custom VIP wholesale?</span>
-    <button id="float-wa-btn">VIP WhatsApp</button>
+    <span>💬 Need a custom bulk order?</span>
+    <button id="float-wa-btn">Chat on WhatsApp</button>
   `;
   document.body.appendChild(floatBar);
   floatBar.querySelector("#float-wa-btn").addEventListener("click", function(){
-    window.open("https://wa.me/" + WA + "?text=" + encodeURIComponent("Hi Nqobile's Luxury Hub, I would like to inquire about a custom VIP wholesale order."), "_blank");
+    window.open("https://wa.me/" + WA + "?text=" + encodeURIComponent("Hi Nqobile's Hub, I would like to inquire about a custom bulk order or delivery."), "_blank");
   });
 
   var lb=document.createElement("div"); lb.id="nqlb";
-  lb.innerHTML=`<img alt=""><p></p><button id="lb-order-btn">👑 Secure Order via WhatsApp</button>`;
+  lb.innerHTML=`<img alt=""><p></p><button id="lb-order-btn">💬 Quick Order on WhatsApp</button>`;
   lb.addEventListener("click",function(e){ if(e.target.tagName!=="BUTTON" && e.target.tagName!=="IMG") lb.classList.remove("open"); });
   lb.querySelector("#lb-order-btn").addEventListener("click", function(){
     var title = lb.querySelector("p").textContent;
-    window.open("https://wa.me/" + WA + "?text=" + encodeURIComponent("Hi Nqobile's Luxury Hub, I want to order: " + title), "_blank");
+    window.open("https://wa.me/" + WA + "?text=" + encodeURIComponent("Hi Nqobile's Hub, I want to order: " + title), "_blank");
     lb.classList.remove("open");
   });
 
