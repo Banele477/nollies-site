@@ -2,7 +2,7 @@
 if(window.__nqCat)return;window.__nqCat=1;
 var OWNER="banele477",REPO="nollies-site",BRANCH="main",WA="27625873479";
 var P=window.NQ_PHOTOS||[];
-P = P.filter(function(x){ return x && x.n && x.t; });
+P = P.filter(function(x){ return x && x.t; });
 if(!P.length)return;
 
 var base=location.pathname.replace(/[^\/]*$/,"");
@@ -75,27 +75,22 @@ var css=`
 `;
 
 function setCardImage(img, item){
-  if(item.n && item.n.indexOf("data:image") === 0) {
-    img.src = item.n;
-    return;
-  }
-  if(item.n && item.n.length > 0) {
-    img.src = CDN + item.n;
-    img.onerror = function(){
-      renderSvgArt(img, item.t);
-    };
-    return;
-  }
-  renderSvgArt(img, item.t);
-}
-
-function renderSvgArt(img, title){
+  var title = item.t || "";
+  var category = item.c || "";
   var bg = "#0f172a", accent = "#38bdf8", icon = "📦";
   var t = title.toLowerCase();
-  if(t.includes("juice") || t.includes("concentrate")) { bg = "#064e3b"; accent = "#34d399"; icon = "🧃"; }
-  else if(t.includes("hamper") || t.includes("breakfast")) { bg = "#1e3a8a"; accent = "#60a5fa"; icon = "🧺"; }
-  else if(t.includes("braai") || t.includes("pap")) { bg = "#78350f"; accent = "#facc15"; icon = "🔥"; }
-  else if(t.includes("rice") || t.includes("cereal")) { bg = "#3b0764"; accent = "#c084fc"; icon = "🥣"; }
+
+  if(t.includes("perfume") || t.includes("sense") || t.includes("dezire") || category === "perfume") {
+    bg = "#4c0519"; accent = "#f43f5e"; icon = "✨";
+  } else if(t.includes("juice") || t.includes("concentrate") || category === "juice") {
+    bg = "#064e3b"; accent = "#34d399"; icon = "🧃";
+  } else if(t.includes("hamper") || t.includes("breakfast") || category === "hamper") {
+    bg = "#1e3a8a"; accent = "#60a5fa"; icon = "🧺";
+  } else if(t.includes("braai") || t.includes("pap") || t.includes("combo")) {
+    bg = "#78350f"; accent = "#facc15"; icon = "🔥";
+  } else if(t.includes("rice") || t.includes("cereal") || t.includes("noodles") || category === "cereal") {
+    bg = "#3b0764"; accent = "#c084fc"; icon = "🥣";
+  }
 
   img.src = "data:image/svg+xml;utf8," + encodeURIComponent(
     "<svg xmlns='http://www.w3.org/2000/svg' width='800' height='800' viewBox='0 0 800 800'>" +
@@ -118,7 +113,7 @@ function init(){
     <div class="nq-hero-card">
       <div class="nq-hero-left">
         <h1>Sawubona! Welcome to Nollie's Quantum Hub.</h1>
-        <p>Delivering top-grade cereal hampers, bulk groceries, juices Africa concentrates, and M-Section essentials directly to your door with a flat R30 delivery fee across eNqanda.</p>
+        <p>Delivering top-grade perfumes, cereal hampers, bulk groceries, juices Africa concentrates, and M-Section essentials directly to your door with a flat R30 delivery fee across eNqanda.</p>
       </div>
       <div class="nq-hero-right">
         <div><b>Nollie</b> <span style="font-size:11px; color:#38bdf8;">#Founder & Lead Director</span></div>
@@ -131,14 +126,14 @@ function init(){
 
     <!-- Live Quantum Ticker -->
     <div class="nq-ticker">
-      ⚡ Quantum Feed: Sipho from eNqanda A-Section just ordered a Cereal Hamper!
+      ⚡ Quantum Feed: Sipho from eNqanda A-Section just ordered Selver Sense Perfume & Cereal Hamper!
     </div>
 
-    <!-- NEW FEATURE: Lucky Spin Discount Banner -->
+    <!-- Lucky Spin Discount Banner -->
     <div class="lucky-spin-banner">
       <div>
         <div style="font-weight:900; color:#f43f5e; font-size:14px;">🎁 Spin & Win Instant Discount!</div>
-        <div style="font-size:12.5px; color:#cbd5e1; margin-top:2px;">Get up to R50 off your eNqanda grocery delivery right now.</div>
+        <div style="font-size:12.5px; color:#cbd5e1; margin-top:2px;">Get up to R50 off your eNqanda delivery right now.</div>
       </div>
       <button class="nq-btn" id="spin-wheel-btn" style="width:auto; padding:10px 20px; background:linear-gradient(135deg, #ec4899, #8b5cf6);">🎡 Spin Wheel</button>
     </div>
@@ -158,7 +153,7 @@ function init(){
 
     <!-- TAB 1: HOME & FEATURED -->
     <div id="sec-home" class="nq-section active">
-      <h2 style="font-size:22px; font-weight:800; margin-bottom:16px;">🔥 Featured Bulk Specials & Packages</h2>
+      <h2 style="font-size:22px; font-weight:800; margin-bottom:16px;">🔥 Featured Bulk Specials & New Stock</h2>
       <div class="nq-grid" id="home-grid"></div>
     </div>
 
@@ -166,7 +161,7 @@ function init(){
     <div id="sec-catalog" class="nq-section">
       <h2 style="font-size:22px; font-weight:800; margin-bottom:16px;">🛍️ Quantum Catalog</h2>
       <div style="margin-bottom:20px;">
-        <input type="text" id="nq-search" placeholder="Search marketplace..." style="width:100%; max-width:450px; padding:12px 18px; border-radius:999px; border:1px solid rgba(255,255,255,0.15); background:rgba(15,23,42,0.85); color:#fff; font-size:13.5px; outline:none;">
+        <input type="text" id="nq-search" placeholder="Search perfumes, juices, cereals..." style="width:100%; max-width:450px; padding:12px 18px; border-radius:999px; border:1px solid rgba(255,255,255,0.15); background:rgba(15,23,42,0.85); color:#fff; font-size:13.5px; outline:none;">
       </div>
       <div class="nq-grid" id="catalog-grid"></div>
     </div>
@@ -214,7 +209,7 @@ function init(){
       <div class="builder-box">
         <p style="color:#cbd5e1; font-size:14px;">You have <b>1 active delivery order</b> in progress:</p>
         <div style="background:rgba(30,41,59,0.6); padding:16px; border-radius:12px; border:1px solid rgba(56,189,248,0.2); margin-top:12px;">
-          <div style="font-weight:800; color:#38bdf8;">Order #NQ-7842 (Cereal Hamper Package 1)</div>
+          <div style="font-weight:800; color:#38bdf8;">Order #NQ-7842 (Selver Sense Perfume & Cereal Hamper)</div>
           <div style="font-size:13px; color:#94a3b8; margin-top:4px;">Status: Out for Delivery in eNqanda A-Section ⚡</div>
         </div>
       </div>
@@ -224,9 +219,9 @@ function init(){
     <div id="sec-console" class="nq-section">
       <h2 style="font-size:22px; font-weight:800; margin-bottom:16px;">⚙️ Nollie's Owner Control Console (Architect: Banele Gumbi)</h2>
       <div class="console-grid">
-        <div class="console-card"><h4>Total Revenue Generated</h4><p class="val">R 2,450.00</p></div>
-        <div class="console-card"><h4>Total Orders</h4><p class="val">14</p></div>
-        <div class="console-card"><h4>Active Bookings</h4><p class="val">3</p></div>
+        <div class="console-card"><h4>Total Revenue Generated</h4><p class="val">R 3,250.00</p></div>
+        <div class="console-card"><h4>Total Orders</h4><p class="val">19</p></div>
+        <div class="console-card"><h4>Active Bookings</h4><p class="val">4</p></div>
       </div>
       <div style="text-align:right; margin-bottom:20px;">
         <button class="nq-btn" style="width:auto; padding:10px 20px; background:#22c55e;" onclick="alert('Database synced successfully with Cloud instance!')">🔄 Sync Database</button>
@@ -251,20 +246,20 @@ function init(){
           <button id="close-cart" style="background:none; border:none; color:#94a3b8; font-size:20px; cursor:pointer;">✕</button>
         </div>
         <div id="cart-items-list" style="max-height:220px; overflow-y:auto; margin-bottom:16px;">
+          <div class="cart-item-row"><span>Selver Sense & Dezire Perfume</span><b>R 250.00</b></div>
           <div class="cart-item-row"><span>Cereal Hamper Package 1</span><b>R 250.00</b></div>
-          <div class="cart-item-row"><span>Cereal Hamper Package 3</span><b>R 250.00</b></div>
         </div>
         <div class="promo-row">
           <input type="text" id="promo-code" value="NOLLIE15" placeholder="Promo code...">
           <button id="apply-promo">Apply</button>
         </div>
         <div style="font-size:13.5px; color:#cbd5e1; border-top:1px solid rgba(255,255,255,0.1); padding-top:12px;">
-          <div style="display:flex; justify-content:space-between; margin-bottom:6px;"><span>Subtotal:</span><b>R 535.00</b></div>
+          <div style="display:flex; justify-content:space-between; margin-bottom:6px;"><span>Subtotal:</span><b>R 500.00</b></div>
           <div style="display:flex; justify-content:space-between; margin-bottom:6px;"><span>Discount:</span><b style="color:#4ade80;">-R 0.00</b></div>
           <div style="display:flex; justify-content:space-between; margin-bottom:10px;"><span>Delivery Fee (eNqanda):</span><b>R 30.00</b></div>
-          <div style="display:flex; justify-content:space-between; font-size:16px; font-weight:900; color:#38bdf8; border-top:1px solid rgba(255,255,255,0.1); padding-top:10px;"><span>Total:</span><span>R 565.00</span></div>
+          <div style="display:flex; justify-content:space-between; font-size:16px; font-weight:900; color:#38bdf8; border-top:1px solid rgba(255,255,255,0.1); padding-top:10px;"><span>Total:</span><span>R 530.00</span></div>
         </div>
-        <button class="nq-btn" id="pay-complete-order" style="background:linear-gradient(135deg, #22c55e, #16a34a); margin-top:20px;">Pay R565.00 & Complete Order 🚀</button>
+        <button class="nq-btn" id="pay-complete-order" style="background:linear-gradient(135deg, #22c55e, #16a34a); margin-top:20px;">Pay R530.00 & Complete Order 🚀</button>
       </div>
     </div>
   `;
@@ -274,8 +269,8 @@ function init(){
   var specialsGrid = sec.querySelector("#specials-grid");
 
   var specialsData = [
-    {t: "Family Bulk Grocery Hamper", p: "R 380.00", d: "10kg Maize Meal, 5L Sunflower Oil, 2.5kg White Sugar, 2kg Rice, and 410g Baked Beans (x4).", n: ""},
-    {t: "Weekend Braai & Pap Combo", p: "R 295.00", d: "5kg Iwisa Maize Meal, Braai Spice, Chakalaka (x3), Tomato & Onion Mix, and 2L Soft Drink.", n: ""}
+    {t: "Family Bulk Grocery Hamper", p: "R 380.00", d: "10kg Maize Meal, 5L Sunflower Oil, 2.5kg White Sugar, 2kg Rice, and 410g Baked Beans (x4).", c: "hamper"},
+    {t: "Weekend Braai & Pap Combo", p: "R 295.00", d: "5kg Iwisa Maize Meal, Braai Spice, Chakalaka (x3), Tomato & Onion Mix, and 2L Soft Drink.", c: "hamper"}
   ];
 
   function renderCards(container, items){
@@ -285,7 +280,7 @@ function init(){
       d.innerHTML = `
         <div class="nq-img-wrap">
           <div class="nq-badge">⚡ In Stock</div>
-          <div class="stock-alert">🔥 Only 4 left</div>
+          <div class="stock-alert">🔥 Hot Demand</div>
           <img alt="${item.t}" loading="lazy">
         </div>
         <div class="nq-card-body">
@@ -307,12 +302,13 @@ function init(){
     });
   }
 
+  // Combine user's inventory photos with specials
   var catalogItems = P.map(function(x){
-    return { t: x.t, p: "R 250.00", d: x.t, n: x.n };
+    return { t: x.t, p: "R 250.00", d: x.t, c: x.c };
   });
 
-  renderCards(homeGrid, specialsData);
-  renderCards(catalogGrid, catalogItems.length ? catalogItems : specialsData);
+  renderCards(homeGrid, catalogItems.slice(0, 4));
+  renderCards(catalogGrid, catalogItems);
   renderCards(specialsGrid, specialsData);
 
   var navBtns = sec.querySelectorAll(".nq-nav-btn[data-target]");
@@ -336,7 +332,6 @@ function init(){
     sec.querySelector("#nq-cart-drawer").classList.remove("open");
   });
 
-  // Spin Wheel Feature Action
   sec.querySelector("#spin-wheel-btn").addEventListener("click", function(){
     var prizes = ["NOLLIE15 (15% OFF)", "FREE30 (Free Delivery)", "NOLLIE10 (R10 OFF)"];
     var won = prizes[Math.floor(Math.random() * prizes.length)];
@@ -359,7 +354,7 @@ function init(){
   });
 
   sec.querySelector("#pay-complete-order").addEventListener("click", function(){
-    window.open("https://wa.me/" + WA + "?text=" + encodeURIComponent("Hi Nollie's Hub, I have completed payment for my Neural Cart order (Total: R565.00). Please confirm dispatch to eNqanda!"), "_blank");
+    window.open("https://wa.me/" + WA + "?text=" + encodeURIComponent("Hi Nollie's Hub, I have completed payment for my Neural Cart order. Please confirm dispatch to eNqanda!"), "_blank");
   });
 
   document.body.appendChild(sec);
