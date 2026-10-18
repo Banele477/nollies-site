@@ -144,7 +144,7 @@
         ];
 
         const LIVE_TICKER_ITEMS = [
-            "⭐ CUSTOMER REVIEWS & QUESTIONNAIRES LIVE: Share your experience & win discounts!",
+            "⚡ NUMBER ONE MARKETPLACE: Live Flash Deals & Community Board Active!",
             "🔥 HOT DEAL: Family Bulk Grocery Hamper (R380) - Best Seller in eNanda!",
             "🤖 24/7 AI ASSISTANT ONLINE: Tap bottom-right to ask Nollie AI anything!",
             "🚀 FAST DISPATCH: Flat R30 Delivery Across Durban & eNanda!",
@@ -159,6 +159,16 @@
             const [bookings, setBookings] = useState([]);
             const [reviews, setReviews] = useState(JSON.parse(localStorage.getItem('nollies_reviews') || JSON.stringify(INITIAL_REVIEWS)));
             
+            // Community Board State
+            const [communityPosts, setCommunityPosts] = useState(JSON.parse(localStorage.getItem('nollies_community') || JSON.stringify([
+                { id: 1, author: 'Banele Gumbi', msg: 'Welcome to Nollie\'s Durban Hub! Drop your neighborhood requests here.', time: 'Today' }
+            ])));
+            const [newPostAuthor, setNewPostAuthor] = useState('');
+            const [newPostMsg, setNewPostMsg] = useState('');
+
+            // Flash Deal Countdown Timer (4 Hours)
+            const [timeLeft, setTimeLeft] = useState(14400);
+
             const [selectedCategory, setSelectedCategory] = useState('all');
             const [searchQuery, setSearchQuery] = useState('');
             const [isCartOpen, setIsCartOpen] = useState(false);
@@ -201,6 +211,20 @@
             const [q3, setQ3] = useState('Extremely Satisfied');
             const [questionnaireSubmitted, setQuestionnaireSubmitted] = useState(false);
 
+            useEffect(() => {
+                const timer = setInterval(() => {
+                    setTimeLeft(prev => (prev > 0 ? prev - 1 : 14400));
+                }, 1000);
+                return () => clearInterval(timer);
+            }, []);
+
+            const formatTime = (seconds) => {
+                const h = Math.floor(seconds / 3600);
+                const m = Math.floor((seconds % 3600) / 60);
+                const s = seconds % 60;
+                return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+            };
+
             const downloadDirectApk = () => {
                 showToast('✨ Downloading Nollie\'s White-Rainbow Android APK...');
                 const a = document.createElement('a');
@@ -218,6 +242,10 @@
             useEffect(() => {
                 localStorage.setItem('nollies_reviews', JSON.stringify(reviews));
             }, [reviews]);
+
+            useEffect(() => {
+                localStorage.setItem('nollies_community', JSON.stringify(communityPosts));
+            }, [communityPosts]);
 
             useEffect(() => {
                 localStorage.setItem('nollies_customer_name', customerName);
@@ -342,6 +370,35 @@
                 showToast('⭐ Thank you! Your review was published successfully.');
             };
 
+            const handleAddCommunityPost = (e) => {
+                e.preventDefault();
+                if (!newPostAuthor.trim() || !newPostMsg.trim()) {
+                    alert('Please enter your name and message.');
+                    return;
+                }
+                const post = {
+                    id: communityPosts.length + 1,
+                    author: newPostAuthor,
+                    msg: newPostMsg,
+                    time: 'Just now'
+                };
+                setCommunityPosts([post, ...communityPosts]);
+                setNewPostAuthor('');
+                setNewPostMsg('');
+                showToast('💬 Posted to eNanda Community Board!');
+            };
+
+            const shareCartToWhatsApp = () => {
+                if (cart.length === 0) {
+                    alert('Your cart is empty to share!');
+                    return;
+                }
+                let text = `Sawubona Nollie's! Here is my shopping wishlist:%0A`;
+                cart.forEach(i => text += `• ${i.title} - R${i.price}%0A`);
+                text += `%0ATotal Items: ${cart.length}%0APlease assist with dispatch in eNanda/Durban!`;
+                window.open(`https://wa.me/27625873479?text=${text}`, '_blank');
+            };
+
             const handleQuestionnaireSubmit = (e) => {
                 e.preventDefault();
                 setQuestionnaireSubmitted(true);
@@ -366,8 +423,8 @@
                         reply = "Yes! We deliver directly across eNanda, Durban CBD, and surrounding KZN areas with a flat R30 delivery fee.";
                     } else if (lower.includes('perfume') || lower.includes('scent') || lower.includes('m-scents')) {
                         reply = "Our M-Scents luxury 40ml perfumes are R120 each or grab our Duo Gift Set for R192!";
-                    } else if (lower.includes('review') || lower.includes('questionnaire') || lower.includes('feedback')) {
-                        reply = "You can leave customer reviews or take our quick questionnaire in the 'Reviews & Feedback' tab to unlock a 10% discount promo code (NOLLIE10)!";
+                    } else if (lower.includes('flash') || lower.includes('deal') || lower.includes('discount')) {
+                        reply = "Check out our Flash Deals section on the Home tab for limited-time price drops!";
                     } else if (lower.includes('contact') || lower.includes('phone') || lower.includes('whatsapp') || lower.includes('owner')) {
                         reply = "You can reach Nollie's Durban Hub team directly via WhatsApp or phone at +27 62 587 3479.";
                     }
@@ -532,7 +589,7 @@
                             </div>
                             <div>
                                 <h1 className="text-lg font-black tracking-wider text-white leading-none font-display uppercase flex items-center gap-1.5">
-                                    Nollie's <span className="text-[9px] bg-white/20 text-white px-1.5 py-0.5 rounded border border-white/40 font-mono">WHITE-RAINBOW</span>
+                                    Nollie's <span className="text-[9px] bg-white/20 text-white px-1.5 py-0.5 rounded border border-white/40 font-mono">#1 HUB</span>
                                 </h1>
                                 <span className="text-[10px] font-bold text-slate-300 tracking-widest uppercase">eNanda Coastal Hub</span>
                             </div>
@@ -543,13 +600,14 @@
                                 { id: 'home', label: '🏠 Home' },
                                 { id: 'catalog', label: '🛍️ Catalog' },
                                 { id: 'builder', label: '✨ Hamper Builder' },
-                                { id: 'reviews', label: '⭐ Reviews & Feedback' },
+                                { id: 'community', label: '💬 Community' },
+                                { id: 'reviews', label: '⭐ Reviews' },
                                 { id: 'booking', label: '📅 Booking' },
                                 { id: 'orders', label: '📦 Orders' },
-                                { id: 'admin', label: '🔐 Owner Console' }
+                                { id: 'admin', label: '🔐 Owner' }
                             ].map(tab => (
                                 <button key={tab.id} onClick={() => { if(tab.id==='orders' || tab.id==='admin'){ fetchOrders(); fetchBookings(); } setActiveTab(tab.id); }} 
-                                        className={`px-3.5 py-2 rounded-xl transition-all duration-300 ${activeTab === tab.id ? 'white-rainbow-btn font-extrabold shadow-lg scale-105' : 'hover:text-white hover:bg-white/10'}`}>
+                                        className={`px-3 py-2 rounded-xl transition-all duration-300 ${activeTab === tab.id ? 'white-rainbow-btn font-extrabold shadow-lg scale-105' : 'hover:text-white hover:bg-white/10'}`}>
                                     {tab.label}
                                 </button>
                             ))}
@@ -573,6 +631,7 @@
                             { id: 'home', label: '🏠 Home' },
                             { id: 'catalog', label: '🛍️ Catalog' },
                             { id: 'builder', label: '✨ Hamper' },
+                            { id: 'community', label: '💬 Community' },
                             { id: 'reviews', label: '⭐ Reviews' },
                             { id: 'booking', label: '📅 Booking' },
                             { id: 'orders', label: '📦 Orders' },
@@ -592,7 +651,7 @@
                                     <div className="absolute -right-20 -top-20 w-96 h-96 bg-white/10 rounded-full blur-3xl pointer-events-none"></div>
                                     <div className="space-y-6 max-w-xl z-10">
                                         <div className="inline-flex items-center space-x-2 bg-slate-950/90 px-4 py-1.5 rounded-full border border-white/30 text-xs font-mono text-white shadow-sm">
-                                           <span>✨ eNanda & Durban, KZN • White-Rainbow Crystal Hub</span>
+                                           <span>✨ eNanda & Durban, KZN • #1 Premier Crystal Hub</span>
                                         </div>
                                         <h2 className="text-3xl sm:text-5xl font-black tracking-tight white-rainbow-animated-text leading-tight font-display">
                                             {dynamicGreeting}
@@ -602,8 +661,8 @@
                                         </p>
                                         <div className="flex flex-wrap gap-3 pt-2">
                                             <button onClick={() => setActiveTab('catalog')} className="press-effect white-rainbow-btn font-extrabold py-3.5 px-7 rounded-2xl text-xs shadow-lg hover:scale-105 transition-all">Browse Marketplace 🛍️</button>
-                                            <button onClick={() => setActiveTab('reviews')} className="press-effect bg-slate-900/90 border border-white/40 text-white font-bold py-3.5 px-7 rounded-2xl text-xs shadow hover:border-white transition-all flex items-center space-x-2">
-                                                <span>⭐ Customer Reviews & Survey</span>
+                                            <button onClick={downloadDirectApk} className="press-effect bg-slate-900/90 border border-white/40 text-white font-bold py-3.5 px-7 rounded-2xl text-xs shadow hover:border-white transition-all flex items-center space-x-2">
+                                                <span>🤖 Direct Download Android APK</span>
                                             </button>
                                         </div>
                                     </div>
@@ -621,6 +680,21 @@
                                             <div className="flex justify-between"><span>App Package:</span><strong className="text-emerald-400">Android APK Ready ⚡</strong></div>
                                             <div className="flex justify-between"><span>Dispatch:</span><strong className="text-amber-300">WhatsApp / Call</strong></div>
                                         </div>
+                                    </div>
+                                </div>
+
+                                {/* FLASH DEALS BANNER */}
+                                <div className="rainbow-glass border border-white/30 p-6 sm:p-8 rounded-3xl shadow-2xl flex flex-col md:flex-row justify-between items-center gap-6">
+                                    <div className="space-y-2 text-center md:text-left">
+                                        <span className="bg-red-500/20 text-red-300 border border-red-500/40 text-[10px] font-mono px-3 py-1 rounded-full uppercase font-bold">⚡ Limited Time Flash Deal</span>
+                                        <h3 className="text-xl sm:text-2xl font-black text-white font-display">Family Bulk Grocery Hamper Combo</h3>
+                                        <p className="text-xs text-slate-300">Get an extra R30 off automatically with flat R30 delivery across eNanda & Durban!</p>
+                                    </div>
+                                    <div className="flex flex-col items-center gap-3">
+                                        <div className="bg-slate-950 px-5 py-2.5 rounded-2xl border border-white/20 text-white font-mono font-black text-sm tracking-widest shadow-inner">
+                                            ⏳ {formatTime(timeLeft)}
+                                        </div>
+                                        <button onClick={() => addToCart('Family Bulk Grocery Hamper', 380)} className="press-effect white-rainbow-btn text-slate-950 text-xs font-black px-6 py-3 rounded-xl shadow-lg">Claim Flash Deal R380 🛒</button>
                                     </div>
                                 </div>
 
@@ -696,6 +770,45 @@
                                         <div className="text-2xl font-black text-white font-mono">R 250.00</div>
                                     </div>
                                     <button onClick={addCustomHamper} className="press-effect white-rainbow-btn text-slate-950 font-black px-8 py-4 rounded-2xl text-xs shadow-xl w-full sm:w-auto hover:scale-105 transition-transform">Add Custom Hamper 🛒</button>
+                                </div>
+                            </section>
+                        )}
+
+                        {activeTab === 'community' && (
+                            <section className="rainbow-glass border border-white/25 p-6 sm:p-12 rounded-3xl shadow-xl space-y-8 animate-fade-in">
+                                <div>
+                                    <h3 className="text-2xl font-black white-rainbow-animated-text font-display">💬 eNanda & Durban Community Bulletin Board</h3>
+                                    <p className="text-xs text-slate-400 mt-1">Connect with other entrepreneurs, students, and community members in KZN.</p>
+                                </div>
+
+                                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                                    <form onSubmit={handleAddCommunityPost} className="lg:col-span-1 bg-slate-950/90 p-6 rounded-3xl border border-white/20 space-y-4 text-xs">
+                                        <h4 className="text-sm font-extrabold text-white font-display">📝 Post to Community Board</h4>
+                                        <div>
+                                            <label className="text-slate-400 block mb-1">Your Name *</label>
+                                            <input type="text" required value={newPostAuthor} onChange={(e)=>setNewPostAuthor(e.target.value)} placeholder="e.g. Banele Gumbi" className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white outline-none focus:border-white"/>
+                                        </div>
+                                        <div>
+                                            <label className="text-slate-400 block mb-1">Message / Request *</label>
+                                            <textarea required rows="3" value={newPostMsg} onChange={(e)=>setNewPostMsg(e.target.value)} placeholder="Share an announcement or request..." className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white outline-none focus:border-white"></textarea>
+                                        </div>
+                                        <button type="submit" className="press-effect w-full white-rainbow-btn text-slate-950 font-extrabold py-3 rounded-xl shadow-lg">Post Message 💬</button>
+                                    </form>
+
+                                    <div className="lg:col-span-2 space-y-4">
+                                        <h4 className="text-sm font-extrabold text-white font-display">📢 Live Community Stream</h4>
+                                        <div className="space-y-3">
+                                            {communityPosts.map((post) => (
+                                                <div key={post.id} className="bg-slate-950/90 p-5 rounded-3xl border border-white/15 space-y-2 rainbow-card-hover text-xs">
+                                                    <div className="flex justify-between items-center">
+                                                        <span className="font-bold text-white font-display">{post.author}</span>
+                                                        <span className="text-[10px] text-slate-400 font-mono">{post.time}</span>
+                                                    </div>
+                                                    <p className="text-slate-300 leading-relaxed font-medium">{post.msg}</p>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
                                 </div>
                             </section>
                         )}
@@ -988,7 +1101,7 @@
                                         </span>
                                         <div>
                                             <h4 className="text-xs font-black text-white font-display uppercase tracking-wider">Nollie AI Assistant</h4>
-                                            <span className="text-[10px] text-white font-mono">Online 24/7 • Inquiry Care</span>
+                                            <span className="text-[10px] text-white font-mono">Online 24/7 • #1 Hub Care</span>
                                         </div>
                                     </div>
                                     <button onClick={() => setIsAiOpen(false)} className="text-slate-400 hover:text-white text-lg font-bold w-7 h-7 bg-slate-900 rounded-full flex items-center justify-center">&times;</button>
@@ -1006,7 +1119,7 @@
                                 </div>
 
                                 <form onSubmit={handleAiSend} className="p-3 bg-slate-950/95 border-t border-white/25 flex gap-2">
-                                    <input type="text" value={aiInput} onChange={(e) => setAiInput(e.target.value)} placeholder="Ask about hampers, prices, delivery..." 
+                                    <input type="text" value={aiInput} onChange={(e) => setAiInput(e.target.value)} placeholder="Ask about flash deals, hampers..." 
                                            className="flex-1 px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white text-xs outline-none focus:border-white"/>
                                     <button type="submit" className="press-effect white-rainbow-btn px-4 py-2.5 rounded-xl text-xs font-black shadow">Send</button>
                                 </form>
@@ -1028,7 +1141,10 @@
                                 </div>
                                 <div className="py-4 overflow-y-auto flex-1 space-y-4 text-xs">
                                     <div className="space-y-2">
-                                        <span className="text-slate-400 font-bold uppercase text-[10px] font-mono">Cart Contents:</span>
+                                        <div className="flex justify-between items-center">
+                                            <span className="text-slate-400 font-bold uppercase text-[10px] font-mono">Cart Contents:</span>
+                                            <button onClick={shareCartToWhatsApp} className="press-effect bg-emerald-600/30 border border-emerald-500/50 text-emerald-300 text-[10px] font-bold px-3 py-1 rounded-xl shadow">Share Cart to WhatsApp 📲</button>
+                                        </div>
                                         {cart.length === 0 ? (
                                             <p className="text-slate-400 italic">Your cart is empty.</p>
                                         ) : (
