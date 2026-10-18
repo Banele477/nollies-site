@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nqobile's | Exhilarating 2026 Raindrop 3D Durban Hub</title>
     <meta name="theme-color" content="#030712">
-    <link rel="manifest" href="/manifest.json">
+    <link rel="manifest" href="manifest.json">
     <script src="https://cdn.tailwindcss.com"></script>
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
@@ -121,14 +121,14 @@
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 <link rel="stylesheet" href="enhance3.css?v=1792345454">
-<link rel="stylesheet" href="/enhance.css">
+<link rel="stylesheet" href="enhance.css">
 <meta name="description" content="Cereal hampers, Juices Africa concentrates and M-Scents perfumes with fast Durban delivery.">
 <meta property="og:title" content="Nqobile's Durban Hub">
 <meta property="og:description" content="Cereal hampers, juices and perfumes. Order on WhatsApp.">
-<meta property="og:image" content="/images/1000040076.jpg">
+<meta property="og:image" content="images/1000040076.jpg">
 </head>
 <body class="min-h-screen pb-32 white-rainbow-bg overflow-x-hidden selection:bg-white selection:text-slate-950">
-    <div id="root"></div>
+    <div id="root"><div style="display:flex;height:100vh;align-items:center;justify-content:center;color:#fff;font:600 18px sans-serif;text-align:center">✨ Loading Nqobile's Hub...</div></div>
 
     <script type="text/babel">
         const { useState, useEffect, useRef } = React;
@@ -138,34 +138,34 @@
         const FALLBACK_SVG = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='500' height='350' viewBox='0 0 500 350'><rect width='100%' height='100%' fill='%230f172a'/><text x='50%' y='50%' fill='%23ffffff' font-family='sans-serif' font-size='18' font-weight='bold' text-anchor='middle' dominant-baseline='middle'>Nqobile Hub Stock</text></svg>";
 
         const PROMO_FLYERS = [
-            { id: 'fl1', title: 'Cereal Hamper Complete Showcase', badge: 'Wholesale Deal', price: 'R250.00', desc: 'Real stock breakfast bundle including Jungle Oats, Weet-Bix, Corn Flakes, Future Life, Nutrific & Tropika juice[span_0](start_span)[span_0](end_span)[span_1](start_span)[span_1](end_span).', img: '/images/1000040076_2.jpg', tag: 'CEREAL HAMPER' },
-            { id: 'fl2', title: 'Bulk Packed Wholesale Hamper Box', badge: 'Top Seller', price: 'R380.00', desc: 'Securely packaged family grocery boxes ready for immediate Durban doorstep dispatch[span_2](start_span)[span_2](end_span).', img: '/images/1000040067_2.jpg', tag: 'BULK ESSENTIALS' },
-            { id: 'fl3', title: 'M-Scents Luxury Fragrance Showcase', badge: '40ml EDP', price: 'R120 / Duo R192', desc: 'Selver Sense, Dezire Red, White OUD, Wild Intense, Sky Oud, Blue Dezire & StallioN[span_3](start_span)[span_3](end_span).', img: '/images/1000040057_2.jpg', tag: 'LUXURY PERFUMES' }
+            { id: 'fl1', title: 'Cereal Hamper Complete Showcase', badge: 'Wholesale Deal', price: 'R250.00', desc: 'Real stock breakfast bundle including Jungle Oats, Weet-Bix, Corn Flakes, Future Life, Nutrific & Tropika juice[span_0](start_span)[span_0](end_span)[span_1](start_span)[span_1](end_span).', img: 'images/1000040076_2.jpg', tag: 'CEREAL HAMPER' },
+            { id: 'fl2', title: 'Bulk Packed Wholesale Hamper Box', badge: 'Top Seller', price: 'R380.00', desc: 'Securely packaged family grocery boxes ready for immediate Durban doorstep dispatch[span_2](start_span)[span_2](end_span).', img: 'images/1000040067_2.jpg', tag: 'BULK ESSENTIALS' },
+            { id: 'fl3', title: 'M-Scents Luxury Fragrance Showcase', badge: '40ml EDP', price: 'R120 / Duo R192', desc: 'Selver Sense, Dezire Red, White OUD, Wild Intense, Sky Oud, Blue Dezire & StallioN[span_3](start_span)[span_3](end_span).', img: 'images/1000040057_2.jpg', tag: 'LUXURY PERFUMES' }
         ];
 
         const PRODUCTS = [
-            { id: 'c1', cat: 'cereal', title: 'Cereal Hamper Package 1 (Floor Display)', price: 250, badge: '5 Items', desc: 'Includes Jungle Oats 1kg, Future Life 500g, Bokomo Corn Flakes 1kg, Weet-Bix 450g & Tropika Juice[span_4](start_span)[span_4](end_span).', img: '/images/1000040071_2.jpg', arDimensions: '35cm x 25cm x 20cm (Box)' },
-            { id: 'c2', cat: 'cereal', title: 'Cereal Hamper Package 2 (Studio Layout)', price: 250, badge: '5 Items', desc: 'Nutrific Super Mornings, Jungle Oats, Weet-Bix, Corn Flakes & Tropika Dairy Fruit Mix[span_5](start_span)[span_5](end_span).', img: '/images/1000040076_2.jpg', arDimensions: '35cm x 25cm x 20cm (Box)' },
-            { id: 'b1', cat: 'essentials', title: 'Family Bulk Grocery Hamper Box', price: 380, badge: 'Best Value', desc: 'Packed box containing Jungle Oats, Weet-Bix, Corn Flakes, Future Life, Nutrific & Tropika[span_6](start_span)[span_6](end_span).', img: '/images/1000040067_2.jpg', arDimensions: '50cm x 40cm x 30cm (Heavy Bundle)' },
-            { id: 'j1', cat: 'juice', title: 'Juices Africa & Tropika Refreshment Pack', price: 160, badge: 'High Yield', desc: 'High yield fruit juice concentrate & Tropika dairy fruit mix bottles[span_7](start_span)[span_7](end_span)[span_8](start_span)[span_8](end_span).', img: '/images/1000040064_2.jpg', arDimensions: '30cm x 15cm x 15cm (Jug)' },
-            { id: 'p1', cat: 'perfume', title: 'M-Scents Luxury Perfume (40ml)', price: 120, badge: '40ml EDP', desc: 'Selver Sense, Dezire Red, White OUD, Wild Intense, Sky Oud, Blue Dezire & StallioN[span_9](start_span)[span_9](end_span).', img: '/images/1000040057_2.jpg', arDimensions: '12cm x 6cm x 4cm (Glass Bottle)' },
-            { id: 'p2', cat: 'perfume', title: 'M-Scents Duo Gift Set (2x 40ml)', price: 192, badge: 'Save R48', desc: 'Choose any two signature 40ml luxury fragrances in gift presentation packaging[span_10](start_span)[span_10](end_span)[span_11](start_span)[span_11](end_span).', img: '/images/1000040059_2.jpg', arDimensions: '18cm x 14cm x 6cm (Gift Box)' }
+            { id: 'c1', cat: 'cereal', title: 'Cereal Hamper Package 1 (Floor Display)', price: 250, badge: '5 Items', desc: 'Includes Jungle Oats 1kg, Future Life 500g, Bokomo Corn Flakes 1kg, Weet-Bix 450g & Tropika Juice[span_4](start_span)[span_4](end_span).', img: 'images/1000040071_2.jpg', arDimensions: '35cm x 25cm x 20cm (Box)' },
+            { id: 'c2', cat: 'cereal', title: 'Cereal Hamper Package 2 (Studio Layout)', price: 250, badge: '5 Items', desc: 'Nutrific Super Mornings, Jungle Oats, Weet-Bix, Corn Flakes & Tropika Dairy Fruit Mix[span_5](start_span)[span_5](end_span).', img: 'images/1000040076_2.jpg', arDimensions: '35cm x 25cm x 20cm (Box)' },
+            { id: 'b1', cat: 'essentials', title: 'Family Bulk Grocery Hamper Box', price: 380, badge: 'Best Value', desc: 'Packed box containing Jungle Oats, Weet-Bix, Corn Flakes, Future Life, Nutrific & Tropika[span_6](start_span)[span_6](end_span).', img: 'images/1000040067_2.jpg', arDimensions: '50cm x 40cm x 30cm (Heavy Bundle)' },
+            { id: 'j1', cat: 'juice', title: 'Juices Africa & Tropika Refreshment Pack', price: 160, badge: 'High Yield', desc: 'High yield fruit juice concentrate & Tropika dairy fruit mix bottles[span_7](start_span)[span_7](end_span)[span_8](start_span)[span_8](end_span).', img: 'images/1000040064_2.jpg', arDimensions: '30cm x 15cm x 15cm (Jug)' },
+            { id: 'p1', cat: 'perfume', title: 'M-Scents Luxury Perfume (40ml)', price: 120, badge: '40ml EDP', desc: 'Selver Sense, Dezire Red, White OUD, Wild Intense, Sky Oud, Blue Dezire & StallioN[span_9](start_span)[span_9](end_span).', img: 'images/1000040057_2.jpg', arDimensions: '12cm x 6cm x 4cm (Glass Bottle)' },
+            { id: 'p2', cat: 'perfume', title: 'M-Scents Duo Gift Set (2x 40ml)', price: 192, badge: 'Save R48', desc: 'Choose any two signature 40ml luxury fragrances in gift presentation packaging[span_10](start_span)[span_10](end_span)[span_11](start_span)[span_11](end_span).', img: 'images/1000040059_2.jpg', arDimensions: '18cm x 14cm x 6cm (Gift Box)' }
         ];
 
         const HAMPER_OPTIONS = [
-            { name: 'Jungle Oats 1kg', category: 'Cereal', img: '/images/1000040076_2.jpg' },
-            { name: 'Future Life 500g', category: 'Cereal', img: '/images/1000040076_2.jpg' },
-            { name: 'Bokomo Corn Flakes 1kg', category: 'Cereal', img: '/images/1000040076_2.jpg' },
-            { name: 'Weet-Bix 450g', category: 'Cereal', img: '/images/1000040076_2.jpg' },
-            { name: 'Nutrifics 450g', category: 'Cereal', img: '/images/1000040076_2.jpg' },
-            { name: 'Tropika Dairy Fruit Mix (1L)', category: 'Beverage', img: '/images/1000040064_2.jpg' },
-            { name: 'Juices Africa 4L Concentrate', category: 'Beverage', img: '/images/1000040071_2.jpg' },
-            { name: 'M-Scents Selver Sense 40ml', category: 'Perfume', img: '/images/1000040057_2.jpg' }
+            { name: 'Jungle Oats 1kg', category: 'Cereal', img: 'images/1000040076_2.jpg' },
+            { name: 'Future Life 500g', category: 'Cereal', img: 'images/1000040076_2.jpg' },
+            { name: 'Bokomo Corn Flakes 1kg', category: 'Cereal', img: 'images/1000040076_2.jpg' },
+            { name: 'Weet-Bix 450g', category: 'Cereal', img: 'images/1000040076_2.jpg' },
+            { name: 'Nutrifics 450g', category: 'Cereal', img: 'images/1000040076_2.jpg' },
+            { name: 'Tropika Dairy Fruit Mix (1L)', category: 'Beverage', img: 'images/1000040064_2.jpg' },
+            { name: 'Juices Africa 4L Concentrate', category: 'Beverage', img: 'images/1000040071_2.jpg' },
+            { name: 'M-Scents Selver Sense 40ml', category: 'Perfume', img: 'images/1000040057_2.jpg' }
         ];
 
         const BOOKABLE_SERVICES = [
-            { id: 's1', title: 'Doorstep Hamper Consultation & Delivery', price: 50, duration: '30 min', desc: 'In-person assistance selecting household groceries & bulk hampers in Durban[span_12](start_span)[span_12](end_span).', img: '/images/1000040067_2.jpg' },
-            { id: 's2', title: 'M-Scents Fragrance Sampling Session', price: 0, duration: '20 min', desc: 'Sample signature M-Scents perfumes at our local Durban hub point[span_13](start_span)[span_13](end_span).', img: '/images/1000040057_2.jpg' }
+            { id: 's1', title: 'Doorstep Hamper Consultation & Delivery', price: 50, duration: '30 min', desc: 'In-person assistance selecting household groceries & bulk hampers in Durban[span_12](start_span)[span_12](end_span).', img: 'images/1000040067_2.jpg' },
+            { id: 's2', title: 'M-Scents Fragrance Sampling Session', price: 0, duration: '20 min', desc: 'Sample signature M-Scents perfumes at our local Durban hub point[span_13](start_span)[span_13](end_span).', img: 'images/1000040057_2.jpg' }
         ];
 
         const INITIAL_REVIEWS = [
@@ -245,7 +245,7 @@
             const downloadDirectApk = () => {
                 showToast('✨ Downloading Android APK...');
                 const a = document.createElement('a');
-                a.href = '/downloads/nollies.apk';
+                a.href = 'downloads/nollies.apk';
                 a.download = 'NqobilesHub.apk';
                 document.body.appendChild(a);
                 a.click();
@@ -828,6 +828,6 @@
         ReactDOM.render(<App />, document.getElementById('root'));
     </script>
 <script src="enhance3.js?v=1792345454" defer></script>
-<script src="/enhance.js" defer></script>
+<script src="enhance.js" defer></script>
 </body>
 </html>
