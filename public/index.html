@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Nollie's | Exhilarating 2026 Raindrop 3D Durban Hub</title>
+    <title>Nollie's Global | Living Strategic Organisation & World Explorer</title>
     <meta name="theme-color" content="#030712">
     <link rel="manifest" href="/manifest.json">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -21,133 +21,124 @@
         }
         h1, h2, h3, h4, .font-display { font-family: 'Space Grotesk', sans-serif; }
         
-        .white-rainbow-bg {
+        .living-world-bg {
             background-color: #030712;
             background-image: 
-                radial-gradient(at 15% 15%, rgba(255, 255, 255, 0.22) 0px, transparent 50%),
-                radial-gradient(at 85% 20%, rgba(239, 68, 68, 0.2) 0px, transparent 50%),
-                radial-gradient(at 50% 50%, rgba(255, 255, 255, 0.28) 0px, transparent 60%),
-                radial-gradient(at 20% 85%, rgba(59, 130, 246, 0.2) 0px, transparent 50%),
-                radial-gradient(at 85% 85%, rgba(168, 85, 247, 0.2) 0px, transparent 50%),
+                radial-gradient(at 10% 10%, rgba(56, 189, 248, 0.18) 0px, transparent 50%),
+                radial-gradient(at 90% 15%, rgba(168, 85, 247, 0.18) 0px, transparent 50%),
+                radial-gradient(at 50% 50%, rgba(255, 255, 255, 0.12) 0px, transparent 60%),
+                radial-gradient(at 20% 90%, rgba(16, 185, 129, 0.18) 0px, transparent 50%),
+                radial-gradient(at 85% 85%, rgba(244, 63, 94, 0.18) 0px, transparent 50%),
                 linear-gradient(to bottom, #030712, #0b0f19);
             background-attachment: fixed;
         }
 
-        .rainbow-glass {
-            background: rgba(15, 23, 42, 0.85);
-            backdrop-filter: blur(50px) saturate(280%);
-            -webkit-backdrop-filter: blur(50px) saturate(280%);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            box-shadow: 0 45px 100px -15px rgba(0, 0, 0, 0.98), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+        .org-glass {
+            background: rgba(15, 23, 42, 0.88);
+            backdrop-filter: blur(60px) saturate(300%);
+            -webkit-backdrop-filter: blur(60px) saturate(300%);
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            box-shadow: 0 50px 110px -15px rgba(0, 0, 0, 0.98), inset 0 1px 0 rgba(255, 255, 255, 0.45);
         }
 
-        .rainbow-card-hover {
+        .org-card-hover {
             transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .rainbow-card-hover:hover {
-            transform: translateY(-12px) scale(1.03) rotateX(2deg) rotateY(-2deg);
-            border-color: rgba(255, 255, 255, 0.75);
-            box-shadow: 0 55px 120px -15px rgba(255, 255, 255, 0.5);
+        .org-card-hover:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 60px 130px -15px rgba(255, 255, 255, 0.5);
         }
 
-        @keyframes whiteRainbowText {
+        @keyframes livingGlowText {
             0% { filter: hue-rotate(0deg); }
             100% { filter: hue-rotate(360deg); }
         }
 
-        .white-rainbow-animated-text {
-            background: linear-gradient(135deg, #ffffff, #f43f5e, #fbbf24, #34d399, #38bdf8, #a855f7, #ffffff);
+        .living-animated-text {
+            background: linear-gradient(135deg, #ffffff, #38bdf8, #34d399, #fbbf24, #f43f5e, #a855f7, #ffffff);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: whiteRainbowText 6s linear infinite;
+            animation: livingGlowText 8s linear infinite;
         }
 
-        .white-rainbow-btn {
-            background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 20%, #ef4444 40%, #10b981 60%, #0ea5e9 80%, #a855f7 100%);
+        .org-btn {
+            background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 20%, #38bdf8 40%, #10b981 60%, #a855f7 80%, #f43f5e 100%);
             background-size: 250% auto;
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             color: #030712;
             font-weight: 900;
-            box-shadow: 0 6px 30px rgba(255, 255, 255, 0.5);
+            box-shadow: 0 8px 35px rgba(255, 255, 255, 0.5);
         }
-        .white-rainbow-btn:hover {
+        .org-btn:hover {
             background-position: right center;
-            box-shadow: 0 12px 50px rgba(255, 255, 255, 0.9);
+            box-shadow: 0 14px 55px rgba(255, 255, 255, 0.9);
             transform: translateY(-4px) scale(1.05);
             color: #ffffff;
         }
 
-        @keyframes floatAnim {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-10px) rotate(1.5deg); }
+        @keyframes pulseGlobe {
+            0%, 100% { transform: scale(1); opacity: 0.9; }
+            50% { transform: scale(1.05); opacity: 1; filter: drop-shadow(0 0 25px rgba(56,189,248,0.8)); }
         }
-        .floating-badge {
-            animation: floatAnim 3.5s ease-in-out infinite;
-        }
-
-        @keyframes pulseGlow {
-            0%, 100% { opacity: 0.9; box-shadow: 0 0 25px rgba(255,255,255,0.5); }
-            50% { opacity: 1; box-shadow: 0 0 55px rgba(255,255,255,1); }
-        }
-        .pulse-glow-effect {
-            animation: pulseGlow 2.5s ease-in-out infinite;
+        .globe-pulse {
+            animation: pulseGlobe 4s ease-in-out infinite;
         }
 
-        /* EXHILARATING RAINDROP 💧 PHYSICS ANIMATIONS */
-        @keyframes dropFallExhilarating {
-            0% { transform: translateY(-40px) scale(0.4) rotate(-10deg); opacity: 0; }
-            70% { transform: translateY(8px) scale(1.08) rotate(2deg); opacity: 1; }
-            100% { transform: translateY(0px) scale(1) rotate(0deg); opacity: 1; }
+        /* 3D ORG WORLD PILL PHYSICS */
+        @keyframes worldDrop {
+            0% { transform: translateY(-35px) scale(0.5); opacity: 0; }
+            70% { transform: translateY(6px) scale(1.05); opacity: 1; }
+            100% { transform: translateY(0px) scale(1); opacity: 1; }
         }
 
-        .raindrop-pill {
+        .world-pill {
             position: relative;
             border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
             background: linear-gradient(145deg, rgba(255, 255, 255, 0.22), rgba(15, 23, 42, 0.92));
             backdrop-filter: blur(25px);
-            border: 1px solid rgba(255, 255, 255, 0.35);
-            box-shadow: 0 20px 45px -5px rgba(0, 0, 0, 0.8), inset 0 2px 5px rgba(255, 255, 255, 0.5);
-            animation: dropFallExhilarating 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.3) both;
+            border: 1px solid rgba(255, 255, 255, 0.38);
+            box-shadow: 0 20px 45px -5px rgba(0, 0, 0, 0.8), inset 0 2px 6px rgba(255, 255, 255, 0.5);
+            animation: worldDrop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.3) both;
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             overflow: hidden;
         }
-        .raindrop-pill::before {
+        .world-pill::before {
             content: '';
             position: absolute;
             top: 5px;
             left: 25%;
             width: 40%;
-            height: 5px;
+            height: 4px;
             background: rgba(255, 255, 255, 0.85);
             border-radius: 999px;
-            filter: blur(0.5px);
         }
-        .raindrop-pill:hover {
-            transform: translateY(-8px) scale(1.12);
-            border-color: rgba(255, 255, 255, 0.9);
-            box-shadow: 0 25px 60px rgba(255, 255, 255, 0.45), inset 0 2px 8px rgba(255, 255, 255, 0.9);
+        .world-pill:hover {
+            transform: translateY(-8px) scale(1.1);
+            border-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 25px 60px rgba(255, 255, 255, 0.5), inset 0 2px 10px rgba(255, 255, 255, 0.9);
             background: linear-gradient(145deg, rgba(255, 255, 255, 0.35), rgba(30, 41, 59, 0.98));
         }
-        .raindrop-active {
-            background: linear-gradient(135deg, #ffffff 0%, #f43f5e 30%, #38bdf8 70%, #a855f7 100%);
+        .world-pill-active {
+            background: linear-gradient(135deg, #ffffff 0%, #38bdf8 35%, #10b981 70%, #a855f7 100%);
             color: #030712 !important;
             font-weight: 900;
             border: 1px solid #ffffff;
-            box-shadow: 0 0 45px rgba(255, 255, 255, 0.95), inset 0 2px 8px rgba(255, 255, 255, 1);
+            box-shadow: 0 0 50px rgba(56, 189, 248, 0.9), inset 0 2px 8px rgba(255, 255, 255, 1);
             transform: scale(1.15) translateY(-5px);
         }
 
         .cinematic-stage {
-            perspective: 1400px;
+            perspective: 1500px;
             transform-style: preserve-3d;
         }
-        .cinematic-card-3d {
+        .org-card-3d {
             transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.6s ease;
-            transform: rotateX(5deg) rotateY(-5deg);
+            transform: rotateX(4deg) rotateY(-4deg);
         }
-        .cinematic-card-3d:hover {
-            transform: rotateX(0deg) rotateY(0deg) scale(1.04) translateY(-8px);
-            box-shadow: 0 60px 120px -20px rgba(255, 255, 255, 0.5);
+        .org-card-3d:hover {
+            transform: rotateX(0deg) rotateY(0deg) scale(1.03) translateY(-8px);
+            box-shadow: 0 65px 130px -20px rgba(255, 255, 255, 0.55);
         }
 
         .marquee-container {
@@ -158,11 +149,11 @@
         }
         .marquee-track {
             display: inline-block;
-            animation: marqueeScroll 22s linear infinite;
+            animation: marqueeScroll 24s linear infinite;
         }
         .marquee-track-reverse {
             display: inline-block;
-            animation: marqueeScrollReverse 20s linear infinite;
+            animation: marqueeScrollReverse 22s linear infinite;
         }
         .marquee-track:hover, .marquee-track-reverse:hover {
             animation-play-state: paused;
@@ -180,20 +171,28 @@
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 </head>
-<body class="min-h-screen pb-32 white-rainbow-bg overflow-x-hidden selection:bg-white selection:text-slate-950">
+<body class="min-h-screen pb-32 living-world-bg overflow-x-hidden selection:bg-white selection:text-slate-950">
     <div id="root"></div>
 
     <script type="text/babel">
         const { useState, useEffect, useRef } = React;
 
         const NOLLIE_AVATAR = "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80";
-        const DURBAN_BANNER = "https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=1200&q=80";
-        const FALLBACK_SVG = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='400' viewBox='0 0 600 400'><rect width='100%' height='100%' fill='%230f172a'/><text x='50%' y='50%' fill='%23ffffff' font-family='sans-serif' font-size='22' font-weight='bold' text-anchor='middle' dominant-baseline='middle'>Nollie%27s Dynamic Hub</text></svg>";
+        const WORLD_MAP_BANNER = "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80";
+        const FALLBACK_SVG = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='400' viewBox='0 0 600 400'><rect width='100%' height='100%' fill='%230f172a'/><text x='50%' y='50%' fill='%23ffffff' font-family='sans-serif' font-size='22' font-weight='bold' text-anchor='middle' dominant-baseline='middle'>Nollie%27s Living Organisation</text></svg>";
+
+        // GLOBAL EXPLORATION NODES
+        const GLOBAL_REGIONS = [
+            { id: 'africa', name: 'Africa Hub (Durban & eNanda)', status: 'Active HQ', metrics: 'R30 Flat Dispatch • 4 Active Hubs', ping: '12ms', color: 'from-amber-400 to-emerald-500' },
+            { id: 'americas', name: 'Americas Trade Gateway', status: 'Strategic Node', metrics: 'Supply Chain & Sourcing', ping: '180ms', color: 'from-sky-400 to-blue-600' },
+            { id: 'eurasia', name: 'Eurasia Tech & Logistics', status: 'Expanding Node', metrics: 'API & Cloud Pipeline', ping: '145ms', color: 'from-purple-400 to-pink-500' },
+            { id: 'apac', name: 'Asia-Pacific Digital Channel', status: 'Partner Network', metrics: 'Automation & Analytics', ping: '210ms', color: 'from-emerald-400 to-teal-600' }
+        ];
 
         const PROMO_FLYERS = [
-            { id: 'fl1', title: 'Cereal Hamper Combos Poster', badge: 'Wholesale Deal', price: 'From R250', desc: 'Customizable 5-item breakfast bundle including Jungle Oats, Weet-Bix, Corn Flakes & Future Life.', img: 'https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=800&q=80', tag: 'CEREAL HAMPER' },
-            { id: 'fl2', title: 'Family Grocery Mega Saver Flyer', badge: 'Top Seller', price: 'R380.00', desc: '10kg Maize Meal, 5L Oil, 2kg Sugar, 2kg Rice & Baked Beans bundle delivered across Durban.', img: 'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=800&q=80', tag: 'BULK ESSENTIALS' },
-            { id: 'fl3', title: 'M-Scents Fragrance Showcase', badge: 'Luxury Aroma', price: 'R120 / Duo R192', desc: 'Silver Sense, Red Dezire, White OUD, StallioN 40ml premium long-lasting perfumes.', img: 'https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&w=800&q=80', tag: 'LUXURY PERFUMES' }
+            { id: 'fl1', title: 'Global Supply Chain Cereal Hamper', badge: 'Wholesale Standard', price: 'From R250', desc: 'Customizable 5-item breakfast bundle including Jungle Oats, Weet-Bix, Corn Flakes & Future Life.', img: 'https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=800&q=80', tag: 'CEREAL HAMPER' },
+            { id: 'fl2', title: 'International Family Grocery Mega Pack', badge: 'Top Global Seller', price: 'R380.00', desc: '10kg Maize Meal, 5L Oil, 2kg Sugar, 2kg Rice & Baked Beans bundle delivered across Durban & eNanda.', img: 'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=800&q=80', tag: 'BULK ESSENTIALS' },
+            { id: 'fl3', title: 'M-Scents Global Fragrance Showcase', badge: 'Luxury Aroma', price: 'R120 / Duo R192', desc: 'Silver Sense, Red Dezire, White OUD, StallioN 40ml premium long-lasting perfumes.', img: 'https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&w=800&q=80', tag: 'LUXURY PERFUMES' }
         ];
 
         const PRODUCTS = [
@@ -208,9 +207,7 @@
             { id: 'e1', cat: 'essentials', title: 'Fresh Bakery Daily Pack', price: 35, badge: 'Fresh Daily', desc: 'Fresh loaf, rolls, and morning treats.', img: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=600&q=80', arDimensions: '30cm x 20cm x 15cm (Paper Bag)' },
             { id: 'e3', cat: 'essentials', title: 'Cleaning & Hygiene Household Bucket', price: 185, badge: 'Home Care', desc: 'Dishwashing Liquid, Bleach, Washing Powder (2kg), and Floor Cleaner.', img: 'https://images.unsplash.com/photo-1585421514284-efb74c2b69ba?auto=format&fit=crop&w=600&q=80', arDimensions: '35cm x 35cm x 30cm (Bucket)' },
             { id: 'n1', cat: 'essentials', title: 'KZN Premium Tea & Coffee Bundle', price: 145, badge: 'Hot Beverages', desc: 'Five Roses Tea 100s, Jacobs Krönung Coffee 200g, and Ricoffy 750g combo.', img: 'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=600&q=80', arDimensions: '25cm x 20cm x 15cm (Combo)' },
-            { id: 'n2', cat: 'essentials', title: 'Sunrise Breakfast Farm Eggs (30 Pack)', price: 95, badge: 'Farm Fresh', desc: 'Large grade farm-fresh eggs packaged securely for home or business delivery.', img: 'https://images.unsplash.com/photo-1516448651042-64e2fd7e6c08?auto=format&fit=crop&w=600&q=80', arDimensions: '30cm x 30cm x 10cm (Crate)' },
-            { id: 'n3', cat: 'perfume', title: 'M-Scents Elite Body Spray Collection', price: 150, badge: '250ml Spray', desc: 'Long-lasting fragranced body sprays for daily freshness and confidence.', img: 'https://images.unsplash.com/photo-1547887537-6158d64c35b3?auto=format&fit=crop&w=600&q=80', arDimensions: '20cm x 8cm x 8cm (Aerosol)' },
-            { id: 'n4', cat: 'juice', title: 'Fresh Summer Fruit Juice Pack (6x 1L)', price: 130, badge: 'Juice Pack', desc: 'Assorted 100% fruit juice blend cartons for family refreshment.', img: 'https://images.unsplash.com/photo-1621506289937-a8e4df240d0b?auto=format&fit=crop&w=600&q=80', arDimensions: '30cm x 20cm x 22cm (Carton Pack)' }
+            { id: 'n2', cat: 'essentials', title: 'Sunrise Breakfast Farm Eggs (30 Pack)', price: 95, badge: 'Farm Fresh', desc: 'Large grade farm-fresh eggs packaged securely for home or business delivery.', img: 'https://images.unsplash.com/photo-1516448651042-64e2fd7e6c08?auto=format&fit=crop&w=600&q=80', arDimensions: '30cm x 30cm x 10cm (Crate)' }
         ];
 
         const HAMPER_OPTIONS = [
@@ -225,32 +222,32 @@
         ];
 
         const BOOKABLE_SERVICES = [
-            { id: 's1', title: 'Doorstep Hamper Consultation & Delivery', price: 50, duration: '30 min', desc: 'In-person assistance selecting household groceries & bulk hampers in eNanda & Durban.', img: 'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=300&q=80' },
-            { id: 's2', title: 'M-Scents Fragrance Sampling Session', price: 0, duration: '20 min', desc: 'Sample signature M-Scents perfumes at our local eNanda hub point.', img: 'https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&w=300&q=80' },
-            { id: 's3', title: 'Mbango VA Admin & Business Support', price: 150, duration: '45 min', desc: 'Virtual assistance, administrative support, document preparation, & digital advice.', img: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80' }
+            { id: 's1', title: 'Global Supply Chain & Hamper Consultation', price: 50, duration: '30 min', desc: 'Expert strategic consultation selecting household groceries & bulk hampers in eNanda & Durban.', img: 'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=300&q=80' },
+            { id: 's2', title: 'M-Scents Fragrance Global Sampling', price: 0, duration: '20 min', desc: 'Sample signature M-Scents perfumes at our local eNanda strategic hub.', img: 'https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&w=300&q=80' },
+            { id: 's3', title: 'Mbango VA Strategic Process Engineering', price: 150, duration: '45 min', desc: 'Virtual executive assistance, workflow automation, document preparation, & digital growth advice.', img: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80' }
         ];
 
         const INITIAL_REVIEWS = [
-            { id: 1, name: 'Snerh Dlamini', rating: 5, comment: 'The Family Bulk Grocery Hamper saved our month! Delivered right on time in eNanda. Excellent service!', date: '2 October 2026', avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80' },
-            { id: 2, name: 'Sthelo Mkhize', rating: 5, comment: 'M-Scents perfumes smell incredible and last all day. Super professional delivery across Durban.', date: '10 October 2026', avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&q=80' },
-            { id: 3, name: 'Ayanda Msomi', rating: 5, comment: 'Custom Cereal Hamper builder is such a brilliant feature! Got all my favorite breakfast items instantly.', date: '14 October 2026', avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=100&q=80' }
+            { id: 1, name: 'Snerh Dlamini', rating: 5, comment: 'The Living Organisation framework and bulk hamper delivery in eNanda is world-class!', date: '2 October 2026', avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80' },
+            { id: 2, name: 'Sthelo Mkhize', rating: 5, comment: 'M-Scents luxury perfumes are exceptional. Super professional logistics across Durban.', date: '10 October 2026', avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&q=80' },
+            { id: 3, name: 'Ayanda Msomi', rating: 5, comment: 'Strategic AI budget matcher found my exact requirements instantly. Brilliant platform!', date: '14 October 2026', avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=100&q=80' }
         ];
 
         const LIVE_TICKER_ITEMS = [
-            "🏆 2026 EXHILARATING RAINDROP 3D HUB: POPIA Protected & Consumer CPA Standard Active!",
-            "🔥 HOT DEAL: Family Bulk Grocery Hamper (R380) - Best Seller in eNanda!",
-            "🤖 24/7 AI ASSISTANT ONLINE: Tap bottom-right to ask Nollie AI anything!",
-            "🚀 FAST DISPATCH: Flat R30 Delivery Across Durban & eNanda!",
+            "🌍 NOLLIE'S LIVING ORGANISATION: Exploring Global Supply Chains & Local KZN Excellence!",
+            "🔥 STRATEGIC HUB: POPIA Protected & Consumer CPA Standard Active Worldwide!",
+            "🤖 24/7 ORGANISATIONAL AI ONLINE: Tap bottom-right for global strategic assistant!",
+            "🚀 FAST DISPATCH: Flat R30 Delivery Across Durban & eNanda Network!",
             "💧 JUICES AFRICA: 4L High-Yield Concentrates Making 20L Juice!",
-            "💎 M-SCENTS: Luxury 40ml Fragrances Available Now in Durban!"
+            "💎 M-SCENTS: Luxury 40ml Fragrances Available Now Worldwide & Durban!"
         ];
 
         const REVERSE_TICKER_ITEMS = [
-            "⚡ LIMITED PROMO: Use Code NOLLIE10 for 10% OFF!",
-            "📦 BULK DISPATCH: Direct to eNanda, Durban CBD & KZN Areas!",
+            "⚡ GLOBAL PROMO: Use Code NOLLIE10 for 10% OFF!",
+            "📦 STRATEGIC DISPATCH: Direct to eNanda, Durban CBD & International Nodes!",
             "🛍️ CUSTOM BUILDER: Pick Any 5 Items for R250!",
             "📲 WHATSAPP DISPATCH: Click Share Cart to Order Directly!",
-            "🌟 VERIFIED REVIEWS: 5.0/5.0 Rated by Durban Clients!"
+            "🌟 VERIFIED ORGANISATION: 5.0/5.0 Rated by Global Clients!"
         ];
 
         function App() {
@@ -265,7 +262,7 @@
             const [popiaAccepted, setPopiaAccepted] = useState(localStorage.getItem('nollies_popia_accepted') === 'true');
 
             // Loyalty Rewards Coins State
-            const [loyaltyCoins, setLoyaltyCoins] = useState(Number(localStorage.getItem('nollies_loyalty') || '50'));
+            const [loyaltyCoins, setLoyaltyCoins] = useState(Number(localStorage.getItem('nollies_loyalty') || '75'));
 
             // AR Simulator Modal State
             const [arProduct, setArProduct] = useState(null);
@@ -282,7 +279,7 @@
 
             // Community Board State
             const [communityPosts, setCommunityPosts] = useState(JSON.parse(localStorage.getItem('nollies_community') || JSON.stringify([
-                { id: 1, author: 'Banele Gumbi', msg: 'Welcome to Nollie\'s Durban Hub! Drop your neighborhood requests here.', time: 'Today', avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80' }
+                { id: 1, author: 'Banele Gumbi (Director)', msg: 'Welcome to Nollie\'s Living Organisation Hub! Exploring world trade and local empowerment from Durban.', time: 'Today', avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80' }
             ])));
             const [newPostAuthor, setNewPostAuthor] = useState('');
             const [newPostMsg, setNewPostMsg] = useState('');
@@ -299,13 +296,13 @@
             const [activeModalProduct, setActiveModalProduct] = useState(null);
             const [toastMessage, setToastMessage] = useState(null);
 
-            const [dynamicGreeting, setDynamicGreeting] = useState("Sawubona, Mzansi!");
+            const [dynamicGreeting, setDynamicGreeting] = useState("Sawubona, Global Citizen!");
             const [quickTrackId, setQuickTrackId] = useState('');
             const [trackResult, setTrackResult] = useState(null);
 
             const [isAiOpen, setIsAiOpen] = useState(false);
             const [aiMessages, setAiMessages] = useState([
-                { sender: 'ai', text: 'Sawubona! I am Nollie AI, your 24/7 Durban Hub assistant. How can I help you with our hampers, perfumes, or deliveries today?' }
+                { sender: 'ai', text: 'Sawubona! I am Nollie Strategic AI, your 24/7 living organisation assistant. How can I help you explore our global network, hampers, or logistics today?' }
             ]);
             const [aiInput, setAiInput] = useState('');
             const chatEndRef = useRef(null);
@@ -316,8 +313,8 @@
             const [deliveryAddress, setDeliveryAddress] = useState(localStorage.getItem('nollies_customer_address') || '');
             const [paymentMethod, setPaymentMethod] = useState('COD'); 
 
-            const [bookingService, setBookingService] = useState('Doorstep Hamper Consultation & Delivery');
-            const [bookingDate, setBookingDate] = useState('2026-10-20');
+            const [bookingService, setBookingService] = useState('Global Supply Chain & Hamper Consultation');
+            const [bookingDate, setBookingDate] = useState('2026-10-22');
             const [bookingTime, setBookingTime] = useState('10:00 AM');
             const [bookingNotes, setBookingNotes] = useState('');
 
@@ -327,7 +324,7 @@
             const [newReviewComment, setNewReviewComment] = useState('');
 
             // Questionnaire Form State
-            const [q1, setQ1] = useState('Cereal Hampers');
+            const [q1, setQ1] = useState('Global Supply Chain Hampers');
             const [q2, setQ2] = useState('WhatsApp');
             const [q3, setQ3] = useState('Extremely Satisfied');
             const [questionnaireSubmitted, setQuestionnaireSubmitted] = useState(false);
@@ -362,7 +359,7 @@
                 if (filtered.length > 0) {
                     const best = filtered[Math.floor(Math.random() * filtered.length)];
                     setMatchedResult(best);
-                    showToast(`🤖 AI Recommendation found: ${best.title}!`);
+                    showToast(`🤖 Strategic AI Recommendation: ${best.title}!`);
                 } else {
                     setMatchedResult(null);
                     alert('No products found within that exact budget and category. Try adjusting your budget!');
@@ -370,10 +367,10 @@
             };
 
             const downloadDirectApk = () => {
-                showToast('✨ Downloading Nollie\'s White-Rainbow Android APK...');
+                showToast('✨ Downloading Nollie\'s Living Organisation Android APK...');
                 const a = document.createElement('a');
                 a.href = '/downloads/nollies.apk';
-                a.download = 'NolliesHub.apk';
+                a.download = 'NolliesGlobalHub.apk';
                 document.body.appendChild(a);
                 a.click();
                 document.body.removeChild(a);
@@ -405,10 +402,10 @@
 
             useEffect(() => {
                 const greetings = [
-                    "Sawubona, Mzansi! Welcome to Nollie's Exhilarating Hub",
-                    "eNanda's Premier 2026 Exhilarating Raindrop 3D Marketplace",
-                    "Experience Exhilarating Cinematic Durban Shopping & Delivery",
-                    "Order Bulk Hampers & Luxury Perfumes Instantly"
+                    "Sawubona, Global Citizen! Welcome to Nollie's Living Organisation",
+                    "Exploring World Trade & Local KZN Excellence from Durban",
+                    "Strategic Digital Infrastructure & Global Supply Chain Hub",
+                    "Order Bulk Hampers & Luxury Perfumes Worldwide"
                 ];
                 let idx = 0;
                 const timer = setInterval(() => {
@@ -454,8 +451,8 @@
 
             const addToCart = (title, price) => {
                 setCart([...cart, { title, price }]);
-                setLoyaltyCoins(prev => prev + 10);
-                showToast(`🛒 ${title} added (+10 Nollie Coins)`);
+                setLoyaltyCoins(prev => prev + 15);
+                showToast(`🛒 ${title} added (+15 Strategic Coins)`);
             };
 
             const removeFromCart = (index) => {
@@ -470,7 +467,7 @@
                     setSelectedHamperItems(selectedHamperItems.filter(i => i !== name));
                 } else {
                     if (selectedHamperItems.length >= 5) {
-                        alert('Maximum 5 items allowed for custom hampling.');
+                        alert('Maximum 5 items allowed for custom global hampling.');
                         return;
                     }
                     setSelectedHamperItems([...selectedHamperItems, name]);
@@ -479,10 +476,10 @@
 
             const addCustomHamper = () => {
                 if (selectedHamperItems.length < 5) {
-                    alert('Please select exactly 5 items to assemble your custom bundle!');
+                    alert('Please select exactly 5 items to assemble your custom global bundle!');
                     return;
                 }
-                addToCart(`Custom Hamper (${selectedHamperItems.join(', ')})`, 250);
+                addToCart(`Custom Global Hamper (${selectedHamperItems.join(', ')})`, 250);
                 setSelectedHamperItems([]);
                 setActiveTab('catalog');
             };
@@ -490,7 +487,7 @@
             const applyPromo = () => {
                 if (promoCode.trim().toUpperCase() === 'NOLLIE10') {
                     setDiscountPercent(10);
-                    showToast('🎉 Promo code verified: 10% Off!');
+                    showToast('🎉 Strategic Promo verified: 10% Off!');
                 } else {
                     alert('Invalid promo code!');
                 }
@@ -513,8 +510,8 @@
                 setReviews([newRev, ...reviews]);
                 setNewReviewName('');
                 setNewReviewComment('');
-                setLoyaltyCoins(prev => prev + 25);
-                showToast('⭐ Review published! (+25 Bonus Nollie Coins)');
+                setLoyaltyCoins(prev => prev + 30);
+                showToast('⭐ Review published! (+30 Bonus Strategic Coins)');
             };
 
             const handleAddCommunityPost = (e) => {
@@ -533,7 +530,7 @@
                 setCommunityPosts([post, ...communityPosts]);
                 setNewPostAuthor('');
                 setNewPostMsg('');
-                showToast('💬 Posted to eNanda Community Board!');
+                showToast('💬 Posted to Global Community Board!');
             };
 
             const shareCartToWhatsApp = () => {
@@ -541,17 +538,17 @@
                     alert('Your cart is empty to share!');
                     return;
                 }
-                let text = `Sawubona Nollie's! Here is my shopping wishlist:%0A`;
+                let text = `Sawubona Nollie's Living Organisation! Here is my strategic wishlist:%0A`;
                 cart.forEach(i => text += `• ${i.title} - R${i.price}%0A`);
-                text += `%0ATotal Items: ${cart.length}%0APlease assist with dispatch in eNanda/Durban!`;
+                text += `%0ATotal Items: ${cart.length}%0APlease assist with global dispatch!`;
                 window.open(`https://wa.me/27625873479?text=${text}`, '_blank');
             };
 
             const handleQuestionnaireSubmit = (e) => {
                 e.preventDefault();
                 setQuestionnaireSubmitted(true);
-                setLoyaltyCoins(prev => prev + 50);
-                showToast('🎉 Questionnaire submitted! +50 Coins & promo code NOLLIE10 unlocked.');
+                setLoyaltyCoins(prev => prev + 60);
+                showToast('🎉 Strategic questionnaire submitted! +60 Coins & promo code NOLLIE10 unlocked.');
             };
 
             const handleAiSend = (e) => {
@@ -563,21 +560,21 @@
                 setAiInput('');
 
                 setTimeout(() => {
-                    let reply = "I can assist you with that! Feel free to explore our Cereal Hampers, Family Bulk Grocery Hampers, and M-Scents perfumes. Flat R30 delivery across Durban and eNanda!";
+                    let reply = "As a living strategic organisation, I can assist you with our global logistics, Cereal Hampers, Family Bulk Grocery Hampers, and M-Scents perfumes. Flat R30 delivery across Durban and eNanda!";
                     const lower = userText.toLowerCase();
 
                     if (lower.includes('price') || lower.includes('cost') || lower.includes('how much')) {
                         reply = "Our Cereal Hampers are R250, Family Bulk Hampers are R380, Juices Africa 4L is R160, and M-Scents perfumes are R120. Delivery across Durban & eNanda is a flat R30!";
-                    } else if (lower.includes('delivery') || lower.includes('deliver') || lower.includes('durban') || lower.includes('enanda')) {
-                        reply = "Yes! We deliver directly across eNanda, Durban CBD, and surrounding KZN areas with a flat R30 delivery fee.";
+                    } else if (lower.includes('delivery') || lower.includes('deliver') || lower.includes('durban') || lower.includes('enanda') || lower.includes('global')) {
+                        reply = "We operate local dispatch across eNanda and Durban CBD with a flat R30 delivery fee, while coordinating strategic trade intelligence globally.";
                     } else if (lower.includes('perfume') || lower.includes('scent') || lower.includes('m-scents')) {
                         reply = "Our M-Scents luxury 40ml perfumes are R120 each or grab our Duo Gift Set for R192!";
                     } else if (lower.includes('flash') || lower.includes('deal') || lower.includes('discount')) {
-                        reply = "Check out our Flash Deals section on the Home tab for limited-time price drops!";
+                        reply = "Check out our Flash Deals section on the Home tab for limited-time strategic price drops!";
                     } else if (lower.includes('popia') || lower.includes('privacy') || lower.includes('legal') || lower.includes('terms')) {
-                        reply = "Nollie's Hub is 100% compliant with South Africa's Protection of Personal Information Act (POPIA) and Consumer Protection Act (CPA). Check our SA Legal tab for details!";
+                        reply = "Nollie's Living Organisation is 100% compliant with South Africa's Protection of Personal Information Act (POPIA) and Consumer Protection Act (CPA). Check our SA Legal tab for details!";
                     } else if (lower.includes('contact') || lower.includes('phone') || lower.includes('whatsapp') || lower.includes('owner')) {
-                        reply = "You can reach Nollie's Durban Hub team directly via WhatsApp or phone at +27 62 587 3479.";
+                        reply = "You can reach Banele Gumbi and Nollie's strategic team directly via WhatsApp or phone at +27 62 587 3479.";
                     }
 
                     setAiMessages([...newMessages, { sender: 'ai', text: reply }]);
@@ -589,9 +586,9 @@
                 if (!quickTrackId.trim()) return;
                 const found = orders.find(o => String(o.id) === String(quickTrackId.trim()));
                 if (found) {
-                    setTrackResult(`Order #${found.id}: Dispatched to ${found.customer_name || 'Client'} (${found.payment_status}) ✅`);
+                    setTrackResult(`Strategic Order #${found.id}: Dispatched to ${found.customer_name || 'Client'} (${found.payment_status}) ✅`);
                 } else {
-                    setTrackResult(`Order #${quickTrackId} is being processed dynamically by Nollie's team 🚚`);
+                    setTrackResult(`Strategic Order #${quickTrackId} is being processed dynamically by Nollie's global logistics team 🌍`);
                 }
             };
 
@@ -653,9 +650,9 @@
                     localStorage.setItem('nollies_orders', JSON.stringify(updated));
                 });
 
-                setLoyaltyCoins(prev => prev + 50);
+                setLoyaltyCoins(prev => prev + 60);
 
-                let msg = `Sawubona Nollie's! Dynamic Order from ${customerName} (${customerPhone}):%0A%0A`;
+                let msg = `Sawubona Nollie's Living Organisation! Strategic Order from ${customerName} (${customerPhone}):%0A%0A`;
                 msg += `Preferred Contact: ${commPreference.toUpperCase()}%0A`;
                 msg += `Payment Gateway: ${paymentMethod}%0A`;
                 if (deliveryAddress) msg += `Address: ${deliveryAddress}%0A%0A`;
@@ -673,14 +670,14 @@
                 } else if (commPreference === 'sms') {
                     window.open(`sms:+27625873479?body=${decodeURIComponent(msg)}`, '_blank');
                 } else {
-                    alert(`Order Logged via ${paymentMethod}! Nollie's dispatch team will call you directly at ${customerPhone} to confirm delivery in eNanda.`);
+                    alert(`Order Logged via ${paymentMethod}! Nollie's strategic dispatch team will call you directly at ${customerPhone} to confirm delivery in eNanda.`);
                 }
             };
 
             const submitBooking = (e) => {
                 e.preventDefault();
                 if (!customerName.trim() || !customerPhone.trim()) {
-                    alert('Please enter your Name and Phone Number to confirm your appointment.');
+                    alert('Please enter your Name and Phone Number to confirm your strategic appointment.');
                     return;
                 }
 
@@ -700,12 +697,12 @@
                 })
                 .then(res => res.json())
                 .then(data => {
-                    showToast('📅 Service Appointment Transmitted!');
+                    showToast('📅 Strategic Appointment Transmitted!');
                     fetchBookings();
                     setBookingNotes('');
                 })
                 .catch(err => {
-                    showToast('📅 Appointment Synchronized Locally!');
+                    showToast('📅 Strategic Appointment Synchronized Locally!');
                 });
             };
 
@@ -718,33 +715,33 @@
             const totalRevenue = orders.reduce((sum, o) => sum + (o.total || 0), 0);
 
             const menuTabs = [
-                { id: 'home', label: '🏠 Home Hub', desc: 'Main dashboard & Durban banner' },
+                { id: 'home', label: '🌍 World Explorer Hub', desc: 'Living organisation global dashboard' },
                 { id: 'catalog', label: '🛍️ Marketplace Catalog', desc: 'Browse hampers, juices & perfumes' },
-                { id: 'posters', label: '🖼️ Flyers & Posters', desc: 'Official marketing media' },
+                { id: 'posters', label: '🖼️ Global Flyers & Posters', desc: 'Official marketing media' },
                 { id: 'builder', label: '✨ Hamper Builder', desc: 'Customize your own 5-item bundle' },
-                { id: 'ai-matcher', label: '🧠 AI Matcher', desc: 'Intelligent budget recommendation' },
-                { id: 'community', label: '💬 Community Board', desc: 'eNanda client announcements' },
-                { id: 'reviews', label: '⭐ Reviews & Quiz', desc: 'Feedback and loyalty coins' },
-                { id: 'booking', label: '📅 Booking Hub', desc: 'Schedule consultations & sampling' },
+                { id: 'ai-matcher', label: '🧠 AI Strategic Matcher', desc: 'Intelligent budget recommendation' },
+                { id: 'community', label: '💬 Global Community Board', desc: 'eNanda & world announcements' },
+                { id: 'reviews', label: '⭐ Reviews & Quiz', desc: 'Feedback and strategic coins' },
+                { id: 'booking', label: '📅 Strategic Consultations', desc: 'Schedule expert advice & sampling' },
                 { id: 'legal', label: '🇿🇦 SA Legal (POPIA)', desc: 'Consumer protection standards' },
-                { id: 'orders', label: '📦 Orders History', desc: 'Track dispatches & records' },
-                { id: 'admin', label: '🔐 Owner Console', desc: 'Analytics & database logs' }
+                { id: 'orders', label: '📦 Orders & Telemetry', desc: 'Track dispatches & records' },
+                { id: 'admin', label: '🔐 Director Console', desc: 'Analytics & global database logs' }
             ];
 
             const currentActiveTabObj = menuTabs.find(t => t.id === activeTab) || menuTabs[0];
 
             return (
                 <div className="min-h-screen relative cinematic-stage transition-all duration-700">
-                    <div className="h-1.5 bg-gradient-to-r from-white via-red-400 via-amber-300 via-emerald-400 via-sky-400 to-purple-400 w-full fixed top-0 z-50 shadow-[0_0_35px_rgba(255,255,255,1)]"></div>
+                    <div className="h-1.5 bg-gradient-to-r from-sky-400 via-emerald-400 via-amber-300 via-purple-400 via-pink-400 to-white w-full fixed top-0 z-50 shadow-[0_0_35px_rgba(56,189,248,1)]"></div>
 
-                    {/* DUAL STREAM MARQUEE */}
+                    {/* DUAL STREAM GLOBAL MARQUEE */}
                     <div className="bg-slate-950/95 border-b border-white/15 text-slate-200 text-xs py-1.5 shadow-inner overflow-hidden max-w-7xl mx-auto rounded-b-2xl mb-1 space-y-1">
                         <div className="marquee-container">
                             <div className="marquee-track flex space-x-12 font-mono font-bold">
                                 {LIVE_TICKER_ITEMS.concat(LIVE_TICKER_ITEMS).map((ticker, i) => (
                                     <span key={i} className="flex items-center gap-2">
-                                        <span className="w-2 h-2 rounded-full bg-white animate-ping"></span>
-                                        <span className="white-rainbow-animated-text">{ticker}</span>
+                                        <span className="w-2 h-2 rounded-full bg-sky-400 animate-ping"></span>
+                                        <span className="living-animated-text">{ticker}</span>
                                     </span>
                                 ))}
                             </div>
@@ -753,7 +750,7 @@
                             <div className="marquee-track-reverse flex space-x-12 font-mono text-[10px]">
                                 {REVERSE_TICKER_ITEMS.concat(REVERSE_TICKER_ITEMS).map((ticker, i) => (
                                     <span key={i} className="flex items-center gap-2 text-slate-300">
-                                        <span>✨</span>
+                                        <span>🌍</span>
                                         <span>{ticker}</span>
                                     </span>
                                 ))}
@@ -761,36 +758,36 @@
                         </div>
                     </div>
 
-                    {/* 2026 EXHILARATING RAINDROP MASTER MENU NAVIGATION BAR */}
-                    <header className="sticky top-3 z-40 rainbow-glass mx-4 sm:mx-10 px-4 sm:px-8 py-3.5 flex justify-between items-center rounded-3xl transition-all duration-500 shadow-2xl">
+                    {/* LIVING ORGANISATION WORLD NAVIGATION BAR */}
+                    <header className="sticky top-3 z-40 org-glass mx-4 sm:mx-10 px-4 sm:px-8 py-3.5 flex justify-between items-center rounded-3xl transition-all duration-500 shadow-2xl">
                         <div className="flex items-center space-x-3 cursor-pointer group" onClick={() => setActiveTab('home')}>
                             <div className="relative">
-                                <img src={NOLLIE_AVATAR} alt="Nollie" className="w-12 h-12 rounded-2xl object-cover border-2 border-white/70 shadow-lg group-hover:scale-110 transition-all duration-500" />
-                                <span className="absolute -bottom-1 -right-1 w-3.5 h-3.5 bg-white border-2 border-slate-950 rounded-full shadow-[0_0_12px_#ffffff] animate-pulse"></span>
+                                <img src={NOLLIE_AVATAR} alt="Nollie" className="w-12 h-12 rounded-2xl object-cover border-2 border-sky-400 shadow-lg group-hover:scale-110 transition-all duration-500" />
+                                <span className="absolute -bottom-1 -right-1 w-3.5 h-3.5 bg-emerald-400 border-2 border-slate-950 rounded-full shadow-[0_0_12px_#34d399] animate-pulse"></span>
                             </div>
                             <div>
                                 <h1 className="text-lg font-black tracking-wider text-white leading-none font-display uppercase flex items-center gap-1.5 group-hover:tracking-widest transition-all duration-300">
-                                    Nollie's <span className="text-[9px] bg-white/20 text-white px-1.5 py-0.5 rounded border border-white/40 font-mono">EXHILARATING 2026</span>
+                                    Nollie's Global <span className="text-[9px] bg-sky-500/20 text-sky-300 px-1.5 py-0.5 rounded border border-sky-400/40 font-mono">ORGANISATION</span>
                                 </h1>
-                                <span className="text-[10px] font-bold text-slate-300 tracking-widest uppercase">Raindrop 3D Durban Hub</span>
+                                <span className="text-[10px] font-bold text-slate-300 tracking-widest uppercase flex items-center gap-1"><span>🌍</span><span>Living World Explorer Hub</span></span>
                             </div>
                         </div>
                         
-                        {/* EXHILARATING RAINDROP 💧 MASTER MENU BUTTON */}
+                        {/* LIVING WORLD PILL MASTER MENU BUTTON */}
                         <div className="relative">
                             <button onClick={() => setIsMasterMenuOpen(!isMasterMenuOpen)} 
-                                    className="press-effect raindrop-pill raindrop-active px-8 py-4 text-xs font-black flex items-center space-x-3 shadow-2xl hover:scale-115 transition-all duration-500 pulse-glow-effect">
-                                <span className="text-base animate-bounce">💧</span>
-                                <span className="tracking-wider">EXHILARATING MENU: {currentActiveTabObj.label}</span>
+                                    className="press-effect world-pill world-pill-active px-8 py-4 text-xs font-black flex items-center space-x-3 shadow-2xl hover:scale-115 transition-all duration-500 globe-pulse">
+                                <span className="text-base animate-spin">🌍</span>
+                                <span className="tracking-wider">STRATEGIC MENU: {currentActiveTabObj.label}</span>
                                 <span className={`transform transition-transform duration-300 ${isMasterMenuOpen ? 'rotate-180' : ''}`}>▼</span>
                             </button>
 
-                            {/* EXHILARATING RAINDROP DROPDOWN MODAL WITH STAGGERED DROP PHYSICS */}
+                            {/* LIVING WORLD DROPDOWN MODAL WITH STAGGERED PHYSICS */}
                             {isMasterMenuOpen && (
-                                <div className="absolute right-0 mt-3 w-80 sm:w-96 rainbow-glass rounded-3xl border border-white/40 p-4 shadow-2xl z-50 animate-fade-in space-y-2">
+                                <div className="absolute right-0 mt-3 w-80 sm:w-96 org-glass rounded-3xl border border-white/40 p-4 shadow-2xl z-50 animate-fade-in space-y-2">
                                     <div className="px-3 py-2 border-b border-white/20 flex justify-between items-center">
-                                        <span className="text-[10px] font-mono font-bold text-slate-300 uppercase tracking-wider flex items-center gap-1.5">
-                                            <span>💧</span><span>Exhilarating Raindrop Directory</span>
+                                        <span className="text-[10px] font-mono font-bold text-sky-300 uppercase tracking-wider flex items-center gap-1.5">
+                                            <span>🌍</span><span>Living Organisation Directory</span>
                                         </span>
                                         <button onClick={()=>setIsMasterMenuOpen(false)} className="text-slate-400 hover:text-white text-base font-bold">&times;</button>
                                     </div>
@@ -800,10 +797,10 @@
                                                 if(tab.id==='orders' || tab.id==='admin'){ fetchOrders(); fetchBookings(); } 
                                                 setActiveTab(tab.id); 
                                                 setIsMasterMenuOpen(false); 
-                                            }} className={`w-full text-left px-4 py-3 raindrop-pill flex flex-col space-y-1 ${activeTab === tab.id ? 'raindrop-active scale-[1.04]' : 'hover:scale-[1.03]'}`}>
+                                            }} className={`w-full text-left px-4 py-3 world-pill flex flex-col space-y-1 ${activeTab === tab.id ? 'world-pill-active scale-[1.04]' : 'hover:scale-[1.03]'}`}>
                                                 <div className="flex justify-between items-center">
                                                     <span className="text-xs font-black font-display">{tab.label}</span>
-                                                    <span className="text-[10px] font-mono opacity-80">💧 Drop</span>
+                                                    <span className="text-[10px] font-mono opacity-80">🌍 Node</span>
                                                 </div>
                                                 <span className={`text-[10px] opacity-90 ${activeTab === tab.id ? 'text-slate-950 font-bold' : 'text-slate-300'}`}>{tab.desc}</span>
                                             </button>
@@ -814,8 +811,8 @@
                         </div>
 
                         <div className="flex items-center space-x-2.5">
-                            {/* LOYALTY REWARDS BADGE */}
-                            <div className="hidden sm:flex items-center space-x-1.5 bg-amber-500/20 border border-amber-400/40 px-3 py-2 rounded-2xl text-[11px] font-mono font-bold text-amber-300 shadow-sm floating-badge">
+                            {/* STRATEGIC REWARDS COINS */}
+                            <div className="hidden sm:flex items-center space-x-1.5 bg-amber-500/20 border border-amber-400/40 px-3 py-2 rounded-2xl text-[11px] font-mono font-bold text-amber-300 shadow-sm">
                                 <span>🪙</span>
                                 <span>{loyaltyCoins} Coins</span>
                             </div>
@@ -830,7 +827,7 @@
                                 <span className="hidden sm:inline">APK</span>
                             </button>
 
-                            <button onClick={() => setIsCartOpen(true)} className="press-effect relative flex items-center space-x-2 white-rainbow-btn text-xs font-black px-5 py-2.5 rounded-2xl shadow hover:scale-105 transition-all duration-300">
+                            <button onClick={() => setIsCartOpen(true)} className="press-effect relative flex items-center space-x-2 org-btn text-xs font-black px-5 py-2.5 rounded-2xl shadow hover:scale-105 transition-all duration-300">
                                 <span>🛒 Cart</span>
                                 <span className="bg-slate-950 text-white border border-white/60 text-[11px] rounded-full h-5 w-5 flex items-center justify-center font-black animate-bounce">{cart.length}</span>
                             </button>
@@ -840,44 +837,44 @@
                     <main className="max-w-6xl mx-auto px-4 mt-8 space-y-10 transition-all duration-700">
                         {activeTab === 'home' && (
                             <section className="space-y-10 animate-fade-in cinematic-stage">
-                                {/* 2026 EXHILARATING 3D HERO BANNER */}
-                                <div className="relative overflow-hidden rounded-3xl border border-white/30 shadow-2xl rainbow-glass cinematic-card-3d">
+                                {/* WORLD EXPLORER LIVING HERO BANNER */}
+                                <div className="relative overflow-hidden rounded-3xl border border-white/30 shadow-2xl org-glass org-card-3d">
                                     <div className="absolute inset-0 z-0">
-                                        <img src={DURBAN_BANNER} alt="Durban Hub" className="w-full h-full object-cover opacity-30 filter brightness-75 scale-110 transition-transform duration-1000 hover:scale-125" />
+                                        <img src={WORLD_MAP_BANNER} alt="Global Explorer" className="w-full h-full object-cover opacity-35 filter brightness-75 scale-110 transition-transform duration-1000 hover:scale-125" />
                                         <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/80 to-transparent"></div>
                                     </div>
                                     
                                     <div className="relative z-10 p-8 sm:p-14 flex flex-col lg:flex-row items-center justify-between gap-10">
                                         <div className="space-y-6 max-w-xl">
-                                            <div className="inline-flex items-center space-x-2 bg-slate-950/90 px-4 py-1.5 rounded-full border border-white/30 text-xs font-mono text-white shadow-sm floating-badge">
-                                               <span>💧 Exhilarating 2026 Raindrop Experience • Durban, KZN</span>
+                                            <div className="inline-flex items-center space-x-2 bg-slate-950/90 px-4 py-1.5 rounded-full border border-sky-400/40 text-xs font-mono text-sky-300 shadow-sm">
+                                               <span>🌍 Living Organisation Explorer • Global Supply Chain & Local KZN HQ</span>
                                             </div>
-                                            <h2 className="text-3xl sm:text-5xl font-black tracking-tight white-rainbow-animated-text leading-tight font-display">
+                                            <h2 className="text-3xl sm:text-5xl font-black tracking-tight living-animated-text leading-tight font-display">
                                                 {dynamicGreeting}
                                             </h2>
                                             <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-medium">
-                                                Welcome to the pinnacle of digital commerce. Serving eNanda and greater Durban with exhilarating raindrop tab navigation, 3D product visualization, top-grade cereal hampers, bulk groceries, and luxury M-Scents fragrances with flat R30 delivery!
+                                                Welcome to Nollie's Living Organisation. Operating as a premier strategic tool navigating global markets, eNanda, and Durban with immersive 3D AR product visualization, cereal hampers, bulk essentials, and luxury M-Scents fragrances backed by flat R30 delivery!
                                             </p>
                                             <div className="flex flex-wrap gap-3 pt-2">
-                                                <button onClick={() => setActiveTab('catalog')} className="press-effect white-rainbow-btn font-extrabold py-3.5 px-7 rounded-2xl text-xs shadow-lg hover:scale-105 transition-all duration-300">Browse 3D Catalog 🛍️</button>
-                                                <button onClick={() => setIsMasterMenuOpen(true)} className="press-effect raindrop-pill px-6 py-3.5 text-xs font-bold text-white shadow hover:scale-105 transition-all duration-300 flex items-center space-x-2">
-                                                    <span>💧 Open Exhilarating Menu</span>
+                                                <button onClick={() => setActiveTab('catalog')} className="press-effect org-btn font-extrabold py-3.5 px-7 rounded-2xl text-xs shadow-lg hover:scale-105 transition-all duration-300">Explore 3D Marketplace 🛍️</button>
+                                                <button onClick={() => setIsMasterMenuOpen(true)} className="press-effect world-pill px-6 py-3.5 text-xs font-bold text-white shadow hover:scale-105 transition-all duration-300 flex items-center space-x-2">
+                                                    <span>🌍 Open Strategic Menu</span>
                                                 </button>
                                             </div>
                                         </div>
                                         
-                                        <div className="w-full lg:w-80 bg-slate-950/85 p-6 rounded-3xl border border-white/25 shadow-2xl space-y-4 text-center z-10 rainbow-card-hover">
-                                            <div className="relative w-28 h-28 mx-auto rounded-3xl overflow-hidden border-2 border-white/70 shadow-md">
-                                                <img src={NOLLIE_AVATAR} alt="Nollie Representative" className="w-full h-full object-cover transition-transform duration-500 hover:scale-110" />
+                                        <div className="w-full lg:w-80 bg-slate-950/85 p-6 rounded-3xl border border-white/25 shadow-2xl space-y-4 text-center z-10 org-card-hover">
+                                            <div className="relative w-28 h-28 mx-auto rounded-3xl overflow-hidden border-2 border-sky-400 shadow-md">
+                                                <img src={NOLLIE_AVATAR} alt="Banele Gumbi" className="w-full h-full object-cover transition-transform duration-500 hover:scale-110" />
                                             </div>
                                             <div>
-                                                <h3 className="text-base font-black text-white font-display">Banele (Nollie) Gumbi</h3>
-                                                <p className="text-[11px] text-white font-mono font-bold">eNanda Founder & Director</p>
+                                                <h3 className="text-base font-black text-white font-display">Banele Gumbi</h3>
+                                                <p className="text-[11px] text-sky-400 font-mono font-bold">Managing Director & Founder</p>
                                             </div>
                                             <div className="space-y-2 text-[11px] bg-slate-900/90 p-3 rounded-2xl border border-white/15 text-slate-300 font-mono">
-                                                <div className="flex justify-between"><span>Base:</span><strong className="text-white">Durban, KZN</strong></div>
-                                                <div className="flex justify-between"><span>App Package:</span><strong className="text-emerald-400">Android APK Ready ⚡</strong></div>
-                                                <div className="flex justify-between"><span>Loyalty Rewards:</span><strong className="text-amber-400">{loyaltyCoins} Coins 🪙</strong></div>
+                                                <div className="flex justify-between"><span>Base HQ:</span><strong className="text-white">Durban, South Africa</strong></div>
+                                                <div className="flex justify-between"><span>Global Status:</span><strong className="text-emerald-400">Organisation Online 🌐</strong></div>
+                                                <div className="flex justify-between"><span>Strategic Coins:</span><strong className="text-amber-400">{loyaltyCoins} Coins 🪙</strong></div>
                                             </div>
                                             <a href="https://www.linkedin.com/in/banele-gumbi-65338936b?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" rel="noopener noreferrer" className="press-effect block w-full bg-blue-600/30 hover:bg-blue-600/50 border border-blue-400/50 text-blue-300 font-extrabold py-2.5 rounded-xl text-xs shadow transition-all duration-300 hover:scale-105">
                                                 View Professional Profile 💼
@@ -886,15 +883,37 @@
                                     </div>
                                 </div>
 
+                                {/* GLOBAL EXPLORATION REGIONS TELEMETRY */}
+                                <div className="space-y-4">
+                                    <div className="flex justify-between items-center px-1">
+                                        <h3 className="text-xl font-black text-white font-display flex items-center gap-2"><span>🌐</span><span>Live Global Organisation Nodes & Telemetry</span></h3>
+                                        <span className="text-xs text-sky-400 font-mono font-bold">Live Status Active</span>
+                                    </div>
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                                        {GLOBAL_REGIONS.map((reg) => (
+                                            <div key={reg.id} className="org-glass rounded-3xl border border-white/20 p-5 space-y-3 org-card-hover org-card-3d">
+                                                <div className="flex justify-between items-center">
+                                                    <span className="text-[10px] font-mono font-bold text-sky-300 bg-sky-950/80 px-2.5 py-1 rounded-full border border-sky-400/30">{reg.status}</span>
+                                                    <span className="text-[10px] font-mono text-emerald-400 flex items-center gap-1"><span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>{reg.ping}</span>
+                                                </div>
+                                                <div>
+                                                    <h4 className="font-black text-white text-sm font-display">{reg.name}</h4>
+                                                    <p className="text-[11px] text-slate-400 mt-1 font-mono">{reg.metrics}</p>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+
                                 {/* STRATEGIC PROMOTIONAL POSTERS BANNER PREVIEW */}
                                 <div className="space-y-4">
                                     <div className="flex justify-between items-center px-1">
-                                        <h3 className="text-xl font-black text-white font-display flex items-center gap-2"><span>🖼️</span><span>Official Promotional Posters & Flyers</span></h3>
+                                        <h3 className="text-xl font-black text-white font-display flex items-center gap-2"><span>🖼️</span><span>Official Global Marketing Posters & Flyers</span></h3>
                                         <button onClick={()=>setActiveTab('posters')} className="text-xs text-slate-300 hover:text-white font-bold font-mono transition-colors">View All Posters →</button>
                                     </div>
                                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
                                         {PROMO_FLYERS.map((f) => (
-                                            <div key={f.id} onClick={()=>setActivePoster(f)} className="rainbow-glass rounded-3xl border border-white/20 p-4 space-y-3 cursor-pointer rainbow-card-hover group cinematic-card-3d">
+                                            <div key={f.id} onClick={()=>setActivePoster(f)} className="org-glass rounded-3xl border border-white/20 p-4 space-y-3 cursor-pointer org-card-hover group org-card-3d">
                                                 <div className="h-44 rounded-2xl overflow-hidden relative bg-slate-950 border border-white/10">
                                                     <img src={f.img} alt={f.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"/>
                                                     <span className="absolute top-2.5 left-2.5 bg-slate-950/90 border border-white/40 text-white font-mono text-[9px] font-black px-2.5 py-1 rounded-full uppercase shadow">{f.badge}</span>
@@ -909,12 +928,12 @@
                                 </div>
 
                                 {/* FLASH DEALS BANNER */}
-                                <div className="rainbow-glass border border-white/30 p-6 sm:p-8 rounded-3xl shadow-2xl flex flex-col md:flex-row justify-between items-center gap-6 pulse-glow-effect">
+                                <div className="org-glass border border-white/35 p-6 sm:p-8 rounded-3xl shadow-2xl flex flex-col md:flex-row justify-between items-center gap-6 globe-pulse">
                                     <div className="flex items-center gap-4">
                                         <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=150&q=80" alt="Flash Deal" className="w-20 h-20 rounded-2xl object-cover border border-white/30 hidden sm:block shadow-md transition-transform duration-500 hover:scale-105"/>
                                         <div className="space-y-1 text-center md:text-left">
-                                            <span className="bg-red-500/20 text-red-300 border border-red-500/40 text-[10px] font-mono px-3 py-1 rounded-full uppercase font-bold">⚡ Limited Time Flash Deal</span>
-                                            <h3 className="text-xl sm:text-2xl font-black text-white font-display">Family Bulk Grocery Hamper Combo</h3>
+                                            <span className="bg-red-500/20 text-red-300 border border-red-500/40 text-[10px] font-mono px-3 py-1 rounded-full uppercase font-bold">⚡ Strategic Flash Deal</span>
+                                            <h3 className="text-xl sm:text-2xl font-black text-white font-display">International Family Bulk Grocery Hamper Combo</h3>
                                             <p className="text-xs text-slate-300">Get an extra R30 off automatically with flat R30 delivery across eNanda & Durban!</p>
                                         </div>
                                     </div>
@@ -922,14 +941,14 @@
                                         <div className="bg-slate-950 px-5 py-2.5 rounded-2xl border border-white/20 text-white font-mono font-black text-sm tracking-widest shadow-inner">
                                             ⏳ {formatTime(timeLeft)}
                                         </div>
-                                        <button onClick={() => addToCart('Family Bulk Grocery Hamper', 380)} className="press-effect white-rainbow-btn text-slate-950 text-xs font-black px-6 py-3 rounded-xl shadow-lg transition-all duration-300 hover:scale-105">Claim Flash Deal R380 🛒</button>
+                                        <button onClick={() => addToCart('Family Bulk Grocery Hamper', 380)} className="press-effect org-btn text-slate-950 text-xs font-black px-6 py-3 rounded-xl shadow-lg transition-all duration-300 hover:scale-105">Claim Flash Deal R380 🛒</button>
                                     </div>
                                 </div>
 
-                                <div id="track-section" className="rainbow-glass border border-white/25 p-6 sm:p-8 rounded-3xl shadow-xl space-y-4">
+                                <div id="track-section" className="org-glass border border-white/25 p-6 sm:p-8 rounded-3xl shadow-xl space-y-4">
                                     <div className="flex justify-between items-center">
-                                        <h3 className="text-lg font-black text-white font-display flex items-center gap-2"><span>🔍</span><span>Quick Order Tracker (Durban Dispatch)</span></h3>
-                                        <span className="text-[10px] bg-white/20 text-white px-2.5 py-1 rounded-full font-mono">Instant Live Check</span>
+                                        <h3 className="text-lg font-black text-white font-display flex items-center gap-2"><span>🔍</span><span>Quick Strategic Order Tracker (Durban Dispatch)</span></h3>
+                                        <span className="text-[10px] bg-sky-500/20 text-sky-300 px-2.5 py-1 rounded-full font-mono">Live Telemetry</span>
                                     </div>
                                     <form onSubmit={handleQuickTrack} className="flex gap-3">
                                         <input type="text" value={quickTrackId} onChange={(e)=>setQuickTrackId(e.target.value)} placeholder="Enter Order ID (e.g. 1)" 
@@ -947,15 +966,15 @@
 
                         {activeTab === 'posters' && (
                             <section className="space-y-8 animate-fade-in">
-                                <div className="rainbow-glass border border-white/25 p-6 sm:p-12 rounded-3xl shadow-xl space-y-6">
+                                <div className="org-glass border border-white/25 p-6 sm:p-12 rounded-3xl shadow-xl space-y-6">
                                     <div className="border-b border-white/20 pb-4">
-                                        <h3 className="text-2xl font-black white-rainbow-animated-text font-display">🖼️ Strategic Marketing Flyers & Showcase Posters</h3>
-                                        <p className="text-xs text-slate-400 mt-1">High-resolution promotional material designed for community distribution and social sharing across Durban & eNanda.</p>
+                                        <h3 className="text-2xl font-black living-animated-text font-display">🖼️ Strategic Marketing Flyers & Global Posters</h3>
+                                        <p className="text-xs text-slate-400 mt-1">High-resolution promotional material designed for community distribution and international social sharing across Durban & eNanda.</p>
                                     </div>
 
                                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                                         {PROMO_FLYERS.map((flyer) => (
-                                            <div key={flyer.id} className="rainbow-glass rounded-3xl border border-white/25 p-5 space-y-4 shadow-2xl flex flex-col justify-between rainbow-card-hover cinematic-card-3d">
+                                            <div key={flyer.id} className="org-glass rounded-3xl border border-white/25 p-5 space-y-4 shadow-2xl flex flex-col justify-between org-card-hover org-card-3d">
                                                 <div className="space-y-3">
                                                     <div className="h-64 rounded-2xl overflow-hidden relative bg-slate-950 border border-white/20">
                                                         <img src={flyer.img} alt={flyer.title} className="w-full h-full object-cover transition-transform duration-700 hover:scale-110"/>
@@ -966,7 +985,7 @@
                                                 </div>
                                                 <div className="pt-3 border-t border-white/15 flex justify-between items-center">
                                                     <span className="text-sm font-black text-white font-mono">{flyer.price}</span>
-                                                    <button onClick={()=>setActivePoster(flyer)} className="press-effect white-rainbow-btn text-slate-950 text-xs font-black px-4 py-2.5 rounded-xl shadow transition-all duration-300 hover:scale-105">Inspect Flyer 🔍</button>
+                                                    <button onClick={()=>setActivePoster(flyer)} className="press-effect org-btn text-slate-950 text-xs font-black px-4 py-2.5 rounded-xl shadow transition-all duration-300 hover:scale-105">Inspect Flyer 🔍</button>
                                                 </div>
                                             </div>
                                         ))}
@@ -977,21 +996,21 @@
 
                         {activeTab === 'catalog' && (
                             <div id="shop-section" className="space-y-6 animate-fade-in">
-                                <div className="rainbow-glass border border-white/20 p-6 rounded-3xl shadow-xl flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                                <div className="org-glass border border-white/20 p-6 rounded-3xl shadow-xl flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                                     <div>
-                                        <h3 className="text-2xl font-black white-rainbow-animated-text font-display">Coastal Marketplace Catalog</h3>
+                                        <h3 className="text-2xl font-black living-animated-text font-display">Global Marketplace Catalog</h3>
                                         <p className="text-xs text-slate-400">Explore expanded wholesale stock, cereal hampers, bulk essentials, and luxury fragrances. Tap any item for 3D AR View!</p>
                                     </div>
-                                    <input type="text" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder="🔍 Search Durban marketplace..." 
+                                    <input type="text" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder="🔍 Search global marketplace..." 
                                            className="w-full sm:w-80 px-4 py-3 rounded-2xl border border-white/35 bg-slate-950/90 text-white placeholder-slate-400 text-xs outline-none focus:border-white focus:ring-2 focus:ring-white/20 transition-all"/>
                                 </div>
                                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                                     {filteredProducts.map((p) => (
-                                        <div key={p.id} className="rainbow-glass rounded-3xl border border-white/15 shadow-xl overflow-hidden flex flex-col justify-between rainbow-card-hover cinematic-card-3d">
+                                        <div key={p.id} className="org-glass rounded-3xl border border-white/15 shadow-xl overflow-hidden flex flex-col justify-between org-card-hover org-card-3d">
                                             <div onClick={() => setActiveModalProduct(p)} className="cursor-pointer">
                                                 <div className="h-48 overflow-hidden relative bg-slate-950 flex items-center justify-center">
                                                     <img src={p.img} alt={p.title} className="w-full h-full object-cover hover:scale-110 transition-transform duration-700 opacity-95 hover:opacity-100" onError={(e)=>{e.target.onerror=null; e.target.src=FALLBACK_SVG;}}/>
-                                                    <span className="absolute top-3 left-3 z-10 white-rainbow-btn text-slate-950 text-[10px] font-black px-3 py-1 rounded-full uppercase shadow-md tracking-wider font-mono">{p.badge}</span>
+                                                    <span className="absolute top-3 left-3 z-10 org-btn text-slate-950 text-[10px] font-black px-3 py-1 rounded-full uppercase shadow-md tracking-wider font-mono">{p.badge}</span>
                                                     <button onClick={(e) => { e.stopPropagation(); setArProduct(p); setArZoom(1); setArRotation(0); }} className="absolute bottom-3 right-3 bg-slate-950/90 border border-white/50 text-white text-[10px] font-mono font-black px-3 py-1.5 rounded-xl shadow-lg hover:bg-white hover:text-slate-950 transition-all duration-300 hover:scale-105 flex items-center gap-1.5">
                                                         <span>🌐</span><span>3D / AR View</span>
                                                     </button>
@@ -1003,7 +1022,7 @@
                                             </div>
                                             <div className="p-5 pt-0 flex justify-between items-center">
                                                 <span className="text-lg font-black text-white font-mono">R {p.price.toFixed(2)}</span>
-                                                <button onClick={() => addToCart(p.title, p.price)} className="press-effect white-rainbow-btn text-slate-950 text-xs font-black px-4 py-2.5 rounded-xl shadow hover:scale-105 transition-all duration-300">+ Add</button>
+                                                <button onClick={() => addToCart(p.title, p.price)} className="press-effect org-btn text-slate-950 text-xs font-black px-4 py-2.5 rounded-xl shadow hover:scale-105 transition-all duration-300">+ Add</button>
                                             </div>
                                         </div>
                                     ))}
@@ -1012,10 +1031,10 @@
                         )}
 
                         {activeTab === 'builder' && (
-                            <section className="rainbow-glass border border-white/25 p-6 sm:p-12 rounded-3xl shadow-xl space-y-6 animate-fade-in">
+                            <section className="org-glass border border-white/25 p-6 sm:p-12 rounded-3xl shadow-xl space-y-6 animate-fade-in">
                                 <div className="max-w-xl space-y-2">
-                                    <h3 className="text-2xl font-black white-rainbow-animated-text font-display">✨ Build Custom Cereal Hamper</h3>
-                                    <p className="text-xs sm:text-sm text-slate-300">Choose <strong className="text-white">5 preferred items</strong> to assemble your custom bundle for <strong className="text-white">R250.00</strong>!</p>
+                                    <h3 className="text-2xl font-black living-animated-text font-display">✨ Build Custom Global Cereal Hamper</h3>
+                                    <p className="text-xs sm:text-sm text-slate-300">Choose <strong className="text-white">5 preferred items</strong> to assemble your custom global bundle for <strong className="text-white">R250.00</strong>!</p>
                                 </div>
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 text-xs">
                                     {HAMPER_OPTIONS.map((item) => (
@@ -1033,16 +1052,16 @@
                                         <div className="text-xs text-slate-400">Selected Slots: <span className="font-extrabold text-white text-sm font-mono">{selectedHamperItems.length} / 5</span></div>
                                         <div className="text-2xl font-black text-white font-mono">R 250.00</div>
                                     </div>
-                                    <button onClick={addCustomHamper} className="press-effect white-rainbow-btn text-slate-950 font-black px-8 py-4 rounded-2xl text-xs shadow-xl w-full sm:w-auto hover:scale-105 transition-all duration-300">Add Custom Hamper 🛒</button>
+                                    <button onClick={addCustomHamper} className="press-effect org-btn text-slate-950 font-black px-8 py-4 rounded-2xl text-xs shadow-xl w-full sm:w-auto hover:scale-105 transition-all duration-300">Add Custom Hamper 🛒</button>
                                 </div>
                             </section>
                         )}
 
                         {activeTab === 'ai-matcher' && (
-                            <section className="rainbow-glass border border-white/25 p-6 sm:p-12 rounded-3xl shadow-xl space-y-8 animate-fade-in">
+                            <section className="org-glass border border-white/25 p-6 sm:p-12 rounded-3xl shadow-xl space-y-8 animate-fade-in">
                                 <div>
-                                    <h3 className="text-2xl font-black white-rainbow-animated-text font-display">🧠 AI Smart Budget & Product Matcher</h3>
-                                    <p className="text-xs sm:text-slate-300 mt-1">Tell our intelligent recommendation engine your budget and category, and we will find the absolute best Durban wholesale match instantly!</p>
+                                    <h3 className="text-2xl font-black living-animated-text font-display">🧠 AI Strategic Budget & Product Matcher</h3>
+                                    <p className="text-xs sm:text-slate-300 mt-1">Tell our intelligent strategic organisation engine your budget and category, and we will find the absolute best Durban wholesale match instantly!</p>
                                 </div>
 
                                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -1066,8 +1085,8 @@
                                                 <option value="perfume">M-Scents Perfumes</option>
                                             </select>
                                         </div>
-                                        <button onClick={runAiMatcher} className="press-effect w-full white-rainbow-btn text-slate-950 font-extrabold py-4 rounded-xl text-xs shadow-xl transition-all duration-300 hover:scale-[1.01]">
-                                            Run AI Recommendation Match 🧠
+                                        <button onClick={runAiMatcher} className="press-effect w-full org-btn text-slate-950 font-extrabold py-4 rounded-xl text-xs shadow-xl transition-all duration-300 hover:scale-[1.01]">
+                                            Run Strategic AI Recommendation Match 🧠
                                         </button>
                                     </div>
 
@@ -1075,16 +1094,16 @@
                                         {matchedResult ? (
                                             <div className="space-y-3 animate-fade-in">
                                                 <img src={matchedResult.img} alt={matchedResult.title} className="w-32 h-32 object-cover rounded-2xl mx-auto border border-white/30 shadow-lg transition-transform hover:scale-105"/>
-                                                <span className="bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-[10px] font-mono px-3 py-1 rounded-full uppercase font-bold">✨ Perfect AI Match Found</span>
+                                                <span className="bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-[10px] font-mono px-3 py-1 rounded-full uppercase font-bold">✨ Perfect Strategic Match Found</span>
                                                 <h4 className="text-lg font-black text-white font-display">{matchedResult.title}</h4>
                                                 <p className="text-xs text-slate-300 max-w-sm">{matchedResult.desc}</p>
                                                 <div className="text-xl font-black text-white font-mono">R {matchedResult.price.toFixed(2)}</div>
-                                                <button onClick={() => addToCart(matchedResult.title, matchedResult.price)} className="press-effect white-rainbow-btn text-slate-950 text-xs font-black px-6 py-3 rounded-xl shadow transition-all duration-300 hover:scale-105">Add Match to Cart 🛒</button>
+                                                <button onClick={() => addToCart(matchedResult.title, matchedResult.price)} className="press-effect org-btn text-slate-950 text-xs font-black px-6 py-3 rounded-xl shadow transition-all duration-300 hover:scale-105">Add Match to Cart 🛒</button>
                                             </div>
                                         ) : (
                                             <div className="space-y-2 text-slate-400">
                                                 <div className="text-3xl">🤖</div>
-                                                <p className="text-xs">Configure your budget on the left and click run to let our AI match your ideal Durban grocery or fragrance pack.</p>
+                                                <p className="text-xs">Configure your budget on the left and click run to let our strategic AI match your ideal Durban grocery or fragrance pack.</p>
                                             </div>
                                         )}
                                     </div>
@@ -1093,10 +1112,10 @@
                         )}
 
                         {activeTab === 'community' && (
-                            <section className="rainbow-glass border border-white/25 p-6 sm:p-12 rounded-3xl shadow-xl space-y-8 animate-fade-in">
+                            <section className="org-glass border border-white/25 p-6 sm:p-12 rounded-3xl shadow-xl space-y-8 animate-fade-in">
                                 <div>
-                                    <h3 className="text-2xl font-black white-rainbow-animated-text font-display">💬 eNanda & Durban Community Bulletin Board</h3>
-                                    <p className="text-xs text-slate-400 mt-1">Connect with other entrepreneurs, students, and community members in KZN.</p>
+                                    <h3 className="text-2xl font-black living-animated-text font-display">💬 eNanda & Global Community Bulletin Board</h3>
+                                    <p className="text-xs text-slate-400 mt-1">Connect with other entrepreneurs, students, and community members across KZN and our global network.</p>
                                 </div>
 
                                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -1110,14 +1129,14 @@
                                             <label className="text-slate-400 block mb-1">Message / Request *</label>
                                             <textarea required rows="3" value={newPostMsg} onChange={(e)=>setNewPostMsg(e.target.value)} placeholder="Share an announcement or request..." className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white outline-none focus:border-white transition-all"></textarea>
                                         </div>
-                                        <button type="submit" className="press-effect w-full white-rainbow-btn text-slate-950 font-extrabold py-3 rounded-xl shadow-lg transition-all duration-300 hover:scale-[1.01]">Post Message 💬</button>
+                                        <button type="submit" className="press-effect w-full org-btn text-slate-950 font-extrabold py-3 rounded-xl shadow-lg transition-all duration-300 hover:scale-[1.01]">Post Message 💬</button>
                                     </form>
 
                                     <div className="lg:col-span-2 space-y-4">
-                                        <h4 className="text-sm font-extrabold text-white font-display">📢 Live Community Stream</h4>
+                                        <h4 className="text-sm font-extrabold text-white font-display">📢 Live Global Community Stream</h4>
                                         <div className="space-y-3">
                                             {communityPosts.map((post) => (
-                                                <div key={post.id} className="bg-slate-950/90 p-5 rounded-3xl border border-white/15 space-y-2 rainbow-card-hover text-xs flex items-start space-x-4">
+                                                <div key={post.id} className="bg-slate-950/90 p-5 rounded-3xl border border-white/15 space-y-2 org-card-hover text-xs flex items-start space-x-4">
                                                     <img src={post.avatar} alt={post.author} className="w-10 h-10 rounded-full object-cover border border-white/30 flex-shrink-0 transition-transform hover:scale-105"/>
                                                     <div className="flex-1">
                                                         <div className="flex justify-between items-center">
@@ -1136,13 +1155,13 @@
 
                         {activeTab === 'reviews' && (
                             <section className="space-y-8 animate-fade-in">
-                                <div className="rainbow-glass border border-white/25 p-6 sm:p-12 rounded-3xl shadow-xl space-y-6">
+                                <div className="org-glass border border-white/25 p-6 sm:p-12 rounded-3xl shadow-xl space-y-6">
                                     <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-white/20 pb-4">
                                         <div>
-                                            <h3 className="text-2xl font-black white-rainbow-animated-text font-display">⭐ Customer Reviews & Feedback Hub</h3>
-                                            <p className="text-xs text-slate-400">Read what Durban and eNanda clients say or leave your own review (+25 Bonus Coins)!</p>
+                                            <h3 className="text-2xl font-black living-animated-text font-display">⭐ Customer Reviews & Strategic Feedback Hub</h3>
+                                            <p className="text-xs text-slate-400">Read what Durban and global clients say or leave your own review (+30 Bonus Coins)!</p>
                                         </div>
-                                        <div className="flex items-center space-x-2 bg-slate-950 px-4 py-2 rounded-2xl border border-white/20 font-mono text-xs text-emerald-400 floating-badge">
+                                        <div className="flex items-center space-x-2 bg-slate-950 px-4 py-2 rounded-2xl border border-white/20 font-mono text-xs text-emerald-400">
                                             <span>⭐ 5.0 / 5.0 Average Rating</span>
                                         </div>
                                     </div>
@@ -1167,15 +1186,15 @@
                                                     <label className="text-slate-400 block mb-1">Review Comment *</label>
                                                     <textarea required rows="3" value={newReviewComment} onChange={(e)=>setNewReviewComment(e.target.value)} placeholder="Share your experience..." className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white outline-none focus:border-white transition-all"></textarea>
                                                 </div>
-                                                <button type="submit" className="press-effect w-full white-rainbow-btn text-slate-950 font-extrabold py-3 rounded-xl text-xs shadow-lg transition-all duration-300 hover:scale-[1.01]">Publish Review ⭐</button>
+                                                <button type="submit" className="press-effect w-full org-btn text-slate-950 font-extrabold py-3 rounded-xl text-xs shadow-lg transition-all duration-300 hover:scale-[1.01]">Publish Review ⭐</button>
                                             </form>
                                         </div>
 
                                         <div className="lg:col-span-2 space-y-4">
-                                            <h4 className="text-sm font-extrabold text-white font-display">💬 Verified Customer Experiences</h4>
+                                            <h4 className="text-sm font-extrabold text-white font-display">💬 Verified Organisation Experiences</h4>
                                             <div className="space-y-3">
                                                 {reviews.map((rev) => (
-                                                    <div key={rev.id} className="bg-slate-950/90 p-5 rounded-3xl border border-white/15 space-y-2 rainbow-card-hover flex items-start space-x-4">
+                                                    <div key={rev.id} className="bg-slate-950/90 p-5 rounded-3xl border border-white/15 space-y-2 org-card-hover flex items-start space-x-4">
                                                         <img src={rev.avatar} alt={rev.name} className="w-10 h-10 rounded-full object-cover border border-white/30 flex-shrink-0 transition-transform hover:scale-105"/>
                                                         <div className="flex-1">
                                                             <div className="flex justify-between items-center">
@@ -1193,17 +1212,17 @@
                                 </div>
 
                                 {/* QUESTIONNAIRE SECTION */}
-                                <div className="rainbow-glass border border-white/25 p-6 sm:p-12 rounded-3xl shadow-xl space-y-6">
+                                <div className="org-glass border border-white/25 p-6 sm:p-12 rounded-3xl shadow-xl space-y-6">
                                     <div className="border-b border-white/20 pb-4">
-                                        <h3 className="text-2xl font-black white-rainbow-animated-text font-display">📋 Customer Preference Questionnaire</h3>
-                                        <p className="text-xs text-slate-400">Help us improve Nollie's Durban Hub services and instantly receive <strong className="text-white">+50 Coins</strong> & promo code <strong className="text-white">NOLLIE10</strong> for 10% off!</p>
+                                        <h3 className="text-2xl font-black living-animated-text font-display">📋 Strategic Preference Questionnaire</h3>
+                                        <p className="text-xs text-slate-400">Help us improve Nollie's Living Organisation and instantly receive <strong className="text-white">+60 Coins</strong> & promo code <strong className="text-white">NOLLIE10</strong> for 10% off!</p>
                                     </div>
 
                                     {questionnaireSubmitted ? (
                                         <div className="bg-slate-950/95 p-8 rounded-3xl border border-white/30 text-center space-y-3 animate-fade-in">
                                             <div className="text-3xl">🎉</div>
-                                            <h4 className="text-base font-extrabold text-white font-display">Thank you for your feedback!</h4>
-                                            <p className="text-xs text-slate-300">+50 Coins added to your loyalty wallet. Use promo code <strong className="text-white font-mono">NOLLIE10</strong> at checkout for 10% off.</p>
+                                            <h4 className="text-base font-extrabold text-white font-display">Thank you for your strategic feedback!</h4>
+                                            <p className="text-xs text-slate-300">+60 Coins added to your loyalty wallet. Use promo code <strong className="text-white font-mono">NOLLIE10</strong> at checkout for 10% off.</p>
                                             <button onClick={()=>setQuestionnaireSubmitted(false)} className="press-effect bg-slate-900 border border-white/30 text-xs font-bold px-5 py-2.5 rounded-xl text-white hover:bg-slate-800 transition-all">Submit Another Response</button>
                                         </div>
                                     ) : (
@@ -1211,11 +1230,11 @@
                                             <div className="bg-slate-950/90 p-5 rounded-3xl border border-white/15 space-y-2">
                                                 <label className="text-white font-bold block">1. Which Nollie's offering do you use or purchase most frequently?</label>
                                                 <select value={q1} onChange={(e)=>setQ1(e.target.value)} className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white outline-none focus:border-white transition-all">
-                                                    <option>Cereal Hampers</option>
+                                                    <option>Global Supply Chain Hampers</option>
                                                     <option>Family Bulk Grocery Hampers</option>
                                                     <option>Juices Africa Concentrates</option>
                                                     <option>M-Scents Luxury Perfumes</option>
-                                                    <option>Mbango VA & Consultation Services</option>
+                                                    <option>Mbango VA & Strategic Consultation</option>
                                                 </select>
                                             </div>
 
@@ -1237,8 +1256,8 @@
                                                 </select>
                                             </div>
 
-                                            <button type="submit" className="press-effect w-full white-rainbow-btn text-slate-950 font-extrabold py-4 rounded-2xl text-xs shadow-xl transition-all duration-300 hover:scale-[1.01]">
-                                                Submit Questionnaire & Claim +50 Coins & 10% Discount 🚀
+                                            <button type="submit" className="press-effect w-full org-btn text-slate-950 font-extrabold py-4 rounded-2xl text-xs shadow-xl transition-all duration-300 hover:scale-[1.01]">
+                                                Submit Questionnaire & Claim +60 Coins & 10% Discount 🚀
                                             </button>
                                         </form>
                                     )}
@@ -1247,10 +1266,10 @@
                         )}
 
                         {activeTab === 'booking' && (
-                            <section className="rainbow-glass border border-white/25 p-6 sm:p-12 rounded-3xl shadow-xl space-y-8 animate-fade-in">
+                            <section className="org-glass border border-white/25 p-6 sm:p-12 rounded-3xl shadow-xl space-y-8 animate-fade-in">
                                 <div>
-                                    <h3 className="text-2xl font-black white-rainbow-animated-text font-display">📅 Appointment & Service Booking</h3>
-                                    <p className="text-xs text-slate-400 mt-1">Schedule consultations, fragrance sampling sessions, or Virtual Assistance support directly with Nollie's Durban team.</p>
+                                    <h3 className="text-2xl font-black living-animated-text font-display">📅 Strategic Appointment & Service Booking</h3>
+                                    <p className="text-xs text-slate-400 mt-1">Schedule consultations, fragrance sampling sessions, or Virtual Assistance process engineering directly with Nollie's Durban team.</p>
                                 </div>
 
                                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -1274,7 +1293,7 @@
                                     </div>
 
                                     <form onSubmit={submitBooking} className="lg:col-span-2 bg-slate-950/90 p-6 rounded-3xl border border-white/20 space-y-4">
-                                        <h4 className="text-sm font-extrabold text-white border-b border-white/20 pb-3 font-display">Appointment Details</h4>
+                                        <h4 className="text-sm font-extrabold text-white border-b border-white/20 pb-3 font-display">Strategic Appointment Details</h4>
                                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
                                             <div>
                                                 <label className="text-slate-400 block mb-1">Full Name *</label>
@@ -1303,8 +1322,8 @@
                                             <label className="text-slate-400 block text-xs mb-1">Notes / Instructions</label>
                                             <textarea value={bookingNotes} onChange={(e) => setBookingNotes(e.target.value)} rows="3" placeholder="Additional details..." className="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-700 text-white text-xs outline-none focus:border-white transition-all"></textarea>
                                         </div>
-                                        <button type="submit" className="press-effect w-full white-rainbow-btn text-slate-950 font-extrabold py-4 rounded-2xl text-xs shadow-xl hover:scale-[1.01] transition-all duration-300">
-                                            Transmit Appointment Request 📅
+                                        <button type="submit" className="press-effect w-full org-btn text-slate-950 font-extrabold py-4 rounded-2xl text-xs shadow-xl hover:scale-[1.01] transition-all duration-300">
+                                            Transmit Strategic Appointment Request 📅
                                         </button>
                                     </form>
                                 </div>
@@ -1312,29 +1331,29 @@
                         )}
 
                         {activeTab === 'legal' && (
-                            <section className="rainbow-glass border border-white/25 p-6 sm:p-12 rounded-3xl shadow-xl space-y-8 animate-fade-in text-xs">
+                            <section className="org-glass border border-white/25 p-6 sm:p-12 rounded-3xl shadow-xl space-y-8 animate-fade-in text-xs">
                                 <div className="border-b border-white/20 pb-4">
-                                    <div className="inline-flex items-center space-x-2 bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-[10px] font-mono font-bold px-3 py-1 rounded-full uppercase mb-2 floating-badge">
+                                    <div className="inline-flex items-center space-x-2 bg-sky-500/20 text-sky-300 border border-sky-400/40 text-[10px] font-mono font-bold px-3 py-1 rounded-full uppercase mb-2">
                                         <span>🇿🇦 Republic of South Africa Standard Compliance</span>
                                     </div>
-                                    <h3 className="text-2xl font-black white-rainbow-animated-text font-display">SA Regulatory & Consumer Legal Center</h3>
+                                    <h3 className="text-2xl font-black living-animated-text font-display">SA Regulatory & Consumer Legal Center</h3>
                                     <p className="text-slate-300 mt-1">Full compliance under the Protection of Personal Information Act (POPIA) and Consumer Protection Act (CPA No. 68 of 2008).</p>
                                 </div>
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                    <div className="bg-slate-950/90 p-6 rounded-3xl border border-white/20 space-y-3 rainbow-card-hover">
+                                    <div className="bg-slate-950/90 p-6 rounded-3xl border border-white/20 space-y-3 org-card-hover">
                                         <h4 className="text-sm font-extrabold text-white font-display flex items-center gap-2"><span>🔒</span><span>POPIA Privacy Policy (Act 4 of 2013)</span></h4>
                                         <p className="text-slate-300 leading-relaxed">
-                                            Nollie's Hub collects customer names, phone numbers, and addresses solely for dispatching grocery hampers and fragrance packages across eNanda and Durban. We maintain strict end-to-end data safety, zero third-party data selling, and offer full rights for customers to request data correction or removal at any time.
+                                            Nollie's Living Organisation collects customer names, phone numbers, and addresses solely for dispatching grocery hampers and fragrance packages across eNanda and Durban. We maintain strict end-to-end data safety, zero third-party data selling, and offer full rights for customers to request data correction or removal at any time.
                                         </p>
                                         <div className="text-slate-400 font-mono text-[11px] bg-slate-900 p-3 rounded-xl border border-slate-800">
                                             <strong>Information Officer Contact:</strong><br/>
-                                            Banele (Nollie) Gumbi (Director) • Email/Phone: +27 62 587 3479<br/>
+                                            Banele Gumbi (Managing Director) • Phone: +27 62 587 3479<br/>
                                             <a href="https://www.linkedin.com/in/banele-gumbi-65338936b?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" rel="noopener noreferrer" className="text-blue-400 underline mt-1 block transition-colors hover:text-white">Connect on LinkedIn 💼</a>
                                         </div>
                                     </div>
 
-                                    <div className="bg-slate-950/90 p-6 rounded-3xl border border-white/20 space-y-3 rainbow-card-hover">
+                                    <div className="bg-slate-950/90 p-6 rounded-3xl border border-white/20 space-y-3 org-card-hover">
                                         <h4 className="text-sm font-extrabold text-white font-display flex items-center gap-2"><span>📜</span><span>Consumer Protection Act & Returns (CPA)</span></h4>
                                         <p className="text-slate-300 leading-relaxed">
                                             Under Section 56 of the South African Consumer Protection Act, all merchandise dispatched from Nollie's Durban Hub carries a full quality guarantee. Damaged or non-conforming items reported upon delivery qualify for instant replacement or immediate refund.
@@ -1349,10 +1368,10 @@
                         )}
 
                         {activeTab === 'orders' && (
-                            <section className="rainbow-glass border border-white/25 p-6 sm:p-12 rounded-3xl shadow-xl space-y-6 animate-fade-in">
+                            <section className="org-glass border border-white/25 p-6 sm:p-12 rounded-3xl shadow-xl space-y-6 animate-fade-in">
                                 <div className="flex justify-between items-center border-b border-white/20 pb-4">
                                     <div>
-                                        <h3 className="text-2xl font-black white-rainbow-animated-text font-display">📦 Order & Booking History</h3>
+                                        <h3 className="text-2xl font-black living-animated-text font-display">📦 Strategic Order & Telemetry History</h3>
                                         <p className="text-xs text-slate-400">Synced securely with SQLite & Flask backend.</p>
                                     </div>
                                     <button onClick={() => { fetchOrders(); fetchBookings(); }} className="press-effect bg-slate-900 border border-slate-700 text-xs font-bold px-4 py-2 rounded-xl text-slate-200 hover:border-white transition-all duration-300 hover:scale-105">🔄 Refresh</button>
@@ -1364,7 +1383,7 @@
                                         </div>
                                     ) : (
                                         orders.map((o, idx) => (
-                                            <div key={idx} className="bg-slate-950/90 p-5 rounded-2xl border border-white/20 space-y-3 shadow-lg rainbow-card-hover">
+                                            <div key={idx} className="bg-slate-950/90 p-5 rounded-2xl border border-white/20 space-y-3 shadow-lg org-card-hover">
                                                 <div className="flex justify-between items-center">
                                                     <span className="font-black text-white text-sm font-display">Order #{o.id || (orders.length - idx)}</span>
                                                     <span className="text-white font-mono font-black text-sm">R {o.total.toFixed(2)}</span>
@@ -1391,38 +1410,38 @@
 
                         {activeTab === 'admin' && (
                             <section className="space-y-6 animate-fade-in">
-                                <div className="rainbow-glass border border-white/35 p-6 rounded-3xl shadow-2xl flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                                <div className="org-glass border border-white/35 p-6 rounded-3xl shadow-2xl flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                                     <div>
-                                        <div className="inline-flex items-center space-x-2 bg-slate-950 px-3 py-1 rounded-full border border-white/30 text-[10px] font-mono font-bold text-white mb-2 floating-badge">
-                                            <span>🔒 Durban Hub Security Active</span>
+                                        <div className="inline-flex items-center space-x-2 bg-slate-950 px-3 py-1 rounded-full border border-sky-400/45 text-[10px] font-mono font-bold text-sky-300 mb-2">
+                                            <span>🔒 Director Security Active</span>
                                         </div>
-                                        <h3 className="text-2xl font-black white-rainbow-animated-text font-display">Nollie's Owner Control Console</h3>
-                                        <p className="text-xs text-slate-400">Live order tracking, service bookings, and financial analytics.</p>
+                                        <h3 className="text-2xl font-black living-animated-text font-display">Nollie's Director Control Console</h3>
+                                        <p className="text-xs text-slate-400">Live order tracking, global telemetry, and financial analytics.</p>
                                     </div>
-                                    <button onClick={() => { fetchOrders(); fetchBookings(); }} className="press-effect white-rainbow-btn text-slate-950 font-black text-xs px-5 py-3 rounded-xl shadow transition-all duration-300 hover:scale-105">🔄 Sync Database</button>
+                                    <button onClick={() => { fetchOrders(); fetchBookings(); }} className="press-effect org-btn text-slate-950 font-black text-xs px-5 py-3 rounded-xl shadow transition-all duration-300 hover:scale-105">🔄 Sync Database</button>
                                 </div>
 
                                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                                    <div className="bg-slate-950/90 p-6 rounded-3xl border border-white/20 space-y-1 rainbow-card-hover">
+                                    <div className="bg-slate-950/90 p-6 rounded-3xl border border-white/20 space-y-1 org-card-hover">
                                         <span className="text-slate-400 text-xs font-semibold">Total Revenue Generated</span>
                                         <div className="text-2xl font-black text-white font-mono">R {totalRevenue.toFixed(2)}</div>
                                     </div>
-                                    <div className="bg-slate-950/90 p-6 rounded-3xl border border-white/20 space-y-1 rainbow-card-hover">
+                                    <div className="bg-slate-950/90 p-6 rounded-3xl border border-white/20 space-y-1 org-card-hover">
                                         <span className="text-slate-400 text-xs font-semibold">Total Orders</span>
                                         <div className="text-2xl font-black text-white font-mono">{orders.length}</div>
                                     </div>
-                                    <div className="bg-slate-950/90 p-6 rounded-3xl border border-white/20 space-y-1 rainbow-card-hover">
+                                    <div className="bg-slate-950/90 p-6 rounded-3xl border border-white/20 space-y-1 org-card-hover">
                                         <span className="text-slate-400 text-xs font-semibold">Active Bookings</span>
                                         <div className="text-2xl font-black text-white font-mono">{bookings.length}</div>
                                     </div>
                                 </div>
 
                                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                                    <div className="rainbow-glass border border-white/20 p-6 rounded-3xl shadow-xl space-y-4">
+                                    <div className="org-glass border border-white/20 p-6 rounded-3xl shadow-xl space-y-4">
                                         <h4 className="text-base font-extrabold text-white font-display">Customer Orders Feed</h4>
                                         <div className="space-y-3 text-xs">
                                             {orders.map((o, idx) => (
-                                                <div key={idx} className="bg-slate-950/90 p-4 rounded-2xl border border-white/20 space-y-2 rainbow-card-hover">
+                                                <div key={idx} className="bg-slate-950/90 p-4 rounded-2xl border border-white/20 space-y-2 org-card-hover">
                                                     <div className="flex justify-between font-bold text-white">
                                                         <span>Order #{o.id} - {o.customer_name}</span>
                                                         <span className="text-white font-mono">R {o.total.toFixed(2)}</span>
@@ -1433,11 +1452,11 @@
                                         </div>
                                     </div>
 
-                                    <div className="rainbow-glass border border-white/20 p-6 rounded-3xl shadow-xl space-y-4">
+                                    <div className="org-glass border border-white/20 p-6 rounded-3xl shadow-xl space-y-4">
                                         <h4 className="text-base font-extrabold text-white font-display">Service Bookings Log</h4>
                                         <div className="space-y-3 text-xs">
                                             {bookings.map((b, idx) => (
-                                                <div key={idx} className="bg-slate-950/90 p-4 rounded-2xl border border-white/20 space-y-1 rainbow-card-hover">
+                                                <div key={idx} className="bg-slate-950/90 p-4 rounded-2xl border border-white/20 space-y-1 org-card-hover">
                                                     <div className="flex justify-between font-bold text-white">
                                                         <span>{b.service_type}</span>
                                                         <span className="text-white font-mono">{b.status}</span>
@@ -1456,11 +1475,11 @@
                     {/* AUGMENTED REALITY (AR) / 3D PRODUCT INSPECTOR MODAL */}
                     {arProduct && (
                         <div className="fixed inset-0 bg-slate-950/90 backdrop-blur-md z-50 flex items-center justify-center p-4 animate-fade-in">
-                            <div className="rainbow-glass rounded-3xl p-6 sm:p-8 border border-white/50 max-w-lg w-full space-y-5 shadow-2xl relative">
+                            <div className="org-glass rounded-3xl p-6 sm:p-8 border border-white/50 max-w-lg w-full space-y-5 shadow-2xl relative">
                                 <button onClick={() => setArProduct(null)} className="absolute top-4 right-4 text-slate-400 text-xl font-bold bg-slate-900 w-9 h-9 rounded-full flex items-center justify-center hover:bg-slate-800 transition-colors">&times;</button>
                                 
                                 <div className="space-y-1">
-                                    <div className="inline-flex items-center space-x-2 bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-[10px] font-mono px-3 py-1 rounded-full uppercase font-bold floating-badge">
+                                    <div className="inline-flex items-center space-x-2 bg-sky-500/20 text-sky-300 border border-sky-400/40 text-[10px] font-mono px-3 py-1 rounded-full uppercase font-bold">
                                         <span>🌐 AR & 3D Interactive Simulator</span>
                                     </div>
                                     <h3 className="text-xl font-black text-white font-display">{arProduct.title}</h3>
@@ -1468,7 +1487,7 @@
                                 </div>
 
                                 <div className="h-64 rounded-2xl overflow-hidden border border-white/30 bg-slate-950 flex items-center justify-center relative shadow-inner group">
-                                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.1)_0,transparent_70%)] pointer-events-none"></div>
+                                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(56,189,248,0.1)_0,transparent_70%)] pointer-events-none"></div>
                                     <img 
                                         src={arProduct.img} 
                                         alt={arProduct.title} 
@@ -1488,7 +1507,7 @@
 
                                 <div className="flex justify-between items-center pt-3 border-t border-white/20">
                                     <span className="text-lg font-black text-white font-mono">R {arProduct.price.toFixed(2)}</span>
-                                    <button onClick={() => { addToCart(arProduct.title, arProduct.price); setArProduct(null); }} className="press-effect white-rainbow-btn text-slate-950 font-extrabold px-6 py-3 rounded-2xl text-xs shadow-xl transition-all duration-300 hover:scale-105">+ Add to Cart 🛒</button>
+                                    <button onClick={() => { addToCart(arProduct.title, arProduct.price); setArProduct(null); }} className="press-effect org-btn text-slate-950 font-extrabold px-6 py-3 rounded-2xl text-xs shadow-xl transition-all duration-300 hover:scale-105">+ Add to Cart 🛒</button>
                                 </div>
                             </div>
                         </div>
@@ -1497,10 +1516,10 @@
                     {/* DYNAMIC POSTER INSPECTOR MODAL */}
                     {activePoster && (
                         <div className="fixed inset-0 bg-slate-950/90 backdrop-blur-md z-50 flex items-center justify-center p-4 animate-fade-in">
-                            <div className="rainbow-glass rounded-3xl p-6 sm:p-8 border border-white/40 max-w-lg w-full space-y-5 shadow-2xl relative">
+                            <div className="org-glass rounded-3xl p-6 sm:p-8 border border-white/40 max-w-lg w-full space-y-5 shadow-2xl relative">
                                 <button onClick={() => setActivePoster(null)} className="absolute top-4 right-4 text-slate-400 text-xl font-bold bg-slate-900 w-9 h-9 rounded-full flex items-center justify-center hover:bg-slate-800 transition-colors">&times;</button>
                                 <div className="space-y-2">
-                                    <span className="bg-white/20 text-white border border-white/30 text-[10px] font-mono px-3 py-1 rounded-full uppercase font-bold">{activePoster.tag}</span>
+                                    <span className="bg-sky-500/20 text-sky-300 border border-sky-400/40 text-[10px] font-mono px-3 py-1 rounded-full uppercase font-bold">{activePoster.tag}</span>
                                     <h3 className="text-xl font-black text-white font-display">{activePoster.title}</h3>
                                 </div>
                                 <div className="h-72 rounded-2xl overflow-hidden border border-white/20 bg-slate-900 shadow-inner">
@@ -1509,7 +1528,7 @@
                                 <p className="text-xs text-slate-300 leading-relaxed font-medium">{activePoster.desc}</p>
                                 <div className="flex justify-between items-center pt-3 border-t border-white/20">
                                     <span className="text-lg font-black text-white font-mono">{activePoster.price}</span>
-                                    <button onClick={() => { addToCart(activePoster.title, 250); setActivePoster(null); }} className="press-effect white-rainbow-btn text-slate-950 font-extrabold px-6 py-3 rounded-2xl text-xs shadow-xl transition-all duration-300 hover:scale-105">+ Order Package 🛒</button>
+                                    <button onClick={() => { addToCart(activePoster.title, 250); setActivePoster(null); }} className="press-effect org-btn text-slate-950 font-extrabold px-6 py-3 rounded-2xl text-xs shadow-xl transition-all duration-300 hover:scale-105">+ Order Package 🛒</button>
                                 </div>
                             </div>
                         </div>
@@ -1521,26 +1540,26 @@
                             <div className="max-w-6xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4 text-xs">
                                 <div className="space-y-1 text-center sm:text-left">
                                     <span className="font-extrabold text-white font-display flex items-center gap-1.5 justify-center sm:justify-start"><span>🇿🇦</span><span>POPIA Data Privacy Notice</span></span>
-                                    <p className="text-slate-300">Nollie's Hub processes personal details solely for dispatching Durban hampers in compliance with the Protection of Personal Information Act (POPIA).</p>
+                                    <p className="text-slate-300">Nollie's Living Organisation processes personal details solely for dispatching Durban hampers in compliance with the Protection of Personal Information Act (POPIA).</p>
                                 </div>
-                                <button onClick={acceptPopia} className="press-effect white-rainbow-btn text-slate-950 text-xs font-black px-6 py-3 rounded-xl shadow-lg whitespace-nowrap transition-all duration-300 hover:scale-105">Accept & Continue 🔒</button>
+                                <button onClick={acceptPopia} className="press-effect org-btn text-slate-950 text-xs font-black px-6 py-3 rounded-xl shadow-lg whitespace-nowrap transition-all duration-300 hover:scale-105">Accept & Continue 🔒</button>
                             </div>
                         </div>
                     )}
 
-                    {/* 24/7 AI ASSISTANT CHAT WIDGET */}
+                    {/* 24/7 AI STRATEGIC ASSISTANT CHAT WIDGET */}
                     <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end">
                         {isAiOpen && (
-                            <div className="rainbow-glass border border-white/40 rounded-3xl w-80 sm:w-96 h-[450px] shadow-2xl flex flex-col mb-4 overflow-hidden animate-fade-in">
+                            <div className="org-glass border border-white/40 rounded-3xl w-80 sm:w-96 h-[450px] shadow-2xl flex flex-col mb-4 overflow-hidden animate-fade-in">
                                 <div className="bg-slate-950/95 p-4 border-b border-white/25 flex justify-between items-center">
                                     <div className="flex items-center space-x-2.5">
                                         <span className="relative flex h-3 w-3">
-                                          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
-                                          <span className="relative inline-flex rounded-full h-3 w-3 bg-white"></span>
+                                          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
+                                          <span className="relative inline-flex rounded-full h-3 w-3 bg-sky-400"></span>
                                         </span>
                                         <div>
-                                            <h4 className="text-xs font-black text-white font-display uppercase tracking-wider">Nollie AI Assistant</h4>
-                                            <span className="text-[10px] text-white font-mono">Online 24/7 • #1 Hub Care</span>
+                                            <h4 className="text-xs font-black text-white font-display uppercase tracking-wider">Nollie Strategic AI</h4>
+                                            <span className="text-[10px] text-sky-400 font-mono">Online 24/7 • Living Organisation</span>
                                         </div>
                                     </div>
                                     <button onClick={() => setIsAiOpen(false)} className="text-slate-400 hover:text-white text-lg font-bold w-7 h-7 bg-slate-900 rounded-full flex items-center justify-center transition-colors">&times;</button>
@@ -1558,24 +1577,24 @@
                                 </div>
 
                                 <form onSubmit={handleAiSend} className="p-3 bg-slate-950/95 border-t border-white/25 flex gap-2">
-                                    <input type="text" value={aiInput} onChange={(e) => setAiInput(e.target.value)} placeholder="Ask about AI matcher, AR view..." 
+                                    <input type="text" value={aiInput} onChange={(e) => setAiInput(e.target.value)} placeholder="Ask about global nodes, AI matcher..." 
                                            className="flex-1 px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white text-xs outline-none focus:border-white transition-all"/>
-                                    <button type="submit" className="press-effect white-rainbow-btn px-4 py-2.5 rounded-xl text-xs font-black shadow transition-all duration-300 hover:scale-105">Send</button>
+                                    <button type="submit" className="press-effect org-btn px-4 py-2.5 rounded-xl text-xs font-black shadow transition-all duration-300 hover:scale-105">Send</button>
                                 </form>
                             </div>
                         )}
 
-                        <button onClick={() => setIsAiOpen(!isAiOpen)} className="press-effect white-rainbow-btn p-4 rounded-full shadow-2xl flex items-center justify-center space-x-2 text-slate-950 font-black hover:scale-110 transition-all duration-300 pulse-glow-effect">
-                            <span className="text-xl">✨</span>
-                            {!isAiOpen && <span className="text-xs font-mono pr-1">Ask Nollie AI</span>}
+                        <button onClick={() => setIsAiOpen(!isAiOpen)} className="press-effect org-btn p-4 rounded-full shadow-2xl flex items-center justify-center space-x-2 text-slate-950 font-black hover:scale-110 transition-all duration-300 globe-pulse">
+                            <span className="text-xl">🌍</span>
+                            {!isAiOpen && <span className="text-xs font-mono pr-1">Ask Strategic AI</span>}
                         </button>
                     </div>
 
                     {isCartOpen && (
                         <div className="fixed inset-0 bg-slate-950/85 backdrop-blur-md z-50 flex flex-col justify-end animate-fade-in">
-                            <div className="rainbow-glass rounded-t-3xl p-6 sm:p-8 border-t border-white/30 max-h-[90vh] flex flex-col shadow-2xl max-w-2xl mx-auto w-full">
+                            <div className="org-glass rounded-t-3xl p-6 sm:p-8 border-t border-white/30 max-h-[90vh] flex flex-col shadow-2xl max-w-2xl mx-auto w-full">
                                 <div className="flex justify-between items-center border-b border-white/20 pb-4">
-                                    <h3 className="font-black text-base text-white flex items-center space-x-2 font-display"><span>🛒</span><span>Neural Cart & Payment Gateway</span></h3>
+                                    <h3 className="font-black text-base text-white flex items-center space-x-2 font-display"><span>🛒</span><span>Neural Cart & Strategic Payment Gateway</span></h3>
                                     <button onClick={() => setIsCartOpen(false)} className="press-effect text-slate-400 text-xl font-bold bg-slate-900 w-9 h-9 rounded-full flex items-center justify-center hover:bg-slate-800 transition-colors">&times;</button>
                                 </div>
                                 <div className="py-4 overflow-y-auto flex-1 space-y-4 text-xs">
@@ -1588,7 +1607,7 @@
                                             <p className="text-slate-400 italic">Your cart is empty.</p>
                                         ) : (
                                             cart.map((item, idx) => (
-                                                <div key={idx} className="flex justify-between items-center bg-slate-950/90 p-3 rounded-2xl border border-white/20 text-slate-200 rainbow-card-hover">
+                                                <div key={idx} className="flex justify-between items-center bg-slate-950/90 p-3 rounded-2xl border border-white/20 text-slate-200 org-card-hover">
                                                     <div><div className="font-extrabold text-white">{item.title}</div><div className="text-white font-mono text-[11px]">R {item.price.toFixed(2)}</div></div>
                                                     <button onClick={() => removeFromCart(idx)} className="text-red-400 font-bold bg-slate-900 w-7 h-7 rounded-full flex items-center justify-center transition-transform hover:scale-110">✕</button>
                                                 </div>
@@ -1617,7 +1636,7 @@
 
                                 <div className="py-3 border-t border-white/20 flex space-x-2.5">
                                     <input type="text" value={promoCode} onChange={(e) => setPromoCode(e.target.value)} placeholder="Promo code (NOLLIE10)" className="flex-1 px-4 py-3 text-xs rounded-xl bg-slate-900 border border-slate-700 text-white uppercase outline-none transition-all"/>
-                                    <button onClick={applyPromo} className="press-effect white-rainbow-btn text-slate-950 text-xs font-black px-5 py-3 rounded-xl shadow transition-all duration-300 hover:scale-105">Apply</button>
+                                    <button onClick={applyPromo} className="press-effect org-btn text-slate-950 text-xs font-black px-5 py-3 rounded-xl shadow transition-all duration-300 hover:scale-105">Apply</button>
                                 </div>
 
                                 <div className="border-t border-white/20 pt-4 space-y-2.5 text-xs">
@@ -1625,8 +1644,8 @@
                                     <div className="flex justify-between text-slate-300 font-medium font-mono"><span>Discount:</span><span className="text-white">-R {discount.toFixed(2)}</span></div>
                                     <div className="flex justify-between text-slate-300 font-medium font-mono"><span>Delivery Fee (Durban/eNanda):</span><span>R 30.00</span></div>
                                     <div className="flex justify-between text-lg font-black text-white pt-2 border-t border-white/20"><span>Total:</span><span className="text-white font-mono font-extrabold">R {grandTotal.toFixed(2)}</span></div>
-                                    <button onClick={handleCheckout} className="press-effect w-full white-rainbow-btn text-slate-950 font-extrabold py-4 rounded-2xl text-sm shadow-xl mt-2 flex items-center justify-center space-x-2 hover:scale-[1.01] transition-all duration-300">
-                                        <span>Pay R{grandTotal.toFixed(2)} & Complete Order 🚀</span>
+                                    <button onClick={handleCheckout} className="press-effect w-full org-btn text-slate-950 font-extrabold py-4 rounded-2xl text-sm shadow-xl mt-2 flex items-center justify-center space-x-2 hover:scale-[1.01] transition-all duration-300">
+                                        <span>Pay R{grandTotal.toFixed(2)} & Complete Strategic Order 🚀</span>
                                     </button>
                                 </div>
                             </div>
@@ -1635,7 +1654,7 @@
 
                     {activeModalProduct && (
                         <div className="fixed inset-0 bg-slate-950/85 backdrop-blur-md z-50 flex items-center justify-center p-4 animate-fade-in">
-                            <div className="rainbow-glass rounded-3xl p-6 sm:p-8 border border-white/40 max-w-md w-full space-y-5 shadow-2xl">
+                            <div className="org-glass rounded-3xl p-6 sm:p-8 border border-white/40 max-w-md w-full space-y-5 shadow-2xl">
                                 <div className="flex justify-between items-center border-b border-white/20 pb-4">
                                     <h3 className="text-base font-black text-white font-display">{activeModalProduct.title}</h3>
                                     <button onClick={() => setActiveModalProduct(null)} className="press-effect text-slate-400 text-xl font-bold bg-slate-900 w-9 h-9 rounded-full flex items-center justify-center hover:bg-slate-800 transition-colors">&times;</button>
@@ -1646,7 +1665,7 @@
                                     <span className="text-xl font-black text-white font-mono">R {activeModalProduct.price.toFixed(2)}</span>
                                     <div className="flex gap-2">
                                         <button onClick={() => { setActiveModalProduct(null); setArProduct(activeModalProduct); setArZoom(1); setArRotation(0); }} className="press-effect bg-slate-900 border border-white/40 text-white font-bold px-4 py-3 rounded-2xl text-xs shadow transition-all duration-300 hover:scale-105">3D AR View 🌐</button>
-                                        <button onClick={() => { addToCart(activeModalProduct.title, activeModalProduct.price); setActiveModalProduct(null); }} className="press-effect white-rainbow-btn text-slate-950 font-extrabold px-5 py-3 rounded-2xl text-xs shadow-xl transition-all duration-300 hover:scale-105">+ Add</button>
+                                        <button onClick={() => { addToCart(activeModalProduct.title, activeModalProduct.price); setActiveModalProduct(null); }} className="press-effect org-btn text-slate-950 font-extrabold px-5 py-3 rounded-2xl text-xs shadow-xl transition-all duration-300 hover:scale-105">+ Add</button>
                                     </div>
                                 </div>
                             </div>
@@ -1654,7 +1673,7 @@
                     )}
 
                     {toastMessage && (
-                        <div className="fixed bottom-6 left-6 rainbow-glass border border-white text-white text-xs font-black px-6 py-4 rounded-2xl shadow-xl z-50 animate-fade-in font-mono pulse-glow-effect">
+                        <div className="fixed bottom-6 left-6 org-glass border border-sky-400 text-white text-xs font-black px-6 py-4 rounded-2xl shadow-xl z-50 animate-fade-in font-mono globe-pulse">
                             {toastMessage}
                         </div>
                     )}
