@@ -57,7 +57,7 @@ function build(){
     ITEMS.forEach(function(i){var q=st.q[i.id]||0;if(q)L.push("• "+q+" x "+i.n+" = "+R(q*i.p))});
     L.push("","Items: "+R(t.s),(st.mode==="delivery"?"Delivery: "+R(d):"Collection: free"),"TOTAL: "+R(t.s+d),"","Name: "+st.name.trim());
     if(st.mode==="delivery")L.push("Address: "+st.addr.trim());
-    window.open("https://wa.me/"+WA+"?text="+(window.nqEnc||encodeURIComponent)(L.join("\n")),"_blank");
+    window.open("https://wa.me/"+WA+"?text="+encodeURIComponent(L.join("\n")),"_blank");
   };
   render();
 }
