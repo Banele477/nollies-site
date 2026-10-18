@@ -58,7 +58,7 @@
       <div class="nqc-header">
         <div>
           <h1>Sawubona! Nollie's Quantum Hub</h1>
-          <p>Delivering high-grade groceries, essentials, and bulk packages to eNqanda & surrounds with a flat R30 delivery fee.</p>
+          <p>Delivering high-grade groceries, perfumes, essentials, and bulk packages to eNqanda & surrounds with a flat R30 delivery fee.</p>
         </div>
         <div class="nqc-meta">
           <div>Founder & Director: <b>Nolly</b></div>
@@ -116,7 +116,6 @@
 
     document.body.appendChild(appContainer);
 
-    // Populate Cards Safely
     var homeGrid = appContainer.querySelector("#nqc-home-grid");
     var catalogGrid = appContainer.querySelector("#nqc-catalog-grid");
 
@@ -138,15 +137,22 @@
           <div class="nqc-card-body">
             <div>
               <h3>${item.t}</h3>
-              <p>High-grade verified item ready for eNqanda dispatch.</p>
+              <p>Verified stock ready for eNqanda delivery (R30 flat fee).</p>
             </div>
             <div>
               <div class="nqc-price">R 250.00</div>
-              <a href="https://wa.me/${WA}?text=${encodeURIComponent('Hi Nollie\'s Hub, I would like to order: ' + item.t)}" target="_blank" class="nqc-btn">💬 Order via WhatsApp</a>
+              <button class="nqc-btn order-wa-btn">💬 Order via WhatsApp</button>
             </div>
           </div>
         `;
-        
+
+        // Direct robust WhatsApp trigger handler
+        card.querySelector(".order-wa-btn").addEventListener("click", function() {
+          var waText = "Sawubona Nollie's Hub, I would like to order: " + item.t + " (Price: R250.00). Please confirm eNqanda delivery!";
+          var waUrl = "https://wa.me/" + WA + "?text=" + encodeURIComponent(waText);
+          window.open(waUrl, "_blank");
+        });
+
         // Safe Fallback SVG Art Generation
         var imgTag = card.querySelector("img");
         if (item.n && item.n.length > 0) {
