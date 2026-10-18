@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Nollie's | eNanda Premier Hub & Durban Marketplace</title>
-    <meta name="theme-color" content="#020617">
+    <meta name="theme-color" content="#030712">
     <link rel="manifest" href="/manifest.json">
     <script src="https://cdn.tailwindcss.com"></script>
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
@@ -20,7 +20,6 @@
         }
         h1, h2, h3, h4, .font-display { font-family: 'Space Grotesk', sans-serif; }
         
-        /* WHITE-RAINBOW DYNAMIC BACKGROUND */
         .white-rainbow-bg {
             background-color: #030712;
             background-image: 
@@ -138,8 +137,14 @@
             { id: 's3', title: 'Mbango VA Admin & Business Support', price: 150, duration: '45 min', desc: 'Virtual assistance, administrative support, document preparation, & digital advice.' }
         ];
 
+        const INITIAL_REVIEWS = [
+            { id: 1, name: 'Snerh Dlamini', rating: 5, comment: 'The Family Bulk Grocery Hamper saved our month! Delivered right on time in eNanda. Excellent service!', date: '2 October 2026' },
+            { id: 2, name: 'Sthelo Mkhize', rating: 5, comment: 'M-Scents perfumes smell incredible and last all day. Super professional delivery across Durban.', date: '10 October 2026' },
+            { id: 3, name: 'Ayanda Msomi', rating: 5, comment: 'Custom Cereal Hamper builder is such a brilliant feature! Got all my favorite breakfast items instantly.', date: '14 October 2026' }
+        ];
+
         const LIVE_TICKER_ITEMS = [
-            "✨ WHITE-RAINBOW EDITION: Sparkling Crystal & Glowing Gradients Active!",
+            "⭐ CUSTOMER REVIEWS & QUESTIONNAIRES LIVE: Share your experience & win discounts!",
             "🔥 HOT DEAL: Family Bulk Grocery Hamper (R380) - Best Seller in eNanda!",
             "🤖 24/7 AI ASSISTANT ONLINE: Tap bottom-right to ask Nollie AI anything!",
             "🚀 FAST DISPATCH: Flat R30 Delivery Across Durban & eNanda!",
@@ -152,6 +157,8 @@
             const [cart, setCart] = useState(JSON.parse(localStorage.getItem('nollies_cart') || '[]'));
             const [orders, setOrders] = useState([]);
             const [bookings, setBookings] = useState([]);
+            const [reviews, setReviews] = useState(JSON.parse(localStorage.getItem('nollies_reviews') || JSON.stringify(INITIAL_REVIEWS)));
+            
             const [selectedCategory, setSelectedCategory] = useState('all');
             const [searchQuery, setSearchQuery] = useState('');
             const [isCartOpen, setIsCartOpen] = useState(false);
@@ -183,6 +190,17 @@
             const [bookingTime, setBookingTime] = useState('10:00 AM');
             const [bookingNotes, setBookingNotes] = useState('');
 
+            // Review Form State
+            const [newReviewName, setNewReviewName] = useState('');
+            const [newReviewRating, setNewReviewRating] = useState('5');
+            const [newReviewComment, setNewReviewComment] = useState('');
+
+            // Questionnaire Form State
+            const [q1, setQ1] = useState('Cereal Hampers');
+            const [q2, setQ2] = useState('WhatsApp');
+            const [q3, setQ3] = useState('Extremely Satisfied');
+            const [questionnaireSubmitted, setQuestionnaireSubmitted] = useState(false);
+
             const downloadDirectApk = () => {
                 showToast('✨ Downloading Nollie\'s White-Rainbow Android APK...');
                 const a = document.createElement('a');
@@ -196,6 +214,10 @@
             useEffect(() => {
                 localStorage.setItem('nollies_cart', JSON.stringify(cart));
             }, [cart]);
+
+            useEffect(() => {
+                localStorage.setItem('nollies_reviews', JSON.stringify(reviews));
+            }, [reviews]);
 
             useEffect(() => {
                 localStorage.setItem('nollies_customer_name', customerName);
@@ -301,6 +323,31 @@
                 }
             };
 
+            const handleAddReview = (e) => {
+                e.preventDefault();
+                if (!newReviewName.trim() || !newReviewComment.trim()) {
+                    alert('Please fill in your name and review comment.');
+                    return;
+                }
+                const newRev = {
+                    id: reviews.length + 1,
+                    name: newReviewName,
+                    rating: Number(newReviewRating),
+                    comment: newReviewComment,
+                    date: new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
+                };
+                setReviews([newRev, ...reviews]);
+                setNewReviewName('');
+                setNewReviewComment('');
+                showToast('⭐ Thank you! Your review was published successfully.');
+            };
+
+            const handleQuestionnaireSubmit = (e) => {
+                e.preventDefault();
+                setQuestionnaireSubmitted(true);
+                showToast('🎉 Questionnaire submitted! Use promo code NOLLIE10 for 10% off.');
+            };
+
             const handleAiSend = (e) => {
                 e.preventDefault();
                 if (!aiInput.trim()) return;
@@ -319,6 +366,8 @@
                         reply = "Yes! We deliver directly across eNanda, Durban CBD, and surrounding KZN areas with a flat R30 delivery fee.";
                     } else if (lower.includes('perfume') || lower.includes('scent') || lower.includes('m-scents')) {
                         reply = "Our M-Scents luxury 40ml perfumes are R120 each or grab our Duo Gift Set for R192!";
+                    } else if (lower.includes('review') || lower.includes('questionnaire') || lower.includes('feedback')) {
+                        reply = "You can leave customer reviews or take our quick questionnaire in the 'Reviews & Feedback' tab to unlock a 10% discount promo code (NOLLIE10)!";
                     } else if (lower.includes('contact') || lower.includes('phone') || lower.includes('whatsapp') || lower.includes('owner')) {
                         reply = "You can reach Nollie's Durban Hub team directly via WhatsApp or phone at +27 62 587 3479.";
                     }
@@ -494,11 +543,10 @@
                                 { id: 'home', label: '🏠 Home' },
                                 { id: 'catalog', label: '🛍️ Catalog' },
                                 { id: 'builder', label: '✨ Hamper Builder' },
+                                { id: 'reviews', label: '⭐ Reviews & Feedback' },
                                 { id: 'booking', label: '📅 Booking' },
-                                { id: 'specials', label: '🔥 Specials' },
                                 { id: 'orders', label: '📦 Orders' },
-                                { id: 'admin', label: '🔐 Owner Console' },
-                                { id: 'privacy', label: '🔒 Security' }
+                                { id: 'admin', label: '🔐 Owner Console' }
                             ].map(tab => (
                                 <button key={tab.id} onClick={() => { if(tab.id==='orders' || tab.id==='admin'){ fetchOrders(); fetchBookings(); } setActiveTab(tab.id); }} 
                                         className={`px-3.5 py-2 rounded-xl transition-all duration-300 ${activeTab === tab.id ? 'white-rainbow-btn font-extrabold shadow-lg scale-105' : 'hover:text-white hover:bg-white/10'}`}>
@@ -525,8 +573,8 @@
                             { id: 'home', label: '🏠 Home' },
                             { id: 'catalog', label: '🛍️ Catalog' },
                             { id: 'builder', label: '✨ Hamper' },
+                            { id: 'reviews', label: '⭐ Reviews' },
                             { id: 'booking', label: '📅 Booking' },
-                            { id: 'specials', label: '🔥 Specials' },
                             { id: 'orders', label: '📦 Orders' },
                             { id: 'admin', label: '🔐 Admin' }
                         ].map(tab => (
@@ -554,8 +602,8 @@
                                         </p>
                                         <div className="flex flex-wrap gap-3 pt-2">
                                             <button onClick={() => setActiveTab('catalog')} className="press-effect white-rainbow-btn font-extrabold py-3.5 px-7 rounded-2xl text-xs shadow-lg hover:scale-105 transition-all">Browse Marketplace 🛍️</button>
-                                            <button onClick={downloadDirectApk} className="press-effect bg-slate-900/90 border border-white/40 text-white font-bold py-3.5 px-7 rounded-2xl text-xs shadow hover:border-white transition-all flex items-center space-x-2">
-                                                <span>🤖 Direct Download Android APK</span>
+                                            <button onClick={() => setActiveTab('reviews')} className="press-effect bg-slate-900/90 border border-white/40 text-white font-bold py-3.5 px-7 rounded-2xl text-xs shadow hover:border-white transition-all flex items-center space-x-2">
+                                                <span>⭐ Customer Reviews & Survey</span>
                                             </button>
                                         </div>
                                     </div>
@@ -652,6 +700,115 @@
                             </section>
                         )}
 
+                        {activeTab === 'reviews' && (
+                            <section className="space-y-8 animate-fade-in">
+                                <div className="rainbow-glass border border-white/25 p-6 sm:p-12 rounded-3xl shadow-xl space-y-6">
+                                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-white/20 pb-4">
+                                        <div>
+                                            <h3 className="text-2xl font-black white-rainbow-animated-text font-display">⭐ Customer Reviews & Feedback Hub</h3>
+                                            <p className="text-xs text-slate-400">Read what Durban and eNanda clients say or leave your own review!</p>
+                                        </div>
+                                        <div className="flex items-center space-x-2 bg-slate-950 px-4 py-2 rounded-2xl border border-white/20 font-mono text-xs text-emerald-400">
+                                            <span>⭐ 5.0 / 5.0 Average Rating</span>
+                                        </div>
+                                    </div>
+
+                                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                                        <div className="lg:col-span-1 bg-slate-950/90 p-6 rounded-3xl border border-white/20 space-y-4">
+                                            <h4 className="text-sm font-extrabold text-white font-display">✍️ Leave a Review</h4>
+                                            <form onSubmit={handleAddReview} className="space-y-3 text-xs">
+                                                <div>
+                                                    <label className="text-slate-400 block mb-1">Your Name *</label>
+                                                    <input type="text" required value={newReviewName} onChange={(e)=>setNewReviewName(e.target.value)} placeholder="e.g. Banele Gumbi" className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white outline-none focus:border-white"/>
+                                                </div>
+                                                <div>
+                                                    <label className="text-slate-400 block mb-1">Rating *</label>
+                                                    <select value={newReviewRating} onChange={(e)=>setNewReviewRating(e.target.value)} className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white outline-none focus:border-white">
+                                                        <option value="5">⭐⭐⭐⭐⭐ (5/5 - Exceptional)</option>
+                                                        <option value="4">⭐⭐⭐⭐ (4/5 - Great)</option>
+                                                        <option value="3">⭐⭐⭐ (3/5 - Good)</option>
+                                                    </select>
+                                                </div>
+                                                <div>
+                                                    <label className="text-slate-400 block mb-1">Review Comment *</label>
+                                                    <textarea required rows="3" value={newReviewComment} onChange={(e)=>setNewReviewComment(e.target.value)} placeholder="Share your experience..." className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white outline-none focus:border-white"></textarea>
+                                                </div>
+                                                <button type="submit" className="press-effect w-full white-rainbow-btn text-slate-950 font-extrabold py-3 rounded-xl text-xs shadow-lg">Publish Review ⭐</button>
+                                            </form>
+                                        </div>
+
+                                        <div className="lg:col-span-2 space-y-4">
+                                            <h4 className="text-sm font-extrabold text-white font-display">💬 Verified Customer Experiences</h4>
+                                            <div className="space-y-3">
+                                                {reviews.map((rev) => (
+                                                    <div key={rev.id} className="bg-slate-950/90 p-5 rounded-3xl border border-white/15 space-y-2 rainbow-card-hover">
+                                                        <div className="flex justify-between items-center">
+                                                            <span className="font-bold text-white text-xs font-display">{rev.name}</span>
+                                                            <span className="text-[10px] text-slate-400 font-mono">{rev.date}</span>
+                                                        </div>
+                                                        <div className="text-amber-300 text-xs">{"⭐".repeat(rev.rating)}</div>
+                                                        <p className="text-xs text-slate-300 leading-relaxed font-medium">"{rev.comment}"</p>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* QUESTIONNAIRE SECTION */}
+                                <div className="rainbow-glass border border-white/25 p-6 sm:p-12 rounded-3xl shadow-xl space-y-6">
+                                    <div className="border-b border-white/20 pb-4">
+                                        <h3 className="text-2xl font-black white-rainbow-animated-text font-display">📋 Customer Preference Questionnaire</h3>
+                                        <p className="text-xs text-slate-400">Help us improve Nollie's Durban Hub services and instantly receive promo code <strong className="text-white">NOLLIE10</strong> for 10% off!</p>
+                                    </div>
+
+                                    {questionnaireSubmitted ? (
+                                        <div className="bg-slate-950/95 p-8 rounded-3xl border border-white/30 text-center space-y-3">
+                                            <div className="text-3xl">🎉</div>
+                                            <h4 className="text-base font-extrabold text-white font-display">Thank you for your feedback!</h4>
+                                            <p className="text-xs text-slate-300">Your response has been securely recorded. Use promo code <strong className="text-white font-mono">NOLLIE10</strong> at checkout to claim your 10% discount.</p>
+                                            <button onClick={()=>setQuestionnaireSubmitted(false)} className="press-effect bg-slate-900 border border-white/30 text-xs font-bold px-5 py-2.5 rounded-xl text-white hover:bg-slate-800">Submit Another Response</button>
+                                        </div>
+                                    ) : (
+                                        <form onSubmit={handleQuestionnaireSubmit} className="space-y-4 text-xs">
+                                            <div className="bg-slate-950/90 p-5 rounded-3xl border border-white/15 space-y-2">
+                                                <label className="text-white font-bold block">1. Which Nollie's offering do you use or purchase most frequently?</label>
+                                                <select value={q1} onChange={(e)=>setQ1(e.target.value)} className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white outline-none focus:border-white">
+                                                    <option>Cereal Hampers</option>
+                                                    <option>Family Bulk Grocery Hampers</option>
+                                                    <option>Juices Africa Concentrates</option>
+                                                    <option>M-Scents Luxury Perfumes</option>
+                                                    <option>Mbango VA & Consultation Services</option>
+                                                </select>
+                                            </div>
+
+                                            <div className="bg-slate-950/90 p-5 rounded-3xl border border-white/15 space-y-2">
+                                                <label className="text-white font-bold block">2. What is your preferred communication channel for order updates & dispatch?</label>
+                                                <select value={q2} onChange={(e)=>setQ2(e.target.value)} className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white outline-none focus:border-white">
+                                                    <option>WhatsApp (+27 62 587 3479)</option>
+                                                    <option>Direct Phone Call</option>
+                                                    <option>SMS Notification</option>
+                                                </select>
+                                            </div>
+
+                                            <div className="bg-slate-950/90 p-5 rounded-3xl border border-white/15 space-y-2">
+                                                <label className="text-white font-bold block">3. How satisfied are you with our flat R30 Durban/eNanda delivery speed?</label>
+                                                <select value={q3} onChange={(e)=>setQ3(e.target.value)} className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white outline-none focus:border-white">
+                                                    <option>Extremely Satisfied</option>
+                                                    <option>Very Good</option>
+                                                    <option>Average</option>
+                                                </select>
+                                            </div>
+
+                                            <button type="submit" className="press-effect w-full white-rainbow-btn text-slate-950 font-extrabold py-4 rounded-2xl text-xs shadow-xl">
+                                                Submit Questionnaire & Claim 10% Discount Code 🚀
+                                            </button>
+                                        </form>
+                                    )}
+                                </div>
+                            </section>
+                        )}
+
                         {activeTab === 'booking' && (
                             <section className="rainbow-glass border border-white/25 p-6 sm:p-12 rounded-3xl shadow-xl space-y-8 animate-fade-in">
                                 <div>
@@ -710,35 +867,6 @@
                                             Transmit Appointment Request 📅
                                         </button>
                                     </form>
-                                </div>
-                            </section>
-                        )}
-
-                        {activeTab === 'specials' && (
-                            <section className="rainbow-glass border border-white/25 p-6 sm:p-12 rounded-3xl shadow-xl space-y-6 animate-fade-in">
-                                <div className="max-w-xl space-y-2">
-                                    <h3 className="text-2xl font-black white-rainbow-animated-text font-display">🔥 Bulk Specials & Packages</h3>
-                                    <p className="text-xs sm:text-sm text-slate-300">Take advantage of community wholesale packages designed to stretch your monthly grocery budget further.</p>
-                                </div>
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                    <div className="bg-slate-950/90 p-6 rounded-3xl border border-white/20 space-y-3 rainbow-card-hover">
-                                        <span className="white-rainbow-btn text-slate-950 text-[10px] font-mono font-bold px-3 py-1 rounded-full uppercase">Wholesale Package</span>
-                                        <h4 className="text-lg font-black text-white font-display">Family Bulk Grocery Hamper</h4>
-                                        <p className="text-xs text-slate-400">10kg Maize Meal, 5L Sunflower Oil, 2kg White Sugar, 2kg Rice, and 410g Baked Beans (x4).</p>
-                                        <div className="flex justify-between items-center pt-2">
-                                            <span className="text-xl font-black text-white font-mono">R 380.00</span>
-                                            <button onClick={() => addToCart('Family Bulk Grocery Hamper', 380)} className="press-effect white-rainbow-btn text-slate-950 text-xs font-black px-5 py-2.5 rounded-xl shadow">+ Add to Cart</button>
-                                        </div>
-                                    </div>
-                                    <div className="bg-slate-950/90 p-6 rounded-3xl border border-white/20 space-y-3 rainbow-card-hover">
-                                        <span className="white-rainbow-btn text-slate-950 text-[10px] font-mono font-bold px-3 py-1 rounded-full uppercase">Weekend Promo</span>
-                                        <h4 className="text-lg font-black text-white font-display">Weekend Braai & Pap Combo</h4>
-                                        <p className="text-xs text-slate-400">5kg Iwisa Maize Meal, Braai Spice, Chakalaka (x3), Tomato & Onion Mix, and 2L Soft Drink.</p>
-                                        <div className="flex justify-between items-center pt-2">
-                                            <span className="text-xl font-black text-white font-mono">R 295.00</span>
-                                            <button onClick={() => addToCart('Weekend Braai & Pap Combo', 295)} className="press-effect white-rainbow-btn text-slate-950 text-xs font-black px-5 py-2.5 rounded-xl shadow">+ Add to Cart</button>
-                                        </div>
-                                    </div>
                                 </div>
                             </section>
                         )}
@@ -842,25 +970,6 @@
                                                 </div>
                                             ))}
                                         </div>
-                                    </div>
-                                </div>
-                            </section>
-                        )}
-
-                        {activeTab === 'privacy' && (
-                            <section className="rainbow-glass border border-white/25 p-6 sm:p-12 rounded-3xl shadow-xl space-y-6 animate-fade-in">
-                                <div className="border-b border-white/20 pb-4">
-                                    <h3 className="text-2xl font-black white-rainbow-animated-text font-display">🔒 Privacy Policy & Data Security</h3>
-                                    <p className="text-xs text-slate-400 mt-1">Effective Date: October 2026 | Nollie's eNanda & Durban Hub</p>
-                                </div>
-                                <div className="space-y-4 text-xs text-slate-300 leading-relaxed">
-                                    <div className="bg-slate-950/90 p-5 rounded-2xl border border-white/20 space-y-2">
-                                        <h4 className="font-bold text-white text-sm font-display">1. Secure Gateway Processing</h4>
-                                        <p className="text-slate-400">All digital payment transactions (Capitec Pay, Instant EFT, Card) are encrypted via standard financial API gateways following South African POPIA protocols.</p>
-                                    </div>
-                                    <div className="bg-slate-950/90 p-5 rounded-2xl border border-white/20 space-y-2">
-                                        <h4 className="font-bold text-white text-sm font-display">2. Contact Information Security</h4>
-                                        <p className="text-slate-400">Client details are utilized strictly for delivery confirmation and consultation scheduling in eNanda and Durban and are stored securely within local database instances.</p>
                                     </div>
                                 </div>
                             </section>
