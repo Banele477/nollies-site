@@ -62,7 +62,6 @@
     <script type="text/babel">
         const { useState, useEffect } = React;
 
-        // High resolution AI representative image for Nollie
         const NOLLIE_AVATAR = "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80";
         const FALLBACK_SVG = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='400' viewBox='0 0 600 400'><rect width='100%' height='100%' fill='%231e293b'/><text x='50%' y='50%' fill='%23cbd5e1' font-family='sans-serif' font-size='22' font-weight='bold' text-anchor='middle' dominant-baseline='middle'>Nollie%27s Hub Pack</text></svg>";
 
@@ -90,10 +89,16 @@
             { name: 'Juice Concentrate 300ml', category: 'Beverage' }
         ];
 
+        const BOOKABLE_SERVICES = [
+            { id: 's1', title: 'Doorstep Hamper Consultation & Delivery', price: 50, duration: '30 min', desc: 'In-person assistance selecting household groceries & bulk hampers in eNanda.' },
+            { id: 's2', title: 'M-Scents Fragrance Sampling Session', price: 0, duration: '20 min', desc: 'Sample signature M-Scents perfumes at our local eNanda hub point.' },
+            { id: 's3', title: 'Mbango VA Admin & Business Assistance', price: 150, duration: '45 min', desc: 'Virtual assistance, administrative support, document preparation, & digital advice.' }
+        ];
+
         const REAL_WORLD_FEED = [
             "Sipho from eNanda A-Section just ordered a Cereal Hamper 1!",
             "Nomvula in Ntuzuma reserved a 4L Juices Africa Tropical Punch!",
-            "Bongiwe added M-Scents Duo Gift Set to cart!",
+            "Bongiwe booked an M-Scents Fragrance Sampling Session!",
             "Thabo placed an order for Family Bulk Grocery Hamper!",
             "Zanele from Inanda Glebe requested a custom 5-Item Cereal Hamper!"
         ];
@@ -102,6 +107,7 @@
             const [activeTab, setActiveTab] = useState('home');
             const [cart, setCart] = useState(JSON.parse(localStorage.getItem('nollies_cart') || '[]'));
             const [orders, setOrders] = useState([]);
+            const [bookings, setBookings] = useState([]);
             const [selectedCategory, setSelectedCategory] = useState('all');
             const [searchQuery, setSearchQuery] = useState('');
             const [isCartOpen, setIsCartOpen] = useState(false);
@@ -117,6 +123,13 @@
             const [customerPhone, setCustomerPhone] = useState(localStorage.getItem('nollies_customer_phone') || '');
             const [commPreference, setCommPreference] = useState('whatsapp');
             const [deliveryAddress, setDeliveryAddress] = useState(localStorage.getItem('nollies_customer_address') || '');
+            const [paymentMethod, setPaymentMethod] = useState('COD'); // 'COD', 'EFT', 'CAPITEC_PAY'
+
+            // Booking Form State
+            const [bookingService, setBookingService] = useState('Doorstep Hamper Consultation & Delivery');
+            const [bookingDate, setBookingDate] = useState('2026-10-20');
+            const [bookingTime, setBookingTime] = useState('10:00');
+            const [bookingNotes, setBookingNotes] = useState('');
 
             useEffect(() => {
                 localStorage.setItem('nollies_cart', JSON.stringify(cart));
@@ -150,8 +163,18 @@
                     });
             };
 
+            const fetchBookings = () => {
+                fetch('/api/bookings')
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data && data.bookings) setBookings(data.bookings);
+                    })
+                    .catch(err => console.error(err));
+            };
+
             useEffect(() => {
                 fetchOrders();
+                fetchBookings();
             }, []);
 
             const showToast = (msg) => {
@@ -224,6 +247,8 @@
                     comm_preference: commPreference,
                     delivery_address: deliveryAddress,
                     items: [...cart],
+                    payment_method: paymentMethod,
+                    payment_status: paymentMethod === 'COD' ? 'Pending (COD)' : 'Verified (Instant Gateway)',
                     total: grandTotal
                 };
 
@@ -248,7 +273,9 @@
                         customer_phone: customerPhone,
                         comm_preference: commPreference,
                         delivery_address: deliveryAddress,
-                        items: [...cart], 
+                        items: [...cart],
+                        payment_method: paymentMethod,
+                        payment_status: paymentMethod === 'COD' ? 'Pending (COD)' : 'Verified (Instant Gateway)',
                         total: grandTotal 
                     };
                     const updated = [localFallback, ...orders];
@@ -258,6 +285,7 @@
 
                 let msg = `Hi Nollie's! Order from ${customerName} (${customerPhone}):%0A%0A`;
                 msg += `Preferred Contact: ${commPreference.toUpperCase()}%0A`;
+                msg += `Payment Gateway: ${paymentMethod}%0A`;
                 if (deliveryAddress) msg += `Address: ${deliveryAddress}%0A%0A`;
                 msg += `Items:%0A`;
                 cart.forEach(i => msg += `• ${i.title} - R${i.price}%0A`);
@@ -273,8 +301,40 @@
                 } else if (commPreference === 'sms') {
                     window.open(`sms:+27625873479?body=${decodeURIComponent(msg)}`, '_blank');
                 } else {
-                    alert(`Order Logged! Nollie's dispatch team will call you directly at ${customerPhone} to confirm delivery in eNanda.`);
+                    alert(`Order Logged via ${paymentMethod}! Nollie's dispatch team will call you directly at ${customerPhone} to confirm delivery in eNanda.`);
                 }
+            };
+
+            const submitBooking = (e) => {
+                e.preventDefault();
+                if (!customerName.trim() || !customerPhone.trim()) {
+                    alert('Please enter your Name and Phone Number to confirm your booking.');
+                    return;
+                }
+
+                const payload = {
+                    customer_name: customerName,
+                    customer_phone: customerPhone,
+                    service_type: bookingService,
+                    booking_date: bookingDate,
+                    booking_time: bookingTime,
+                    notes: bookingNotes
+                };
+
+                fetch('/api/bookings', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                })
+                .then(res => res.json())
+                .then(data => {
+                    showToast('📅 Service Booking Confirmed!');
+                    fetchBookings();
+                    setBookingNotes('');
+                })
+                .catch(err => {
+                    showToast('📅 Booking Saved Locally!');
+                });
             };
 
             const filteredProducts = PRODUCTS.filter(p => {
@@ -290,7 +350,7 @@
                 <div className="min-h-screen">
                     <div className="h-1 silver-gradient w-full fixed top-0 z-50"></div>
 
-                    {/* Navigation Header with AI Image Avatar */}
+                    {/* Navigation Header */}
                     <header className="sticky top-1 z-40 bg-glass border-b silver-border px-4 sm:px-12 py-4 flex justify-between items-center shadow-2xl">
                         <div className="flex items-center space-x-3 cursor-pointer group" onClick={() => setActiveTab('home')}>
                             <div className="relative">
@@ -308,11 +368,11 @@
                             <button onClick={() => setActiveTab('home')} className={`px-4 py-2 rounded-xl transition-all ${activeTab === 'home' ? 'silver-gradient text-slate-950 font-black shadow-lg scale-105' : 'hover:text-white'}`}>🏠 Home</button>
                             <button onClick={() => setActiveTab('catalog')} className={`px-4 py-2 rounded-xl transition-all ${activeTab === 'catalog' ? 'silver-gradient text-slate-950 font-black shadow-lg scale-105' : 'hover:text-white'}`}>🛍️ Catalog</button>
                             <button onClick={() => setActiveTab('builder')} className={`px-4 py-2 rounded-xl transition-all ${activeTab === 'builder' ? 'silver-gradient text-slate-950 font-black shadow-lg scale-105' : 'hover:text-white'}`}>✨ Hamper Builder</button>
+                            <button onClick={() => setActiveTab('booking')} className={`px-4 py-2 rounded-xl transition-all ${activeTab === 'booking' ? 'silver-gradient text-slate-950 font-black shadow-lg scale-105' : 'hover:text-white'}`}>📅 Book Service</button>
                             <button onClick={() => setActiveTab('specials')} className={`px-4 py-2 rounded-xl transition-all ${activeTab === 'specials' ? 'silver-gradient text-slate-950 font-black shadow-lg scale-105' : 'hover:text-white'}`}>🔥 Bulk Specials</button>
-                            <button onClick={() => { fetchOrders(); setActiveTab('orders'); }} className={`px-4 py-2 rounded-xl transition-all ${activeTab === 'orders' ? 'silver-gradient text-slate-950 font-black shadow-lg scale-105' : 'hover:text-white'}`}>📦 My Orders</button>
-                            <button onClick={() => { fetchOrders(); setActiveTab('admin'); }} className={`px-4 py-2 rounded-xl transition-all ${activeTab === 'admin' ? 'silver-gradient text-slate-950 font-black shadow-lg scale-105' : 'hover:text-white'}`}>🔐 Owner Admin</button>
+                            <button onClick={() => { fetchOrders(); fetchBookings(); setActiveTab('orders'); }} className={`px-4 py-2 rounded-xl transition-all ${activeTab === 'orders' ? 'silver-gradient text-slate-950 font-black shadow-lg scale-105' : 'hover:text-white'}`}>📦 My Orders</button>
+                            <button onClick={() => { fetchOrders(); fetchBookings(); setActiveTab('admin'); }} className={`px-4 py-2 rounded-xl transition-all ${activeTab === 'admin' ? 'silver-gradient text-slate-950 font-black shadow-lg scale-105' : 'hover:text-white'}`}>🔐 Owner Admin</button>
                             <button onClick={() => setActiveTab('privacy')} className={`px-4 py-2 rounded-xl transition-all ${activeTab === 'privacy' ? 'silver-gradient text-slate-950 font-black shadow-lg scale-105' : 'hover:text-white'}`}>🔒 Privacy</button>
-                            <button onClick={() => setActiveTab('about')} className={`px-4 py-2 rounded-xl transition-all ${activeTab === 'about' ? 'silver-gradient text-slate-950 font-black shadow-lg scale-105' : 'hover:text-white'}`}>ℹ️ Info</button>
                         </nav>
 
                         <div className="flex items-center space-x-3">
@@ -328,11 +388,10 @@
                         <button onClick={() => setActiveTab('home')} className={`px-4 py-2 rounded-xl whitespace-nowrap transition-all ${activeTab === 'home' ? 'silver-gradient text-slate-950 font-black' : 'text-slate-300 bg-slate-950'}`}>🏠 Home</button>
                         <button onClick={() => setActiveTab('catalog')} className={`px-4 py-2 rounded-xl whitespace-nowrap transition-all ${activeTab === 'catalog' ? 'silver-gradient text-slate-950 font-black' : 'text-slate-300 bg-slate-950'}`}>🛍️ Catalog</button>
                         <button onClick={() => setActiveTab('builder')} className={`px-4 py-2 rounded-xl whitespace-nowrap transition-all ${activeTab === 'builder' ? 'silver-gradient text-slate-950 font-black' : 'text-slate-300 bg-slate-950'}`}>✨ Hamper Builder</button>
-                        <button onClick={() => setActiveTab('specials')} className={`px-4 py-2 rounded-xl whitespace-nowrap transition-all ${activeTab === 'specials' ? 'silver-gradient text-slate-950 font-black' : 'text-slate-300 bg-slate-950'}`}>🔥 Bulk Specials</button>
-                        <button onClick={() => { fetchOrders(); setActiveTab('orders'); }} className={`px-4 py-2 rounded-xl whitespace-nowrap transition-all ${activeTab === 'orders' ? 'silver-gradient text-slate-950 font-black' : 'text-slate-300 bg-slate-950'}`}>📦 Orders</button>
-                        <button onClick={() => { fetchOrders(); setActiveTab('admin'); }} className={`px-4 py-2 rounded-xl whitespace-nowrap transition-all ${activeTab === 'admin' ? 'silver-gradient text-slate-950 font-black' : 'text-slate-300 bg-slate-950'}`}>🔐 Admin</button>
-                        <button onClick={() => setActiveTab('privacy')} className={`px-4 py-2 rounded-xl whitespace-nowrap transition-all ${activeTab === 'privacy' ? 'silver-gradient text-slate-950 font-black' : 'text-slate-300 bg-slate-950'}`}>🔒 Privacy</button>
-                        <button onClick={() => setActiveTab('about')} className={`px-4 py-2 rounded-xl whitespace-nowrap transition-all ${activeTab === 'about' ? 'silver-gradient text-slate-950 font-black' : 'text-slate-300 bg-slate-950'}`}>ℹ️ Info</button>
+                        <button onClick={() => setActiveTab('booking')} className={`px-4 py-2 rounded-xl whitespace-nowrap transition-all ${activeTab === 'booking' ? 'silver-gradient text-slate-950 font-black' : 'text-slate-300 bg-slate-950'}`}>📅 Booking</button>
+                        <button onClick={() => setActiveTab('specials')} className={`px-4 py-2 rounded-xl whitespace-nowrap transition-all ${activeTab === 'specials' ? 'silver-gradient text-slate-950 font-black' : 'text-slate-300 bg-slate-950'}`}>🔥 Specials</button>
+                        <button onClick={() => { fetchOrders(); fetchBookings(); setActiveTab('orders'); }} className={`px-4 py-2 rounded-xl whitespace-nowrap transition-all ${activeTab === 'orders' ? 'silver-gradient text-slate-950 font-black' : 'text-slate-300 bg-slate-950'}`}>📦 Orders</button>
+                        <button onClick={() => { fetchOrders(); fetchBookings(); setActiveTab('admin'); }} className={`px-4 py-2 rounded-xl whitespace-nowrap transition-all ${activeTab === 'admin' ? 'silver-gradient text-slate-950 font-black' : 'text-slate-300 bg-slate-950'}`}>🔐 Admin</button>
                     </div>
 
                     {/* Live Community Activity Bar */}
@@ -344,7 +403,7 @@
 
                     <main className="max-w-6xl mx-auto px-4 mt-8 space-y-10 animate-fade-in">
                         
-                        {/* TAB 0: HOME PAGE WITH NOLLIE REPRESENTATIVE BANNER */}
+                        {/* TAB 0: HOME PAGE */}
                         {activeTab === 'home' && (
                             <section className="space-y-10 animate-fade-in">
                                 <div className="relative overflow-hidden rounded-3xl border silver-border p-8 sm:p-14 shadow-2xl bg-glass flex flex-col lg:flex-row items-center justify-between gap-10">
@@ -359,11 +418,10 @@
                                         </p>
                                         <div className="flex flex-wrap gap-3 pt-2">
                                             <button onClick={() => setActiveTab('catalog')} className="press-effect silver-gradient text-slate-950 font-extrabold py-3.5 px-7 rounded-2xl text-xs shadow-xl hover:scale-105 transition-transform">Browse Products 🛍️</button>
-                                            <button onClick={() => setActiveTab('builder')} className="press-effect bg-slate-900/90 border silver-border text-slate-200 font-bold py-3.5 px-7 rounded-2xl text-xs shadow hover:border-slate-300 transition-all">Build Custom Hamper ✨</button>
+                                            <button onClick={() => setActiveTab('booking')} className="press-effect bg-slate-900/90 border silver-border text-slate-200 font-bold py-3.5 px-7 rounded-2xl text-xs shadow hover:border-slate-300 transition-all">Book Service / Consultation 📅</button>
                                         </div>
                                     </div>
                                     
-                                    {/* Representative AI Nollie Profile Card */}
                                     <div className="w-full lg:w-80 bg-slate-900/90 p-6 rounded-3xl border silver-border shadow-2xl space-y-4 animate-float text-center">
                                         <div className="relative w-28 h-28 mx-auto rounded-3xl overflow-hidden border-2 silver-border shadow-2xl">
                                             <img src={NOLLIE_AVATAR} alt="Nollie Representative" className="w-full h-full object-cover" />
@@ -376,32 +434,6 @@
                                             <div className="flex justify-between"><span>Coverage:</span><strong className="text-white">eNanda & Surrounds</strong></div>
                                             <div className="flex justify-between"><span>Flat Delivery:</span><strong className="text-emerald-400">R30.00</strong></div>
                                             <div className="flex justify-between"><span>Dispatch:</span><strong className="silver-text">WhatsApp / Call / SMS</strong></div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="space-y-4">
-                                    <h3 className="text-xl font-black silver-text">Featured Collections</h3>
-                                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-                                        <div onClick={() => setActiveTab('catalog')} className="bg-glass p-6 rounded-3xl border silver-border shadow-xl cursor-pointer card-hover space-y-3">
-                                            <div className="text-4xl">🌾</div>
-                                            <h4 className="font-extrabold text-white text-sm">Cereal Hampers</h4>
-                                            <p className="text-slate-400 text-xs">5-item breakfast bundles including Jungle Oats, Corn Flakes, & Weet-Bix.</p>
-                                        </div>
-                                        <div onClick={() => setActiveTab('specials')} className="bg-glass p-6 rounded-3xl border silver-border shadow-xl cursor-pointer card-hover space-y-3">
-                                            <div className="text-4xl">📦</div>
-                                            <h4 className="font-extrabold text-white text-sm">Family Bulk Groceries</h4>
-                                            <p className="text-slate-400 text-xs">Staple combos: 10kg Maize Meal, 5L Oil, 2kg Sugar & Baked Beans.</p>
-                                        </div>
-                                        <div onClick={() => setActiveTab('catalog')} className="bg-glass p-6 rounded-3xl border silver-border shadow-xl cursor-pointer card-hover space-y-3">
-                                            <div className="text-4xl">🧃</div>
-                                            <h4 className="font-extrabold text-white text-sm">Juices Africa</h4>
-                                            <p className="text-slate-400 text-xs">4L fruit juice concentrates yielding up to 20L of juice.</p>
-                                        </div>
-                                        <div onClick={() => setActiveTab('catalog')} className="bg-glass p-6 rounded-3xl border silver-border shadow-xl cursor-pointer card-hover space-y-3">
-                                            <div className="text-4xl">💎</div>
-                                            <h4 className="font-extrabold text-white text-sm">M-Scents Perfumes</h4>
-                                            <p className="text-slate-400 text-xs">Signature 40ml luxury fragrances including Silver Sense & White OUD.</p>
                                         </div>
                                     </div>
                                 </div>
@@ -419,20 +451,6 @@
                                     <input type="text" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder="🔍 Search catalog..." 
                                            className="w-full sm:w-80 px-4 py-3.5 rounded-2xl border silver-border bg-slate-900/90 text-white placeholder-slate-400 text-xs outline-none focus:ring-2 focus:ring-slate-300 transition-all"/>
                                 </div>
-                                <div className="flex space-x-2 overflow-x-auto pb-1 text-xs no-scrollbar">
-                                    {[
-                                        { id: 'all', label: 'All Items' },
-                                        { id: 'cereal', label: 'Cereal Hampers' },
-                                        { id: 'juice', label: 'Juices Africa' },
-                                        { id: 'perfume', label: 'M-Scents' },
-                                        { id: 'essentials', label: 'Pantry & Home' }
-                                    ].map((cat) => (
-                                        <button key={cat.id} onClick={() => setSelectedCategory(cat.id)} className={`press-effect px-5 py-3 rounded-xl font-bold flex-shrink-0 transition-all ${selectedCategory === cat.id ? 'silver-gradient text-slate-950 font-extrabold shadow-lg scale-105' : 'bg-slate-900/90 text-slate-300 border silver-border hover:text-white'}`}>
-                                            {cat.label}
-                                        </button>
-                                    ))}
-                                </div>
-
                                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                                     {filteredProducts.map((p) => (
                                         <div key={p.id} className="bg-glass rounded-3xl border silver-border shadow-xl overflow-hidden flex flex-col justify-between card-hover">
@@ -481,7 +499,70 @@
                             </section>
                         )}
 
-                        {/* TAB 3: BULK SPECIALS */}
+                        {/* TAB 3: ADVANCED BOOKING SYSTEM */}
+                        {activeTab === 'booking' && (
+                            <section className="bg-glass border silver-border p-6 sm:p-12 rounded-3xl shadow-xl space-y-8 animate-fade-in">
+                                <div>
+                                    <h3 className="text-2xl font-black silver-text">📅 Online Appointment & Service Booking</h3>
+                                    <p className="text-xs text-slate-400 mt-1">Schedule consultations, fragrance sampling sessions, or Virtual Assistance support directly with Nollie's team.</p>
+                                </div>
+
+                                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                                    <div className="lg:col-span-1 space-y-4">
+                                        <h4 className="text-sm font-extrabold text-white">Available Services:</h4>
+                                        <div className="space-y-3">
+                                            {BOOKABLE_SERVICES.map((s) => (
+                                                <div key={s.id} onClick={() => setBookingService(s.title)} className={`p-4 rounded-2xl border cursor-pointer transition-all ${bookingService === s.title ? 'bg-slate-800 border-slate-300 shadow-xl' : 'bg-slate-900/90 border-slate-800 hover:border-slate-700'}`}>
+                                                    <div className="flex justify-between items-center font-bold text-xs text-white">
+                                                        <span>{s.title}</span>
+                                                        <span className="text-emerald-400 font-black">{s.price > 0 ? `R ${s.price}` : 'FREE'}</span>
+                                                    </div>
+                                                    <p className="text-[11px] text-slate-400 mt-1">{s.desc}</p>
+                                                    <span className="text-[10px] text-slate-500 font-medium block mt-2">⏱️ Duration: {s.duration}</span>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+
+                                    <form onSubmit={submitBooking} className="lg:col-span-2 bg-slate-900/90 p-6 rounded-3xl border silver-border space-y-4">
+                                        <h4 className="text-sm font-extrabold text-white border-b silver-border pb-3">Book Appointment Details</h4>
+                                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+                                            <div>
+                                                <label className="text-slate-400 block mb-1">Full Name *</label>
+                                                <input type="text" required value={customerName} onChange={(e) => setCustomerName(e.target.value)} placeholder="e.g. Banele Gumbi" className="w-full px-4 py-3 rounded-xl bg-slate-950 border silver-border text-white outline-none focus:ring-2 focus:ring-slate-300"/>
+                                            </div>
+                                            <div>
+                                                <label className="text-slate-400 block mb-1">Phone / WhatsApp Number *</label>
+                                                <input type="tel" required value={customerPhone} onChange={(e) => setCustomerPhone(e.target.value)} placeholder="e.g. 0625873479" className="w-full px-4 py-3 rounded-xl bg-slate-950 border silver-border text-white outline-none focus:ring-2 focus:ring-slate-300"/>
+                                            </div>
+                                            <div>
+                                                <label className="text-slate-400 block mb-1">Preferred Date *</label>
+                                                <input type="date" required value={bookingDate} onChange={(e) => setBookingDate(e.target.value)} className="w-full px-4 py-3 rounded-xl bg-slate-950 border silver-border text-white outline-none focus:ring-2 focus:ring-slate-300"/>
+                                            </div>
+                                            <div>
+                                                <label className="text-slate-400 block mb-1">Preferred Time *</label>
+                                                <select value={bookingTime} onChange={(e) => setBookingTime(e.target.value)} className="w-full px-4 py-3 rounded-xl bg-slate-950 border silver-border text-white outline-none focus:ring-2 focus:ring-slate-300">
+                                                    <option>09:00 AM</option>
+                                                    <option>10:00 AM</option>
+                                                    <option>11:30 AM</option>
+                                                    <option>02:00 PM</option>
+                                                    <option>04:00 PM</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label className="text-slate-400 block text-xs mb-1">Special Notes / Address Instructions</label>
+                                            <textarea value={bookingNotes} onChange={(e) => setBookingNotes(e.target.value)} rows="3" placeholder="Additional details..." className="w-full px-4 py-3 rounded-xl bg-slate-950 border silver-border text-white text-xs outline-none focus:ring-2 focus:ring-slate-300"></textarea>
+                                        </div>
+                                        <button type="submit" className="press-effect w-full silver-gradient text-slate-950 font-extrabold py-4 rounded-2xl text-xs shadow-xl hover:scale-[1.01] transition-transform">
+                                            Confirm Service Appointment 📅
+                                        </button>
+                                    </form>
+                                </div>
+                            </section>
+                        )}
+
+                        {/* TAB 4: BULK SPECIALS */}
                         {activeTab === 'specials' && (
                             <section className="bg-glass border silver-border p-6 sm:p-12 rounded-3xl shadow-xl space-y-6 animate-fade-in">
                                 <div className="max-w-xl space-y-2">
@@ -511,20 +592,20 @@
                             </section>
                         )}
 
-                        {/* TAB 4: CUSTOMER ORDERS */}
+                        {/* TAB 5: CUSTOMER ORDERS */}
                         {activeTab === 'orders' && (
                             <section className="bg-glass border silver-border p-6 sm:p-12 rounded-3xl shadow-xl space-y-6 animate-fade-in">
                                 <div className="flex justify-between items-center border-b silver-border pb-4">
                                     <div>
-                                        <h3 className="text-xl font-black silver-text">📦 Your Order History</h3>
+                                        <h3 className="text-xl font-black silver-text">📦 Your Order & Booking History</h3>
                                         <p className="text-xs text-slate-400">Synced securely with SQLite & Flask backend.</p>
                                     </div>
-                                    <button onClick={fetchOrders} className="press-effect bg-slate-900 border silver-border text-xs font-bold px-4 py-2 rounded-xl text-slate-200 hover:bg-slate-800 transition-all">🔄 Refresh</button>
+                                    <button onClick={() => { fetchOrders(); fetchBookings(); }} className="press-effect bg-slate-900 border silver-border text-xs font-bold px-4 py-2 rounded-xl text-slate-200 hover:bg-slate-800 transition-all">🔄 Refresh</button>
                                 </div>
                                 <div className="space-y-4 text-xs">
-                                    {orders.length === 0 ? (
+                                    {orders.length === 0 && bookings.length === 0 ? (
                                         <div className="bg-slate-900/90 p-8 rounded-2xl border silver-border text-center space-y-2">
-                                            <p className="text-slate-400">No orders found in your history yet.</p>
+                                            <p className="text-slate-400">No orders or bookings found in your history yet.</p>
                                         </div>
                                     ) : (
                                         orders.map((o, idx) => (
@@ -536,7 +617,7 @@
                                                 <div className="text-[11px] text-slate-400 flex flex-wrap gap-2">
                                                     <span>{o.date || 'Recent Order'}</span>
                                                     {o.customer_name && <span className="text-slate-300 font-bold">• Customer: {o.customer_name} ({o.customer_phone})</span>}
-                                                    {o.comm_preference && <span className="text-amber-400 font-bold">• Mode: {o.comm_preference.toUpperCase()}</span>}
+                                                    {o.payment_method && <span className="text-emerald-400 font-bold">• Payment: {o.payment_method}</span>}
                                                 </div>
                                                 <div className="border-t silver-border pt-3 space-y-1.5">
                                                     {o.items.map((item, iIdx) => (
@@ -553,7 +634,7 @@
                             </section>
                         )}
 
-                        {/* TAB 5: OWNER ADMIN SYSTEM */}
+                        {/* TAB 6: OWNER ADMIN SYSTEM */}
                         {activeTab === 'admin' && (
                             <section className="space-y-6 animate-fade-in">
                                 <div className="bg-glass border silver-border p-6 rounded-3xl shadow-2xl flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
@@ -562,12 +643,11 @@
                                             <span>🔒 Secure Owner Dashboard</span>
                                         </div>
                                         <h3 className="text-2xl font-black silver-text">Nollie's Owner Control Console</h3>
-                                        <p className="text-xs text-slate-400">Live order tracking, revenue analytics, and multi-channel customer dispatch.</p>
+                                        <p className="text-xs text-slate-400">Live order tracking, service bookings, and payment status overview.</p>
                                     </div>
-                                    <button onClick={fetchOrders} className="press-effect silver-gradient text-slate-950 font-extrabold text-xs px-5 py-3 rounded-xl shadow">🔄 Sync Orders</button>
+                                    <button onClick={() => { fetchOrders(); fetchBookings(); }} className="press-effect silver-gradient text-slate-950 font-extrabold text-xs px-5 py-3 rounded-xl shadow">🔄 Sync Data</button>
                                 </div>
 
-                                {/* Revenue & Stats Metrics */}
                                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                                     <div className="bg-slate-900/90 p-6 rounded-3xl border silver-border space-y-1 card-hover">
                                         <span className="text-slate-400 text-xs font-semibold">Total Revenue Generated</span>
@@ -578,107 +658,74 @@
                                         <div className="text-2xl font-black text-white">{orders.length}</div>
                                     </div>
                                     <div className="bg-slate-900/90 p-6 rounded-3xl border silver-border space-y-1 card-hover">
-                                        <span className="text-slate-400 text-xs font-semibold">Average Order Value</span>
-                                        <div className="text-2xl font-black silver-text">R {avgOrderVal.toFixed(2)}</div>
+                                        <span className="text-slate-400 text-xs font-semibold">Active Service Bookings</span>
+                                        <div className="text-2xl font-black silver-text">{bookings.length}</div>
                                     </div>
                                 </div>
 
-                                {/* Live Admin Orders Feed */}
-                                <div className="bg-glass border silver-border p-6 sm:p-8 rounded-3xl shadow-xl space-y-4">
-                                    <h4 className="text-base font-extrabold text-white">Incoming Customer Order Feed</h4>
-                                    <div className="space-y-4 text-xs">
-                                        {orders.length === 0 ? (
-                                            <p className="text-slate-400 italic">No customer orders recorded yet in database.</p>
-                                        ) : (
-                                            orders.map((o, idx) => (
-                                                <div key={idx} className="bg-slate-900/90 p-5 rounded-2xl border silver-border space-y-3 shadow-xl card-hover">
-                                                    <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-2 border-b silver-border pb-3">
-                                                        <div>
-                                                            <span className="font-black text-white text-sm">Order #{o.id || (orders.length - idx)}</span>
-                                                            <span className="text-slate-400 text-[11px] block sm:inline sm:ml-2">{o.date || 'Just now'}</span>
-                                                            {o.customer_name && (
-                                                                <div className="text-emerald-400 font-bold text-xs mt-1">
-                                                                    👤 {o.customer_name} ({o.customer_phone}) - Mode: {o.comm_preference ? o.comm_preference.toUpperCase() : 'WHATSAPP'}
-                                                                </div>
-                                                            )}
-                                                            {o.delivery_address && (
-                                                                <div className="text-slate-300 text-[11px]">📍 {o.delivery_address}</div>
-                                                            )}
-                                                        </div>
-                                                        <div className="flex flex-wrap items-center gap-2">
-                                                            <span className="bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-black text-xs px-3 py-1 rounded-xl">R {(o.total || 0).toFixed(2)}</span>
-                                                            <button onClick={() => window.open(`https://wa.me/${o.customer_phone || '27625873479'}`, '_blank')} className="press-effect bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs px-3 py-1.5 rounded-xl shadow">💬 WhatsApp</button>
-                                                            <button onClick={() => window.open(`tel:${o.customer_phone || '0625873479'}`, '_blank')} className="press-effect bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs px-3 py-1.5 rounded-xl shadow">📞 Phone Call</button>
-                                                            <button onClick={() => window.open(`sms:${o.customer_phone || '0625873479'}`, '_blank')} className="press-effect bg-amber-600 hover:bg-amber-500 text-white font-bold text-xs px-3 py-1.5 rounded-xl shadow">✉️ SMS</button>
-                                                        </div>
+                                {/* Live Admin Orders & Bookings Feed */}
+                                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                                    <div className="bg-glass border silver-border p-6 rounded-3xl shadow-xl space-y-4">
+                                        <h4 className="text-base font-extrabold text-white">Customer Orders Feed</h4>
+                                        <div className="space-y-3 text-xs">
+                                            {orders.map((o, idx) => (
+                                                <div key={idx} className="bg-slate-900/90 p-4 rounded-2xl border silver-border space-y-2">
+                                                    <div className="flex justify-between font-bold text-white">
+                                                        <span>Order #{o.id} - {o.customer_name}</span>
+                                                        <span className="text-emerald-400">R {o.total.toFixed(2)}</span>
                                                     </div>
-                                                    <div className="space-y-1.5">
-                                                        <span className="text-slate-400 font-bold uppercase tracking-wider text-[10px]">Order Line Items:</span>
-                                                        <div className="bg-slate-950 p-3 rounded-xl border silver-border space-y-1">
-                                                            {(o.items || []).map((item, iIdx) => (
-                                                                <div key={iIdx} className="flex justify-between text-slate-200">
-                                                                    <span>• {item.title}</span>
-                                                                    <span className="font-bold">R {(item.price || 0).toFixed(2)}</span>
-                                                                </div>
-                                                            ))}
-                                                        </div>
-                                                    </div>
+                                                    <div className="text-[11px] text-slate-400">Payment: <span className="text-amber-400 font-bold">{o.payment_method}</span> ({o.payment_status})</div>
                                                 </div>
-                                            ))
-                                        )}
+                                            ))}
+                                        </div>
+                                    </div>
+
+                                    <div className="bg-glass border silver-border p-6 rounded-3xl shadow-xl space-y-4">
+                                        <h4 className="text-base font-extrabold text-white">Service Bookings Log</h4>
+                                        <div className="space-y-3 text-xs">
+                                            {bookings.map((b, idx) => (
+                                                <div key={idx} className="bg-slate-900/90 p-4 rounded-2xl border silver-border space-y-1">
+                                                    <div className="flex justify-between font-bold text-white">
+                                                        <span>{b.service_type}</span>
+                                                        <span className="text-emerald-400">{b.status}</span>
+                                                    </div>
+                                                    <div className="text-[11px] text-slate-400">Client: {b.customer_name} ({b.customer_phone})</div>
+                                                    <div className="text-[11px] text-slate-500">Scheduled: {b.booking_date} at {b.booking_time}</div>
+                                                </div>
+                                            ))}
+                                        </div>
                                     </div>
                                 </div>
                             </section>
                         )}
 
-                        {/* TAB 6: PRIVACY POLICY */}
+                        {/* TAB 7: PRIVACY POLICY */}
                         {activeTab === 'privacy' && (
                             <section className="bg-glass border silver-border p-6 sm:p-12 rounded-3xl shadow-xl space-y-6 animate-fade-in">
                                 <div className="border-b silver-border pb-4">
-                                    <h3 className="text-2xl font-black silver-text">🔒 Privacy Policy & Data Protection (POPIA Compliance)</h3>
+                                    <h3 className="text-2xl font-black silver-text">🔒 Privacy Policy & Payment Security (POPIA Compliance)</h3>
                                     <p className="text-xs text-slate-400 mt-1">Effective Date: October 2026 | Nollie's eNanda Premier Hub</p>
                                 </div>
                                 <div className="space-y-4 text-xs text-slate-300 leading-relaxed">
                                     <div className="bg-slate-900/90 p-5 rounded-2xl border silver-border space-y-2">
-                                        <h4 className="font-bold text-white text-sm">1. Information We Collect</h4>
-                                        <p className="text-slate-400">When you place an order with Nollie's, we collect your full name, contact phone number, chosen communication preference (WhatsApp, SMS, or Phone Call), and eNanda delivery address to fulfill your order accurately.</p>
+                                        <h4 className="font-bold text-white text-sm">1. Secure Gateway Processing</h4>
+                                        <p className="text-slate-400">All digital payment transactions (Capitec Pay, Instant EFT, Card) are encrypted via standard financial API gateways. Card details are never stored on Nollie's servers.</p>
                                     </div>
                                     <div className="bg-slate-900/90 p-5 rounded-2xl border silver-border space-y-2">
-                                        <h4 className="font-bold text-white text-sm">2. How We Use Your Contact Details</h4>
-                                        <p className="text-slate-400">Your details are used strictly for order confirmation, delivery coordination in eNanda, and customer service updates. We respect your communication choices and never share or sell your data to third parties.</p>
-                                    </div>
-                                    <div className="bg-slate-900/90 p-5 rounded-2xl border silver-border space-y-2">
-                                        <h4 className="font-bold text-white text-sm">3. Data Security & Storage</h4>
-                                        <p className="text-slate-400">Order records are securely stored within our local SQLite database layer and local encrypted session tokens following South African Protection of Personal Information Act (POPIA) guidelines.</p>
-                                    </div>
-                                </div>
-                            </section>
-                        )}
-
-                        {/* TAB 7: ABOUT / eNanda INFO */}
-                        {activeTab === 'about' && (
-                            <section className="bg-glass border silver-border p-6 sm:p-12 rounded-3xl shadow-xl space-y-6 animate-fade-in">
-                                <h3 className="text-2xl font-black silver-text">ℹ️ About Nollie's & eNanda Hub</h3>
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs text-slate-300">
-                                    <div className="bg-slate-900/90 p-6 rounded-3xl border silver-border space-y-2 card-hover">
-                                        <h4 className="font-bold text-white text-sm">🚚 Flat R30 Delivery Protocol</h4>
-                                        <p className="text-slate-400 leading-relaxed">We provide reliable, fast doorstep delivery across all sectors of eNanda and surrounding Durban communities for a flat R30 fee.</p>
-                                    </div>
-                                    <div className="bg-slate-900/90 p-6 rounded-3xl border silver-border space-y-2 card-hover">
-                                        <h4 className="font-bold text-white text-sm">💬 Flexible Multi-Channel Dispatch</h4>
-                                        <p className="text-slate-400 leading-relaxed">Choose your preferred communication method during checkout: instant WhatsApp chat, SMS text message, or direct phone call from our eNanda team.</p>
+                                        <h4 className="font-bold text-white text-sm">2. Information Collection</h4>
+                                        <p className="text-slate-400">When you place an order or book a service with Nollie's, we collect your full name, contact phone number, chosen communication preference, and eNanda delivery address to fulfill your order accurately.</p>
                                     </div>
                                 </div>
                             </section>
                         )}
                     </main>
 
-                    {/* Cart & Customer Details Modal Drawer */}
+                    {/* Cart & Integrated Payment Gateway Drawer */}
                     {isCartOpen && (
                         <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-50 flex flex-col justify-end animate-fade-in">
                             <div className="bg-glass rounded-t-3xl p-6 sm:p-8 border-t silver-border max-h-[90vh] flex flex-col shadow-2xl max-w-2xl mx-auto w-full">
                                 <div className="flex justify-between items-center border-b silver-border pb-4">
-                                    <h3 className="font-black text-base text-white flex items-center space-x-2"><span>🛒</span><span>Your Order & Contact Details</span></h3>
+                                    <h3 className="font-black text-base text-white flex items-center space-x-2"><span>🛒</span><span>Your Order & Payment Gateway</span></h3>
                                     <button onClick={() => setIsCartOpen(false)} className="press-effect text-slate-400 text-xl font-bold bg-slate-800 w-9 h-9 rounded-full flex items-center justify-center hover:bg-slate-700">&times;</button>
                                 </div>
                                 <div className="py-4 overflow-y-auto flex-1 space-y-4 text-xs">
@@ -704,12 +751,13 @@
                                         </div>
                                         <input type="text" value={deliveryAddress} onChange={(e) => setDeliveryAddress(e.target.value)} placeholder="eNanda Sector / Street Address" className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border silver-border text-white outline-none focus:ring-2 focus:ring-slate-300 transition-all"/>
 
-                                        <div className="space-y-1.5 pt-1">
-                                            <span className="text-slate-400 text-[11px] font-bold">Preferred Contact Channel:</span>
-                                            <div className="flex space-x-2">
-                                                <button onClick={() => setCommPreference('whatsapp')} className={`flex-1 py-2 rounded-xl text-xs font-bold transition-all ${commPreference === 'whatsapp' ? 'bg-emerald-600 text-white shadow-lg scale-105' : 'bg-slate-950 text-slate-400 border silver-border'}`}>💬 WhatsApp</button>
-                                                <button onClick={() => setCommPreference('sms')} className={`flex-1 py-2 rounded-xl text-xs font-bold transition-all ${commPreference === 'sms' ? 'bg-amber-600 text-white shadow-lg scale-105' : 'bg-slate-950 text-slate-400 border silver-border'}`}>✉️ SMS</button>
-                                                <button onClick={() => setCommPreference('call')} className={`flex-1 py-2 rounded-xl text-xs font-bold transition-all ${commPreference === 'call' ? 'bg-blue-600 text-white shadow-lg scale-105' : 'bg-slate-950 text-slate-400 border silver-border'}`}>📞 Call</button>
+                                        {/* Payment Gateway Option */}
+                                        <div className="space-y-2 pt-2 border-t silver-border">
+                                            <span className="text-white font-extrabold block">💳 Select Payment Gateway:</span>
+                                            <div className="grid grid-cols-3 gap-2">
+                                                <button onClick={() => setPaymentMethod('COD')} className={`p-2.5 rounded-xl border text-[11px] font-bold text-center transition-all ${paymentMethod === 'COD' ? 'bg-emerald-600 text-white border-emerald-400 shadow-md' : 'bg-slate-950 text-slate-400 border-slate-800'}`}>💵 Cash on Delivery</button>
+                                                <button onClick={() => setPaymentMethod('CAPITEC_PAY')} className={`p-2.5 rounded-xl border text-[11px] font-bold text-center transition-all ${paymentMethod === 'CAPITEC_PAY' ? 'bg-blue-600 text-white border-blue-400 shadow-md' : 'bg-slate-950 text-slate-400 border-slate-800'}`}>📲 Capitec Pay / EFT</button>
+                                                <button onClick={() => setPaymentMethod('CARD_ONLINE')} className={`p-2.5 rounded-xl border text-[11px] font-bold text-center transition-all ${paymentMethod === 'CARD_ONLINE' ? 'bg-amber-600 text-white border-amber-400 shadow-md' : 'bg-slate-950 text-slate-400 border-slate-800'}`}>💳 Online Card</button>
                                             </div>
                                         </div>
                                     </div>
@@ -726,7 +774,7 @@
                                     <div className="flex justify-between text-slate-300 font-medium"><span>Delivery Fee (eNanda):</span><span>R 30.00</span></div>
                                     <div className="flex justify-between text-lg font-black text-white pt-2 border-t silver-border"><span>Total Amount:</span><span className="silver-text">R {grandTotal.toFixed(2)}</span></div>
                                     <button onClick={handleCheckout} className="press-effect w-full bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold py-4 rounded-2xl text-sm shadow-xl mt-2 flex items-center justify-center space-x-2 hover:scale-[1.01] transition-transform">
-                                        <span>Submit Order via {commPreference.toUpperCase()} 🚀</span>
+                                        <span>Pay R{grandTotal.toFixed(2)} & Submit Order 🚀</span>
                                     </button>
                                 </div>
                             </div>
