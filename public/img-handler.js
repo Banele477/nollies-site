@@ -9,7 +9,7 @@ var HIDE=[];
 var base=location.pathname.replace(/[^\/]*$/,"");
 var CDN="https://cdn.jsdelivr.net/gh/"+OWNER+"/"+REPO+"@"+BRANCH;
 var RAW="https://raw.githubusercontent.com/"+OWNER+"/"+REPO+"/"+BRANCH;
-var FALL="data:image/svg+xml;utf8,"+encodeURIComponent("<svg xmlns='http://www.w3.org/2000/svg' width='600' height='400'><rect width='100%' height='100%' fill='#0f172a'/><text x='50%' y='50%' fill='white' font-family='sans-serif' font-size='22' text-anchor='middle'>Nqobile Hub Stock</text></svg>");
+var FALL="data:image/svg+xml;utf8,"+encodeURIComponent("<svg xmlns='http://www.w3.org/2000/svg' width='600' height='400'><rect width='100%' height='100%' fill='#0f172a'/><text x='50%' y='50%' fill='white' font-family='sans-serif' font-size='22' text-anchor='middle'></text></svg>");
 var css="#nq-gallery{max-width:1100px;margin:40px auto 120px;padding:0 16px;color:#fff;font-family:sans-serif;text-align:center}#nq-gallery h2{font-size:24px;margin:0}#nq-gallery p{color:#94a3b8;font-size:13px;margin:4px 0 16px}.nq-g{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}.nq-g figure{margin:0;border-radius:14px;overflow:hidden;border:1px solid rgba(255,255,255,.2);background:#0f172a;aspect-ratio:1}.nq-g img{width:100%;height:100%;object-fit:cover;display:block;cursor:zoom-in}img.nq-wait{opacity:.35;filter:blur(3px)}img.nq-ok{transition:opacity .4s,filter .4s}#nq-lb{position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:999999;display:none;align-items:center;justify-content:center;padding:16px}#nq-lb.open{display:flex}#nq-lb img{max-width:100%;max-height:100%;border-radius:12px}";
 var stl=document.createElement("style");stl.textContent=css;document.head.appendChild(stl);
 

@@ -1,6 +1,6 @@
 (function(){
 var WA="27XXXXXXXXX";
-var FALL="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='400'><rect width='100%25' height='100%25' fill='%230f172a'/><text x='50%25' y='50%25' fill='white' font-family='sans-serif' font-size='22' text-anchor='middle'>Nqobile Hub Stock</text></svg>";
+var FALL="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='400'><rect width='100%25' height='100%25' fill='%230f172a'/><text x='50%25' y='50%25' fill='white' font-family='sans-serif' font-size='22' text-anchor='middle'></text></svg>";
 function fix(img){
   if(img.dataset.ux)return; img.dataset.ux=1;
   if(!img.hasAttribute('loading'))img.loading='lazy';
