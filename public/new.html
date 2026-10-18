@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#020617">
+<title>Nqobile's Durban Home & Hub</title>
+<meta name="description" content="Real stock: breakfast hampers, bulk wholesale boxes, juices and perfumes. Order on WhatsApp.">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  html{scroll-behavior:smooth}
+  .noscroll::-webkit-scrollbar{display:none}.noscroll{scrollbar-width:none}
+  .snap-x-m{scroll-snap-type:x mandatory}.snap-c{scroll-snap-align:start}
+</style>
+</head>
+<body class="bg-slate-950 text-slate-100 antialiased">
+
+<!-- TOP BAR -->
+<header class="sticky top-0 z-40 bg-slate-950/90 backdrop-blur border-b border-white/10">
+  <div class="max-w-6xl mx-auto px-4 h-14 flex items-center justify-between gap-3">
+    <a href="#top" class="leading-tight">
+      <span class="block font-extrabold text-base">Nqobile's</span>
+      <span class="block text-[11px] tracking-widest text-emerald-400 font-bold">DURBAN HOME &amp; HUB</span>
+    </a>
+    <a id="waTop" target="_blank" rel="noopener" class="rounded-full bg-emerald-500 text-slate-950 font-extrabold text-sm px-4 py-2 active:scale-95 transition">💬 WhatsApp</a>
+  </div>
+</header>
+
+<main id="top" class="pb-28">
+
+  <!-- HERO -->
+  <section class="relative overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-b from-emerald-500/20 via-slate-950/60 to-slate-950"></div>
+    <div class="relative max-w-6xl mx-auto px-4 pt-8 pb-6 grid gap-6 md:grid-cols-2 md:items-center">
+      <div>
+        <p class="inline-block rounded-full bg-emerald-500/15 text-emerald-300 text-xs font-bold px-3 py-1 mb-3">✅ Real stock · Real photos</p>
+        <h1 class="text-3xl sm:text-4xl font-extrabold leading-tight">Breakfast hampers, bulk boxes &amp; perfumes, <span class="text-emerald-400">one WhatsApp away.</span></h1>
+        <p class="mt-3 text-slate-300 text-sm sm:text-base">Cereal hampers, wholesale packed boxes, Juices Africa concentrates and luxury perfumes, with instant WhatsApp dispatch.</p>
+        <div class="mt-5 flex flex-wrap gap-3">
+          <a id="waHero" target="_blank" rel="noopener" class="rounded-full bg-emerald-500 text-slate-950 font-extrabold px-6 py-3 active:scale-95 transition">💬 Order on WhatsApp</a>
+          <a href="#shop" class="rounded-full border border-white/20 bg-white/5 font-bold px-6 py-3 active:scale-95 transition">Browse stock ↓</a>
+        </div>
+      </div>
+      <div id="heroPics" class="grid grid-cols-3 gap-2"></div>
+    </div>
+  </section>
+
+  <!-- CATEGORIES -->
+  <section class="max-w-6xl mx-auto px-4 mt-4">
+    <h2 class="text-xl font-extrabold mb-3">Shop by category</h2>
+    <div id="tiles" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3"></div>
+  </section>
+
+  <!-- FEATURED DEALS -->
+  <section class="mt-8">
+    <div class="max-w-6xl mx-auto px-4 flex items-end justify-between">
+      <h2 class="text-xl font-extrabold">🔥 Hampers &amp; wholesale deals</h2>
+      <span class="text-xs text-slate-400">swipe →</span>
+    </div>
+    <div id="featured" class="noscroll snap-x-m flex gap-3 overflow-x-auto px-4 pt-3 pb-2 max-w-6xl mx-auto"></div>
+  </section>
+
+  <!-- FULL SHOP -->
+  <section id="shop" class="max-w-6xl mx-auto px-4 mt-10 scroll-mt-16">
+    <h2 class="text-xl font-extrabold">🛍️ All our stock</h2>
+    <input id="q" type="search" placeholder="Search Weet-Bix, juice, perfume..." class="mt-3 w-full rounded-full bg-slate-800 border border-slate-600 px-4 py-3 text-sm outline-none focus:border-emerald-400">
+    <div id="chips" class="noscroll flex gap-2 overflow-x-auto pt-3"></div>
+    <p id="count" class="text-xs text-slate-400 mt-3 mb-3"></p>
+    <div id="grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3"></div>
+    <p id="empty" class="hidden text-center text-slate-400 py-12">Nothing matches. Ask us on WhatsApp, we may have it.</p>
+  </section>
+
+  <!-- HOW TO ORDER -->
+  <section id="order" class="max-w-6xl mx-auto px-4 mt-12 scroll-mt-16">
+    <h2 class="text-xl font-extrabold mb-3">How to order</h2>
+    <div class="grid gap-3 sm:grid-cols-3">
+      <div class="rounded-2xl bg-slate-900 border border-white/10 p-4"><div class="text-2xl">1️⃣</div><p class="font-bold mt-1">Pick your items</p><p class="text-sm text-slate-400">Tap any photo to enlarge it, then tap "Ask about this".</p></div>
+      <div class="rounded-2xl bg-slate-900 border border-white/10 p-4"><div class="text-2xl">2️⃣</div><p class="font-bold mt-1">Message us</p><p class="text-sm text-slate-400">WhatsApp opens with the item already filled in. Just send.</p></div>
+      <div class="rounded-2xl bg-slate-900 border border-white/10 p-4"><div class="text-2xl">3️⃣</div><p class="font-bold mt-1">We confirm &amp; dispatch</p><p class="text-sm text-slate-400">We reply with the price and arrange your order.</p></div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <footer class="max-w-6xl mx-auto px-4 mt-12">
+    <div class="rounded-3xl bg-gradient-to-br from-emerald-500/15 to-slate-900 border border-white/10 p-5">
+      <h2 class="text-lg font-extrabold">Nqobile's Durban Home &amp; Hub</h2>
+      <p class="text-sm text-slate-300 mt-1">Questions, bulk quotes or custom hampers? Message us.</p>
+      <div class="mt-4 flex flex-wrap gap-3">
+        <a id="waFoot" target="_blank" rel="noopener" class="rounded-full bg-emerald-500 text-slate-950 font-extrabold px-5 py-2.5">💬 WhatsApp</a>
+        <a href="mailto:nqobilegila518@gmail.com" class="rounded-full border border-white/20 font-bold px-5 py-2.5">✉️ Email us</a>
+      </div>
+    </div>
+    <p class="text-center text-xs text-slate-500 mt-6">© <span id="yr"></span> Nqobile's Durban Home &amp; Hub</p>
+  </footer>
+</main>
+
+<!-- BOTTOM BAR -->
+<nav class="fixed bottom-0 inset-x-0 z-40 bg-slate-950/95 backdrop-blur border-t border-white/10 pb-[env(safe-area-inset-bottom)]">
+  <div class="max-w-6xl mx-auto grid grid-cols-3 text-center text-[11px] font-bold">
+    <a href="#top" class="py-2.5 text-slate-300"><span class="block text-lg">🏠</span>Home</a>
+    <a href="#shop" class="py-2.5 text-slate-300"><span class="block text-lg">🛍️</span>Shop</a>
+    <a id="waNav" target="_blank" rel="noopener" class="py-2.5 text-emerald-400"><span class="block text-lg">💬</span>Order</a>
+  </div>
+</nav>
+
+<!-- LIGHTBOX -->
+<div id="lb" style="display:none" class="fixed inset-0 z-50 bg-black/95 flex-col items-center justify-center p-4 gap-3">
+  <img id="lbImg" alt="" class="max-w-full max-h-[72vh] rounded-xl">
+  <p id="lbCap" class="text-center text-sm max-w-md"></p>
+  <a id="lbWa" target="_blank" rel="noopener" class="rounded-full bg-emerald-500 text-slate-950 font-extrabold px-6 py-3">💬 Ask about this on WhatsApp</a>
+  <p class="text-xs text-slate-400">Tap anywhere to close</p>
+</div>
+
+<script>
+const WA = "27625873479";
+const CATS = {
+  hampers:  {label:"Hampers",    emoji:"🧺"},
+  bulk:     {label:"Bulk boxes", emoji:"📦"},
+  cereals:  {label:"Cereals",    emoji:"🥣"},
+  juices:   {label:"Juices",     emoji:"🧃"},
+  perfumes: {label:"Perfumes",   emoji:"🌸"},
+  stock:    {label:"More stock", emoji:"🛍️"}
+};
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const wa = t => "https://wa.me/" + WA + "?text=" + encodeURIComponent(t);
+const ask = t => wa("Hi Nqobile's Hub, I'm interested in: " + t);
+const meta = k => CATS[k] || {label: k.charAt(0).toUpperCase() + k.slice(1), emoji:"🛍️"};
+const badge = c => c === "hampers" ? "Wholesale Deal" : c === "bulk" ? "Top Seller" : "Fresh Stock";
+const pic = (p, cls) => `<img src="thumbs/${p.file}" alt="${esc(p.caption)}" loading="lazy" onerror="this.onerror=null;this.src='images/${p.file}'" class="${cls}">`;
+
+let items = [], cat = "all", term = "";
+
+["waTop","waHero","waFoot","waNav"].forEach(id => { $(id).href = wa("Hi Nqobile's Hub, I'd like to place an order."); });
+$("yr").textContent = new Date().getFullYear();
+
+function hero() {
+  const pool = items.filter(p => p.category === "hampers").concat(items).slice(0, 3);
+  $("heroPics").innerHTML = pool.map((p, i) =>
+    `<div class="rounded-2xl overflow-hidden border border-white/10 ${i === 1 ? "mt-6" : ""}">${pic(p, "w-full aspect-[3/4] object-cover")}</div>`).join("");
+}
+
+function tiles() {
+  const keys = [...new Set(items.map(p => p.category))];
+  $("tiles").innerHTML = keys.map(k => {
+    const m = meta(k), list = items.filter(p => p.category === k);
+    return `<button data-k="${esc(k)}" class="relative overflow-hidden rounded-2xl aspect-[4/3] text-left border border-white/10 active:scale-95 transition">
+      ${pic(list[0], "absolute inset-0 w-full h-full object-cover opacity-70")}
+      <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent"></div>
+      <div class="relative h-full flex flex-col justify-end p-3">
+        <span class="text-2xl leading-none">${m.emoji}</span>
+        <span class="font-extrabold">${esc(m.label)}</span>
+        <span class="text-xs text-slate-300">${list.length} item${list.length === 1 ? "" : "s"}</span>
+      </div></button>`;
+  }).join("");
+}
+
+function featured() {
+  let list = items.filter(p => p.category === "hampers" || p.category === "bulk");
+  if (!list.length) list = items.slice(0, 6);
+  $("featured").innerHTML = list.slice(0, 10).map(p => `
+    <article class="snap-c flex-none w-64 rounded-2xl bg-slate-900 border border-white/10 overflow-hidden flex flex-col">
+      <div class="relative">
+        ${pic(p, "w-full aspect-square object-cover cursor-zoom-in")}
+        <span class="absolute top-2 left-2 rounded-full bg-slate-950/85 border border-white/20 text-[11px] font-extrabold px-3 py-1">${badge(p.category)}</span>
+      </div>
+      <p class="p-3 text-xs leading-snug text-slate-200 flex-1">${esc(p.caption)}</p>
+      <a href="${ask(p.caption)}" target="_blank" rel="noopener" class="m-3 mt-0 rounded-full bg-emerald-500 text-slate-950 text-center font-extrabold text-sm py-2.5">Get a price</a>
+    </article>`).join("");
+}
+
+function chips() {
+  const keys = ["all"].concat([...new Set(items.map(p => p.category))]);
+  $("chips").innerHTML = keys.map(k => {
+    const on = k === cat;
+    const lbl = k === "all" ? "All" : meta(k).emoji + " " + meta(k).label;
+    return `<button data-k="${esc(k)}" class="flex-none rounded-full border px-4 py-2 text-sm font-bold ${on ? "bg-white text-slate-950 border-white" : "bg-slate-800 text-white border-slate-600"}">${esc(lbl)}</button>`;
+  }).join("");
+}
+
+function grid() {
+  const t = term.trim().toLowerCase();
+  const list = items.filter(p => (cat === "all" || p.category === cat) && (!t || p.caption.toLowerCase().includes(t)));
+  $("count").textContent = list.length + " item" + (list.length === 1 ? "" : "s") + " · tap a photo to enlarge";
+  $("empty").classList.toggle("hidden", list.length > 0);
+  $("grid").innerHTML = list.map(p => `
+    <article class="bg-slate-900 border border-white/10 rounded-2xl overflow-hidden flex flex-col">
+      <div class="relative">
+        ${pic(p, "w-full aspect-square object-cover cursor-zoom-in")}
+        <span class="absolute top-2 left-2 rounded-full bg-slate-950/85 border border-white/20 text-[10px] font-extrabold px-2.5 py-0.5">${badge(p.category)}</span>
+      </div>
+      <p class="p-3 text-xs leading-snug text-slate-200 flex-1">${esc(p.caption)}</p>
+      <a href="${ask(p.caption)}" target="_blank" rel="noopener" class="m-3 mt-0 rounded-full bg-emerald-500 text-slate-950 text-center font-extrabold text-sm py-2.5">💬 Ask about this</a>
+    </article>`).join("");
+}
+
+function openLb(src) {
+  const f = src.split("/").pop().split("?")[0];
+  const p = items.find(x => x.file === f); if (!p) return;
+  $("lbImg").src = "images/" + p.file;
+  $("lbCap").textContent = p.caption;
+  $("lbWa").href = ask(p.caption);
+  $("lb").style.display = "flex";
+}
+
+$("tiles").addEventListener("click", e => {
+  const b = e.target.closest("button"); if (!b) return;
+  cat = b.dataset.k; chips(); grid();
+  $("shop").scrollIntoView({behavior: "smooth"});
+});
+$("chips").addEventListener("click", e => {
+  const b = e.target.closest("button"); if (!b) return;
+  cat = b.dataset.k; chips(); grid();
+});
+$("q").addEventListener("input", e => { term = e.target.value; grid(); });
+["grid", "featured"].forEach(id => $(id).addEventListener("click", e => {
+  const im = e.target.closest("img"); if (im) openLb(im.getAttribute("src"));
+}));
+$("lb").addEventListener("click", e => { if (e.target.tagName !== "A") $("lb").style.display = "none"; });
+document.addEventListener("keydown", e => { if (e.key === "Escape") $("lb").style.display = "none"; });
+
+fetch("data/products.json", {cache: "no-cache"})
+  .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+  .then(d => { items = d; hero(); tiles(); featured(); chips(); grid(); })
+  .catch(() => { $("count").textContent = "Could not load stock. Please refresh, or order on WhatsApp."; });
+</script>
+</body>
+</html>

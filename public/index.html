@@ -146,10 +146,10 @@
             badge: p.c.toUpperCase() === 'HAMPER' ? 'Wholesale Deal' : (p.c.toUpperCase() === 'BULK' ? 'Top Seller' : 'Fresh Stock'),
             price: p.c.toUpperCase() === 'HAMPER' ? 'R250.00' : (p.c.toUpperCase() === 'BULK' ? 'R380.00' : 'R160.00'),
             desc: p.t,
-            img: '/images/' + p.n,
+            img: 'images/' + p.n,
             tag: p.c.toUpperCase()
         })) : [
-            { id: 'fl1', title: 'Cereal Hamper Complete Showcase', badge: 'Wholesale Deal', price: 'R250.00', desc: 'Real stock breakfast bundle including Jungle Oats, Weet-Bix, Corn Flakes, Future Life, Nutrific & Tropika juice.', img: '/images/juices-africa-flavours.jpg', tag: 'CEREAL HAMPER' }
+            { id: 'fl1', title: 'Cereal Hamper Complete Showcase', badge: 'Wholesale Deal', price: 'R250.00', desc: 'Real stock breakfast bundle including Jungle Oats, Weet-Bix, Corn Flakes, Future Life, Nutrific & Tropika juice.', img: 'images/juices-africa-flavours.jpg', tag: 'CEREAL HAMPER' }
         ];
 
         const PRODUCTS = PHOTOS_LIST.length > 0 ? PHOTOS_LIST.map((p, idx) => ({
@@ -159,22 +159,22 @@
             price: p.c === 'bulk' ? 380 : (p.c === 'juice' ? 160 : 250),
             badge: p.c.toUpperCase(),
             desc: p.t,
-            img: '/images/' + p.n,
+            img: 'images/' + p.n,
             arDimensions: '35cm x 25cm x 20cm'
         })) : [];
 
         const HAMPER_OPTIONS = [
-            { name: 'Jungle Oats 1kg', category: 'Cereal', img: '/images/juices-africa-flavours.jpg' },
-            { name: 'Future Life 500g', category: 'Cereal', img: '/images/juices-africa-flavours.jpg' },
-            { name: 'Bokomo Corn Flakes 1kg', category: 'Cereal', img: '/images/juices-africa-flavours.jpg' },
-            { name: 'Weet-Bix 450g', category: 'Cereal', img: '/images/juices-africa-flavours.jpg' },
-            { name: 'Nutrifics 450g', category: 'Cereal', img: '/images/juices-africa-flavours.jpg' },
-            { name: 'Tropika Dairy Fruit Mix (1L)', category: 'Beverage', img: '/images/juices-africa-flavours.jpg' }
+            { name: 'Jungle Oats 1kg', category: 'Cereal', img: 'images/juices-africa-flavours.jpg' },
+            { name: 'Future Life 500g', category: 'Cereal', img: 'images/juices-africa-flavours.jpg' },
+            { name: 'Bokomo Corn Flakes 1kg', category: 'Cereal', img: 'images/juices-africa-flavours.jpg' },
+            { name: 'Weet-Bix 450g', category: 'Cereal', img: 'images/juices-africa-flavours.jpg' },
+            { name: 'Nutrifics 450g', category: 'Cereal', img: 'images/juices-africa-flavours.jpg' },
+            { name: 'Tropika Dairy Fruit Mix (1L)', category: 'Beverage', img: 'images/juices-africa-flavours.jpg' }
         ];
 
         const BOOKABLE_SERVICES = [
-            { id: 's1', title: 'Doorstep Hamper Consultation & Delivery', price: 50, duration: '30 min', desc: 'In-person assistance selecting household groceries & bulk hampers in Durban.', img: '/images/juices-africa-flavours.jpg' },
-            { id: 's2', title: 'M-Scents Fragrance Sampling Session', price: 0, duration: '20 min', desc: 'Sample signature M-Scents perfumes at our local Durban hub point.', img: '/images/juices-africa-flavours.jpg' }
+            { id: 's1', title: 'Doorstep Hamper Consultation & Delivery', price: 50, duration: '30 min', desc: 'In-person assistance selecting household groceries & bulk hampers in Durban.', img: 'images/juices-africa-flavours.jpg' },
+            { id: 's2', title: 'M-Scents Fragrance Sampling Session', price: 0, duration: '20 min', desc: 'Sample signature M-Scents perfumes at our local Durban hub point.', img: 'images/juices-africa-flavours.jpg' }
         ];
 
         const INITIAL_REVIEWS = [
