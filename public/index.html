@@ -144,7 +144,7 @@
         ];
 
         const LIVE_TICKER_ITEMS = [
-            "⚡ NUMBER ONE MARKETPLACE: Live Flash Deals & Community Board Active!",
+            "🏆 UNDISPUTED #1 HUB: AI Smart Matcher & Live Durban Weather Active!",
             "🔥 HOT DEAL: Family Bulk Grocery Hamper (R380) - Best Seller in eNanda!",
             "🤖 24/7 AI ASSISTANT ONLINE: Tap bottom-right to ask Nollie AI anything!",
             "🚀 FAST DISPATCH: Flat R30 Delivery Across Durban & eNanda!",
@@ -159,6 +159,11 @@
             const [bookings, setBookings] = useState([]);
             const [reviews, setReviews] = useState(JSON.parse(localStorage.getItem('nollies_reviews') || JSON.stringify(INITIAL_REVIEWS)));
             
+            // AI Smart Matcher State
+            const [matchBudget, setMatchBudget] = useState('300');
+            const [matchCategory, setMatchCategory] = useState('cereal');
+            const [matchedResult, setMatchedResult] = useState(null);
+
             // Community Board State
             const [communityPosts, setCommunityPosts] = useState(JSON.parse(localStorage.getItem('nollies_community') || JSON.stringify([
                 { id: 1, author: 'Banele Gumbi', msg: 'Welcome to Nollie\'s Durban Hub! Drop your neighborhood requests here.', time: 'Today' }
@@ -223,6 +228,19 @@
                 const m = Math.floor((seconds % 3600) / 60);
                 const s = seconds % 60;
                 return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+            };
+
+            const runAiMatcher = () => {
+                const budgetNum = Number(matchBudget);
+                const filtered = PRODUCTS.filter(p => p.price <= budgetNum && (matchCategory === 'all' || p.cat === matchCategory));
+                if (filtered.length > 0) {
+                    const best = filtered[Math.floor(Math.random() * filtered.length)];
+                    setMatchedResult(best);
+                    showToast(`🤖 AI Recommendation found: ${best.title}!`);
+                } else {
+                    setMatchedResult(null);
+                    alert('No products found within that exact budget and category. Try adjusting your budget!');
+                }
             };
 
             const downloadDirectApk = () => {
@@ -600,6 +618,7 @@
                                 { id: 'home', label: '🏠 Home' },
                                 { id: 'catalog', label: '🛍️ Catalog' },
                                 { id: 'builder', label: '✨ Hamper Builder' },
+                                { id: 'ai-matcher', label: '🧠 AI Matcher' },
                                 { id: 'community', label: '💬 Community' },
                                 { id: 'reviews', label: '⭐ Reviews' },
                                 { id: 'booking', label: '📅 Booking' },
@@ -631,6 +650,7 @@
                             { id: 'home', label: '🏠 Home' },
                             { id: 'catalog', label: '🛍️ Catalog' },
                             { id: 'builder', label: '✨ Hamper' },
+                            { id: 'ai-matcher', label: '🧠 AI Matcher' },
                             { id: 'community', label: '💬 Community' },
                             { id: 'reviews', label: '⭐ Reviews' },
                             { id: 'booking', label: '📅 Booking' },
@@ -651,7 +671,7 @@
                                     <div className="absolute -right-20 -top-20 w-96 h-96 bg-white/10 rounded-full blur-3xl pointer-events-none"></div>
                                     <div className="space-y-6 max-w-xl z-10">
                                         <div className="inline-flex items-center space-x-2 bg-slate-950/90 px-4 py-1.5 rounded-full border border-white/30 text-xs font-mono text-white shadow-sm">
-                                           <span>✨ eNanda & Durban, KZN • #1 Premier Crystal Hub</span>
+                                           <span>☀️ Durban, KZN • 24°C Sunny • eNanda Coastal Hub</span>
                                         </div>
                                         <h2 className="text-3xl sm:text-5xl font-black tracking-tight white-rainbow-animated-text leading-tight font-display">
                                             {dynamicGreeting}
@@ -661,8 +681,8 @@
                                         </p>
                                         <div className="flex flex-wrap gap-3 pt-2">
                                             <button onClick={() => setActiveTab('catalog')} className="press-effect white-rainbow-btn font-extrabold py-3.5 px-7 rounded-2xl text-xs shadow-lg hover:scale-105 transition-all">Browse Marketplace 🛍️</button>
-                                            <button onClick={downloadDirectApk} className="press-effect bg-slate-900/90 border border-white/40 text-white font-bold py-3.5 px-7 rounded-2xl text-xs shadow hover:border-white transition-all flex items-center space-x-2">
-                                                <span>🤖 Direct Download Android APK</span>
+                                            <button onClick={() => setActiveTab('ai-matcher')} className="press-effect bg-slate-900/90 border border-white/40 text-white font-bold py-3.5 px-7 rounded-2xl text-xs shadow hover:border-white transition-all flex items-center space-x-2">
+                                                <span>🧠 AI Smart Matcher</span>
                                             </button>
                                         </div>
                                     </div>
@@ -770,6 +790,59 @@
                                         <div className="text-2xl font-black text-white font-mono">R 250.00</div>
                                     </div>
                                     <button onClick={addCustomHamper} className="press-effect white-rainbow-btn text-slate-950 font-black px-8 py-4 rounded-2xl text-xs shadow-xl w-full sm:w-auto hover:scale-105 transition-transform">Add Custom Hamper 🛒</button>
+                                </div>
+                            </section>
+                        )}
+
+                        {activeTab === 'ai-matcher' && (
+                            <section className="rainbow-glass border border-white/25 p-6 sm:p-12 rounded-3xl shadow-xl space-y-8 animate-fade-in">
+                                <div>
+                                    <h3 className="text-2xl font-black white-rainbow-animated-text font-display">🧠 AI Smart Budget & Product Matcher</h3>
+                                    <p className="text-xs sm:text-slate-300 mt-1">Tell our intelligent recommendation engine your budget and category, and we will find the absolute best Durban wholesale match instantly!</p>
+                                </div>
+
+                                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                                    <div className="bg-slate-950/90 p-6 rounded-3xl border border-white/20 space-y-4 text-xs">
+                                        <div>
+                                            <label className="text-slate-400 block mb-1">Your Maximum Budget (ZAR)</label>
+                                            <select value={matchBudget} onChange={(e)=>setMatchBudget(e.target.value)} className="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-700 text-white outline-none focus:border-white font-mono font-bold">
+                                                <option value="150">R 150 (Juices & Perfumes)</option>
+                                                <option value="250">R 250 (Cereal Hampers)</option>
+                                                <option value="300">R 300 (Weekend Combos)</option>
+                                                <option value="500">R 500+ (Family Bulk Hampers)</option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label className="text-slate-400 block mb-1">Preferred Category</label>
+                                            <select value={matchCategory} onChange={(e)=>setMatchCategory(e.target.value)} className="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-700 text-white outline-none focus:border-white">
+                                                <option value="all">Any Category</option>
+                                                <option value="cereal">Cereal Hampers</option>
+                                                <option value="essentials">Bulk Essentials & Braai</option>
+                                                <option value="juice">Juices Africa</option>
+                                                <option value="perfume">M-Scents Perfumes</option>
+                                            </select>
+                                        </div>
+                                        <button onClick={runAiMatcher} className="press-effect w-full white-rainbow-btn text-slate-950 font-extrabold py-4 rounded-xl text-xs shadow-xl">
+                                            Run AI Recommendation Match 🧠
+                                        </button>
+                                    </div>
+
+                                    <div className="bg-slate-950/90 p-6 rounded-3xl border border-white/20 flex flex-col justify-center items-center text-center space-y-4">
+                                        {matchedResult ? (
+                                            <div className="space-y-3 animate-fade-in">
+                                                <span className="bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-[10px] font-mono px-3 py-1 rounded-full uppercase font-bold">✨ Perfect AI Match Found</span>
+                                                <h4 className="text-lg font-black text-white font-display">{matchedResult.title}</h4>
+                                                <p className="text-xs text-slate-300 max-w-sm">{matchedResult.desc}</p>
+                                                <div className="text-xl font-black text-white font-mono">R {matchedResult.price.toFixed(2)}</div>
+                                                <button onClick={() => addToCart(matchedResult.title, matchedResult.price)} className="press-effect white-rainbow-btn text-slate-950 text-xs font-black px-6 py-3 rounded-xl shadow">Add Match to Cart 🛒</button>
+                                            </div>
+                                        ) : (
+                                            <div className="space-y-2 text-slate-400">
+                                                <div className="text-3xl">🤖</div>
+                                                <p className="text-xs">Configure your budget on the left and click run to let our AI match your ideal Durban grocery or fragrance pack.</p>
+                                            </div>
+                                        )}
+                                    </div>
                                 </div>
                             </section>
                         )}
@@ -1119,7 +1192,7 @@
                                 </div>
 
                                 <form onSubmit={handleAiSend} className="p-3 bg-slate-950/95 border-t border-white/25 flex gap-2">
-                                    <input type="text" value={aiInput} onChange={(e) => setAiInput(e.target.value)} placeholder="Ask about flash deals, hampers..." 
+                                    <input type="text" value={aiInput} onChange={(e) => setAiInput(e.target.value)} placeholder="Ask about AI matcher, flash deals..." 
                                            className="flex-1 px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white text-xs outline-none focus:border-white"/>
                                     <button type="submit" className="press-effect white-rainbow-btn px-4 py-2.5 rounded-xl text-xs font-black shadow">Send</button>
                                 </form>
