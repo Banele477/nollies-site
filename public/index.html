@@ -10,8 +10,6 @@
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script crossorigin src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    <!-- Include JSZip for instant browser-side app packaging -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700;900&display=swap" rel="stylesheet">
     <style>
         body { 
@@ -150,7 +148,7 @@
             const [activeModalProduct, setActiveModalProduct] = useState(null);
             const [toastMessage, setToastMessage] = useState(null);
             const [liveActivityIndex, setLiveActivityIndex] = useState(0);
-            const [isBuildingApp, setIsBuildingApp] = useState(false);
+            const [deferredPrompt, setDeferredPrompt] = useState(null);
 
             const [customerName, setCustomerName] = useState(localStorage.getItem('nollies_customer_name') || '');
             const [customerPhone, setCustomerPhone] = useState(localStorage.getItem('nollies_customer_phone') || '');
@@ -163,43 +161,31 @@
             const [bookingTime, setBookingTime] = useState('10:00 AM');
             const [bookingNotes, setBookingNotes] = useState('');
 
-            // ONE-TOUCH INSTANT APP DOWNLOAD PACKAGER (JSZip generator)
-            const downloadStandaloneAppPackage = async () => {
-                setIsBuildingApp(true);
-                showToast('⚡ Synthesizing Nollie\'s Standalone App Package...');
+            // Capture Android WebAPK install trigger
+            useEffect(() => {
+                window.addEventListener('beforeinstallprompt', (e) => {
+                    e.preventDefault();
+                    setDeferredPrompt(e);
+                });
+            }, []);
 
-                try {
-                    const zip = new JSZip();
-                    
-                    // Add app files
-                    zip.file("index.html", document.documentElement.outerHTML);
-                    zip.file("manifest.json", JSON.stringify({
-                        "short_name": "Nollie's",
-                        "name": "Nollie's Premier Hub & Marketplace",
-                        "start_url": "index.html",
-                        "display": "standalone",
-                        "background_color": "#030712",
-                        "theme_color": "#030712"
-                    }, null, 2));
-                    
-                    zip.file("README.txt", "Nollie's Premier Hub Mobile & Desktop Standalone App.\nOpen index.html in any browser or mobile webview to run 100% offline with full features!");
-
-                    const content = await zip.generateAsync({ type: "blob" });
-                    const url = window.URL.createObjectURL(content);
-                    const anchor = document.createElement('a');
-                    anchor.href = url;
-                    anchor.download = "Nollies_Premier_Hub_App.zip";
-                    document.body.appendChild(anchor);
-                    anchor.click();
-                    document.body.removeChild(anchor);
-                    window.URL.revokeObjectURL(url);
-
-                    showToast('🎉 Standalone App Package Downloaded Successfully!');
-                } catch (err) {
-                    console.error(err);
-                    alert('Error packaging app. Please try again.');
-                } finally {
-                    setIsBuildingApp(false);
+            const triggerDirectAndroidInstall = async () => {
+                if (deferredPrompt) {
+                    deferredPrompt.prompt();
+                    const choiceResult = await deferredPrompt.userChoice;
+                    if (choiceResult.outcome === 'accepted') {
+                        showToast('🎉 Nollie\'s App Installed on Android Successfully!');
+                    }
+                    setDeferredPrompt(null);
+                } else {
+                    // Fallback direct APK download trigger
+                    const a = document.createElement('a');
+                    a.href = '/downloads/nollies.apk';
+                    a.download = 'NolliesHub.apk';
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    showToast('🤖 Downloading Nollie\'s Android App Package...');
                 }
             };
 
@@ -454,8 +440,9 @@
                         </nav>
 
                         <div className="flex items-center space-x-2.5">
-                            <button onClick={downloadStandaloneAppPackage} disabled={isBuildingApp} className="press-effect flex items-center space-x-1.5 bg-emerald-500/20 hover:bg-emerald-500/30 border border-emerald-500/60 text-emerald-300 text-xs font-black px-4 py-2.5 rounded-2xl shadow-[0_0_15px_rgba(16,185,129,0.3)] transition-all">
-                                <span>{isBuildingApp ? '⏳ Packaging...' : '📲 Download App'}</span>
+                            <button onClick={triggerDirectAndroidInstall} className="press-effect flex items-center space-x-1.5 bg-emerald-500/20 hover:bg-emerald-500/30 border border-emerald-500/60 text-emerald-300 text-xs font-black px-4 py-2.5 rounded-2xl shadow-[0_0_15px_rgba(16,185,129,0.3)] transition-all">
+                                <span>🤖</span>
+                                <span className="hidden sm:inline">Install Android App</span>
                             </button>
 
                             <button onClick={() => setIsCartOpen(true)} className="press-effect relative flex items-center space-x-2.5 cyber-button-primary text-white text-xs font-black px-5 py-2.5 rounded-2xl shadow-[0_0_20px_rgba(6,182,212,0.35)] hover:scale-105 transition-all">
@@ -505,8 +492,8 @@
                                         </p>
                                         <div className="flex flex-wrap gap-3 pt-2">
                                             <button onClick={() => setActiveTab('catalog')} className="press-effect cyber-button-primary text-white font-extrabold py-3.5 px-7 rounded-2xl text-xs shadow-lg hover:scale-105 transition-all">Browse Marketplace 🛍️</button>
-                                            <button onClick={downloadStandaloneAppPackage} className="press-effect bg-slate-900/90 border border-emerald-500/60 text-emerald-300 font-bold py-3.5 px-7 rounded-2xl text-xs shadow hover:border-emerald-400 transition-all flex items-center space-x-2">
-                                                <span>📲 Download Standalone App</span>
+                                            <button onClick={triggerDirectAndroidInstall} className="press-effect bg-slate-900/90 border border-emerald-500/60 text-emerald-300 font-bold py-3.5 px-7 rounded-2xl text-xs shadow hover:border-emerald-400 transition-all flex items-center space-x-2">
+                                                <span>🤖 Direct Android App Install</span>
                                             </button>
                                         </div>
                                     </div>
@@ -521,7 +508,7 @@
                                         </div>
                                         <div className="space-y-2 text-[11px] bg-slate-900/90 p-3 rounded-2xl border border-white/10 text-slate-300 font-mono">
                                             <div className="flex justify-between"><span>Coverage:</span><strong className="text-white">eNanda & Surrounds</strong></div>
-                                            <div className="flex justify-between"><span>App Package:</span><strong className="text-emerald-400">Instant ZIP Ready ⚡</strong></div>
+                                            <div className="flex justify-between"><span>App Package:</span><strong className="text-emerald-400">Android APK Ready ⚡</strong></div>
                                             <div className="flex justify-between"><span>Dispatch:</span><strong className="text-cyan-400">WhatsApp / Call</strong></div>
                                         </div>
                                     </div>
