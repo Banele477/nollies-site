@@ -1,4 +1,4 @@
-var V="nq-v1792345752";
+var V="nq-v1792356482";
 var OK=["cdn.jsdelivr.net","unpkg.com","cdn.tailwindcss.com","fonts.googleapis.com","fonts.gstatic.com"];
 self.addEventListener("install",function(){self.skipWaiting()});
 self.addEventListener("activate",function(e){e.waitUntil(caches.keys().then(function(k){return Promise.all(k.filter(function(x){return x!==V}).map(function(x){return caches.delete(x)}))}).then(function(){return self.clients.claim()}))});
