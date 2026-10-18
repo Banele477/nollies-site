@@ -5,14 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Nollie's | eNanda Premier Hub & Marketplace</title>
     <meta name="theme-color" content="#090d16">
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- React & ReactDOM 18 -->
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-    <!-- Babel Standalone for JSX Transformation -->
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; -webkit-tap-highlight-color: transparent; }
@@ -92,7 +88,7 @@
         const BOOKABLE_SERVICES = [
             { id: 's1', title: 'Doorstep Hamper Consultation & Delivery', price: 50, duration: '30 min', desc: 'In-person assistance selecting household groceries & bulk hampers in eNanda.' },
             { id: 's2', title: 'M-Scents Fragrance Sampling Session', price: 0, duration: '20 min', desc: 'Sample signature M-Scents perfumes at our local eNanda hub point.' },
-            { id: 's3', title: 'Mbango VA Admin & Business Assistance', price: 150, duration: '45 min', desc: 'Virtual assistance, administrative support, document preparation, & digital advice.' }
+            { id: 's3', title: 'Mbango VA Admin & Business Support', price: 150, duration: '45 min', desc: 'Virtual assistance, administrative support, document preparation, & digital advice.' }
         ];
 
         const REAL_WORLD_FEED = [
@@ -123,12 +119,12 @@
             const [customerPhone, setCustomerPhone] = useState(localStorage.getItem('nollies_customer_phone') || '');
             const [commPreference, setCommPreference] = useState('whatsapp');
             const [deliveryAddress, setDeliveryAddress] = useState(localStorage.getItem('nollies_customer_address') || '');
-            const [paymentMethod, setPaymentMethod] = useState('COD'); // 'COD', 'EFT', 'CAPITEC_PAY'
+            const [paymentMethod, setPaymentMethod] = useState('COD'); 
 
             // Booking Form State
             const [bookingService, setBookingService] = useState('Doorstep Hamper Consultation & Delivery');
             const [bookingDate, setBookingDate] = useState('2026-10-20');
-            const [bookingTime, setBookingTime] = useState('10:00');
+            const [bookingTime, setBookingTime] = useState('10:00 AM');
             const [bookingNotes, setBookingNotes] = useState('');
 
             useEffect(() => {
@@ -663,7 +659,6 @@
                                     </div>
                                 </div>
 
-                                {/* Live Admin Orders & Bookings Feed */}
                                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                                     <div className="bg-glass border silver-border p-6 rounded-3xl shadow-xl space-y-4">
                                         <h4 className="text-base font-extrabold text-white">Customer Orders Feed</h4>
