@@ -50,6 +50,14 @@
             box-shadow: 0 40px 90px -15px rgba(255, 255, 255, 0.4);
         }
 
+        .press-effect {
+            transition: transform 0.1s ease, filter 0.1s ease;
+        }
+        .press-effect:active {
+            transform: scale(0.95);
+            filter: brightness(1.2);
+        }
+
         @keyframes whiteRainbowText {
             0% { filter: hue-rotate(0deg); }
             100% { filter: hue-rotate(360deg); }
@@ -119,7 +127,6 @@
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
-<link rel="stylesheet" href="enhance3.css?v=1792346337">
 </head>
 <body class="min-h-screen pb-32 white-rainbow-bg overflow-x-hidden selection:bg-white selection:text-slate-950">
     <div id="root"></div>
@@ -404,8 +411,8 @@
                     </div>
 
                     <header className="sticky top-3 z-40 rainbow-glass mx-4 sm:mx-10 px-4 sm:px-8 py-3.5 flex justify-between items-center rounded-3xl shadow-2xl">
-                        <div className="flex items-center space-x-3 cursor-pointer" onClick={() => setActiveTab('home')}>
-                            <img src={NOLLIE_AVATAR} alt="Nqobile" loading="lazy" className="w-12 h-12 rounded-2xl object-cover border-2 border-white/80 shadow-lg" />
+                        <div className="flex items-center space-x-3 cursor-pointer group" onClick={() => setActiveTab('home')}>
+                            <img src={NOLLIE_AVATAR} alt="Nqobile" loading="lazy" className="w-12 h-12 rounded-2xl object-cover border-2 border-white/80 shadow-lg group-hover:scale-105 transition-transform" />
                             <div>
                                 <h1 className="text-lg font-black tracking-wider text-white font-display uppercase flex items-center gap-1.5">
                                     Nqobile's <span className="text-[9px] bg-red-500/20 text-red-300 px-1.5 py-0.5 rounded border border-red-400/40 font-mono">DURBAN HUB</span>
@@ -423,14 +430,14 @@
                             </button>
 
                             {isMasterMenuOpen && (
-                                <div className="absolute right-0 mt-3 w-80 sm:w-96 rainbow-glass rounded-3xl border border-white/40 p-4 shadow-2xl z-50 space-y-2">
+                                <div className="absolute right-0 mt-3 w-80 sm:w-96 rainbow-glass rounded-3xl border border-white/40 p-4 shadow-2xl z-50 space-y-2 animate-fade-in">
                                     <div className="px-3 py-2 border-b border-white/20 flex justify-between items-center">
                                         <span className="text-[10px] font-mono font-bold text-sky-300 uppercase">Select Hub Section</span>
                                         <button onClick={()=>setIsMasterMenuOpen(false)} className="text-slate-400 hover:text-white text-base font-bold">&times;</button>
                                     </div>
                                     <div className="max-h-[65vh] overflow-y-auto space-y-2 pr-1 no-scrollbar">
                                         {menuTabs.map((tab) => (
-                                            <button key={tab.id} onClick={() => { setActiveTab(tab.id); setIsMasterMenuOpen(false); }} className={`w-full text-left px-4 py-3 raindrop-pill flex flex-col space-y-1 ${activeTab === tab.id ? 'raindrop-active' : 'hover:scale-[1.03]'}`}>
+                                            <button key={tab.id} onClick={() => { setActiveTab(tab.id); setIsMasterMenuOpen(false); showToast(`Navigated to ${tab.label}`); }} className={`press-effect w-full text-left px-4 py-3 raindrop-pill flex flex-col space-y-1 ${activeTab === tab.id ? 'raindrop-active' : 'hover:scale-[1.03]'}`}>
                                                 <div className="flex justify-between items-center">
                                                     <span className="text-xs font-black font-display">{tab.label}</span>
                                                     <span className="text-[10px] font-mono opacity-80">💧 Drop</span>
@@ -447,8 +454,8 @@
                             <div className="hidden sm:flex items-center space-x-1.5 bg-amber-500/20 border border-amber-400/40 px-3 py-2 rounded-2xl text-[11px] font-mono font-bold text-amber-300">
                                 <span>🪙</span><span>{loyaltyCoins} Coins</span>
                             </div>
-                            <button onClick={downloadDirectApk} className="bg-white/15 hover:bg-white/25 border border-white/40 text-white text-xs font-black px-4 py-2.5 rounded-2xl shadow">APK</button>
-                            <button onClick={() => setIsCartOpen(true)} className="relative white-rainbow-btn text-xs font-black px-5 py-2.5 rounded-2xl shadow">
+                            <button onClick={downloadDirectApk} className="press-effect bg-white/15 hover:bg-white/25 border border-white/40 text-white text-xs font-black px-4 py-2.5 rounded-2xl shadow">APK</button>
+                            <button onClick={() => setIsCartOpen(true)} className="press-effect relative white-rainbow-btn text-xs font-black px-5 py-2.5 rounded-2xl shadow">
                                 🛒 Cart ({cart.length})
                             </button>
                         </div>
@@ -469,8 +476,8 @@
                                             Explore real stock of cereal breakfast hampers, bulk packed wholesale boxes, and M-Scents luxury perfumes with instant WhatsApp dispatch.
                                         </p>
                                         <div className="flex flex-wrap gap-3 pt-2">
-                                            <button onClick={() => setActiveTab('catalog')} className="white-rainbow-btn font-extrabold py-3.5 px-7 rounded-2xl text-xs shadow-lg">Explore Real Stock Catalog 🛍️</button>
-                                            <button onClick={() => setActiveTab('builder')} className="raindrop-pill px-6 py-3.5 text-xs font-bold text-white shadow">✨ Build Custom Hamper</button>
+                                            <button onClick={() => { setActiveTab('catalog'); showToast('Opened Marketplace Catalog'); }} className="press-effect white-rainbow-btn font-extrabold py-3.5 px-7 rounded-2xl text-xs shadow-lg">Explore Real Stock Catalog 🛍️</button>
+                                            <button onClick={() => { setActiveTab('builder'); showToast('Opened Hamper Builder'); }} className="press-effect raindrop-pill px-6 py-3.5 text-xs font-bold text-white shadow">✨ Build Custom Hamper</button>
                                         </div>
                                     </div>
                                     
@@ -493,11 +500,11 @@
                                 <div className="space-y-4">
                                     <div className="flex justify-between items-center px-1">
                                         <h3 className="text-xl font-black text-white font-display flex items-center gap-2"><span>🖼️</span><span>Strategic Product Showcases & Flyers</span></h3>
-                                        <button onClick={()=>setActiveTab('posters')} className="text-xs text-slate-300 hover:text-white font-bold font-mono">View All Posters →</button>
+                                        <button onClick={()=>setActiveTab('posters')} className="press-effect text-xs text-slate-300 hover:text-white font-bold font-mono">View All Posters →</button>
                                     </div>
                                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
                                         {PROMO_FLYERS.map((f) => (
-                                            <div key={f.id} onClick={()=>setActivePoster(f)} className="rainbow-glass rounded-3xl border border-white/20 p-4 space-y-3 cursor-pointer rainbow-card-hover">
+                                            <div key={f.id} onClick={()=>setActivePoster(f)} className="rainbow-glass rounded-3xl border border-white/20 p-4 space-y-3 cursor-pointer rainbow-card-hover press-effect">
                                                 <div className="h-44 rounded-2xl overflow-hidden relative bg-slate-950 border border-white/10 flex items-center justify-center">
                                                     <img src={f.img} alt={f.title} loading="lazy" className="w-full h-full object-cover" onError={(e)=>{e.target.onerror=null; e.target.src=FALLBACK_SVG;}}/>
                                                     <span className="absolute top-2.5 left-2.5 bg-slate-950/90 border border-white/40 text-white font-mono text-[9px] font-black px-2.5 py-1 rounded-full uppercase shadow">{f.badge}</span>
@@ -529,7 +536,7 @@
                                             </div>
                                             <div className="pt-3 border-t border-white/15 flex justify-between items-center">
                                                 <span className="text-sm font-black text-white font-mono">{flyer.price}</span>
-                                                <button onClick={()=>setActivePoster(flyer)} className="white-rainbow-btn text-slate-950 text-xs font-black px-4 py-2.5 rounded-xl shadow">Inspect Poster 🔍</button>
+                                                <button onClick={()=>setActivePoster(flyer)} className="press-effect white-rainbow-btn text-slate-950 text-xs font-black px-4 py-2.5 rounded-xl shadow">Inspect Poster 🔍</button>
                                             </div>
                                         </div>
                                     ))}
@@ -545,7 +552,7 @@
                                         <p className="text-xs text-slate-400">Browse Nqobile's verified inventory: cereal hampers, bulk boxes, juices, and M-Scents.</p>
                                     </div>
                                     <input type="text" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder="🔍 Search stock..." 
-                                           className="w-full sm:w-80 px-4 py-3 rounded-2xl border border-white/35 bg-slate-950/90 text-white text-xs outline-none"/>
+                                           className="w-full sm:w-80 px-4 py-3 rounded-2xl border border-white/35 bg-slate-950/90 text-white text-xs outline-none focus:border-white"/>
                                 </div>
                                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                                     {filteredProducts.map((p) => (
@@ -554,7 +561,7 @@
                                                 <div className="h-48 overflow-hidden relative bg-slate-950 flex items-center justify-center">
                                                     <img src={p.img} alt={p.title} loading="lazy" className="w-full h-full object-cover opacity-95" onError={(e)=>{e.target.onerror=null; e.target.src=FALLBACK_SVG;}}/>
                                                     <span className="absolute top-3 left-3 z-10 white-rainbow-btn text-slate-950 text-[10px] font-black px-3 py-1 rounded-full uppercase font-mono">{p.badge}</span>
-                                                    <button onClick={(e) => { e.stopPropagation(); setArProduct(p); setArZoom(1); setArRotation(0); }} className="absolute bottom-3 right-3 bg-slate-950/90 border border-white/50 text-white text-[10px] font-mono font-black px-3 py-1.5 rounded-xl shadow-lg flex items-center gap-1.5">
+                                                    <button onClick={(e) => { e.stopPropagation(); setArProduct(p); setArZoom(1); setArRotation(0); showToast(`Opening 3D view for ${p.title}`); }} className="press-effect absolute bottom-3 right-3 bg-slate-950/90 border border-white/50 text-white text-[10px] font-mono font-black px-3 py-1.5 rounded-xl shadow-lg flex items-center gap-1.5 hover:bg-white hover:text-slate-950 transition-colors">
                                                         <span>💧</span><span>3D Raindrop View</span>
                                                     </button>
                                                 </div>
@@ -565,7 +572,7 @@
                                             </div>
                                             <div className="p-5 pt-0 flex justify-between items-center">
                                                 <span className="text-lg font-black text-white font-mono">R {p.price.toFixed(2)}</span>
-                                                <button onClick={() => addToCart(p.title, p.price)} className="white-rainbow-btn text-slate-950 text-xs font-black px-4 py-2.5 rounded-xl shadow">+ Add</button>
+                                                <button onClick={() => addToCart(p.title, p.price)} className="press-effect white-rainbow-btn text-slate-950 text-xs font-black px-4 py-2.5 rounded-xl shadow">+ Add</button>
                                             </div>
                                         </div>
                                     ))}
@@ -592,7 +599,7 @@
                                 </div>
                                 <div className="border-t border-white/20 pt-6 flex flex-col sm:flex-row justify-between items-center gap-4">
                                     <div className="text-xs text-slate-400">Selected Slots: <span className="font-extrabold text-white text-sm font-mono">{selectedHamperItems.length} / 5</span></div>
-                                    <button onClick={addCustomHamper} className="white-rainbow-btn text-slate-950 font-black px-8 py-4 rounded-2xl text-xs shadow-xl">Add Custom Hamper 🛒</button>
+                                    <button onClick={addCustomHamper} className="press-effect white-rainbow-btn text-slate-950 font-black px-8 py-4 rounded-2xl text-xs shadow-xl">Add Custom Hamper 🛒</button>
                                 </div>
                             </section>
                         )}
@@ -605,7 +612,7 @@
                                         <h4 className="text-sm font-extrabold text-white font-display">📝 Post Message</h4>
                                         <input type="text" required value={newPostAuthor} onChange={(e)=>setNewPostAuthor(e.target.value)} placeholder="Your Name *" className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white outline-none"/>
                                         <textarea required rows="3" value={newPostMsg} onChange={(e)=>setNewPostMsg(e.target.value)} placeholder="Message..." className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white outline-none"></textarea>
-                                        <button type="submit" className="w-full white-rainbow-btn text-slate-950 font-extrabold py-3 rounded-xl shadow-lg">Post Message 💬</button>
+                                        <button type="submit" className="press-effect w-full white-rainbow-btn text-slate-950 font-extrabold py-3 rounded-xl shadow-lg">Post Message 💬</button>
                                     </form>
                                     <div className="lg:col-span-2 space-y-4">
                                         {communityPosts.map((post) => (
@@ -633,7 +640,7 @@
                                             <option value="5">⭐⭐⭐⭐⭐ (5/5)</option>
                                         </select>
                                         <textarea required rows="3" value={newReviewComment} onChange={(e)=>setNewReviewComment(e.target.value)} placeholder="Review comment..." className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white outline-none"></textarea>
-                                        <button type="submit" className="w-full white-rainbow-btn text-slate-950 font-extrabold py-3 rounded-xl shadow-lg">Publish Review ⭐</button>
+                                        <button type="submit" className="press-effect w-full white-rainbow-btn text-slate-950 font-extrabold py-3 rounded-xl shadow-lg">Publish Review ⭐</button>
                                     </form>
                                     <div className="lg:col-span-2 space-y-4">
                                         {reviews.map((rev) => (
@@ -657,7 +664,7 @@
                                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                                     <div className="space-y-3">
                                         {BOOKABLE_SERVICES.map((s) => (
-                                            <div key={s.id} onClick={() => setBookingService(s.title)} className={`p-4 rounded-2xl border cursor-pointer text-xs flex items-center space-x-3 ${bookingService === s.title ? 'bg-white/15 border-white shadow-md' : 'bg-slate-950/80 border-slate-800'}`}>
+                                            <div key={s.id} onClick={() => setBookingService(s.title)} className={`press-effect p-4 rounded-2xl border cursor-pointer text-xs flex items-center space-x-3 ${bookingService === s.title ? 'bg-white/15 border-white shadow-md' : 'bg-slate-950/80 border-slate-800'}`}>
                                                 <img src={s.img} alt={s.title} loading="lazy" className="w-12 h-12 rounded-xl object-cover border border-white/20" onError={(e)=>{e.target.onerror=null; e.target.src=FALLBACK_SVG;}}/>
                                                 <div><strong className="text-white block">{s.title}</strong><span className="text-slate-400 font-mono">{s.price > 0 ? `R ${s.price}` : 'FREE'}</span></div>
                                             </div>
@@ -667,7 +674,7 @@
                                         <input type="text" required value={customerName} onChange={(e) => setCustomerName(e.target.value)} placeholder="Full Name *" className="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-700 text-white outline-none"/>
                                         <input type="tel" required value={customerPhone} onChange={(e) => setCustomerPhone(e.target.value)} placeholder="Phone Number *" className="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-700 text-white outline-none"/>
                                         <input type="date" required value={bookingDate} onChange={(e) => setBookingDate(e.target.value)} className="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-700 text-white outline-none"/>
-                                        <button type="submit" className="w-full white-rainbow-btn text-slate-950 font-extrabold py-4 rounded-2xl text-xs shadow-xl">Transmit Appointment Request 📅</button>
+                                        <button type="submit" className="press-effect w-full white-rainbow-btn text-slate-950 font-extrabold py-4 rounded-2xl text-xs shadow-xl">Transmit Appointment Request 📅</button>
                                     </form>
                                 </div>
                             </section>
@@ -707,12 +714,17 @@
                     {arProduct && (
                         <div className="fixed inset-0 bg-slate-950/90 backdrop-blur-md z-50 flex items-center justify-center p-4">
                             <div className="rainbow-glass rounded-3xl p-6 sm:p-8 border border-white/50 max-w-lg w-full space-y-5 shadow-2xl relative">
-                                <button onClick={() => setArProduct(null)} className="absolute top-4 right-4 text-slate-400 text-xl font-bold bg-slate-900 w-9 h-9 rounded-full flex items-center justify-center">&times;</button>
+                                <button onClick={() => setArProduct(null)} className="press-effect absolute top-4 right-4 text-slate-400 text-xl font-bold bg-slate-900 w-9 h-9 rounded-full flex items-center justify-center">&times;</button>
                                 <h3 className="text-xl font-black text-white font-display">{arProduct.title}</h3>
                                 <div className="h-64 rounded-2xl overflow-hidden border border-white/30 bg-slate-950 flex items-center justify-center">
-                                    <img src={arProduct.img} alt={arProduct.title} loading="lazy" style={{ transform: `scale(${arZoom}) rotate(${arRotation}deg)` }} className="w-48 h-48 object-cover rounded-2xl shadow-2xl" onError={(e)=>{e.target.onerror=null; e.target.src=FALLBACK_SVG;}}/>
+                                    <img src={arProduct.img} alt={arProduct.title} loading="lazy" style={{ transform: `scale(${arZoom}) rotate(${arRotation}deg)`, transition: 'transform 0.2s ease' }} className="w-48 h-48 object-cover rounded-2xl shadow-2xl" onError={(e)=>{e.target.onerror=null; e.target.src=FALLBACK_SVG;}}/>
                                 </div>
-                                <button onClick={() => { addToCart(arProduct.title, arProduct.price); setArProduct(null); }} className="w-full white-rainbow-btn text-slate-950 font-extrabold py-3 rounded-2xl text-xs shadow-xl">+ Add to Cart 🛒</button>
+                                <div className="grid grid-cols-3 gap-2">
+                                    <button onClick={() => { setArRotation(r => r + 45); showToast('Rotated'); }} className="press-effect bg-slate-900 border border-white/30 py-2 rounded-xl text-white font-bold text-xs">Rotate ↻</button>
+                                    <button onClick={() => { setArZoom(z => Math.min(z + 0.2, 2)); showToast('Zoomed In'); }} className="press-effect bg-slate-900 border border-white/30 py-2 rounded-xl text-white font-bold text-xs">Zoom +</button>
+                                    <button onClick={() => { setArZoom(z => Math.max(z - 0.2, 0.8)); showToast('Zoomed Out'); }} className="press-effect bg-slate-900 border border-white/30 py-2 rounded-xl text-white font-bold text-xs">Zoom -</button>
+                                </div>
+                                <button onClick={() => { addToCart(arProduct.title, arProduct.price); setArProduct(null); }} className="press-effect w-full white-rainbow-btn text-slate-950 font-extrabold py-3 rounded-2xl text-xs shadow-xl">+ Add to Cart 🛒</button>
                             </div>
                         </div>
                     )}
@@ -720,12 +732,12 @@
                     {activePoster && (
                         <div className="fixed inset-0 bg-slate-950/90 backdrop-blur-md z-50 flex items-center justify-center p-4">
                             <div className="rainbow-glass rounded-3xl p-6 sm:p-8 border border-white/40 max-w-lg w-full space-y-5 shadow-2xl relative">
-                                <button onClick={() => setActivePoster(null)} className="absolute top-4 right-4 text-slate-400 text-xl font-bold bg-slate-900 w-9 h-9 rounded-full flex items-center justify-center">&times;</button>
+                                <button onClick={() => setActivePoster(null)} className="press-effect absolute top-4 right-4 text-slate-400 text-xl font-bold bg-slate-900 w-9 h-9 rounded-full flex items-center justify-center">&times;</button>
                                 <h3 className="text-xl font-black text-white font-display">{activePoster.title}</h3>
                                 <div className="h-72 rounded-2xl overflow-hidden border border-white/20 bg-slate-900 flex items-center justify-center">
                                     <img src={activePoster.img} alt={activePoster.title} loading="lazy" className="w-full h-full object-cover" onError={(e)=>{e.target.onerror=null; e.target.src=FALLBACK_SVG;}}/>
                                 </div>
-                                <button onClick={() => { addToCart(activePoster.title, 250); setActivePoster(null); }} className="w-full white-rainbow-btn text-slate-950 font-extrabold py-3 rounded-2xl text-xs shadow-xl">Order Package 🛒</button>
+                                <button onClick={() => { addToCart(activePoster.title, 250); setActivePoster(null); }} className="press-effect w-full white-rainbow-btn text-slate-950 font-extrabold py-3 rounded-2xl text-xs shadow-xl">Order Package 🛒</button>
                             </div>
                         </div>
                     )}
@@ -734,7 +746,7 @@
                         <div className="fixed bottom-0 inset-x-0 z-50 bg-slate-950/95 border-t border-white/30 p-4 shadow-2xl">
                             <div className="max-w-6xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4 text-xs">
                                 <p className="text-slate-300">Nqobile's Hub (nqobilegila518@gmail.com) processes personal data securely under POPIA.</p>
-                                <button onClick={acceptPopia} className="white-rainbow-btn text-slate-950 text-xs font-black px-6 py-3 rounded-xl shadow-lg">Accept & Continue 🔒</button>
+                                <button onClick={acceptPopia} className="press-effect white-rainbow-btn text-slate-950 text-xs font-black px-6 py-3 rounded-xl shadow-lg">Accept & Continue 🔒</button>
                             </div>
                         </div>
                     )}
@@ -744,7 +756,7 @@
                             <div className="rainbow-glass border border-white/40 rounded-3xl w-80 sm:w-96 h-[450px] shadow-2xl flex flex-col mb-4 overflow-hidden">
                                 <div className="bg-slate-950/95 p-4 border-b border-white/25 flex justify-between items-center">
                                     <h4 className="text-xs font-black text-white font-display uppercase">Nqobile AI Assistant</h4>
-                                    <button onClick={() => setIsAiOpen(false)} className="text-slate-400 text-lg font-bold">&times;</button>
+                                    <button onClick={() => setIsAiOpen(false)} className="press-effect text-slate-400 text-lg font-bold">&times;</button>
                                 </div>
                                 <div className="flex-1 p-4 overflow-y-auto space-y-3 text-xs bg-slate-950/60">
                                     {aiMessages.map((msg, i) => (
@@ -756,11 +768,11 @@
                                 </div>
                                 <form onSubmit={(e)=>{e.preventDefault(); if(!aiInput.trim())return; setAiMessages([...aiMessages, {sender:'user', text:aiInput}, {sender:'ai', text:'Sawubona! Nqobile\'s team is ready to assist.'}]); setAiInput('');}} className="p-3 bg-slate-950/95 border-t border-white/25 flex gap-2">
                                     <input type="text" value={aiInput} onChange={(e) => setAiInput(e.target.value)} placeholder="Ask..." className="flex-1 px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white text-xs outline-none"/>
-                                    <button type="submit" className="white-rainbow-btn px-4 py-2.5 rounded-xl text-xs font-black shadow">Send</button>
+                                    <button type="submit" className="press-effect white-rainbow-btn px-4 py-2.5 rounded-xl text-xs font-black shadow">Send</button>
                                 </form>
                             </div>
                         )}
-                        <button onClick={() => setIsAiOpen(!isAiOpen)} className="white-rainbow-btn p-4 rounded-full shadow-2xl text-slate-950 font-black text-xl">💧</button>
+                        <button onClick={() => { setIsAiOpen(!isAiOpen); showToast('Toggled AI Assistant'); }} className="press-effect white-rainbow-btn p-4 rounded-full shadow-2xl text-slate-950 font-black text-xl">💧</button>
                     </div>
 
                     {isCartOpen && (
@@ -768,18 +780,18 @@
                             <div className="rainbow-glass rounded-t-3xl p-6 sm:p-8 border-t border-white/30 max-h-[90vh] flex flex-col shadow-2xl max-w-2xl mx-auto w-full">
                                 <div className="flex justify-between items-center border-b border-white/20 pb-4">
                                     <h3 className="font-black text-base text-white font-display">🛒 Secure Cart & Checkout</h3>
-                                    <button onClick={() => setIsCartOpen(false)} className="text-slate-400 text-xl font-bold">&times;</button>
+                                    <button onClick={() => setIsCartOpen(false)} className="press-effect text-slate-400 text-xl font-bold">&times;</button>
                                 </div>
                                 <div className="py-4 overflow-y-auto flex-1 space-y-4 text-xs">
                                     <div className="space-y-2">
                                         <div className="flex justify-between items-center">
                                             <span className="text-slate-400 font-bold uppercase text-[10px] font-mono">Cart Items:</span>
-                                            <button onClick={shareCartToWhatsApp} className="bg-emerald-600/30 border border-emerald-500/50 text-emerald-300 text-[10px] font-bold px-3 py-1 rounded-xl shadow">Share to WhatsApp 📲</button>
+                                            <button onClick={shareCartToWhatsApp} className="press-effect bg-emerald-600/30 border border-emerald-500/50 text-emerald-300 text-[10px] font-bold px-3 py-1 rounded-xl shadow">Share to WhatsApp 📲</button>
                                         </div>
                                         {cart.map((item, idx) => (
                                             <div key={idx} className="flex justify-between items-center bg-slate-950/90 p-3 rounded-2xl border border-white/20 text-slate-200">
                                                 <div><div className="font-extrabold text-white">{item.title}</div><div className="text-white font-mono text-[11px]">R {item.price.toFixed(2)}</div></div>
-                                                <button onClick={() => removeFromCart(idx)} className="text-red-400 font-bold">✕</button>
+                                                <button onClick={() => removeFromCart(idx)} className="press-effect text-red-400 font-bold">✕</button>
                                             </div>
                                         ))}
                                     </div>
@@ -790,7 +802,7 @@
                                 </div>
                                 <div className="border-t border-white/20 pt-4 space-y-2.5 text-xs">
                                     <div className="flex justify-between text-lg font-black text-white"><span>Total:</span><span className="text-white font-mono">R {grandTotal.toFixed(2)}</span></div>
-                                    <button onClick={handleCheckout} className="w-full white-rainbow-btn text-slate-950 font-extrabold py-4 rounded-2xl text-sm shadow-xl">Pay R{grandTotal.toFixed(2)} & Complete Order 🚀</button>
+                                    <button onClick={handleCheckout} className="press-effect w-full white-rainbow-btn text-slate-950 font-extrabold py-4 rounded-2xl text-sm shadow-xl">Pay R{grandTotal.toFixed(2)} & Complete Order 🚀</button>
                                 </div>
                             </div>
                         </div>
@@ -801,17 +813,17 @@
                             <div className="rainbow-glass rounded-3xl p-6 sm:p-8 border border-white/40 max-w-md w-full space-y-5 shadow-2xl">
                                 <div className="flex justify-between items-center border-b border-white/20 pb-4">
                                     <h3 className="text-base font-black text-white font-display">{activeModalProduct.title}</h3>
-                                    <button onClick={() => setActiveModalProduct(null)} className="text-slate-400 text-xl font-bold">&times;</button>
+                                    <button onClick={() => setActiveModalProduct(null)} className="press-effect text-slate-400 text-xl font-bold">&times;</button>
                                 </div>
                                 <img src={activeModalProduct.img} alt="Product" loading="lazy" className="w-full h-52 object-cover rounded-2xl bg-slate-900 border border-slate-800" onError={(e)=>{e.target.onerror=null; e.target.src=FALLBACK_SVG;}}/>
                                 <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-medium">{activeModalProduct.desc}</p>
-                                <button onClick={() => { addToCart(activeModalProduct.title, activeModalProduct.price); setActiveModalProduct(null); }} className="w-full white-rainbow-btn text-slate-950 font-extrabold px-5 py-3 rounded-2xl text-xs shadow-xl">+ Add to Cart</button>
+                                <button onClick={() => { addToCart(activeModalProduct.title, activeModalProduct.price); setActiveModalProduct(null); }} className="press-effect w-full white-rainbow-btn text-slate-950 font-extrabold px-5 py-3 rounded-2xl text-xs shadow-xl">+ Add to Cart</button>
                             </div>
                         </div>
                     )}
 
                     {toastMessage && (
-                        <div className="fixed bottom-6 left-6 rainbow-glass border border-red-400 text-white text-xs font-black px-6 py-4 rounded-2xl shadow-xl z-50 font-mono">
+                        <div className="fixed bottom-6 left-6 rainbow-glass border border-red-400 text-white text-xs font-black px-6 py-4 rounded-2xl shadow-xl z-50 font-mono animate-bounce">
                             {toastMessage}
                         </div>
                     )}
@@ -821,8 +833,5 @@
 
         ReactDOM.render(<App />, document.getElementById('root'));
     </script>
-<script src="photos.js?v=1792346322"></script>
-<script src="catalog.js?v=1792346322" defer></script>
-<script src="enhance3.js?v=1792346337" defer></script>
 </body>
 </html>
