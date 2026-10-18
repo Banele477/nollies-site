@@ -185,6 +185,9 @@
             // SA POPIA Cookie Consent State
             const [popiaAccepted, setPopiaAccepted] = useState(localStorage.getItem('nollies_popia_accepted') === 'true');
 
+            // Loyalty Rewards Coins State
+            const [loyaltyCoins, setLoyaltyCoins] = useState(Number(localStorage.getItem('nollies_loyalty') || '50'));
+
             // AI Smart Matcher State
             const [matchBudget, setMatchBudget] = useState('300');
             const [matchCategory, setMatchCategory] = useState('cereal');
@@ -251,6 +254,10 @@
                 }, 1000);
                 return () => clearInterval(timer);
             }, []);
+
+            useEffect(() => {
+                localStorage.setItem('nollies_loyalty', loyaltyCoins);
+            }, [loyaltyCoins]);
 
             const formatTime = (seconds) => {
                 const h = Math.floor(seconds / 3600);
@@ -363,7 +370,8 @@
 
             const addToCart = (title, price) => {
                 setCart([...cart, { title, price }]);
-                showToast(`🛒 ${title} added to cart`);
+                setLoyaltyCoins(prev => prev + 10);
+                showToast(`🛒 ${title} added (+10 Nollie Coins)`);
             };
 
             const removeFromCart = (index) => {
@@ -421,7 +429,8 @@
                 setReviews([newRev, ...reviews]);
                 setNewReviewName('');
                 setNewReviewComment('');
-                showToast('⭐ Thank you! Your review was published successfully.');
+                setLoyaltyCoins(prev => prev + 25);
+                showToast('⭐ Review published! (+25 Bonus Nollie Coins)');
             };
 
             const handleAddCommunityPost = (e) => {
@@ -457,7 +466,8 @@
             const handleQuestionnaireSubmit = (e) => {
                 e.preventDefault();
                 setQuestionnaireSubmitted(true);
-                showToast('🎉 Questionnaire submitted! Use promo code NOLLIE10 for 10% off.');
+                setLoyaltyCoins(prev => prev + 50);
+                showToast('🎉 Questionnaire submitted! +50 Coins & promo code NOLLIE10 unlocked.');
             };
 
             const handleAiSend = (e) => {
@@ -559,6 +569,8 @@
                     localStorage.setItem('nollies_orders', JSON.stringify(updated));
                 });
 
+                setLoyaltyCoins(prev => prev + 50);
+
                 let msg = `Sawubona Nollie's! Dynamic Order from ${customerName} (${customerPhone}):%0A%0A`;
                 msg += `Preferred Contact: ${commPreference.toUpperCase()}%0A`;
                 msg += `Payment Gateway: ${paymentMethod}%0A`;
@@ -625,7 +637,7 @@
                 <div className="min-h-screen relative">
                     <div className="h-1.5 bg-gradient-to-r from-white via-red-400 via-amber-300 via-emerald-400 via-sky-400 to-purple-400 w-full fixed top-0 z-50 shadow-[0_0_25px_rgba(255,255,255,0.9)]"></div>
 
-                    {/* DUAL STREAM MARQUEE (FORWARD & REVERSE) */}
+                    {/* DUAL STREAM MARQUEE */}
                     <div className="bg-slate-950/95 border-b border-white/15 text-slate-200 text-xs py-1.5 shadow-inner overflow-hidden max-w-7xl mx-auto rounded-b-2xl mb-1 space-y-1">
                         <div className="marquee-container">
                             <div className="marquee-track flex space-x-12 font-mono font-bold">
@@ -685,6 +697,12 @@
                         </nav>
 
                         <div className="flex items-center space-x-2.5">
+                            {/* LOYALTY REWARDS BADGE */}
+                            <div className="hidden sm:flex items-center space-x-1.5 bg-amber-500/20 border border-amber-400/40 px-3 py-2 rounded-2xl text-[11px] font-mono font-bold text-amber-300 shadow-sm">
+                                <span>🪙</span>
+                                <span>{loyaltyCoins} Coins</span>
+                            </div>
+
                             <button onClick={downloadDirectApk} className="press-effect flex items-center space-x-1.5 bg-white/15 hover:bg-white/25 border border-white/40 text-white text-xs font-black px-4 py-2.5 rounded-2xl shadow transition-all">
                                 <span>🤖</span>
                                 <span className="hidden sm:inline">Download APK</span>
@@ -758,7 +776,7 @@
                                             <div className="space-y-2 text-[11px] bg-slate-900/90 p-3 rounded-2xl border border-white/15 text-slate-300 font-mono">
                                                 <div className="flex justify-between"><span>Base:</span><strong className="text-white">Durban, KZN</strong></div>
                                                 <div className="flex justify-between"><span>App Package:</span><strong className="text-emerald-400">Android APK Ready ⚡</strong></div>
-                                                <div className="flex justify-between"><span>Dispatch:</span><strong className="text-amber-300">WhatsApp / Call</strong></div>
+                                                <div className="flex justify-between"><span>Loyalty Rewards:</span><strong className="text-amber-400">{loyaltyCoins} Coins 🪙</strong></div>
                                             </div>
                                         </div>
                                     </div>
@@ -823,7 +841,6 @@
                             </section>
                         )}
 
-                        {/* NEW DEDICATED POSTERS & FLYERS GALLERY TAB */}
                         {activeTab === 'posters' && (
                             <section className="space-y-8 animate-fade-in">
                                 <div className="rainbow-glass border border-white/25 p-6 sm:p-12 rounded-3xl shadow-xl space-y-6">
@@ -1016,7 +1033,7 @@
                                     <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-white/20 pb-4">
                                         <div>
                                             <h3 className="text-2xl font-black white-rainbow-animated-text font-display">⭐ Customer Reviews & Feedback Hub</h3>
-                                            <p className="text-xs text-slate-400">Read what Durban and eNanda clients say or leave your own review!</p>
+                                            <p className="text-xs text-slate-400">Read what Durban and eNanda clients say or leave your own review (+25 Bonus Coins)!</p>
                                         </div>
                                         <div className="flex items-center space-x-2 bg-slate-950 px-4 py-2 rounded-2xl border border-white/20 font-mono text-xs text-emerald-400">
                                             <span>⭐ 5.0 / 5.0 Average Rating</span>
@@ -1072,14 +1089,14 @@
                                 <div className="rainbow-glass border border-white/25 p-6 sm:p-12 rounded-3xl shadow-xl space-y-6">
                                     <div className="border-b border-white/20 pb-4">
                                         <h3 className="text-2xl font-black white-rainbow-animated-text font-display">📋 Customer Preference Questionnaire</h3>
-                                        <p className="text-xs text-slate-400">Help us improve Nollie's Durban Hub services and instantly receive promo code <strong className="text-white">NOLLIE10</strong> for 10% off!</p>
+                                        <p className="text-xs text-slate-400">Help us improve Nollie's Durban Hub services and instantly receive <strong className="text-white">+50 Coins</strong> & promo code <strong className="text-white">NOLLIE10</strong> for 10% off!</p>
                                     </div>
 
                                     {questionnaireSubmitted ? (
                                         <div className="bg-slate-950/95 p-8 rounded-3xl border border-white/30 text-center space-y-3">
                                             <div className="text-3xl">🎉</div>
                                             <h4 className="text-base font-extrabold text-white font-display">Thank you for your feedback!</h4>
-                                            <p className="text-xs text-slate-300">Your response has been securely recorded. Use promo code <strong className="text-white font-mono">NOLLIE10</strong> at checkout to claim your 10% discount.</p>
+                                            <p className="text-xs text-slate-300">+50 Coins added to your loyalty wallet. Use promo code <strong className="text-white font-mono">NOLLIE10</strong> at checkout for 10% off.</p>
                                             <button onClick={()=>setQuestionnaireSubmitted(false)} className="press-effect bg-slate-900 border border-white/30 text-xs font-bold px-5 py-2.5 rounded-xl text-white hover:bg-slate-800">Submit Another Response</button>
                                         </div>
                                     ) : (
@@ -1114,7 +1131,7 @@
                                             </div>
 
                                             <button type="submit" className="press-effect w-full white-rainbow-btn text-slate-950 font-extrabold py-4 rounded-2xl text-xs shadow-xl">
-                                                Submit Questionnaire & Claim 10% Discount Code 🚀
+                                                Submit Questionnaire & Claim +50 Coins & 10% Discount 🚀
                                             </button>
                                         </form>
                                     )}
