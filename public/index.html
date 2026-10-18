@@ -33,7 +33,7 @@
         }
 
         .rainbow-glass {
-            background: rgba(15, 23, 42, 0.75);
+            background: rgba(15, 23, 42, 0.78);
             backdrop-filter: blur(32px) saturate(220%);
             -webkit-backdrop-filter: blur(32px) saturate(220%);
             border: 1px solid rgba(255, 255, 255, 0.12);
@@ -74,7 +74,6 @@
             transform: translateY(-2px);
         }
 
-        /* Marquee Styles */
         .marquee-container {
             overflow: hidden;
             white-space: nowrap;
@@ -101,7 +100,7 @@
     <div id="root"></div>
 
     <script type="text/babel">
-        const { useState, useEffect } = React;
+        const { useState, useEffect, useRef } = React;
 
         const NOLLIE_AVATAR = "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80";
         const FALLBACK_SVG = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='400' viewBox='0 0 600 400'><rect width='100%' height='100%' fill='%230f172a'/><text x='50%' y='50%' fill='%2338bdf8' font-family='sans-serif' font-size='22' font-weight='bold' text-anchor='middle' dominant-baseline='middle'>Nollie%27s Dynamic Hub</text></svg>";
@@ -138,7 +137,8 @@
 
         const LIVE_TICKER_ITEMS = [
             "🔥 HOT DEAL: Family Bulk Grocery Hamper (R380) - Best Seller in eNanda!",
-            "✨ NEW: Dynamic Rainbow Theme & Instant Instant Landing Enabled!",
+            "🤖 24/7 AI ASSISTANT ONLINE: Tap bottom-right to ask Nollie AI anything!",
+            "✨ DYNAMIC RAINBOW THEME ACTIVE: Experience smooth Durban shopping!",
             "🚀 FAST DISPATCH: Flat R30 Delivery Across Durban & eNanda!",
             "💧 JUICES AFRICA: 4L High-Yield Concentrates Making 20L Juice!",
             "💎 M-SCENTS: Luxury 40ml Fragrances Available Now in Durban!"
@@ -162,6 +162,14 @@
             const [dynamicGreeting, setDynamicGreeting] = useState("Sawubona, Mzansi!");
             const [quickTrackId, setQuickTrackId] = useState('');
             const [trackResult, setTrackResult] = useState(null);
+
+            // AI ASSISTANT CHAT STATES (24/7)
+            const [isAiOpen, setIsAiOpen] = useState(false);
+            const [aiMessages, setAiMessages] = useState([
+                { sender: 'ai', text: 'Sawubona! I am Nollie AI, your 24/7 Durban Hub assistant. How can I help you with hampers, perfumes, or deliveries today?' }
+            ]);
+            const [aiInput, setAiInput] = useState('');
+            const chatEndRef = useRef(null);
 
             const [customerName, setCustomerName] = useState(localStorage.getItem('nollies_customer_name') || '');
             const [customerPhone, setCustomerPhone] = useState(localStorage.getItem('nollies_customer_phone') || '');
@@ -194,6 +202,12 @@
                 localStorage.setItem('nollies_customer_phone', customerPhone);
                 localStorage.setItem('nollies_customer_address', deliveryAddress);
             }, [customerName, customerPhone, deliveryAddress]);
+
+            useEffect(() => {
+                if (chatEndRef.current) {
+                    chatEndRef.current.scrollIntoView({ behavior: 'smooth' });
+                }
+            }, [aiMessages, isAiOpen]);
 
             // Dynamic Landing Greeting Switcher
             useEffect(() => {
@@ -286,6 +300,37 @@
                 } else {
                     alert('Invalid promo code!');
                 }
+            };
+
+            // AI ASSISTANT QUERY RESPONDER (24/7)
+            const handleAiSend = (e) => {
+                e.preventDefault();
+                if (!aiInput.trim()) return;
+                const userText = aiInput.trim();
+                const newMessages = [...aiMessages, { sender: 'user', text: userText }];
+                setAiMessages(newMessages);
+                setAiInput('');
+
+                setTimeout(() => {
+                    let reply = "I can assist you with that! Feel free to browse our Cereal Hampers, Family Bulk Grocery Hampers, Juices Africa concentrates, or M-Scents perfumes. Delivery is a flat R30 across Durban and eNanda.";
+                    const lower = userText.toLowerCase();
+
+                    if (lower.includes('price') || lower.includes('cost') || lower.includes('how much')) {
+                        reply = "Our Cereal Hampers are R250, Family Bulk Hampers are R380, Juices Africa 4L is R160, and M-Scents perfumes are R120. Delivery across Durban & eNanda is a flat R30!";
+                    } else if (lower.includes('delivery') || lower.includes('deliver') || lower.includes('durban') || lower.includes('enanda')) {
+                        reply = "Yes! We deliver directly across eNanda, Durban CBD, and surrounding KZN areas with a flat R30 delivery fee.";
+                    } else if (lower.includes('perfume') || lower.includes('scent') || lower.includes('m-scents')) {
+                        reply = "Our M-Scents luxury 40ml perfumes (Silver Sense, Red Dezire, White OUD, Blue Dezire, StallioN) are R120 each or grab our Duo Gift Set for R192!";
+                    } else if (lower.includes('cereal') || lower.includes('hamper') || lower.includes('grocery')) {
+                        reply = "We offer 3 pre-packed Cereal Hampers (R250 each) and a Family Bulk Grocery Hamper (R380). You can also use our 'Hamper Builder' tab to pick any 5 custom items!";
+                    } else if (lower.includes('contact') || lower.includes('phone') || lower.includes('whatsapp') || lower.includes('owner')) {
+                        reply = "You can reach Nollie's Durban Hub team directly via WhatsApp or phone at +27 62 587 3479.";
+                    } else if (lower.includes('apk') || lower.includes('app') || lower.includes('download')) {
+                        reply = "You can download our direct Android APK anytime by tapping the 'Download APK' button at the top of the page!";
+                    }
+
+                    setAiMessages([...newMessages, { sender: 'ai', text: reply }]);
+                }, 600);
             };
 
             const handleQuickTrack = (e) => {
@@ -833,6 +878,49 @@
                         )}
                     </main>
 
+                    {/* 24/7 AI ASSISTANT CHAT WIDGET */}
+                    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end">
+                        {isAiOpen && (
+                            <div className="rainbow-glass border border-purple-500/50 rounded-3xl w-80 sm:w-96 h-[450px] shadow-2xl flex flex-col mb-4 overflow-hidden animate-fade-in">
+                                <div className="bg-slate-950/95 p-4 border-b border-purple-500/30 flex justify-between items-center">
+                                    <div className="flex items-center space-x-2.5">
+                                        <span className="relative flex h-3 w-3">
+                                          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                                          <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
+                                        </span>
+                                        <div>
+                                            <h4 className="text-xs font-black text-white font-display uppercase tracking-wider">Nollie AI Assistant</h4>
+                                            <span className="text-[10px] text-emerald-400 font-mono">Online 24/7 • Inquiry Care</span>
+                                        </div>
+                                    </div>
+                                    <button onClick={() => setIsAiOpen(false)} className="text-slate-400 hover:text-white text-lg font-bold w-7 h-7 bg-slate-900 rounded-full flex items-center justify-center">&times;</button>
+                                </div>
+
+                                <div className="flex-1 p-4 overflow-y-auto space-y-3 text-xs bg-slate-950/60">
+                                    {aiMessages.map((msg, i) => (
+                                        <div key={i} className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}>
+                                            <div className={`max-w-[80%] p-3 rounded-2xl leading-relaxed ${msg.sender === 'user' ? 'bg-purple-600 text-white rounded-br-none shadow-md' : 'bg-slate-900 text-slate-200 border border-purple-500/20 rounded-bl-none shadow-sm font-medium'}`}>
+                                                {msg.text}
+                                            </div>
+                                        </div>
+                                    ))}
+                                    <div ref={chatEndRef} />
+                                </div>
+
+                                <form onSubmit={handleAiSend} className="p-3 bg-slate-950/95 border-t border-purple-500/30 flex gap-2">
+                                    <input type="text" value={aiInput} onChange={(e) => setAiInput(e.target.value)} placeholder="Ask about hampers, prices, delivery..." 
+                                           className="flex-1 px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white text-xs outline-none focus:border-purple-400"/>
+                                    <button type="submit" className="press-effect rainbow-btn px-4 py-2.5 rounded-xl text-xs font-black shadow">Send</button>
+                                </form>
+                            </div>
+                        )}
+
+                        <button onClick={() => setIsAiOpen(!isAiOpen)} className="press-effect rainbow-btn p-4 rounded-full shadow-2xl flex items-center justify-center space-x-2 text-white font-black hover:scale-110 transition-all">
+                            <span className="text-xl">🤖</span>
+                            {!isAiOpen && <span className="text-xs font-mono pr-1">Ask Nollie AI</span>}
+                        </button>
+                    </div>
+
                     {isCartOpen && (
                         <div className="fixed inset-0 bg-slate-950/85 backdrop-blur-md z-50 flex flex-col justify-end animate-fade-in">
                             <div className="rainbow-glass rounded-t-3xl p-6 sm:p-8 border-t border-purple-500/30 max-h-[90vh] flex flex-col shadow-2xl max-w-2xl mx-auto w-full">
@@ -910,7 +998,7 @@
                     )}
 
                     {toastMessage && (
-                        <div className="fixed bottom-6 right-6 rainbow-glass border border-purple-400 text-purple-300 text-xs font-black px-6 py-4 rounded-2xl shadow-xl z-50 animate-fade-in font-mono">
+                        <div className="fixed bottom-6 left-6 rainbow-glass border border-purple-400 text-purple-300 text-xs font-black px-6 py-4 rounded-2xl shadow-xl z-50 animate-fade-in font-mono">
                             {toastMessage}
                         </div>
                     )}
