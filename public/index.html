@@ -62,6 +62,8 @@
     <script type="text/babel">
         const { useState, useEffect } = React;
 
+        // High resolution AI representative image for Nollie
+        const NOLLIE_AVATAR = "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80";
         const FALLBACK_SVG = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='400' viewBox='0 0 600 400'><rect width='100%' height='100%' fill='%231e293b'/><text x='50%' y='50%' fill='%23cbd5e1' font-family='sans-serif' font-size='22' font-weight='bold' text-anchor='middle' dominant-baseline='middle'>Nollie%27s Hub Pack</text></svg>";
 
         const PRODUCTS = [
@@ -288,10 +290,13 @@
                 <div className="min-h-screen">
                     <div className="h-1 silver-gradient w-full fixed top-0 z-50"></div>
 
-                    {/* Navigation Header */}
+                    {/* Navigation Header with AI Image Avatar */}
                     <header className="sticky top-1 z-40 bg-glass border-b silver-border px-4 sm:px-12 py-4 flex justify-between items-center shadow-2xl">
                         <div className="flex items-center space-x-3 cursor-pointer group" onClick={() => setActiveTab('home')}>
-                            <img src="/images/nollie.jpg" alt="Nollie" className="w-11 h-11 rounded-2xl object-cover border silver-border shadow-xl group-hover:scale-105 transition-transform" onError={(e)=>{e.target.onerror=null; e.target.src=FALLBACK_SVG;}}/>
+                            <div className="relative">
+                                <img src={NOLLIE_AVATAR} alt="Nollie" className="w-11 h-11 rounded-2xl object-cover border silver-border shadow-xl group-hover:scale-105 transition-transform" />
+                                <span className="absolute -bottom-1 -right-1 w-3.5 h-3.5 bg-emerald-500 border-2 border-slate-950 rounded-full"></span>
+                            </div>
                             <div>
                                 <h1 className="text-base font-extrabold tracking-tight text-white leading-none">Nollie's</h1>
                                 <span className="text-[10px] font-semibold text-slate-400 tracking-widest uppercase">eNanda Premier Hub</span>
@@ -339,12 +344,12 @@
 
                     <main className="max-w-6xl mx-auto px-4 mt-8 space-y-10 animate-fade-in">
                         
-                        {/* TAB 0: HOME PAGE */}
+                        {/* TAB 0: HOME PAGE WITH NOLLIE REPRESENTATIVE BANNER */}
                         {activeTab === 'home' && (
                             <section className="space-y-10 animate-fade-in">
                                 <div className="relative overflow-hidden rounded-3xl border silver-border p-8 sm:p-14 shadow-2xl bg-glass flex flex-col lg:flex-row items-center justify-between gap-10">
                                     <div className="absolute -right-20 -top-20 w-80 h-80 silver-gradient rounded-full blur-3xl opacity-20 pointer-events-none animate-glow"></div>
-                                    <div className="space-y-6 max-w-2xl">
+                                    <div className="space-y-6 max-w-xl">
                                         <div className="inline-flex items-center space-x-2 bg-slate-900/90 px-4 py-1.5 rounded-full border silver-border text-xs font-bold text-slate-300 shadow">
                                            <span className="animate-pulse">📍 Active in eNanda, Durban, KZN</span>
                                         </div>
@@ -357,24 +362,20 @@
                                             <button onClick={() => setActiveTab('builder')} className="press-effect bg-slate-900/90 border silver-border text-slate-200 font-bold py-3.5 px-7 rounded-2xl text-xs shadow hover:border-slate-300 transition-all">Build Custom Hamper ✨</button>
                                         </div>
                                     </div>
-                                    <div className="w-full lg:w-80 bg-slate-900/90 p-6 rounded-3xl border silver-border shadow-2xl space-y-4 animate-float">
-                                        <div className="text-sm font-black silver-text uppercase tracking-wider flex items-center justify-between">
-                                            <span>⚡ eNanda Live Hub</span>
-                                            <span className="text-[10px] bg-emerald-500/20 text-emerald-400 font-bold px-2 py-0.5 rounded-full">OPERATIONAL</span>
+                                    
+                                    {/* Representative AI Nollie Profile Card */}
+                                    <div className="w-full lg:w-80 bg-slate-900/90 p-6 rounded-3xl border silver-border shadow-2xl space-y-4 animate-float text-center">
+                                        <div className="relative w-28 h-28 mx-auto rounded-3xl overflow-hidden border-2 silver-border shadow-2xl">
+                                            <img src={NOLLIE_AVATAR} alt="Nollie Representative" className="w-full h-full object-cover" />
                                         </div>
-                                        <div className="space-y-3 text-xs">
-                                            <div className="flex justify-between bg-slate-950 p-3 rounded-xl border silver-border">
-                                                <span className="text-slate-400">Coverage</span>
-                                                <span className="font-extrabold text-white">eNanda, Ntuzuma, Inanda Glebe</span>
-                                            </div>
-                                            <div className="flex justify-between bg-slate-950 p-3 rounded-xl border silver-border">
-                                                <span className="text-slate-400">Flat Delivery</span>
-                                                <span className="font-extrabold text-emerald-400">R30.00</span>
-                                            </div>
-                                            <div className="flex justify-between bg-slate-950 p-3 rounded-xl border silver-border">
-                                                <span className="text-slate-400">Dispatch Channels</span>
-                                                <span className="font-extrabold silver-text">WhatsApp / SMS / Call</span>
-                                            </div>
+                                        <div>
+                                            <h3 className="text-base font-black text-white">Nollie Gumbi</h3>
+                                            <p className="text-[11px] text-emerald-400 font-bold">eNanda Founder & Operations Lead</p>
+                                        </div>
+                                        <div className="space-y-2 text-[11px] bg-slate-950 p-3 rounded-2xl border silver-border text-slate-300">
+                                            <div className="flex justify-between"><span>Coverage:</span><strong className="text-white">eNanda & Surrounds</strong></div>
+                                            <div className="flex justify-between"><span>Flat Delivery:</span><strong className="text-emerald-400">R30.00</strong></div>
+                                            <div className="flex justify-between"><span>Dispatch:</span><strong className="silver-text">WhatsApp / Call / SMS</strong></div>
                                         </div>
                                     </div>
                                 </div>
